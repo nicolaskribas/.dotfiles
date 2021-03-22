@@ -1,41 +1,50 @@
-" Some vim options
 set number
 set relativenumber
-set nowrap
-set shiftwidth=4
 set tabstop=4
-set background=dark
+set shiftwidth=0
+set nowrap
+set completeopt-=preview
+set hlsearch
+set scrolloff=10
 
-" Automatic installation of vim-plug
+nnoremap <leader>h : wincmd h<cr>
+nnoremap <leader>j : wincmd j<cr>
+nnoremap <leader>k : wincmd k<cr>
+nnoremap <leader>l : wincmd l<cr>
+
+" Plugins installation
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Plugins list
 call plug#begin()
 Plug 'tpope/vim-sensible'
 Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
-Plug 'vim-syntastic/syntastic'
-Plug 'rust-lang/rust.vim'
-Plug 'valloric/youcompleteme'
+Plug 'ycm-core/youcompleteme'
+Plug 'vim-airline/vim-airline'
+Plug 'valloric/listtoggle'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
-" Turn off YouCompleteMe diagnostics 
-let g:ycm_show_diagnostics_ui = 0
+" YouCompleteMe plugin options
+let g:ycm_always_populate_location_list = 1
+let g:ycm_error_symbol = '✗'
+let g:ycm_warning_symbol = '∆'
 
-" Syntastic plugin recommended settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+nnoremap <leader>go : YcmCompleter GoTo<cr>
+nnoremap <leader>fi : YcmCompleter FixIt<cr>
+nnoremap <leader>fm : YcmCompleter Format<cr>
+nnoremap <leader>gd : YcmCompleter GetDoc<cr>
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" ListToggle plugin options
+let g:lt_height = 5
+let g:lt_location_list_toggle_map = '<leader>e'
 
-" Select gruvbox as colorscheme
+" Theming
+let g:gruvbox_contrast_dark = 'hard'
+set background=dark
 autocmd vimenter * ++nested colorscheme gruvbox
 

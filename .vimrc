@@ -5,12 +5,13 @@ set shiftwidth=0
 set nowrap
 set completeopt-=preview
 set hlsearch
-set scrolloff=10
+set scrolloff=5
 
 nnoremap <leader>h : wincmd h<cr>
 nnoremap <leader>j : wincmd j<cr>
 nnoremap <leader>k : wincmd k<cr>
 nnoremap <leader>l : wincmd l<cr>
+nnoremap <leader>w : write<cr>
 
 " Plugins installation
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -22,11 +23,13 @@ endif
 call plug#begin()
 Plug 'tpope/vim-sensible'
 Plug 'preservim/nerdtree'
-Plug 'morhetz/gruvbox'
 Plug 'ycm-core/youcompleteme'
 Plug 'vim-airline/vim-airline'
 Plug 'valloric/listtoggle'
 Plug 'tpope/vim-fugitive'
+Plug 'preservim/nerdcommenter'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " YouCompleteMe plugin options
@@ -38,13 +41,18 @@ nnoremap <leader>go : YcmCompleter GoTo<cr>
 nnoremap <leader>fi : YcmCompleter FixIt<cr>
 nnoremap <leader>fm : YcmCompleter Format<cr>
 nnoremap <leader>gd : YcmCompleter GetDoc<cr>
+nnoremap <leader>rn : YcmCompleter RefactorRename<space>
 
 " ListToggle plugin options
 let g:lt_height = 5
 let g:lt_location_list_toggle_map = '<leader>e'
 
+" Fugitive plugin options
+nnoremap <leader>gs :Git<cr>
+nnoremap <leader>gc :Git commit<cr>
+nnoremap <leader>gl :Git log<cr>
+
 " Theming
-let g:gruvbox_contrast_dark = 'hard'
-set background=dark
-autocmd vimenter * ++nested colorscheme gruvbox
+colorscheme onedark
+let g:airline_theme='onedark'
 

@@ -3,3 +3,6 @@
 	email = nicolaskribas@gmail.com
 [core]
 	editor = vim
+[alias]
+	dog = log --all --decorate --oneline --graph
+	ss = status --short

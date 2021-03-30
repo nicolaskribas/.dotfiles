@@ -53,6 +53,7 @@ nnoremap <leader>gc :Git commit<cr>
 nnoremap <leader>gl :Git log<cr>
 
 " Theming
+set termguicolors
 colorscheme onedark
 let g:airline_theme='onedark'
 

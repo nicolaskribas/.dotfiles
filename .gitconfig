@@ -6,3 +6,5 @@
 [alias]
 	dog = log --all --decorate --oneline --graph
 	ss = status --short
+[merge]
+	tool = vimdiff

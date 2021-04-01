@@ -3,6 +3,7 @@ set relativenumber
 set tabstop=4
 set shiftwidth=0
 set nowrap
+set sidescroll=1
 set completeopt-=preview
 set hlsearch
 set scrolloff=5

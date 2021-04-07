@@ -1,3 +1,5 @@
+zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
+
 # Plugins
 source ~/.zplug/init.zsh
 

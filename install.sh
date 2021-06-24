@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 mkdir -p ~/.config/nvim/plugin
+mkdir -p ~/.config/alacritty
 
 dotfiles_dir=~/dotfiles
 

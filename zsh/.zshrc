@@ -19,3 +19,5 @@ bindkey '^[[B' history-substring-search-down
 
 zplug load
 
+SPACESHIP_USER_SHOW=always
+

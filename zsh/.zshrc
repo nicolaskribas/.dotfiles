@@ -20,4 +20,6 @@ bindkey '^[[B' history-substring-search-down
 zplug load
 
 SPACESHIP_USER_SHOW=always
+SPACESHIP_CHAR_SYMBOL="❯"
+SPACESHIP_CHAR_SUFFIX=" "
 

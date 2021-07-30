@@ -22,6 +22,7 @@ set termguicolors
 set noshowmode
 
 let g:onedark_terminal_italics = 1
+let g:onedark_hide_endofbuffer = 1
 colorscheme onedark 
 
 let g:lightline = { 'colorscheme': 'onedark' }

@@ -1,10 +1,11 @@
 call plug#begin()
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'joshdick/onedark.vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 set tabstop=4
@@ -21,11 +22,12 @@ set updatetime=300
 set termguicolors
 set noshowmode
 
-let g:onedark_terminal_italics = 1
-let g:onedark_hide_endofbuffer = 1
-colorscheme onedark 
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_underline = 1
+colorscheme nord
 
-let g:lightline = { 'colorscheme': 'onedark' }
+let g:lightline = {'colorscheme': 'nord'}
 
 let g:coc_global_extensions = ['coc-clangd', 
 			\ 'coc-rust-analyzer', 'coc-json',

@@ -3,7 +3,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'preservim/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
@@ -29,13 +33,10 @@ colorscheme nord
 
 let g:lightline = {'colorscheme': 'nord'}
 
-let g:coc_global_extensions = ['coc-clangd', 
-			\ 'coc-rust-analyzer', 'coc-json',
-			\ 'coc-css', 'coc-tsserver', 
-			\ 'coc-markdownlint']
-
 nmap <leader>h : wincmd h<cr>
 nmap <leader>j : wincmd j<cr>
 nmap <leader>k : wincmd k<cr>
 nmap <leader>l : wincmd l<cr>
 
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"

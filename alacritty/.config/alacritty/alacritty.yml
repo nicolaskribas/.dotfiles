@@ -1,5 +1,8 @@
-env:
-  TERM: xterm-256color
+window:
+  decorations: none
+
+scrolling:
+  history: 0
 
 font:
   normal:

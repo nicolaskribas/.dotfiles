@@ -6,7 +6,7 @@ scrolling:
 
 font:
   normal:
-    family: Hack
+    family: JetBrainsMono Nerd Font
 
 import:
   - ~/.config/alacritty/nord.yml

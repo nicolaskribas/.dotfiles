@@ -2,8 +2,8 @@
 	name = Nicolas K. Ribas
 	email = nicolaskribas@gmail.com
 [alias]
-	dog = log --all --decorate --oneline --graph
-	ss = status --short
+	dog = log --oneline --graph
+	st = status --short --branch
 [merge]
 	tool = nvimdiff
 [init]

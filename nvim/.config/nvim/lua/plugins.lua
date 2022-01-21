@@ -22,8 +22,9 @@ require('packer').startup(function()
 	}
 	use 'arcticicestudio/nord-vim'
 	use {
-		'itchyny/lightline.vim',
-		config = [[require('config.lightline')]],
+		'nvim-lualine/lualine.nvim', -- fancier statusline
+		requires = { 'kyazdani42/nvim-web-devicons' },
+		config = [[require('config.lualine')]],
 	}
 	use {
 		'lewis6991/gitsigns.nvim',

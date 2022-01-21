@@ -22,7 +22,10 @@ require('packer').startup(function()
 	}
 	use {
 		'nvim-telescope/telescope.nvim', -- find files and content in files
-		requires = { 'nvim-lua/plenary.nvim' },
+		requires = {
+			'nvim-lua/plenary.nvim',
+			'kyazdani42/nvim-web-devicons',
+		},
 		config = [[require('config.telescope')]], 
 	}
 	use 'arcticicestudio/nord-vim' -- color scheme
@@ -43,6 +46,7 @@ require('packer').startup(function()
 	}
 	use {
 		'neovim/nvim-lspconfig', -- lsp client configurations for multiple language servers
+		requires = { 'hrsh7th/cmp-nvim-lsp' },
 		config = [[require('config.lsp')]],
 	}
 	use {

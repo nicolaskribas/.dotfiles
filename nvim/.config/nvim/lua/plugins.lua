@@ -14,7 +14,10 @@ vim.cmd [[
 local use = require('packer').use
 require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
-	use 'tpope/vim-commentary'
+	use {
+		'numToStr/Comment.nvim', -- 'gc'/'gcc' to comment visual selection/entire line
+		config = [[require('config.comment')]],
+	}
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = { 'nvim-lua/plenary.nvim' },

@@ -1,3 +1,4 @@
+-- install packer (plugin manager)
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -11,44 +12,45 @@ vim.cmd [[
 	augroup end
 ]]
 
+-- install plugins
 local use = require('packer').use
 require('packer').startup(function()
-	use 'wbthomason/packer.nvim'
+	use 'wbthomason/packer.nvim' -- manage itself
 	use {
 		'numToStr/Comment.nvim', -- 'gc'/'gcc' to comment visual selection/entire line
 		config = [[require('config.comment')]],
 	}
 	use {
-		'nvim-telescope/telescope.nvim',
+		'nvim-telescope/telescope.nvim', -- find files and content in files
 		requires = { 'nvim-lua/plenary.nvim' },
 		config = [[require('config.telescope')]], 
 	}
-	use 'arcticicestudio/nord-vim'
+	use 'arcticicestudio/nord-vim' -- color scheme
 	use {
 		'nvim-lualine/lualine.nvim', -- fancier statusline
 		requires = { 'kyazdani42/nvim-web-devicons' },
 		config = [[require('config.lualine')]],
 	}
 	use {
-		'lewis6991/gitsigns.nvim',
+		'lewis6991/gitsigns.nvim', -- git related info in the signs columns
 		requires = { 'nvim-lua/plenary.nvim' },
 		config = [[require('config.gitsigns')]],
 	}
 	use {
-		'nvim-treesitter/nvim-treesitter',
+		'nvim-treesitter/nvim-treesitter', -- language parsing for better highlight and indentation
 		run = ':TSUpdate',
 		config = [[require('config.treesitter')]],
 	}
 	use {
-		'neovim/nvim-lspconfig',
+		'neovim/nvim-lspconfig', -- lsp client configurations for multiple language servers
 		config = [[require('config.lsp')]],
 	}
 	use {
-		'hrsh7th/nvim-cmp',
+		'hrsh7th/nvim-cmp', -- autocompletion
 		requires = {
-			'hrsh7th/cmp-nvim-lsp',
-			'saadparwaiz1/cmp_luasnip',
-			'L3MON4D3/LuaSnip',
+			'L3MON4D3/LuaSnip', -- snippet engine, required by nvim-cmp
+			'saadparwaiz1/cmp_luasnip', -- autocompletion source for luasnip
+			'hrsh7th/cmp-nvim-lsp', -- autocompletion source for lsp client
 		},
 		config = [[require('config.cmp')]],
 	}

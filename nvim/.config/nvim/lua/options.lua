@@ -26,12 +26,8 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
--- set colorscheme (order is important here)
+-- enable true color
 vim.o.termguicolors = true
-vim.g.nord_italic = 1
-vim.g.nord_italic_comments = 1
-vim.g.nord_underline = 1
-vim.cmd [[colorscheme nord]]
 
 -- set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

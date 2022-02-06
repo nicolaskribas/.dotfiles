@@ -28,7 +28,10 @@ require('packer').startup(function()
 		},
 		config = [[require('config.telescope')]], 
 	}
-	use 'arcticicestudio/nord-vim' -- color scheme
+	use {
+		'andersevenrud/nordic.nvim', -- color scheme
+		config = [[require('config.nordic')]],
+	}
 	use {
 		'nvim-lualine/lualine.nvim', -- fancier statusline
 		requires = { 'kyazdani42/nvim-web-devicons' },

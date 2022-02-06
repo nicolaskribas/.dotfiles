@@ -17,11 +17,18 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
+-- add borders to the floating windows
+local handlers = {
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "double" }),
+}
+
 -- enable the following language servers
 local servers = { 'rust_analyzer', 'clangd', 'hls' }
 for _, server in ipairs(servers) do
 	lspconfig[server].setup {
 		on_attach = set_keymaps,
 		capabilities = capabilities,
+		handlers = handlers,
 	}
 end

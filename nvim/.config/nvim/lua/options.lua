@@ -26,6 +26,12 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
+-- set guide line for text alignment
+vim.wo.colorcolumn = '100'
+
+-- disable text wraping
+vim.wo.wrap = false
+
 -- enable true color
 vim.o.termguicolors = true
 

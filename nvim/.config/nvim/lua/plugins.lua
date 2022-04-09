@@ -20,6 +20,10 @@ require('packer').startup(function(use)
 		config = [[require('config.comment')]],
 	}
 	use {
+		'windwp/nvim-autopairs', -- automatically close pairs of characters
+		config = [[require('config.autopairs')]],
+	}
+	use {
 		'nvim-telescope/telescope.nvim', -- find files and content in files
 		requires = {
 			'nvim-lua/plenary.nvim',

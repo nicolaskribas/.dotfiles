@@ -13,8 +13,7 @@ vim.cmd [[
 ]]
 
 -- install plugins
-local use = require('packer').use
-require('packer').startup(function()
+require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- manage itself
 	use {
 		'numToStr/Comment.nvim', -- 'gc'/'gcc' to comment visual selection/entire line
@@ -26,7 +25,7 @@ require('packer').startup(function()
 			'nvim-lua/plenary.nvim',
 			'kyazdani42/nvim-web-devicons',
 		},
-		config = [[require('config.telescope')]], 
+		config = [[require('config.telescope')]],
 	}
 	use {
 		'andersevenrud/nordic.nvim', -- color scheme

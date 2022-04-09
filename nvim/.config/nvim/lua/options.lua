@@ -29,6 +29,9 @@ vim.wo.signcolumn = 'yes'
 -- enable true color
 vim.o.termguicolors = true
 
+-- set colorscheme
+vim.cmd [[colorscheme nordic]]
+
 -- set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 

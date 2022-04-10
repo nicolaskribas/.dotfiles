@@ -1,5 +1,5 @@
 require('nvim-treesitter.configs').setup {
-	ensure_installed = 'maintained', -- install all parsers that are stable and maintained
+	ensure_installed = 'all', -- install all parsers
 	highlight = {
 		enable = true,
 	},

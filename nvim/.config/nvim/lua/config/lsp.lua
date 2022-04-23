@@ -24,7 +24,7 @@ local handlers = {
 }
 
 -- enable the following language servers
-local servers = { 'rust_analyzer', 'clangd', 'hls', 'gopls', 'sumneko_lua' }
+local servers = { 'rust_analyzer', 'clangd', 'hls', 'gopls', 'sumneko_lua', 'jedi_language_server' }
 for _, server in ipairs(servers) do
 	lspconfig[server].setup {
 		on_attach = set_keymaps,

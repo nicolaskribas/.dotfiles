@@ -1,18 +1,22 @@
--- remap space as leader key
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+local map = vim.keymap.set
 
--- remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- disable space, it is the leader key
+map("", "<Space>", "<Nop>")
 
--- diagnostic keymaps
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+-- standard operations
+map("n", "<leader>w", "<cmd>w<cr>")
+map("n", "<leader>q", "<cmd>q<cr>")
+map("n", "<leader>h", "<cmd>nohlsearch<cr>")
 
 -- clipboard use
-vim.keymap.set('', '<leader>y', "\"+y")
-vim.keymap.set('', '<leader>p', "\"+p")
+map("", "<leader>y", '"+y')
+map("", "<leader>p", '"+p')
+
+-- dealing with word wrap
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- diagnostics
+map("n", "<leader>d", vim.diagnostic.open_float)
+map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "]d", vim.diagnostic.goto_next)

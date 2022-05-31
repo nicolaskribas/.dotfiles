@@ -10,4 +10,4 @@ font:
     family: JetBrainsMono Nerd Font
 
 import:
-  - ~/.config/alacritty/nord.yml
+  - ~/.config/alacritty/rose-pine.yml

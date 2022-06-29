@@ -18,7 +18,6 @@ opt.cursorline = true
 opt.scrolloff = 5
 opt.sidescrolloff = 10
 opt.pumheight = 10
-opt.cmdheight = 2
 opt.completeopt = { "menuone", "noselect" }
 opt.shortmess:append "c"
 

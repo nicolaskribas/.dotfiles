@@ -1,8 +1,11 @@
 -- install packer (plugin manager)
+local bootstrapping = false
 local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+	bootstrapping = true
 	vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+	vim.cmd [[packadd packer.nvim]]
 end
 
 local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
@@ -74,4 +77,8 @@ require("packer").startup(function(use)
 		},
 		config = [[require('plugins.config.cmp')]],
 	}
+
+	if bootstrapping then
+		require("packer").sync()
+	end
 end)

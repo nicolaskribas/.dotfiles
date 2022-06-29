@@ -5,9 +5,5 @@ window:
 scrolling:
   history: 0
 
-font:
-  normal:
-    family: JetBrainsMono Nerd Font
-
 import:
   - ~/.config/alacritty/rose-pine.yml

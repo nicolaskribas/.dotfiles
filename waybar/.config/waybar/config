@@ -1,0 +1,65 @@
+{
+	"modules-left": [
+		"sway/workspaces",
+		"sway/mode"
+	],
+	"modules-center": [
+		"clock"
+	],
+	"modules-right": [
+		"tray",
+		"pulseaudio",
+		"network",
+		"backlight",
+		"battery"
+	],
+	"sway/window": {
+		"max-length": 80
+	},
+	"sway/workspaces": {
+		"format": "{index} {icon}",
+		"format-icons": {
+			"1": "",
+			"2": "",
+			"3": "",
+			"4": "",
+			"urgent": "",
+			"focused": "",
+			"default": ""
+		}
+	},
+	"pulseaudio": {
+		"format": "{volume}% {icon}",
+		"format-muted": "奄",
+		"format-icons": [
+			"奔",
+			"墳"
+		]
+	},
+	"network": {
+		"format-ethernet": "",
+		"format-wifi": "直",
+		"format-disconnected": ""
+	},
+	"backlight": {
+		"format": "{percent}% {icon}",
+		"format-icons": [
+			"",
+			"",
+			""
+		]
+	},
+	"battery": {
+		"format": "{capacity}% {icon}",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		]
+	},
+	"clock": {
+		"format": "{:%a, %d %b. %H:%M}",
+	}
+}

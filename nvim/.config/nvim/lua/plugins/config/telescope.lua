@@ -26,5 +26,6 @@ map("n", "<leader>ff", project_files)
 map("n", "<leader>fw", builtin.live_grep)
 map("n", "<leader>fb", builtin.buffers)
 map("n", "<leader>fh", builtin.help_tags)
+map("n", "<leader>/", builtin.current_buffer_fuzzy_find)
 
 map("n", "gr", builtin.lsp_references)

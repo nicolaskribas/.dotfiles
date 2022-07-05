@@ -8,12 +8,6 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	vim.cmd [[packadd packer.nvim]]
 end
 
-local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
-vim.api.nvim_create_autocmd(
-	"BufWritePost",
-	{ command = "source <afile> | PackerCompile", group = packer_group, pattern = "init.lua" }
-)
-
 -- install plugins
 require("packer").startup(function(use)
 	use "wbthomason/packer.nvim" -- packer manages itself

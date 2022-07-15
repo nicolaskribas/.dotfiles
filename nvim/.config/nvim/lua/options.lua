@@ -20,5 +20,6 @@ opt.sidescrolloff = 10
 opt.pumheight = 10
 opt.completeopt = { "menuone", "noselect" }
 opt.shortmess:append "c"
+opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500"
 
 vim.g.mapleader = " "

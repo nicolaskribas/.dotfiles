@@ -1,68 +1,82 @@
-# options
-setopt correct
-setopt extendedglob
-setopt nocaseglob
-setopt rcexpandparam
-setopt nocheckjobs
-setopt numericglobsort
-setopt nobeep
-setopt appendhistory
-setopt histignorealldups
-setopt inc_append_history
-setopt histignorespace
+# aliases
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -I'
+alias ls='ls --color=auto'
+alias la='ls -A'
+alias ll='ls -alh'
+
+eval $(dircolors -b)
 
 # prompt
-autoload -Uz colors
-colors
-PROMPT="%B%F{green}%n%b%F{8}@%B%F{cyan}%m%b%F{8}:%B%F{magenta}%3~%b%F{8}$ %f%b"
+PROMPT='%B%F{green}%n%b%F{8}@%B%F{cyan}%m%b%F{8}:%B%F{magenta}%3~%b%F{8}$%f%b '
 
-# completion
-autoload -Uz compinit
-compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # colored completion
-zstyle ':completion:*' rehash true # autofind new executables
-# speed up completion
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+# vi mode
+bindkey -v
+KEYTIMEOUT=1
+
+# cursor
+zle-line-init() { echo -ne '\e[5 q' } # starts with a blinking beam
+zle-keymap-select() {
+	if [[ $KEYMAP == 'vicmd' ]]; then
+		echo -ne '\e[1 q' # go to blinking block when changes to vicmd
+	else
+		echo -ne '\e[5 q' # beam again when changing back to main/viins mode
+	fi
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# misc options
+setopt correct
+setopt extended_glob
+setopt no_beep
+
+# directory stack
+setopt cd_silent
+setopt auto_pushd
+setopt pushd_ignore_dups
+sd() {
+	dirs -v | head -n 10
+	read -k 'index?#> '
+	echo
+	if [[ $index =~ '[0-9]' ]];	then
+		cd +$index
+	else
+		echo 'Nothing selected'
+	fi
+	unset index
+}
 
 # history
+setopt extended_history
+setopt inc_append_history_time
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
 HISTFILE=~/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
-WORDCHARS=${WORDCHARS//\/[&.;]}
+# bindings
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+autoload -U edit-command-line; zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
-# vi mode
-bindkey -v
+# completion
+setopt list_packed
+autoload -U compinit; compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{green}[%d]%f'
+zstyle ':completion:*:messages' format '%F{yellow}--%d--%f'
+zstyle ':completion:*:warnings' format '%F{red}--No matches found--%f'
 
-# home key
-bindkey '^[[7~' beginning-of-line
-bindkey '^[[H' beginning-of-line
-if [[ "${terminfo[khome]}" != "" ]]; then
-	bindkey "${terminfo[khome]}" beginning-of-line
-fi
-
-# end key
-bindkey '^[[8~' end-of-line
-bindkey '^[[F' end-of-line
-if [[ "${terminfo[kend]}" != "" ]]; then
-	bindkey "${terminfo[kend]}" end-of-line
-fi
-
-bindkey '^[[2~' overwrite-mode # insert key
-bindkey '^[[3~' delete-char # delete key
-bindkey '^[[C'  forward-char # right key
-bindkey '^[[D'  backward-char # left key
-bindkey '^[[5~' history-beginning-search-backward # page up key
-bindkey '^[[6~' history-beginning-search-forward # page down key
-
-alias cp='cp -i' # confirmation before overwriting
-
-# ls colors
-eval "$(dircolors -b)"
-alias ls='ls --color=auto'
-
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh # should be last
+# syntax highlighting plugin, should be loaded last
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -5,37 +5,54 @@ input type:keyboard {
 	xkb_layout us
 	xkb_variant altgr-intl
 	xkb_options ctrl:swapcaps
+	xkb_numlock enable
+}
+
+# mouse
+input type:pointer {
+	accel_profile flat
 }
 
 # lock
 set {
 	$lock_timeout 310
 	$screen_timeout 300
-	$lock "swaylock -f"
+	$lock 'swaylock -f'
 	$screen_off "swaymsg 'output * dpms off'"
 	$screen_on "swaymsg 'output * dpms on'"
+	$player_pause 'playerctl pause'
 }
 exec swayidle -w \
 	timeout $lock_timeout $lock \
 	timeout $screen_timeout $screen_off resume $screen_on \
+	before-sleep $player_pause \
 	before-sleep $lock
 
-# appearance
+# notifications
+exec mako
+
+# bar
 bar swaybar_command waybar
+
+# appearance
 smart_borders on
-for_window [app_id=float-term] floating enable, sticky enable, border pixel 1
+default_border pixel 3
+smart_gaps on
+gaps inner 4
 set {
-	$bg #1f1d2e
-	$bg_focus #26233a
-	$text #908caa
-	$text_focus #e0def4
-	$border #524f67
-	$border_focus #31748f
+	$overlay #26233a
+	$surface #1f1d2e
+	$text #e0def4
+	$subtle #908caa
+	$highlight_high #524f67
+	$highlight_low #21202e
+	$love #eb6f92
 }
-#						title border  title bg  title text  split indicator view border
-client.focused          $border_focus $bg_focus $text_focus $border_focus   $border_focus
-client.focused_inactive $border       $bg       $text       $border         $border
-client.unfocused        $border       $bg       $text       $border         $border
+client.focused           $highlight_high $overlay $text   $highlight_high $highlight_high
+client.focused_tab_title $highlight_high $overlay $text
+client.focused_inactive  $highlight_low  $surface $subtle $highlight_low  $highlight_low
+client.unfocused         $highlight_low  $surface $subtle $highlight_low  $highlight_low
+client.urgent            $love           $surface $subtle $love           $love
 
 # bindings
 set {
@@ -46,8 +63,7 @@ set {
 	$right l
 
 	$term alacritty
-	$float_term alacritty --class float-term
-	$menu wofi --show drun
+	$menu fuzzel
 }
 floating_modifier $mod normal
 bindsym {
@@ -56,7 +72,7 @@ bindsym {
 	$mod+f fullscreen
 	$mod+q kill
 	$mod+Shift+c reload
-	$mod+Shift+e swaymsg exit
+	$mod+Shift+e exec swaymsg exit
 	$mod+Shift+minus move scratchpad
 	$mod+minus scratchpad show
 }
@@ -141,3 +157,5 @@ bindsym {
 	$mod+Shift+9 move container to workspace number 9
 	$mod+Shift+0 move container to workspace number 10
 }
+
+include /etc/sway/config.d/*

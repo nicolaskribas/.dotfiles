@@ -3,63 +3,31 @@
 		"sway/workspaces",
 		"sway/mode"
 	],
-	"modules-center": [
-		"clock"
-	],
+	"modules-center": ["sway/window"],
 	"modules-right": [
 		"tray",
 		"pulseaudio",
 		"network",
-		"backlight",
-		"battery"
+		"clock"
 	],
 	"sway/window": {
-		"max-length": 80
+		"max-length": 60
 	},
-	"sway/workspaces": {
-		"format": "{index} {icon}",
-		"format-icons": {
-			"1": "",
-			"2": "",
-			"3": "",
-			"4": "",
-			"urgent": "",
-			"focused": "",
-			"default": ""
-		}
+	"tray": {
+		"icon-size": 15,
+		"spacing": 15,
+		"reverse-direction": true
 	},
 	"pulseaudio": {
-		"format": "{volume}% {icon}",
-		"format-muted": "奄",
-		"format-icons": [
-			"奔",
-			"墳"
-		]
+		"format": "vol: {volume}%{format_source}",
+		"format-muted": "vol: muted{format_source}",
+		"format-source": "",
+		"format-source-muted": " | mic: muted",
+		"on-click": "pavucontrol"
 	},
 	"network": {
-		"format-ethernet": "",
-		"format-wifi": "直",
-		"format-disconnected": ""
-	},
-	"backlight": {
-		"format": "{percent}% {icon}",
-		"format-icons": [
-			"",
-			"",
-			""
-		]
-	},
-	"battery": {
-		"format": "{capacity}% {icon}",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		]
-	},
-	"clock": {
-		"format": "{:%a, %d %b. %H:%M}",
+		"format-ethernet": "{ifname}: connected",
+		"format-wifi": "{essid} ({signalStrength}%)",
+		"format-disconnected": "{ifname}: disconnected"
 	}
 }

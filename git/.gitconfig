@@ -8,3 +8,5 @@
 	tool = nvimdiff
 [init]
 	defaultBranch = main
+[diff]
+	algorithm = histogram

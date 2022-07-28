@@ -54,6 +54,15 @@ client.focused_inactive  $highlight_low  $surface $subtle $highlight_low  $highl
 client.unfocused         $highlight_low  $surface $subtle $highlight_low  $highlight_low
 client.urgent            $love           $surface $subtle $love           $love
 
+bindsym {
+	# shift = select an area insted of entire screen
+	# ctrl = save to clipboard insted of file
+	Print exec grimshot all file
+	Shift+Print exec grimshot area file
+	Ctrl+Print exec grimshot all clipboard
+	Ctrl+Shift+Print exec grimshot area clipboard
+}
+
 # bindings
 set {
 	$mod Mod4

@@ -5,11 +5,13 @@ alias rm='rm -I'
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -alh'
+alias ring="echo -ne '\a'"
 
-eval $(dircolors -b)
+eval "$(dircolors -b)"
 
 # prompt
-PROMPT='%B%F{green}%n%b%F{8}@%B%F{cyan}%m%b%F{8}:%B%F{magenta}%3~%b%F{8}$%f%b '
+PROMPT='%B%F{magenta}%3~%b%F{8}%(!.#.$)%f%b '
+RPROMPT='%(1j.%F{8}&%B%F{blue}%j%f%b.)%(?..%(1j. .)%F{8}=%B%F{red}%?%f%b)'
 
 # vi mode
 bindkey -v
@@ -18,7 +20,7 @@ KEYTIMEOUT=1
 # cursor
 zle-line-init() { echo -ne '\e[5 q' } # starts with a blinking beam
 zle-keymap-select() {
-	if [[ $KEYMAP == 'vicmd' ]]; then
+	if [[ "$KEYMAP" == 'vicmd' ]]; then
 		echo -ne '\e[1 q' # go to blinking block when changes to vicmd
 	else
 		echo -ne '\e[5 q' # beam again when changing back to main/viins mode
@@ -40,8 +42,8 @@ sd() {
 	dirs -v | head -n 10
 	read -k 'index?#> '
 	echo
-	if [[ $index =~ '[0-9]' ]];	then
-		cd +$index
+	if [[ "$index" =~ '[0-9]' ]];	then
+		cd +"$index"
 	else
 		echo 'Nothing selected'
 	fi
@@ -71,12 +73,12 @@ setopt list_packed
 autoload -U compinit; compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{green}[%d]%f'
-zstyle ':completion:*:messages' format '%F{yellow}--%d--%f'
-zstyle ':completion:*:warnings' format '%F{red}--No matches found--%f'
+zstyle ':completion:*:messages' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
 
 # syntax highlighting plugin, should be loaded last
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

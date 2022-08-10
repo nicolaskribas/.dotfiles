@@ -14,157 +14,138 @@ input type:pointer {
 }
 
 # lock
-set {
-	$lock_timeout 310
-	$screen_timeout 300
-	$lock 'swaylock -f'
-	$screen_off "swaymsg 'output * dpms off'"
-	$screen_on "swaymsg 'output * dpms on'"
-	$player_pause 'playerctl pause'
-}
+set $lock_timeout 310
+set $screen_timeout 300
+set $lock 'swaylock -f'
+set $screen_off 'swaymsg "output * dpms off"'
+set $screen_on 'swaymsg "output * dpms on"'
+set $player_pause 'playerctl pause'
 exec swayidle -w \
 	timeout $lock_timeout $lock \
 	timeout $screen_timeout $screen_off resume $screen_on \
 	before-sleep $player_pause \
 	before-sleep $lock
 
-# notifications
+# notification daemon
 exec mako
 
-# bar
-bar swaybar_command waybar
 
-# appearance
+##############
+# Appearance #
+##############
 smart_borders on
 default_border pixel 3
-smart_gaps on
-gaps inner 4
-set {
-	$overlay #26233a
-	$surface #1f1d2e
-	$text #e0def4
-	$subtle #908caa
-	$highlight_high #524f67
-	$highlight_low #21202e
-	$love #eb6f92
-}
-client.focused           $highlight_high $overlay $text   $highlight_high $highlight_high
-client.focused_tab_title $highlight_high $overlay $text
-client.focused_inactive  $highlight_low  $surface $subtle $highlight_low  $highlight_low
-client.unfocused         $highlight_low  $surface $subtle $highlight_low  $highlight_low
-client.urgent            $love           $surface $subtle $love           $love
 
-bindsym {
-	# shift = select an area insted of entire screen
-	# ctrl = save to clipboard insted of file
-	Print exec grimshot all file
-	Shift+Print exec grimshot area file
-	Ctrl+Print exec grimshot all clipboard
-	Ctrl+Shift+Print exec grimshot area clipboard
+# gtk settings
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+    gsettings set $gnome-schema color-scheme 'prefer-dark'
 }
 
-# bindings
-set {
-	$mod Mod4
-	$left h
-	$down j
-	$up k
-	$right l
-
-	$term alacritty
-	$menu fuzzel
+# status bar
+bar {
+    status_command while date +'%R'; do sleep 1; done
 }
+
+
+############
+# Bindings #
+############
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term alacritty
+set $menu fuzzel --terminal='alacritty --command'
+bindsym $mod+Return exec $term
+bindsym $mod+d exec $menu
+bindsym $mod+f fullscreen
+bindsym $mod+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaymsg exit
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 floating_modifier $mod normal
-bindsym {
-	$mod+Return exec $term
-	$mod+d exec $menu
-	$mod+f fullscreen
-	$mod+q kill
-	$mod+Shift+c reload
-	$mod+Shift+e exec swaymsg exit
-	$mod+Shift+minus move scratchpad
-	$mod+minus scratchpad show
-}
+
 # media keys
-set {
-	$brightness_up light -T 1.1
-	$brightness_down light -T 0.91
-	$player_prev playerctl previous
-	$player_play playerctl play-pause
-	$player_next playerctl next
-	$volume_mute pactl set-sink-mute @DEFAULT_SINK@ toggle
-	$volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
-	$volume_up pactl set-sink-volume @DEFAULT_SINK@ +5%
-}
-bindsym {
-	XF86MonBrightnessDown exec $brightness_down
-	XF86MonBrightnessUp exec $brightness_up
-	XF86AudioPrev exec $player_prev
-	XF86AudioPlay exec $player_play
-	XF86AudioNext exec $player_next
-	--locked {
-		XF86AudioMute exec $volume_mute
-		XF86AudioLowerVolume exec $volume_down
-		XF86AudioRaiseVolume exec $volume_up
-	}
-}
+set $brightness_up light -T 1.1
+set $brightness_down light -T 0.91
+set $player_prev playerctl previous
+set $player_play playerctl play-pause
+set $player_next playerctl next
+set $volume_mute pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
+set $volume_up pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86MonBrightnessDown exec $brightness_down
+bindsym XF86MonBrightnessUp exec $brightness_up
+bindsym --locked XF86AudioPrev exec $player_prev
+bindsym --locked XF86AudioPlay exec $player_play
+bindsym --locked XF86AudioNext exec $player_next
+bindsym --locked XF86AudioMute exec $volume_mute
+bindsym --locked XF86AudioLowerVolume exec $volume_down
+bindsym --locked XF86AudioRaiseVolume exec $volume_up
+
+# screenshots
+# modifiers: shift = area selection insted of entire screen
+#            ctrl = save to clipboard insted of file
+bindsym Print exec grimshot all file
+bindsym Shift+Print exec grimshot area file
+bindsym Ctrl+Print exec grimshot all clipboard
+bindsym Ctrl+Shift+Print exec grimshot area clipboard
+
 # layouts and splits
-bindsym {
-	$mod+b splith
-	$mod+v splitv
-	$mod+s layout stacking
-	$mod+w layout tabbed
-	$mod+e layout toggle split
-	$mod+a focus parent
-	$mod+space focus mode_toggle
-	$mod+Shift+space floating toggle
-}
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+a focus parent
+bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space floating toggle
+
 # resize mode
 bindsym	$mod+r mode resize
-mode resize bindsym {
-	$left resize shrink width 10px
-	$down resize grow height 10px
-	$up resize shrink height 10px
-	$right resize grow width 10px
-
-	Return mode default
-	Escape mode default
+mode resize {
+	bindsym $left resize shrink width 10px
+	bindsym $down resize grow height 10px
+	bindsym $up resize shrink height 10px
+	bindsym $right resize grow width 10px
+	bindsym Return mode default
+	bindsym Escape mode default
 }
+
 # container movements
-bindsym {
-	$mod+$left focus left
-	$mod+$down focus down
-	$mod+$up focus up
-	$mod+$right focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
-	$mod+Shift+$left move left
-	$mod+Shift+$down move down
-	$mod+Shift+$up move up
-	$mod+Shift+$right move right
-}
 # workspace movements
-bindsym {
-	$mod+1 workspace number 1
-	$mod+2 workspace number 2
-	$mod+3 workspace number 3
-	$mod+4 workspace number 4
-	$mod+5 workspace number 5
-	$mod+6 workspace number 6
-	$mod+7 workspace number 7
-	$mod+8 workspace number 8
-	$mod+9 workspace number 9
-	$mod+0 workspace number 10
-
-	$mod+Shift+1 move container to workspace number 1
-	$mod+Shift+2 move container to workspace number 2
-	$mod+Shift+3 move container to workspace number 3
-	$mod+Shift+4 move container to workspace number 4
-	$mod+Shift+5 move container to workspace number 5
-	$mod+Shift+6 move container to workspace number 6
-	$mod+Shift+7 move container to workspace number 7
-	$mod+Shift+8 move container to workspace number 8
-	$mod+Shift+9 move container to workspace number 9
-	$mod+Shift+0 move container to workspace number 10
-}
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
 
 include /etc/sway/config.d/*

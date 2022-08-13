@@ -33,11 +33,6 @@ require("packer").startup(function(use)
 		config = [[require('plugins.config.colorscheme')]],
 	}
 	use {
-		"nvim-lualine/lualine.nvim", -- fancier statusline
-		requires = "kyazdani42/nvim-web-devicons",
-		config = [[require('plugins.config.lualine')]],
-	}
-	use {
 		"lewis6991/gitsigns.nvim", -- git related info in the signs columns
 		config = [[require('plugins.config.gitsigns')]],
 	}

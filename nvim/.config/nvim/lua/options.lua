@@ -13,7 +13,6 @@ opt.updatetime = 250
 opt.signcolumn = "yes"
 opt.wrap = false
 opt.termguicolors = true
-opt.showmode = false
 opt.cursorline = true
 opt.scrolloff = 5
 opt.sidescrolloff = 10

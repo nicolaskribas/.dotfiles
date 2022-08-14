@@ -22,3 +22,8 @@ opt.shortmess:append "c"
 opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500"
 
 vim.g.mapleader = " "
+
+vim.diagnostic.config {
+	virtual_text = false,
+	severity_sort = true,
+}

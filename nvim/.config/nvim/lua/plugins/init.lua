@@ -61,7 +61,6 @@ require("packer").startup(function(use)
 		requires = {
 			"L3MON4D3/LuaSnip", -- snippet engine, required by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp", -- autocompletion source for lsp client
-			"onsails/lspkind.nvim", -- icons for completion items
 			"hrsh7th/cmp-buffer",
 		},
 		config = [[require('plugins.config.cmp')]],

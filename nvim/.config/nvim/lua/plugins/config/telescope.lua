@@ -3,9 +3,11 @@ local telescope = require "telescope"
 telescope.setup {
 	defaults = {
 		sorting_strategy = "ascending",
-		layout_config = {
-			prompt_position = "top",
-		},
+		layout_config = { prompt_position = "top" },
+		borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+	},
+	pickers = {
+		git_files = { show_untracked = true },
 	},
 }
 

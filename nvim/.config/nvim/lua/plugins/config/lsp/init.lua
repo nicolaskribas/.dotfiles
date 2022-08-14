@@ -1,20 +1,3 @@
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
-vim.diagnostic.config {
-	virtual_text = false,
-	severity_sort = true,
-	float = {
-		border = "rounded",
-	},
-}
-
 local set_keymaps = function(_, bufnr)
 	local function map(mode, l, r, opts)
 		opts = opts or {}
@@ -48,6 +31,7 @@ local function apply_defaults(config)
 	return vim.tbl_deep_extend("keep", config, defaults)
 end
 
+-- fetch server specific configs located at plugins/config/lsp/servers
 local function custom_config(server)
 	local ok, config = pcall(require, "plugins.config.lsp.servers." .. server)
 	if ok then

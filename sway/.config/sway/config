@@ -48,6 +48,7 @@ bar {
     status_command while date +'%R'; do sleep 1; done
 }
 
+for_window [app_id=org.gnome.Calculator] floating enable
 
 ############
 # Bindings #
@@ -78,6 +79,7 @@ set $player_next playerctl next
 set $volume_mute pactl set-sink-mute @DEFAULT_SINK@ toggle
 set $volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
 set $volume_up pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $calculator gnome-calculator
 bindsym XF86MonBrightnessDown exec $brightness_down
 bindsym XF86MonBrightnessUp exec $brightness_up
 bindsym --locked XF86AudioPrev exec $player_prev
@@ -86,6 +88,7 @@ bindsym --locked XF86AudioNext exec $player_next
 bindsym --locked XF86AudioMute exec $volume_mute
 bindsym --locked XF86AudioLowerVolume exec $volume_down
 bindsym --locked XF86AudioRaiseVolume exec $volume_up
+bindsym XF86Calculator exec $calculator
 
 # screenshots
 # modifiers: shift = area selection insted of entire screen

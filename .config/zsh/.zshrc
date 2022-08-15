@@ -56,7 +56,7 @@ setopt extended_history
 setopt inc_append_history_time
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
-HISTFILE=~/.zhistory
+HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -71,11 +71,12 @@ bindkey -M vicmd v edit-command-line
 
 # completion
 setopt list_packed
-autoload -U compinit; compinit
+autoload -U compinit; compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{green}[%d]%f'
 zstyle ':completion:*:messages' format '%F{yellow}-- %d --%f'

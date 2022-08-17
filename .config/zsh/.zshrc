@@ -5,7 +5,7 @@ alias rm='rm -I'
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -alh'
-alias ring="echo -ne '\a'"
+alias ring='echo -ne \\a'
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 eval "$(dircolors -b)"

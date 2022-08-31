@@ -14,21 +14,24 @@ input type:pointer {
 }
 
 # lock
-set $lock_timeout 310
-set $screen_timeout 300
-set $lock 'swaylock -f'
+set $lock 'swaylock -f -e -c 000000'
 set $screen_off 'swaymsg "output * dpms off"'
 set $screen_on 'swaymsg "output * dpms on"'
-set $player_pause 'playerctl pause'
+set $screen_off_locked 'pgrep swaylock && swaymsg "output * dpms off"'
+set $screen_on_locked 'pgrep swaylock && swaymsg "output * dpms on"'
 exec swayidle -w \
-	timeout $lock_timeout $lock \
-	timeout $screen_timeout $screen_off resume $screen_on \
-	before-sleep $player_pause \
+	timeout 300 $lock \
+	timeout 310 $screen_off resume $screen_on \
+	timeout 10 $screen_off_locked resume $screen_on_locked \
 	before-sleep $lock
 
 # notification daemon
 exec mako
 
+# ajust color temperature
+exec gammastep -l '-30:-51' -t '6500:3000'
+
+output * bg ~/pictures/backgrounds/current fill #000000
 
 ##############
 # Appearance #
@@ -45,7 +48,7 @@ exec_always {
 
 # status bar
 bar {
-    status_command while date +'%R'; do sleep 1; done
+    status_command swayrbar
 }
 
 for_window [app_id=org.gnome.Calculator] floating enable
@@ -65,7 +68,6 @@ bindsym $mod+d exec $menu
 bindsym $mod+f fullscreen
 bindsym $mod+q kill
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec swaymsg exit
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 floating_modifier $mod normal
@@ -90,6 +92,19 @@ bindsym --locked XF86AudioLowerVolume exec $volume_down
 bindsym --locked XF86AudioRaiseVolume exec $volume_up
 bindsym XF86Calculator exec $calculator
 
+set $system_mode '[l]ock [s]uspend [e]xit [p]oweroff [r]eboot'
+mode $system_mode {
+	bindsym l mode default, exec $lock
+	bindsym s mode default, exec systemctl suspend
+	bindsym e exec swaymsg exit
+	bindsym p exec systemctl poweroff
+	bindsym r exec systemctl reboot
+	bindsym Return mode default
+	bindsym Escape mode default
+	bindsym	$mod+x mode default
+}
+bindsym $mod+x mode $system_mode
+
 # screenshots
 # modifiers: shift = area selection insted of entire screen
 #            ctrl = save to clipboard insted of file
@@ -109,7 +124,6 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+Shift+space floating toggle
 
 # resize mode
-bindsym	$mod+r mode resize
 mode resize {
 	bindsym $left resize shrink width 10px
 	bindsym $down resize grow height 10px
@@ -117,7 +131,9 @@ mode resize {
 	bindsym $right resize grow width 10px
 	bindsym Return mode default
 	bindsym Escape mode default
+	bindsym	$mod+r mode default
 }
+bindsym $mod+r mode resize
 
 # container movements
 bindsym $mod+$left focus left

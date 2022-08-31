@@ -1,14 +1,13 @@
 font=sans-serif 10
+default-timeout=30000
+anchor=bottom-right
+background-color=#222222
 
-background-color=#1f1d2e
-text-color=#e0def4
+[urgency=low]
+border-color=#5F676A
 
-border-size=1
-border-color=#403d52
-border-radius=5
-
-default-timeout=10000
-ignore-timeout=1
+[urgency=normal]
+border-color=#285577
 
 [urgency=critical]
-border-color=#eb6f92
+border-color=#900000

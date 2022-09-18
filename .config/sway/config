@@ -62,7 +62,7 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
-set $menu fuzzel --terminal='alacritty --command'
+set $menu j4-dmenu-desktop --dmenu='bemenu -bi -H 24 -p \> --fn "monospace 10"' --term=$term --wrapper='swaymsg exec'
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+f fullscreen

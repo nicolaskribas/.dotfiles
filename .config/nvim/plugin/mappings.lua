@@ -3,12 +3,7 @@ local map = vim.keymap.set
 -- disable space, it is the leader key
 map("", "<Space>", "<Nop>")
 
--- standard operations
-map("n", "<leader>w", "<cmd>w<cr>")
-map("n", "<leader>q", "<cmd>q<cr>")
-map("n", "<leader>h", "<cmd>nohlsearch<cr>")
-
--- clipboard use
+-- use system clipboard
 map("", "<leader>y", '"+y')
 map("", "<leader>p", '"+p')
 

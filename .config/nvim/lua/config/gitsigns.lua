@@ -1,11 +1,10 @@
 local gitsigns = require "gitsigns"
-
 gitsigns.setup {
 	preview_config = { border = "none" },
-	on_attach = function(bufnr)
+	on_attach = function(buf)
 		local function map(mode, l, r, opts)
 			opts = opts or {}
-			opts.buffer = bufnr
+			opts.buffer = buf
 			vim.keymap.set(mode, l, r, opts)
 		end
 

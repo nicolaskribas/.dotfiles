@@ -4,7 +4,7 @@
 input type:keyboard {
 	xkb_layout us
 	xkb_variant altgr-intl
-	xkb_options ctrl:swapcaps
+	xkb_options caps:swapescape
 	xkb_numlock enable
 }
 
@@ -20,8 +20,8 @@ set $screen_on 'swaymsg "output * dpms on"'
 set $screen_off_locked 'pgrep swaylock && swaymsg "output * dpms off"'
 set $screen_on_locked 'pgrep swaylock && swaymsg "output * dpms on"'
 exec swayidle -w \
-	timeout 300 $lock \
-	timeout 310 $screen_off resume $screen_on \
+	timeout 310 $lock \
+	timeout 300 $screen_off resume $screen_on \
 	timeout 10 $screen_off_locked resume $screen_on_locked \
 	before-sleep $lock
 

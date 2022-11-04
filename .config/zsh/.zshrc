@@ -11,7 +11,7 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 eval "$(dircolors -b)"
 
 # prompt
-PROMPT='%B%F{magenta}%3~%b%F{8}%(!.#.$)%f%b '
+PROMPT='%B%F{magenta}%4~%b%F{8}%(!.#.$)%f%b '
 RPROMPT='%(1j.%F{8}&%B%F{blue}%j%f%b.)%(?..%(1j. .)%F{8}=%B%F{red}%?%f%b)'
 
 # vi mode

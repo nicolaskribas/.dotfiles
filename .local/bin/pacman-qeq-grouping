@@ -1,0 +1,16 @@
+#!/bin/sh
+
+## Lists explicitly installed packages, merging members of the same group,
+## listing only the group name.
+
+members=""
+for group in $(pacman -Qg | cut -d ' ' -f 1 | sort -u); do
+	available=$(pacman -Sgq "$group")
+	installed=$(pacman -Qgq "$group")
+	if [ "$available" = "$installed" ]; then
+		members="${members:+$members\n}$installed"
+		echo "$group"
+	fi
+done
+
+pacman -Qeq | grep -Fxv "$(printf '%b' "$members")"

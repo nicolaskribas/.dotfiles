@@ -18,4 +18,4 @@ font:
     y: 2
 
 import:
-  - ~/.config/alacritty/rose-pine.yml
+  - ~/.config/alacritty/colors.yml

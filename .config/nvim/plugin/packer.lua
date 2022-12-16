@@ -47,7 +47,10 @@ require("packer").startup {
 		}
 		use {
 			"neovim/nvim-lspconfig", -- lsp client configurations for multiple language servers
-			requires = "hrsh7th/cmp-nvim-lsp",
+			requires = {
+				"hrsh7th/cmp-nvim-lsp",
+				"j-hui/fidget.nvim",
+			},
 			config = [[require "config.lsp"]],
 		}
 		use {

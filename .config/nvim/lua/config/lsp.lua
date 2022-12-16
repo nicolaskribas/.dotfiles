@@ -1,3 +1,6 @@
+-- turn on lsp status information
+require("fidget").setup()
+
 local on_attach = function(_, buf)
 	local map = vim.keymap.set
 	local lsp = vim.lsp.buf
@@ -38,6 +41,8 @@ local servers = {
 	"hls",
 	"jedi_language_server",
 	"sumneko_lua",
+	"ltex",
+	"texlab",
 }
 
 local configs = {}
@@ -46,7 +51,17 @@ configs.sumneko_lua = {
 		Lua = {
 			runtime = { version = "LuaJIT" },
 			diagnostics = { globals = { "vim" } },
-			workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
+			},
+		},
+	},
+}
+configs.ltex = {
+	settings = {
+		ltex = {
+			language = "en-US",--[[ "pt-BR" ]]
 		},
 	},
 }

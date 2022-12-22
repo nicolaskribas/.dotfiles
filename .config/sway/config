@@ -48,7 +48,7 @@ exec_always {
 
 # status bar
 bar {
-    status_command swayrbar
+    status_command while date +'%d %B %Y %I:%M:%S %p'; do sleep 1; done
 }
 
 for_window [app_id=org.gnome.Calculator] floating enable

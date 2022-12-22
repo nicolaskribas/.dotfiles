@@ -1,5 +1,5 @@
 [user]
-	name = Nicolas K. Ribas
+	name = Nicolas Kolling Ribas
 	email = nicolaskribas@gmail.com
 [alias]
 	dog = log --oneline --graph

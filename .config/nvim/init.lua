@@ -1,5 +1,4 @@
 local opt = vim.opt
-
 opt.tabstop = 4
 opt.shiftwidth = 0
 opt.shiftround = true
@@ -25,3 +24,46 @@ vim.diagnostic.config {
 	virtual_text = false,
 	severity_sort = true,
 }
+
+local map = vim.keymap.set
+
+-- disable space, it is the leader key
+map("", "<Space>", "<Nop>")
+
+-- use system clipboard
+map("", "<leader>y", '"+y')
+map("", "<leader>p", '"+p')
+
+-- dealing with word wrap
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- diagnostics
+map("n", "<leader>d", vim.diagnostic.open_float)
+map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "]d", vim.diagnostic.goto_next)
+
+-- highlight on yank
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
+})
+
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system {
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	}
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup "plugins"

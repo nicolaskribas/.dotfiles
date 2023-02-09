@@ -48,10 +48,12 @@ exec_always {
 
 # status bar
 bar {
+    position top
     status_command while date +'%d %B %Y %I:%M:%S %p'; do sleep 1; done
 }
 
 for_window [app_id=org.gnome.Calculator] floating enable
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
 ############
 # Bindings #
@@ -62,7 +64,7 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
-set $menu j4-dmenu-desktop --dmenu='bemenu -bi -H 24 -p \> --fn "monospace 10"' --term=$term --wrapper='swaymsg exec'
+set $menu j4-dmenu-desktop --dmenu='bemenu --prompt=launch' --usage-log=${XDG_STATE_HOME:-$HOME/.local/state}/launch_history --term=$term --wrapper='swaymsg exec'
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+f fullscreen
@@ -78,9 +80,9 @@ set $brightness_down light -T 0.91
 set $player_prev playerctl previous
 set $player_play playerctl play-pause
 set $player_next playerctl next
-set $volume_mute pactl set-sink-mute @DEFAULT_SINK@ toggle
-set $volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
-set $volume_up pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $volume_mute wpctl set-mute @DEFAULT_SINK@ toggle
+set $volume_down wpctl set-volume @DEFAULT_SINK@ 5%-
+set $volume_up wpctl set-volume @DEFAULT_SINK@ 5%+
 set $calculator gnome-calculator
 bindsym XF86MonBrightnessDown exec $brightness_down
 bindsym XF86MonBrightnessUp exec $brightness_up

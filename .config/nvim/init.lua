@@ -4,15 +4,22 @@ opt.shiftwidth = 0
 opt.shiftround = true
 opt.number = true
 opt.signcolumn = "yes"
+opt.fillchars = "eob: "
 opt.mouse = "a"
 opt.undofile = true
 opt.ignorecase = true
 opt.smartcase = true
+opt.infercase = true
+opt.cindent = true
 opt.wrap = false
+opt.linebreak = true
+opt.breakindent = true
+opt.virtualedit = "block"
 opt.termguicolors = true
 opt.scrolloff = 5
 opt.sidescrolloff = 10
 opt.pumheight = 10
+opt.completeopt = { "menuone", "noinsert", "noselect" }
 opt.splitbelow = true
 opt.splitright = true
 opt.cursorline = true
@@ -31,12 +38,12 @@ local map = vim.keymap.set
 map("", "<Space>", "<Nop>")
 
 -- use system clipboard
-map("", "<leader>y", '"+y')
-map("", "<leader>p", '"+p')
+map({ "n", "x" }, "<leader>y", '"+y')
+map({ "n", "x" }, "<leader>p", '"+p')
 
 -- dealing with word wrap
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "k", [[v:count == 0 ? "gk" : "k"]], { expr = true })
+map({ "n", "x" }, "j", [[v:count == 0 ? "gj" : "j"]], { expr = true })
 
 -- diagnostics
 map("n", "<leader>d", vim.diagnostic.open_float)

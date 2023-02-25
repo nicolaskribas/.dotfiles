@@ -21,9 +21,6 @@ return {
 				map("n", "<leader>lr", lsp.references, opts)
 				map("n", "<leader>lR", lsp.rename, opts)
 				map("n", "<leader>lA", lsp.code_action, opts)
-				vim.api.nvim_buf_set_option(buf, "omnifunc", "v:lua.vim.lsp.omnifunc")
-				vim.api.nvim_buf_set_option(buf, "tagfunc", "v:lua.vim.lsp.tagfunc")
-				vim.api.nvim_buf_set_option(buf, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 				-- vim.api.nvim_create_autocmd("CursorHold", { callback = lsp.document_highlight })
 				-- vim.api.nvim_create_autocmd("CursorMoved", { callback = lsp.clear_references })
 			end
@@ -48,13 +45,13 @@ return {
 				"rust_analyzer",
 				"hls",
 				"jedi_language_server",
-				"sumneko_lua",
+				"lua_ls",
 				"ltex",
 				"texlab",
 			}
 
 			local configs = {}
-			configs.sumneko_lua = {
+			configs.lua_ls = {
 				settings = {
 					Lua = {
 						runtime = { version = "LuaJIT" },

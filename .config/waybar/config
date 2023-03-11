@@ -1,0 +1,34 @@
+{
+	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/mode"],
+	"modules-right": ["tray", "idle_inhibitor", "network", "wireplumber", "clock"],
+	"sway/scratchpad": {
+		"format-icons": "󰖲",
+	},
+	"tray": {
+		"icon-size": 14,
+		"spacing": 20,
+	},
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "󰅶",
+			"deactivated": "󰛊",
+		},
+	},
+	"network": {
+		"format": "{icon}",
+		"format-icons": {
+			"wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+			"ethernet": ["󰈀"],
+			"disconnected": ["󰌙"],
+		},
+	},
+	"wireplumber": {
+		"format": "{icon}",
+		"format-muted": "󰖁",
+		"format-icons": ["󰕿", "󰖀", "󰕾"],
+	},
+	"clock": {
+		"format": "{:%a. %d %b. %R}",
+	},
+}

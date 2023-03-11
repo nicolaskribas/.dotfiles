@@ -1,0 +1,51 @@
+* {
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+@define-color background #161616;
+@define-color layer #262626;
+@define-color layer-accent #393939;
+@define-color layer-accent-hover #474747;
+@define-color border-strong #6f6f6f;
+@define-color border-interactive #4589ff;
+@define-color text-primary #f4f4f4;
+@define-color text-secondary #c6c6c6;
+@define-color border-subtle #393939;
+@define-color icon-primary #f4f4f4;
+
+window#waybar {
+	background-color: @background;
+}
+
+#workspaces button {
+	min-height: 0px;
+	padding: 0 4px;
+	border-top-width: 2px;
+	border-radius: 0px;
+	background: @layer-accent;
+	color: @text-secondary;
+}
+
+#workspaces button.focused {
+	background: @layer;
+	border-top-color: @border-interactive;
+	color: @text-primary;
+	font-weight: bold;
+}
+
+#scratchpad,
+#mode,
+#idle_inhibitor,
+#tray,
+#network,
+#wireplumber {
+	font-size: 14px;
+	color: @icon-primary;
+	padding: 0 10px;
+}
+#clock {
+	font-size: 12px;
+	color: @icon-primary;
+	padding: 0px 20px 0px 10px;
+}

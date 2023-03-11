@@ -47,10 +47,20 @@ exec_always {
 }
 
 # status bar
-bar {
-    position top
-    status_command while date +'%d %B %Y %I:%M:%S %p'; do sleep 1; done
-}
+bar swaybar_command waybar
+
+set $text_primary #f4f4f4
+set $text_secondary #c6c6c6
+set $border_interactive #4589ff
+set $border_subtle #393939
+set $background #161616
+set $urgent #ff0000
+
+client.focused           $border_interactive $background $text_primary   $border_interactive $border_interactive
+client.focused_tab_title $border_interactive $background $text_primary
+client.focused_inactive  $border_subtle      $background $text_secondary $border_subtle      $border_subtle
+client.unfocused         $border_subtle      $background $text_secondary $border_subtle      $border_subtle
+client.urgent            $urgent             $background $text_secondary $urgent             $urgent
 
 for_window [app_id=org.gnome.Calculator] floating enable
 for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill

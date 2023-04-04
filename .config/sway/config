@@ -6,6 +6,7 @@ input type:keyboard {
 	xkb_variant altgr-intl
 	xkb_options caps:swapescape
 	xkb_numlock enable
+	repeat_delay 300
 }
 
 # mouse
@@ -15,10 +16,10 @@ input type:pointer {
 
 # lock
 set $lock 'swaylock -f -e -c 000000'
-set $screen_off 'swaymsg "output * dpms off"'
-set $screen_on 'swaymsg "output * dpms on"'
-set $screen_off_locked 'pgrep swaylock && swaymsg "output * dpms off"'
-set $screen_on_locked 'pgrep swaylock && swaymsg "output * dpms on"'
+set $screen_off 'swaymsg "output * power off"'
+set $screen_on 'swaymsg "output * power on"'
+set $screen_off_locked 'pgrep swaylock && swaymsg "output * power off"'
+set $screen_on_locked 'pgrep swaylock && swaymsg "output * power on"'
 exec swayidle -w \
 	timeout 310 $lock \
 	timeout 300 $screen_off resume $screen_on \
@@ -78,11 +79,11 @@ set $menu j4-dmenu-desktop --dmenu='bemenu --prompt=launch' --usage-log=${XDG_ST
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+f fullscreen
-bindsym $mod+q kill
+bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-floating_modifier $mod normal
+floating_modifier $mod
 
 # media keys
 set $brightness_up light -T 1.1

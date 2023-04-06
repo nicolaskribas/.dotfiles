@@ -1,6 +1,8 @@
-# xwayland disable
+# --- Input ---
+input type:pointer {
+	accel_profile flat
+}
 
-# keyboard
 input type:keyboard {
 	xkb_layout us
 	xkb_variant altgr-intl
@@ -9,12 +11,12 @@ input type:keyboard {
 	repeat_delay 300
 }
 
-# mouse
-input type:pointer {
-	accel_profile flat
-}
 
-# lock
+# --- Display ---
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+exec mako
+
 set $lock 'swaylock -f -e -c 000000'
 set $screen_off 'swaymsg "output * power off"'
 set $screen_on 'swaymsg "output * power on"'
@@ -26,84 +28,55 @@ exec swayidle -w \
 	timeout 10 $screen_off_locked resume $screen_on_locked \
 	before-sleep $lock
 
-# notification daemon
-exec mako
 
-# ajust color temperature
-exec gammastep -l '-30:-51' -t '6500:3000'
-
-output * bg ~/pictures/backgrounds/current fill #000000
-
-##############
-# Appearance #
-##############
-smart_borders on
-default_border pixel 3
-
-# gtk settings
-set $gnome-schema org.gnome.desktop.interface
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
-    gsettings set $gnome-schema color-scheme 'prefer-dark'
+# --- Appearance ---
+bar {
+    position top
+    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    colors background #222222
 }
 
-# status bar
-bar swaybar_command waybar
 
-set $text_primary #f4f4f4
-set $text_secondary #c6c6c6
-set $border_interactive #4589ff
-set $border_subtle #393939
-set $background #161616
-set $urgent #ff0000
-
-client.focused           $border_interactive $background $text_primary   $border_interactive $border_interactive
-client.focused_tab_title $border_interactive $background $text_primary
-client.focused_inactive  $border_subtle      $background $text_secondary $border_subtle      $border_subtle
-client.unfocused         $border_subtle      $background $text_secondary $border_subtle      $border_subtle
-client.urgent            $urgent             $background $text_secondary $urgent             $urgent
-
-for_window [app_id=org.gnome.Calculator] floating enable
-for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
-
-############
-# Bindings #
-############
+# --- Bindings ---
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
-set $menu j4-dmenu-desktop --dmenu='bemenu --prompt=launch' --usage-log=${XDG_STATE_HOME:-$HOME/.local/state}/launch_history --term=$term --wrapper='swaymsg exec'
+set $term foot
+
 bindsym $mod+Return exec $term
-bindsym $mod+d exec $menu
-bindsym $mod+f fullscreen
+bindsym $mod+d exec j4-dmenu-desktop --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg exec'
+bindsym XF86MonBrightnessDown exec light -T 0.91
+bindsym XF86MonBrightnessUp exec light -T 1.1
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+
+bindsym Print exec grimshot all file
+bindsym Shift+Print exec grimshot area file
+bindsym Ctrl+Print exec grimshot all clipboard
+bindsym Ctrl+Shift+Print exec grimshot area clipboard
+
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
+
+bindsym $mod+a focus parent
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+
+floating_modifier $mod normal
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-floating_modifier $mod
-
-# media keys
-set $brightness_up light -T 1.1
-set $brightness_down light -T 0.91
-set $player_prev playerctl previous
-set $player_play playerctl play-pause
-set $player_next playerctl next
-set $volume_mute wpctl set-mute @DEFAULT_SINK@ toggle
-set $volume_down wpctl set-volume @DEFAULT_SINK@ 5%-
-set $volume_up wpctl set-volume @DEFAULT_SINK@ 5%+
-set $calculator gnome-calculator
-bindsym XF86MonBrightnessDown exec $brightness_down
-bindsym XF86MonBrightnessUp exec $brightness_up
-bindsym --locked XF86AudioPrev exec $player_prev
-bindsym --locked XF86AudioPlay exec $player_play
-bindsym --locked XF86AudioNext exec $player_next
-bindsym --locked XF86AudioMute exec $volume_mute
-bindsym --locked XF86AudioLowerVolume exec $volume_down
-bindsym --locked XF86AudioRaiseVolume exec $volume_up
-bindsym XF86Calculator exec $calculator
 
 set $system_mode '[l]ock [s]uspend [e]xit [p]oweroff [r]eboot'
 mode $system_mode {
@@ -114,51 +87,29 @@ mode $system_mode {
 	bindsym r exec systemctl reboot
 	bindsym Return mode default
 	bindsym Escape mode default
-	bindsym	$mod+x mode default
 }
 bindsym $mod+x mode $system_mode
 
-# screenshots
-# modifiers: shift = area selection insted of entire screen
-#            ctrl = save to clipboard insted of file
-bindsym Print exec grimshot all file
-bindsym Shift+Print exec grimshot area file
-bindsym Ctrl+Print exec grimshot all clipboard
-bindsym Ctrl+Shift+Print exec grimshot area clipboard
-
-# layouts and splits
-bindsym $mod+b splith
-bindsym $mod+v splitv
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+a focus parent
-bindsym $mod+space focus mode_toggle
-bindsym $mod+Shift+space floating toggle
-
-# resize mode
 mode resize {
-	bindsym $left resize shrink width 10px
-	bindsym $down resize grow height 10px
-	bindsym $up resize shrink height 10px
-	bindsym $right resize grow width 10px
-	bindsym Return mode default
-	bindsym Escape mode default
-	bindsym	$mod+r mode default
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Return mode default
+    bindsym Escape mode default
 }
 bindsym $mod+r mode resize
 
-# container movements
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
+
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
-# workspace movements
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -169,6 +120,7 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
+
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3

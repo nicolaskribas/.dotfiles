@@ -7,4 +7,4 @@ export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen'
 export MANPAGER='less --color=d+m --color=u+b'
 
 typeset -U path
-path=(~/.local/bin $path)
+path+=(~/.local/bin ~/.cargo/bin)

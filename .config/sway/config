@@ -1,4 +1,5 @@
 # --- Input ---
+# List input names: swaymsg -t get_inputs
 input type:pointer {
 	accel_profile flat
 }
@@ -12,10 +13,15 @@ input type:keyboard {
 }
 
 
-# --- Display ---
+# --- Output ---
+# List output names: swaymsg -t get_outputs
+# output <name> {
+#     mode 1920x1080@60Hz # set resolution and refresh rate
+#     scale 1.5           # 150% scale
+#     transform 90        # 90° rotation
+#     disable
+# }
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-
-exec mako
 
 set $lock 'swaylock -f -e -c 000000'
 set $screen_off 'swaymsg "output * power off"'
@@ -29,14 +35,22 @@ exec swayidle -w \
 	before-sleep $lock
 
 
+# --- Execute ---
+exec mako
+
+
 # --- Appearance ---
-font sans-serif 10
+font pango:sans-serif 10
 
 bar {
     position top
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    status_command while date +'%a. %d %b. %R'; do sleep 1; done
     colors background #222222
 }
+
+smart_borders on
+default_border pixel
+titlebar_border_thickness 0
 
 
 # --- Bindings ---
@@ -49,14 +63,16 @@ set $term foot
 
 bindsym $mod+Return exec $term
 bindsym $mod+d exec j4-dmenu-desktop --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg exec'
+bindsym $mod+n exec makoctl dismiss
+bindsym $mod+Shift+n exec makoctl restore
 bindsym XF86MonBrightnessDown exec light -T 0.91
 bindsym XF86MonBrightnessUp exec light -T 1.1
 bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
-bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.0
 bindsym Print exec grimshot all file
 bindsym Shift+Print exec grimshot area file
 bindsym Ctrl+Print exec grimshot all clipboard
@@ -66,16 +82,20 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 
 bindsym $mod+a focus parent
-bindsym $mod+b splith
-bindsym $mod+v splitv
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+Shift+a focus child
+
+bindsym $mod+v split horizontal
+bindsym $mod+s split vertical
+
+bindsym $mod+w layout toggle stacking tabbed
 bindsym $mod+e layout toggle split
+
 bindsym $mod+f fullscreen
 
 floating_modifier $mod normal
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+s sticky toggle
 
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
@@ -93,10 +113,10 @@ mode $system_mode {
 bindsym $mod+x mode $system_mode
 
 mode resize {
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+    bindsym $left resize shrink width
+    bindsym $down resize grow height
+    bindsym $up resize shrink height
+    bindsym $right resize grow width
     bindsym Return mode default
     bindsym Escape mode default
 }
@@ -123,15 +143,15 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
 
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+1 move workspace number 1
+bindsym $mod+Shift+2 move workspace number 2
+bindsym $mod+Shift+3 move workspace number 3
+bindsym $mod+Shift+4 move workspace number 4
+bindsym $mod+Shift+5 move workspace number 5
+bindsym $mod+Shift+6 move workspace number 6
+bindsym $mod+Shift+7 move workspace number 7
+bindsym $mod+Shift+8 move workspace number 8
+bindsym $mod+Shift+9 move workspace number 9
+bindsym $mod+Shift+0 move workspace number 10
 
 include /etc/sway/config.d/*

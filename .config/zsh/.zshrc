@@ -10,11 +10,11 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 
 eval "$(dircolors -b)"
 
-# shows username and current working directory
-PROMPT='%F{white}[%F{magenta}%n%F{white}:%F{cyan}%4~%F{white}]%#%f '
+# shows hostname, username and current working directory
+PROMPT='[%F{magenta}%B%n%b%f@%F{cyan}%B%m%b%f:%F{blue}%B%4~%b%f]%# '
 
 # right prompt: shows number of jobs and the return status of the last command
-RPROMPT='%(1j.%F{white}&%F{blue}%j%f.)%(?..%(1j. .)%F{white}=%F{red}%?%f)'
+RPROMPT='%(1j.&%F{blue}%B%j%b%f.)%(?..=%F{red}%B%?%b%f)'
 
 # vi mode
 bindkey -v

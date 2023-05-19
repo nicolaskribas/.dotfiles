@@ -1,34 +1,57 @@
 {
-	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/mode"],
-	"modules-right": ["tray", "idle_inhibitor", "network", "wireplumber", "clock"],
+	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/mode", "sway/window"],
+	"modules-center": [],
+	"modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network",  "clock"],
+	"sway/workspaces":{
+		"disable-scroll-wraparound": true,
+	},
 	"sway/scratchpad": {
-		"format-icons": "󰖲",
+		"show-empty": true,
+		"format": "^{count}",
+		"on-click": "swaymsg scratchpad show",
+   		"on-click-right": "swaymsg move scratchpad"
+	},
+	"sway/mode": {
+		"tooltip": false,
+	},
+	"sway/window": {
+		"tooltip": false,
 	},
 	"tray": {
-		"icon-size": 14,
-		"spacing": 20,
+		// "icon-size": 10,
+		"show-passive-items": true,
+		"spacing": 10,
+		// "reverse-direction": true,
 	},
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
 			"activated": "󰅶",
-			"deactivated": "󰛊",
+			"deactivated": "󰛊"
+		}
+	},
+	"pulseaudio": {
+		"format": "{icon} {volume}% {format_source}",
+		"format-muted": "󰝟 {volume}% {format_source}",
+		"format-source": "󰍬 {volume}%",
+		"format-source-muted": "󰍭 {volume}%",
+		"format-icons": {
+			"default": ["󰕿", "󰖀", "󰕾"]
 		},
+		"on-click": "swaymsg exec pavucontrol"
 	},
 	"network": {
-		"format": "{icon}",
-		"format-icons": {
-			"wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-			"ethernet": ["󰈀"],
-			"disconnected": ["󰌙"],
-		},
-	},
-	"wireplumber": {
-		"format": "{icon}",
-		"format-muted": "󰖁",
-		"format-icons": ["󰕿", "󰖀", "󰕾"],
+		"format-ethernet": "󰈀 {ipaddr}/{cidr}",
+		"format-wifi": "{icon} {essid}",
+		"format-linked": "󰈀 No IP",
+		"format-disconnected": "󰤮 Disconnected",
+		"format-disabled": "{ifname} Disabled",
+		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}",
 	},
 	"clock": {
 		"format": "{:%a. %d %b. %R}",
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
 	},
 }
+

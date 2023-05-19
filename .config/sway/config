@@ -12,6 +12,7 @@ input type:keyboard {
 	repeat_delay 300
 }
 
+seat seat0 hide_cursor 5000
 
 # --- Output ---
 # List output names: swaymsg -t get_outputs
@@ -42,11 +43,7 @@ exec mako
 # --- Appearance ---
 font pango:sans-serif 10
 
-bar {
-    position top
-    status_command while date +'%a. %d %b. %R'; do sleep 1; done
-    colors background #222222
-}
+bar swaybar_command waybar
 
 smart_borders on
 default_border pixel

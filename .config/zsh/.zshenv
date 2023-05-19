@@ -1,4 +1,5 @@
 export ZDOTDIR=${XDG_CONFIG_HOME:-$HOME/.config}/zsh
+export R_LIBS_USER=${XDG_DATA_HOME:-$HOME/.local/share}/R/%p-library/%v
 export EDITOR=nvim
 export VISUAL="$EDITOR"
 export BROWSER=firefox

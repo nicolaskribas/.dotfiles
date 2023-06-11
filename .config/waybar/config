@@ -1,7 +1,7 @@
 {
 	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/mode", "sway/window"],
 	"modules-center": [],
-	"modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network",  "clock"],
+	"modules-right": ["tray", "idle_inhibitor", "network", "pulseaudio", "battery", "clock"],
 	"sway/workspaces":{
 		"disable-scroll-wraparound": true,
 	},
@@ -31,23 +31,32 @@
 		}
 	},
 	"pulseaudio": {
-		"format": "{icon} {volume}% {format_source}",
-		"format-muted": "󰝟 {volume}% {format_source}",
+		"format": "{icon} {volume}%",
+		"format-muted": "󰝟 {volume}%",
 		"format-source": "󰍬 {volume}%",
-		"format-source-muted": "󰍭 {volume}%",
 		"format-icons": {
-			"default": ["󰕿", "󰖀", "󰕾"]
+			"default": ["󰖀", "󰕾"]
 		},
 		"on-click": "swaymsg exec pavucontrol"
 	},
 	"network": {
-		"format-ethernet": "󰈀 {ipaddr}/{cidr}",
-		"format-wifi": "{icon} {essid}",
-		"format-linked": "󰈀 No IP",
-		"format-disconnected": "󰤮 Disconnected",
+		"format-ethernet": "󰌘",
+		"format-linked": "󰌘 No IP",
 		"format-disabled": "{ifname} Disabled",
+		"format-disconnected": "󰤮 Disconnected",
+		"format-wifi": "{icon}",
 		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
 		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}",
+	},
+	"battery": {
+		"format": "{icon} {capacity}%",
+		"format-icons": {
+			"default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+		},
+		"states": {
+			"low": 20,
+		},
 	},
 	"clock": {
 		"format": "{:%a. %d %b. %R}",

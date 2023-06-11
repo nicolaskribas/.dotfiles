@@ -59,7 +59,7 @@ tooltip {
 	background: #ff5555;
 }
 
-#battery.critical {
+#battery.discharging.low {
 	color: #ff5555;
 }
 
@@ -68,6 +68,8 @@ tooltip {
     text-shadow: inherit;
 }
 
-#network.disconnected {
+#network.disconnected,
+#network.disabled,
+#network.linked {
 	color: #ff5555;
 }

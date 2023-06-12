@@ -1,8 +1,9 @@
 {
-	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/mode", "sway/window"],
-	"modules-center": [],
-	"modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network",  "clock"],
-	"sway/workspaces":{
+	"position": "top",
+	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window", "sway/mode"],
+	"modules-center": [ "clock" ],
+	"modules-right": ["tray", "idle_inhibitor", "pulseaudio", "bluetooth", "network"],
+	"sway/workspaces": {
 		"disable-scroll-wraparound": true,
 	},
 	"sway/scratchpad": {
@@ -39,6 +40,14 @@
 			"default": ["󰕿", "󰖀", "󰕾"]
 		},
 		"on-click": "swaymsg exec pavucontrol"
+	},
+	"bluetooth": {
+		"format": "format",
+		"format-on": "󰂯",
+		"format-disabled": "󰂲",
+		"format-off": "",
+		"format-connected": "󰂱",
+		"tooltip-format": "{status}\nConnections: {num_connections}\n",
 	},
 	"network": {
 		"format-ethernet": "󰈀 {ipaddr}/{cidr}",

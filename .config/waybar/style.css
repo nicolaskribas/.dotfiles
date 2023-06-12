@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-	background: #225877;
+	background: #323232;
 	color: #FFFFFF;
 }
 
@@ -25,7 +25,8 @@ tooltip {
 }
 
 #workspaces button.urgent {
-	color: #ff5555;
+	color: #323232;
+	background: #D81860;
 }
 
 .modules-left {
@@ -38,12 +39,13 @@ tooltip {
 
 
 #window{
-	background: #225877;
+	background: #323232;
 	padding: 0 5px;
 }
 
 #scratchpad,
 #mode{
+	background: #225877;
 	padding: 0 5px;
 }
 

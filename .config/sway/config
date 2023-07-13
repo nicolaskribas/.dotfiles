@@ -2,6 +2,9 @@
 # List input names: swaymsg -t get_inputs
 input type:pointer {
 	accel_profile flat
+	pointer_accel 0.5
+	natural_scroll enabled
+	scroll_factor 2
 }
 
 input type:keyboard {
@@ -13,6 +16,7 @@ input type:keyboard {
 }
 
 seat seat0 hide_cursor 5000
+seat seat0 xcursor_theme Adwaita
 
 # --- Output ---
 # List output names: swaymsg -t get_outputs
@@ -34,10 +38,6 @@ exec swayidle -w \
 	timeout 300 $screen_off resume $screen_on \
 	timeout 10 $screen_off_locked resume $screen_on_locked \
 	before-sleep $lock
-
-
-# --- Execute ---
-exec mako
 
 
 # --- Appearance ---

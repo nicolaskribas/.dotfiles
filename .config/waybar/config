@@ -5,6 +5,7 @@
 	"modules-right": ["tray", "idle_inhibitor", "network", "bluetooth", "pulseaudio", "battery"],
 	"sway/workspaces": {
 		"disable-scroll-wraparound": true,
+		"format": "{name}",
 	},
 	"sway/scratchpad": {
 		"show-empty": true,
@@ -16,6 +17,7 @@
 		"tooltip": false,
 	},
 	"sway/window": {
+		"format": "{shell}: {app_id}",
 		"tooltip": false,
 	},
 	"tray": {
@@ -69,7 +71,7 @@
 	},
 	"clock": {
 		"format": "{:%a. %d %b. %R}",
-		"tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+		"tooltip-format": "<tt>{calendar}</tt>",
 	},
 }
 

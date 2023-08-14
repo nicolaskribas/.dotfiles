@@ -18,6 +18,7 @@ input type:keyboard {
 seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme Adwaita
 
+
 # --- Output ---
 # List output names: swaymsg -t get_outputs
 # output <name> {
@@ -59,7 +60,7 @@ set $right l
 set $term foot
 
 bindsym $mod+Return exec $term
-bindsym $mod+d exec j4-dmenu-desktop --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg exec'
+bindsym $mod+d exec j4-dmenu-desktop --no-generic --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg exec'
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore
 bindsym XF86MonBrightnessDown exec light -T 0.91
@@ -70,10 +71,10 @@ bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.0
-bindsym Print exec grimshot all file
-bindsym Shift+Print exec grimshot area file
-bindsym Ctrl+Print exec grimshot all clipboard
-bindsym Ctrl+Shift+Print exec grimshot area clipboard
+bindsym Print exec grimshot --notify save output
+bindsym Shift+Print exec grimshot --notify save area
+bindsym Ctrl+Print exec grimshot --notify copy output
+bindsym Ctrl+Shift+Print exec grimshot --notify copy area
 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
@@ -129,26 +130,26 @@ bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+bindsym $mod+1 workspace number 1:I
+bindsym $mod+2 workspace number 2:II
+bindsym $mod+3 workspace number 3:III
+bindsym $mod+4 workspace number 4:IV
+bindsym $mod+5 workspace number 5:V
+bindsym $mod+6 workspace number 6:VI
+bindsym $mod+7 workspace number 7:VII
+bindsym $mod+8 workspace number 8:VIII
+bindsym $mod+9 workspace number 9:IX
+bindsym $mod+0 workspace number 10:X
 
-bindsym $mod+Shift+1 move workspace number 1
-bindsym $mod+Shift+2 move workspace number 2
-bindsym $mod+Shift+3 move workspace number 3
-bindsym $mod+Shift+4 move workspace number 4
-bindsym $mod+Shift+5 move workspace number 5
-bindsym $mod+Shift+6 move workspace number 6
-bindsym $mod+Shift+7 move workspace number 7
-bindsym $mod+Shift+8 move workspace number 8
-bindsym $mod+Shift+9 move workspace number 9
-bindsym $mod+Shift+0 move workspace number 10
+bindsym $mod+Shift+1 move workspace number 1:I
+bindsym $mod+Shift+2 move workspace number 2:II
+bindsym $mod+Shift+3 move workspace number 3:III
+bindsym $mod+Shift+4 move workspace number 4:IV
+bindsym $mod+Shift+5 move workspace number 5:V
+bindsym $mod+Shift+6 move workspace number 6:VI
+bindsym $mod+Shift+7 move workspace number 7:VII
+bindsym $mod+Shift+8 move workspace number 8:VIII
+bindsym $mod+Shift+9 move workspace number 9:IX
+bindsym $mod+Shift+0 move workspace number 10:X
 
 include /etc/sway/config.d/*

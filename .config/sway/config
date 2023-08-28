@@ -4,7 +4,6 @@ input type:pointer {
 	accel_profile flat
 	pointer_accel 0.5
 	natural_scroll enabled
-	scroll_factor 2
 }
 
 input type:keyboard {
@@ -47,9 +46,11 @@ font pango:sans-serif 10
 bar swaybar_command waybar
 
 smart_borders on
-default_border pixel
+default_border pixel 4
 titlebar_border_thickness 0
 
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="org.gnome.Calculator"] floating enable
 
 # --- Bindings ---
 set $mod Mod4
@@ -98,8 +99,8 @@ bindsym $mod+Shift+s sticky toggle
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-set $system_mode '[l]ock [s]uspend [e]xit [p]oweroff [r]eboot'
-mode $system_mode {
+set $system_mode '<u>L</u>ock <u>S</u>uspend <u>E</u>xit <u>P</u>oweroff <u>R</u>eboot'
+mode --pango_markup $system_mode {
 	bindsym l mode default, exec $lock
 	bindsym s mode default, exec systemctl suspend
 	bindsym e exec swaymsg exit

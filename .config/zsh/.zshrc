@@ -1,7 +1,7 @@
 # aliases
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -I'
+alias rm='rm -Iv'
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -alh'
@@ -14,7 +14,7 @@ eval "$(dircolors -b)"
 PROMPT='%F{magenta}%B%n%b%f@%F{cyan}%B%m%b%f:%F{blue}%B%4~%b%f%# '
 
 # right prompt: shows number of jobs and the return status of the last command
-RPROMPT='%(1j.&%F{blue}%B%j%b%f.)%(?..=%F{red}%B%?%b%f)'
+RPROMPT='%(1j.&%F{blue}%B%j%b%f.)'
 
 # vi mode
 bindkey -v
@@ -32,6 +32,43 @@ zle-keymap-select() {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
+
+zmodload zsh/datetime
+zmodload zsh/mathfunc
+
+start_command_timer() {
+	EXEC_TIMER_START=$EPOCHREALTIME
+}
+
+stop_command_timer() {
+    [[ ! -v EXEC_TIMER_START ]] && return
+
+	local elapsed=$((EPOCHREALTIME - EXEC_TIMER_START))
+	unset EXEC_TIMER_START
+
+	[[ $elapsed -lt 2 ]] && return
+
+	local mins=$((int(elapsed/60)))
+	local secs=$((int(elapsed%60)))
+
+	print -n "took "
+	[[ $mins -ne 0 ]] && print -nP "%F{yellow}%B${mins}%b%f min "
+	print -nP "%F{yellow}%B${secs}%b%f s"
+}
+
+print_preprompt() {
+	local error_code=$(print -nP '%(?..=%F{red}%B%?%b%f)')
+	local command_duration=$(stop_command_timer)
+
+	[[ -n "$error_code" ]] && print "$error_code"
+	[[ -n "$command_duration" ]] && print "$command_duration"
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook preexec start_command_timer
+add-zsh-hook precmd print_preprompt
+
+
 # misc options
 setopt correct
 setopt extended_glob
@@ -45,7 +82,7 @@ sd() {
 	dirs -v | head -n 10
 	read -k 'index?#> '
 	echo
-	if [[ "$index" =~ '[0-9]' ]];	then
+	if [[ "$index" =~ '[0-9]' ]]; then
 		cd +"$index"
 	else
 		echo 'Nothing selected'

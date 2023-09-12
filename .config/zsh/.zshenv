@@ -1,4 +1,5 @@
 export R_LIBS_USER=${XDG_DATA_HOME:-$HOME/.local/share}/R/%p-library/%v
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 export EDITOR=nvim
 export VISUAL="$EDITOR"
 export BROWSER=firefox

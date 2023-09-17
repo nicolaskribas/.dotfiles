@@ -11,7 +11,7 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 eval "$(dircolors -b)"
 
 # shows hostname, username and current working directory
-PROMPT='%F{magenta}%B%n%b%f@%F{cyan}%B%m%b%f:%F{blue}%B%4~%b%f%# '
+PROMPT='%F{blue}%B%4~%b%f%# '
 
 # right prompt: shows number of jobs and the return status of the last command
 RPROMPT='%(1j.&%F{blue}%B%j%b%f.)'
@@ -52,7 +52,7 @@ stop_command_timer() {
 	local secs=$((int(elapsed%60)))
 
 	print -n "took "
-	[[ $mins -ne 0 ]] && print -nP "%F{yellow}%B${mins}%b%f min "
+	[[ $mins -ne 0 ]] && print -nP "%F{yellow}%B${mins}%b%f min and "
 	print -nP "%F{yellow}%B${secs}%b%f s"
 }
 

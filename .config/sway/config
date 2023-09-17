@@ -17,6 +17,12 @@ input type:keyboard {
 seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme Adwaita
 
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+    gsettings set $gnome-schema icon-theme 'kora'
+}
+
 
 # --- Output ---
 # List output names: swaymsg -t get_outputs
@@ -62,7 +68,9 @@ set $right l
 set $term foot
 
 bindsym $mod+Return exec $term
-bindsym $mod+d exec j4-dmenu-desktop --no-generic --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg exec'
+bindsym $mod+d exec \
+	j4-dmenu-desktop --no-generic --dmenu='bemenu --prompt=launch' \
+	--term=$term --wrapper='swaymsg exec'
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore
 bindsym XF86MonBrightnessDown exec light -T 0.91
@@ -71,8 +79,10 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
+bindsym --locked XF86AudioLowerVolume exec \
+	wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
+bindsym --locked XF86AudioRaiseVolume exec \
+	wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
 bindsym Print exec grimshot --notify save output
 bindsym Shift+Print exec grimshot --notify save area
 bindsym Ctrl+Print exec grimshot --notify copy output

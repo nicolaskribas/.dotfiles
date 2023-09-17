@@ -23,6 +23,7 @@ opt.completeopt = { "menuone", "noinsert", "noselect" }
 opt.splitbelow = true
 opt.splitright = true
 opt.cursorline = true
+opt.colorcolumn = "81"
 opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 

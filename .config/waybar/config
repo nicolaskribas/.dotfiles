@@ -40,7 +40,7 @@
 		"format-icons": {
 			"default": ["󰖀", "󰕾"]
 		},
-		"on-click": "swaymsg exec pavucontrol"
+		"on-click": "swaymsg exec flatpak run org.pulseaudio.pavucontrol"
 	},
 	"bluetooth": {
 		"format": "format",

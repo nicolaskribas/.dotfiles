@@ -14,15 +14,6 @@ input type:keyboard {
 	repeat_delay 300
 }
 
-seat seat0 hide_cursor 5000
-seat seat0 xcursor_theme Adwaita
-
-set $gnome-schema org.gnome.desktop.interface
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
-    gsettings set $gnome-schema icon-theme 'kora'
-}
-
 
 # --- Output ---
 # List output names: swaymsg -t get_outputs
@@ -46,6 +37,10 @@ exec swayidle -w \
 	before-sleep $lock
 
 
+# --- Daemons ---
+exec playerctld daemon
+
+
 # --- Appearance ---
 font pango:sans-serif 10
 
@@ -57,6 +52,16 @@ titlebar_border_thickness 0
 
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="org.gnome.Calculator"] floating enable
+
+seat seat0 hide_cursor 5000
+seat seat0 xcursor_theme Adwaita
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+	gsettings set $gnome-schema color-scheme prefer-dark
+	gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+	gsettings set $gnome-schema icon-theme 'kora'
+}
 
 
 # --- Bindings ---

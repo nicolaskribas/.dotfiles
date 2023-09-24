@@ -2,7 +2,7 @@
 	"position": "top",
 	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window", "sway/mode"],
 	"modules-center": [ "clock" ],
-	"modules-right": ["tray", "idle_inhibitor", "network", "bluetooth", "pulseaudio", "battery"],
+	"modules-right": ["tray", "idle_inhibitor", "network", "bluetooth", "wireplumber", "battery"],
 	"sway/workspaces": {
 		"disable-scroll-wraparound": true,
 		"format": "{name}",
@@ -33,7 +33,7 @@
 			"deactivated": "󰛊"
 		}
 	},
-	"pulseaudio": {
+	"wireplumber": {
 		"format": "{icon} {volume}%",
 		"format-muted": "󰝟 {volume}%",
 		"format-source": "󰍬 {volume}%",

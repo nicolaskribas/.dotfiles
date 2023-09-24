@@ -51,7 +51,7 @@ tooltip {
 
 #tray,
 #idle_inhibitor,
-#pulseaudio,
+#wireplumber,
 #network,
 #clock {
 	padding: 0 10px;

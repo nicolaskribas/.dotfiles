@@ -9,4 +9,4 @@ export MANPAGER='less --color=d+m --color=u+b' # bold -> magenta, underlined -> 
 export MANROFFOPT='-P -c' # to get colors: man passes -c flag to grotty through groff (-P)
 
 typeset -U path
-path+=(~/.local/bin ~/.cargo/bin)
+path+=(~/.local/bin)

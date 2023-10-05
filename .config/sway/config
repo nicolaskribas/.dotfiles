@@ -8,7 +8,8 @@ input type:pointer {
 
 input type:keyboard {
 	xkb_layout us
-	xkb_options caps:swapescape,compose:ralt
+	xkb_variant altgr-intl
+	xkb_options caps:swapescape,compose:prsc
 	xkb_numlock enable
 	repeat_delay 300
 }
@@ -87,10 +88,7 @@ bindsym --locked XF86AudioLowerVolume exec \
 	wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
 bindsym --locked XF86AudioRaiseVolume exec \
 	wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
-bindsym Print exec grimshot --notify save output
-bindsym Shift+Print exec grimshot --notify save area
-bindsym Ctrl+Print exec grimshot --notify copy output
-bindsym Ctrl+Shift+Print exec grimshot --notify copy area
+bindsym $mod+Shift+p exec slurp | grim -g - - | swappy -f -
 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload

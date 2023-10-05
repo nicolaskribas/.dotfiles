@@ -16,6 +16,7 @@ gcc
 gdb
 git
 gnome-themes-extra
+grim
 hicolor-icon-theme
 inter-font
 iwd
@@ -52,10 +53,12 @@ python
 rebuild-detector
 rtkit
 rustup
+slurp
 sqlite
 strace
 stylua
 sudo
+swappy
 sway
 swaybg
 swayidle

@@ -73,6 +73,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
+lspconfig.pylsp.setup {}
+-- lspconfig.ltex.setup {}
+-- lspconfig.texlab.setup {}
 
 require("nvim-treesitter.configs").setup {
 	ensure_installed = { "rust", "c" },

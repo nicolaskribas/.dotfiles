@@ -13,7 +13,7 @@ eval "$(dircolors -b)"
 # shows hostname, username and current working directory
 PROMPT='%F{blue}%B%4~%b%f%# '
 
-# right prompt: shows number of jobs and the return status of the last command
+# right prompt: shows current number of background jobs
 RPROMPT='%(1j.&%F{blue}%B%j%b%f.)'
 
 # vi mode
@@ -87,10 +87,10 @@ sd() {
 }
 
 # history
+setopt hist_fcntl_lock # use system call for performance
 setopt extended_history
 setopt inc_append_history_time
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
+setopt hist_ignore_space # forget commands begining with a space
 HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zhistory
 HISTSIZE=10000
 SAVEHIST=10000

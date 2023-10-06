@@ -47,19 +47,16 @@ stop_exec_timer() {
 }
 
 print_preprompt() {
-	local error_code=$(print -nP '%(?..=%F{red}%B%?%b%f)')
-	[[ -n "$error_code" ]] && print "$error_code"
+	print -nP '%(?..?%F{red}%B%?%b%f\n)'
 
 	[[ -z $EXEC_ELAPSED_TIME ]] && return
 	local elapsed=$EXEC_ELAPSED_TIME
 	unset EXEC_ELAPSED_TIME
 
 	[[ $elapsed -lt 1 ]] && return
-	local mins=$((int(elapsed/60)))
-	local secs=$((int(elapsed%60)))
-	print -n "took "
-	[[ $mins -ne 0 ]] && print -nP "%F{yellow}%B${mins}%b%f min and "
-	print -P "%F{yellow}%B${secs}%b%f s"
+	local mins=$(printf "%02d" $((int(elapsed/60))))
+	local secs=$(printf "%02d" $((int(elapsed%60))))
+	print -P "*%F{yellow}%B${mins}′${secs}%b%f"
 }
 
 autoload -U add-zsh-hook

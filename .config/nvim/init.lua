@@ -1,7 +1,7 @@
 local opt = vim.opt
 -- opt.tabstop = 4
 opt.shiftwidth = 0 -- 0 means: same value as 'tabstop'
-opt.shiftround = true -- rount indent to multiples of 'shifwidth'
+opt.shiftround = true -- round indent to multiples of 'shifwidth'
 opt.number = true
 opt.signcolumn = "yes"
 -- opt.fillchars = "eob: "
@@ -27,7 +27,7 @@ opt.splitright = true
 -- opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500"
 -- opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 opt.path:append "**"
---
+vim.cmd "colorscheme rose-pine"
 vim.g.mapleader = " "
 vim.diagnostic.config {
 	virtual_text = false,
@@ -35,7 +35,6 @@ vim.diagnostic.config {
 }
 
 local map = vim.keymap.set
-
 -- disable space, it is the leader key
 map("", "<Space>", "<NOP>")
 --
@@ -52,17 +51,20 @@ map("n", "[d", vim.diagnostic.goto_prev) -- *
 map("n", "]d", vim.diagnostic.goto_next) -- *
 map("n", "<Leader>d", vim.diagnostic.open_float)
 
--- highlight on yank
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+local init = vim.api.nvim_create_augroup("Init", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = init,
+	pattern = { "tex", "plaintex", "markdown" },
+	command = "setlocal wrap",
+})
 vim.api.nvim_create_autocmd("TextYankPost", {
+	group = init,
 	callback = function()
 		vim.highlight.on_yank { on_visual = false }
 	end,
-	group = highlight_group,
-	pattern = "*",
 })
-
 vim.api.nvim_create_autocmd("LspAttach", {
+	group = init,
 	callback = function(args)
 		local lsp = vim.lsp.buf
 		local opts = { buffer = args.buf }

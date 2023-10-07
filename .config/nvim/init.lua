@@ -1,7 +1,7 @@
 local opt = vim.opt
-opt.tabstop = 4
-opt.shiftwidth = 0
-opt.shiftround = true
+-- opt.tabstop = 4
+opt.shiftwidth = 0 -- 0 means: same value as 'tabstop'
+opt.shiftround = true -- rount indent to multiples of 'shifwidth'
 opt.number = true
 opt.signcolumn = "yes"
 -- opt.fillchars = "eob: "
@@ -31,7 +31,7 @@ opt.path:append "**"
 vim.g.mapleader = " "
 vim.diagnostic.config {
 	virtual_text = false,
-	--severity_sort = true,
+	severity_sort = true,
 }
 
 local map = vim.keymap.set
@@ -48,25 +48,34 @@ map("", "<Space>", "<NOP>")
 -- map({ "n", "x" }, "j", [[v:count == 0 ? "gj" : "j"]], { expr = true })
 --
 
+map("n", "[d", vim.diagnostic.goto_prev) -- *
+map("n", "]d", vim.diagnostic.goto_next) -- *
 map("n", "<Leader>d", vim.diagnostic.open_float)
-map("n", "[d", vim.diagnostic.goto_prev)
-map("n", "]d", vim.diagnostic.goto_next)
---
--- -- highlight on yank
--- local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
--- vim.api.nvim_create_autocmd("TextYankPost", {
--- 	callback = function()
--- 		vim.highlight.on_yank()
--- 	end,
--- 	group = highlight_group,
--- 	pattern = "*",
--- })
+
+-- highlight on yank
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank { on_visual = false }
+	end,
+	group = highlight_group,
+	pattern = "*",
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
-		local opts = { buffer = args.buf }
 		local lsp = vim.lsp.buf
-		map("n", "K", lsp.hover, opts)
-		map("i", "<C-s>", lsp.signature_help, opts)
+		local opts = { buffer = args.buf }
+		map("n", "gd", lsp.definition, opts) -- **
+		map("n", "gD", lsp.declaration, opts) -- **
+		map("n", "gt", lsp.type_definition, opts) -- *
+		map("n", "K", lsp.hover, opts) -- **
+		map({ "n", "i" }, "<C-s>", lsp.signature_help, opts)
+		map("n", "<Leader>s", lsp.rename, opts) -- 's' for subistitute
+		map("n", "<Leader>r", lsp.references, opts)
+		map("n", "<Leader>a", lsp.code_action, opts)
+		map("n", "<Leader>x", lsp.document_symbol, opts)
+		map("n", "<Leader>im", lsp.implementation, opts)
 	end,
 })
 
@@ -74,12 +83,27 @@ local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
 lspconfig.pylsp.setup {}
--- lspconfig.ltex.setup {}
--- lspconfig.texlab.setup {}
+lspconfig.texlab.setup {
+	settings = { texlab = {
+		build = { onSave = true },
+		chktex = { onOpenAndSave = true, onEdit = true },
+	} },
+}
+lspconfig.ltex.setup {
+	settings = { ltex = {
+		additionalRules = {
+			enablePickyRules = true,
+			motherTongue = "pt-BR",
+		},
+	} },
+}
 
 require("nvim-treesitter.configs").setup {
-	ensure_installed = { "rust", "c" },
+	ensure_installed = { "rust", "c", "latex" },
 	parser_install_dir = vim.fn.stdpath "data" .. "/site",
 	highlight = { enable = true },
 	indent = { enable = true },
 }
+
+-- * overrides a default keymap
+-- ** overrides a default keymap with similar functionality

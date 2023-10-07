@@ -63,6 +63,9 @@ sway
 swaybg
 swayidle
 swaylock
+texlab
+texlive-langportuguese
+texlive-meta
 tmux
 ttf-jetbrains-mono
 ttf-nerd-fonts-symbols-mono

@@ -51,6 +51,7 @@ podman
 polkit
 python
 rebuild-detector
+ripgrep
 rtkit
 rustup
 slurp

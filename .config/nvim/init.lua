@@ -27,6 +27,8 @@ opt.splitright = true
 -- opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500"
 -- opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 opt.path:append "**"
+opt.grepprg = "rg --smart-case --vimgrep"
+-- TODO opt.grepformat=%f:%l:%c:%m  set grepformat=%f:%l:%c:%m,%f:%l:%m
 vim.cmd "colorscheme rose-pine"
 vim.g.mapleader = " "
 vim.diagnostic.config {
@@ -43,8 +45,10 @@ map("", "<Space>", "<NOP>")
 -- map({ "n", "x" }, "<leader>p", '"+p')
 --
 -- -- dealing with word wrap
--- map({ "n", "x" }, "k", [[v:count == 0 ? "gk" : "k"]], { expr = true })
--- map({ "n", "x" }, "j", [[v:count == 0 ? "gj" : "j"]], { expr = true })
+map({ "n", "x" }, "j", "gj")
+map({ "n", "x" }, "k", "gk")
+map({ "n", "x" }, "gj", "j")
+map({ "n", "x" }, "gk", "k")
 --
 
 map("n", "[d", vim.diagnostic.goto_prev) -- *

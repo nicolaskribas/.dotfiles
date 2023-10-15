@@ -34,8 +34,6 @@ man-db
 man-pages
 nautilus
 neovim
-neovim-lspconfig
-neovim-nvim-treesitter
 noise-suppression-for-voice
 noto-fonts
 noto-fonts-cjk

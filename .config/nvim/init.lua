@@ -72,7 +72,14 @@ map("n", "[l", "<Cmd>lprev<CR>")
 map("n", "]b", "<Cmd>bnext<CR>")
 map("n", "[b", "<Cmd>bprev<CR>")
 
-map("n", "<Leader>lg", [[":silent lgrep " . input("rg args: ") . " <Bar> lopen<CR>"]], { expr = true }) -- loclist grep
+map("n", "<Leader>lg", function() -- loclist grep
+	vim.ui.input({ prompt = "rg args: " }, function(args)
+		if args ~= nil and args ~= "" then
+			vim.cmd.lgrep { args, mods = { silent = true } }
+			vim.cmd.lopen()
+		end
+	end)
+end)
 
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {

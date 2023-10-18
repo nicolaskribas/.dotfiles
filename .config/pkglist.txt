@@ -12,6 +12,7 @@ dash
 flatpak
 foot
 fwupd
+fzf
 gcc
 gdb
 git

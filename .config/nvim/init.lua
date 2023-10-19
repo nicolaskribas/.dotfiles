@@ -85,7 +85,11 @@ local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
 	pattern = { "tex", "plaintex", "markdown" },
-	command = "setlocal wrap",
+	command = "setlocal textwidth=80 formatoptions+=wa2",
+	-- format sentences automatically ('a'), sentences ends in a new line ('w'),
+	-- lines ending in space + new line indicates break of a sentence and
+	-- not the end of a sentence
+	-- line 2 and onwards of a sentence have a different indentation ('2')
 })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,

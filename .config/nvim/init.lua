@@ -103,15 +103,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local lsp = vim.lsp.buf
 		local opts = { buffer = args.buf }
 		map("n", "K", lsp.hover, opts) -- **
-		map({ "n", "i" }, "<C-s>", lsp.signature_help, opts)
-		map("n", "<Leader>r", lsp.rename, opts)
-		map({ "n", "x" }, "<Leader>ca", lsp.code_action, opts)
-		map({ "n", "x" }, "<Leader>f", lsp.format, opts)
 		map("n", "gd", lsp.declaration, opts) -- ** for definition use Ctrl-]
 		map("n", "gD", lsp.type_definition, opts) -- **
+		map({ "n", "i" }, "<C-s>", lsp.signature_help, opts)
+		map({ "n", "x" }, "<Leader>ca", lsp.code_action, opts)
+		map({ "n", "x" }, "<Leader>cf", lsp.format, opts)
+		map("n", "<Leader>cw", lsp.rename, opts)
 		map("n", "<Leader>qs", lsp.document_symbol, opts)
-		map("n", "<Leader>qi", lsp.implementation, opts)
-		map("n", "<Leader>qc", lsp.incoming_calls, opts)
+		map("n", "<Leader>qm", lsp.implementation, opts)
+		map("n", "<Leader>qi", lsp.incoming_calls, opts)
 		map("n", "<Leader>qo", lsp.outgoing_calls, opts)
 		map("n", "<Leader>qr", lsp.references, opts)
 		map("n", "<Leader>wa", lsp.add_workspace_folder, opts)
@@ -119,7 +119,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "<Leader>wl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
-		-- workspace_symbol
 	end,
 })
 

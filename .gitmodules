@@ -4,6 +4,6 @@
 [submodule "nvim-lspconfig"]
 	path = .config/nvim/pack/ages/start/nvim-lspconfig
 	url = git@github.com:neovim/nvim-lspconfig.git
-[submodule "rose-pine"]
-	path = .config/nvim/pack/ages/start/rose-pine
-	url = git@github.com:rose-pine/neovim.git
+[submodule "mini.nvim"]
+	path = .config/nvim/pack/ages/start/mini.nvim
+	url = git@github.com:echasnovski/mini.nvim.git

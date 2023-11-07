@@ -21,7 +21,7 @@ opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
 opt.completeopt = { "menuone", "noinsert", "noselect" }
-opt.shortmess:append "c"
+opt.shortmess:append "cC"
 opt.wildmode = { "longest:full:lastused", "full" } -- complete until longest common string, then iterate over other matches, sort buffers by last used
 opt.path:append "**" -- recursive :find
 opt.grepprg = "rg --smart-case --vimgrep"

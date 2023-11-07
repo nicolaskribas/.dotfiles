@@ -39,6 +39,7 @@ exec swayidle -w \
 
 # --- Daemons ---
 exec playerctld daemon
+exec blueman-applet
 
 
 # --- Appearance ---
@@ -52,6 +53,7 @@ titlebar_border_thickness 0
 
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="org.gnome.Calculator"] floating enable
+for_window [app_id="blueman-manager"] floating enable
 
 seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme Adwaita

@@ -4,6 +4,9 @@ amd-ucode
 base
 bemenu-wayland
 booster
+blueman
+bluez
+bluez-utils
 breeze-icons
 clang
 cups

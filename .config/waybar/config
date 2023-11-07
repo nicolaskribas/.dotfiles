@@ -2,7 +2,7 @@
 	"position": "top",
 	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window", "sway/mode"],
 	"modules-center": [ "clock" ],
-	"modules-right": ["tray", "idle_inhibitor", "network", "bluetooth", "wireplumber", "battery"],
+	"modules-right": ["tray", "idle_inhibitor", "network", "wireplumber", "battery"],
 	"sway/workspaces": {
 		"disable-scroll-wraparound": true,
 		"format": "{name}",
@@ -41,14 +41,6 @@
 			"default": ["󰖀", "󰕾"]
 		},
 		"on-click": "swaymsg exec flatpak run org.pulseaudio.pavucontrol"
-	},
-	"bluetooth": {
-		"format": "format",
-		"format-on": "󰂯",
-		"format-disabled": "󰂲",
-		"format-off": "",
-		"format-connected": "󰂱",
-		"tooltip-format": "{status}\nConnections: {num_connections}\n",
 	},
 	"network": {
 		"format-ethernet": "󰌘",

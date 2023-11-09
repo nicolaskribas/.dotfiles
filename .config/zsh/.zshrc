@@ -95,6 +95,28 @@ HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
+# https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
+#
+# TODO: use fzf to search file
+# bindkey -M insertion?? '^T' fzf_files
+#
+# TODO: use fzf to CD
+
+fzf-history-widget() {
+	local selected=($(fc -lr 1 | fzf --scheme=history --query="$BUFFER"))
+	local ret="$?"
+	if [ -n "$selected" ]; then
+		local num="$selected[1]";
+		if [ -n "$num" ]; then
+			zle vi-fetch-history -n "$num"
+		fi
+	fi
+	zle reset-prompt
+	return "$ret"
+}
+zle -N fzf-history-widget
+bindkey -M vicmd '/' fzf-history-widget
+
 # bindings
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char

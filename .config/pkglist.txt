@@ -12,6 +12,7 @@ clang
 cups
 curl
 dash
+fd
 flatpak
 foot
 fwupd

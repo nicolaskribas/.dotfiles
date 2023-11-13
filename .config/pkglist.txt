@@ -54,6 +54,7 @@ podman
 polkit
 python
 rebuild-detector
+reflector
 ripgrep
 rtkit
 rustup

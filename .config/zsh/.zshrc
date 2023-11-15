@@ -95,15 +95,18 @@ HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
-# https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
-#
-# TODO: use fzf to search file
-# bindkey -M insertion?? '^T' fzf_files
-#
-# TODO: use fzf to CD
+fzf-file-widget(){
+	local line
+	fd | fzf --multi --scheme=path | while read line; do LBUFFER="$LBUFFER$line " done
+	zle reset-prompt
+}
+zle -N fzf-file-widget
+bindkey -M viins '^T' fzf-file-widget
 
 fzf-history-widget() {
+	zle zle-line-init
 	local selected=($(fc -lr 1 | fzf --scheme=history --query="$BUFFER"))
+	zle zle-keymap-select
 	local ret="$?"
 	if [ -n "$selected" ]; then
 		local num="$selected[1]";
@@ -116,6 +119,7 @@ fzf-history-widget() {
 }
 zle -N fzf-history-widget
 bindkey -M vicmd '/' fzf-history-widget
+bindkey -M viins '^R' fzf-history-widget
 
 # bindings
 zmodload zsh/complist
@@ -124,7 +128,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 autoload -U edit-command-line; zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
+bindkey -M vicmd 'v' edit-command-line
 
 # completion
 setopt list_packed

@@ -146,26 +146,44 @@ bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
-bindsym $mod+1 workspace number 1:I
-bindsym $mod+2 workspace number 2:II
-bindsym $mod+3 workspace number 3:III
-bindsym $mod+4 workspace number 4:IV
-bindsym $mod+5 workspace number 5:V
-bindsym $mod+6 workspace number 6:VI
-bindsym $mod+7 workspace number 7:VII
-bindsym $mod+8 workspace number 8:VIII
-bindsym $mod+9 workspace number 9:IX
-bindsym $mod+0 workspace number 10:X
+set $ws1 workspace number 1:I
+set $ws2 workspace number 2:II
+set $ws3 workspace number 3:III
+set $ws4 workspace number 4:IV
+set $ws5 workspace number 5:V
+set $ws6 workspace number 6:VI
+set $ws7 workspace number 7:VII
+set $ws8 workspace number 8:VIII
+set $ws9 workspace number 9:IX
+set $ws10 workspace number 10:X
 
-bindsym $mod+Shift+1 move workspace number 1:I
-bindsym $mod+Shift+2 move workspace number 2:II
-bindsym $mod+Shift+3 move workspace number 3:III
-bindsym $mod+Shift+4 move workspace number 4:IV
-bindsym $mod+Shift+5 move workspace number 5:V
-bindsym $mod+Shift+6 move workspace number 6:VI
-bindsym $mod+Shift+7 move workspace number 7:VII
-bindsym $mod+Shift+8 move workspace number 8:VIII
-bindsym $mod+Shift+9 move workspace number 9:IX
-bindsym $mod+Shift+0 move workspace number 10:X
+bindsym $mod+1 $ws1
+bindsym $mod+2 $ws2
+bindsym $mod+3 $ws3
+bindsym $mod+4 $ws4
+bindsym $mod+5 $ws5
+bindsym $mod+6 $ws6
+bindsym $mod+7 $ws7
+bindsym $mod+8 $ws8
+bindsym $mod+9 $ws9
+bindsym $mod+0 $ws10
+
+bindsym $mod+Shift+1 move $ws1
+bindsym $mod+Shift+2 move $ws2
+bindsym $mod+Shift+3 move $ws3
+bindsym $mod+Shift+4 move $ws4
+bindsym $mod+Shift+5 move $ws5
+bindsym $mod+Shift+6 move $ws6
+bindsym $mod+Shift+7 move $ws7
+bindsym $mod+Shift+8 move $ws8
+bindsym $mod+Shift+9 move $ws9
+bindsym $mod+Shift+0 move $ws10
+
+exec swaymsg '$ws1; exec "flatpak run org.mozilla.Thunderbird"'
+exec swaymsg '$ws2; exec "flatpak run org.mozilla.firefox"'
+exec swaymsg '$ws3; exec "nautilus"'
+assign [class="Spotify"] $ws4
+exec swaymsg 'exec "flatpak run com.spotify.Client"'
+exec swaymsg '$ws7'
 
 include /etc/sway/config.d/*

@@ -139,6 +139,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
 zstyle ':completion:*' group-name ''
+zstyle ':completion:*' extra-verbose true
 zstyle ':completion:*:descriptions' format '%F{green}[%d]%f'
 zstyle ':completion:*:messages' format '%F{yellow}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'

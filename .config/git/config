@@ -2,7 +2,7 @@
 	name = Nicolas Kolling Ribas
 	email = nicolaskribas@gmail.com
 [alias]
-	dog = log --oneline --graph
+	dog = log --all --oneline --graph
 	st = status --short --branch
 [merge]
 	tool = nvimdiff

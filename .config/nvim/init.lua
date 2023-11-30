@@ -75,6 +75,8 @@ map("n", "]l", "<Cmd>lnext<CR>")
 map("n", "[l", "<Cmd>lprev<CR>")
 map("n", "]b", "<Cmd>bnext<CR>")
 map("n", "[b", "<Cmd>bprev<CR>")
+map("n", "]a", "<Cmd>next<CR>")
+map("n", "[a", "<Cmd>prev<CR>")
 
 map("n", "<Leader>lg", function() -- loclist grep
 	vim.ui.input({ prompt = "rg --smart-case " }, function(args)

@@ -1,47 +1,57 @@
-# aliases
+# --- Aliases ---
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -Iv'
 alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -alh'
-alias ring='echo -ne \\a'
+alias ip='ip -color=auto'
+alias ring='echo -ne \\a' # send bell character
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 
-eval "$(dircolors -b)"
 
-# shows hostname, username and current working directory
+# --- Vi Mode ---
+bindkey -v # use vi keymap
+KEYTIMEOUT=1 # reduce time waited reading multi-character sequences (fixes escape delay when exiting insert mode)
+
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+autoload -U edit-command-line; zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+
+
+# --- Cursor ---
+zle-line-init() { echo -ne '\e[6 q' } # starts with a beam
+zle -N zle-line-init
+
+zle-keymap-select() {
+	if [[ "$KEYMAP" == 'vicmd' ]]; then
+		echo -ne '\e[2 q' # go to a block when in vicmd
+	else
+		zle-line-init # beam again when back to main/viins mode
+	fi
+}
+zle -N zle-keymap-select
+
+
+# --- Prompt ---
+# shows current working directory
 PROMPT='%F{blue}%B%4~%b%f%# '
 
 # right prompt: shows current number of background jobs
 RPROMPT='%(1j.&%F{blue}%B%j%b%f.)'
 
-# vi mode
-bindkey -v
-KEYTIMEOUT=1
-
-# cursor
-zle-line-init() { echo -ne '\e[5 q' } # starts with a blinking beam
-zle-keymap-select() {
-	if [[ "$KEYMAP" == 'vicmd' ]]; then
-		echo -ne '\e[1 q' # go to blinking block when changes to vicmd
-	else
-		echo -ne '\e[5 q' # beam again when changing back to main/viins mode
-	fi
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-
-
 zmodload zsh/datetime
 zmodload zsh/mathfunc
 
-start_exec_timer() {
-	EXEC_START_TIME=$EPOCHREALTIME
-}
+start_exec_timer() { EXEC_START_TIME=$EPOCHREALTIME }
 
 stop_exec_timer() {
-    [[ -z $EXEC_START_TIME ]] && return
+	[[ -z $EXEC_START_TIME ]] && return
 	EXEC_ELAPSED_TIME=$((EPOCHREALTIME - EXEC_START_TIME))
 	unset EXEC_START_TIME
 }
@@ -65,12 +75,15 @@ add-zsh-hook precmd stop_exec_timer
 add-zsh-hook precmd print_preprompt
 
 
-# misc options
+# --- Other Options ---
 setopt correct
 setopt extended_glob
 setopt no_beep
 
-# directory stack
+
+# --- Files and Directories ---
+eval "$(dircolors -b)" # setup colors for `ls`
+
 setopt cd_silent
 setopt auto_pushd
 setopt pushd_ignore_dups
@@ -86,15 +99,6 @@ sd() {
 	unset index
 }
 
-# history
-setopt hist_fcntl_lock # use system call for performance
-setopt extended_history
-setopt inc_append_history_time
-setopt hist_ignore_space # forget commands begining with a space
-HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zhistory
-HISTSIZE=10000
-SAVEHIST=10000
-
 fzf-file-widget(){
 	local line
 	fd | fzf --multi --scheme=path | while read line; do LBUFFER="$LBUFFER$line " done
@@ -102,6 +106,17 @@ fzf-file-widget(){
 }
 zle -N fzf-file-widget
 bindkey -M viins '^T' fzf-file-widget
+
+
+# --- History ---
+setopt extended_history # save start/elapsed time
+setopt hist_fcntl_lock # use system call when locking history file, for performance
+setopt hist_verify # don't execute the command with history expansion right away
+setopt inc_append_history_time # append commands to history file as they are issued
+setopt hist_ignore_space # forget commands begining with a space
+HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zhistory
+HISTSIZE=10000
+SAVEHIST=10000
 
 fzf-history-widget() {
 	zle zle-line-init
@@ -121,16 +136,8 @@ zle -N fzf-history-widget
 bindkey -M vicmd '/' fzf-history-widget
 bindkey -M viins '^R' fzf-history-widget
 
-# bindings
-zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-autoload -U edit-command-line; zle -N edit-command-line
-bindkey -M vicmd 'v' edit-command-line
 
-# completion
+# --- Completion ---
 setopt list_packed
 autoload -U compinit; compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
 zstyle ':completion:*' menu select
@@ -144,5 +151,7 @@ zstyle ':completion:*:descriptions' format '%F{green}[%d]%f'
 zstyle ':completion:*:messages' format '%F{yellow}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{red}-- No matches found --%f'
 
-# syntax highlighting plugin, should be loaded last
+
+# --- Plugins ---
+# syntax highlighting plugin, should be sourced at the end
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

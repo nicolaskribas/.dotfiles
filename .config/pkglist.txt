@@ -12,6 +12,7 @@ clang
 cups
 curl
 dash
+dnsmasq
 fd
 flatpak
 foot
@@ -25,6 +26,7 @@ grim
 hicolor-icon-theme
 inter-font
 iproute2
+iptables-nft
 iputils
 iwd
 j4-dmenu-desktop
@@ -56,6 +58,7 @@ playerctl
 podman
 polkit
 python
+qemu-desktop
 rebuild-detector
 reflector
 ripgrep

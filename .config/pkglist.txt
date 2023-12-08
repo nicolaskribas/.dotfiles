@@ -24,9 +24,12 @@ gnome-themes-extra
 grim
 hicolor-icon-theme
 inter-font
+iproute2
+iputils
 iwd
 j4-dmenu-desktop
 languagetool
+ldns
 less
 libnotify
 libvirt
@@ -68,6 +71,7 @@ sway
 swaybg
 swayidle
 swaylock
+tcpdump
 texlab
 texlive-langportuguese
 texlive-meta
@@ -84,6 +88,7 @@ xdg-desktop-portal-wlr
 xdg-user-dirs
 xdg-utils
 xorg-xwayland
+zola
 zsh
 zsh-completions
 zsh-syntax-highlighting

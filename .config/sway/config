@@ -25,16 +25,19 @@ input type:keyboard {
 # }
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
-set $lock 'swaylock -f -e -c 000000'
+set $lock 'swaylock --daemonize --ignore-empty-password --color 000000'
 set $screen_off 'swaymsg "output * power off"'
 set $screen_on 'swaymsg "output * power on"'
-set $screen_off_locked 'pgrep swaylock && swaymsg "output * power off"'
-set $screen_on_locked 'pgrep swaylock && swaymsg "output * power on"'
+set $screen_off_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power off"'
+set $screen_on_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power on"'
+set $unlock 'pkill --signal SIGUSR1 --euid "$USER" --exact swaylock'
 exec swayidle -w \
 	timeout 310 $lock \
 	timeout 300 $screen_off resume $screen_on \
 	timeout 10 $screen_off_locked resume $screen_on_locked \
-	before-sleep $lock
+	before-sleep $lock \
+	lock $lock \
+	unlock $unlock
 
 
 # --- Daemons ---

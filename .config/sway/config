@@ -23,7 +23,7 @@ input type:keyboard {
 #     transform 90        # 90° rotation
 #     disable
 # }
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/library/pictures/bg.png fill
 
 set $lock 'swaylock --daemonize --ignore-empty-password --color 000000'
 set $screen_off 'swaymsg "output * power off"'
@@ -54,10 +54,6 @@ smart_borders on
 default_border pixel 4
 titlebar_border_thickness 0
 
-for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="org.gnome.Calculator"] floating enable
-for_window [app_id="blueman-manager"] floating enable
-
 seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme Adwaita
 
@@ -65,7 +61,7 @@ set $gnome-schema org.gnome.desktop.interface
 exec_always {
 	gsettings set $gnome-schema color-scheme prefer-dark
 	gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
-	gsettings set $gnome-schema icon-theme 'kora'
+	gsettings set $gnome-schema icon-theme 'Adwaita'
 }
 
 
@@ -182,11 +178,19 @@ bindsym $mod+Shift+8 move $ws8
 bindsym $mod+Shift+9 move $ws9
 bindsym $mod+Shift+0 move $ws10
 
+
+# --- Windows ---
+for_window [app_id="firefox"] inhibit_idle fullscreen
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="org.gnome.Calculator"] floating enable
+for_window [app_id="blueman-manager"] floating enable
+
 exec swaymsg '$ws1; exec "flatpak run org.mozilla.Thunderbird"'
 exec swaymsg '$ws2; exec "flatpak run org.mozilla.firefox"'
 exec swaymsg '$ws3; exec "nautilus"'
 assign [class="Spotify"] $ws4
 exec swaymsg 'exec "flatpak run com.spotify.Client"'
 exec swaymsg '$ws7'
+
 
 include /etc/sway/config.d/*

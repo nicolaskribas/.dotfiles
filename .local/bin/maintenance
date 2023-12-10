@@ -14,8 +14,11 @@ yn "list failed services (system level)" &&\
 yn "list failed services (user level)" &&\
 	systemctl --user --failed
 
-yn "list logs" &&\
+yn "show journal logs" &&\
 	journalctl -b -p 4
+
+yn "show pacreport" &&\
+	pacreport | less
 
 yn "update firware" &&\
 	fwupdmgr update
@@ -40,6 +43,9 @@ yn "uninstall orphan packages (detecting cicles)" &&\
 
 yn "clean pacman cache" &&\
 	paccache -r
+
+yn "remove lostfiles" &&\
+	sudo lostfiles | sudo xargs --open-tty --no-run-if-empty rm -iv
 
 yn "reboot" &&\
 	systemctl reboot

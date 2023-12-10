@@ -13,3 +13,6 @@ image/gif=org.gnome.Loupe.desktop
 image/webp=org.gnome.Loupe.desktop
 image/svg+xml=org.gnome.Loupe.desktop
 image/svg+xml-compressed=org.gnome.Loupe.desktop
+
+video/mp4=org.gnome.Totem.desktop
+video/webm=org.gnome.Totem.desktop

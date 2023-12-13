@@ -42,7 +42,7 @@ zle -N zle-keymap-select
 
 # --- Prompt ---
 # shows current working directory
-PROMPT='%F{blue}%B%4~%b%f%# '
+PROMPT='[%F{blue}%B%4~%b%f]%# '
 
 # right prompt: shows current number of background jobs
 RPROMPT='%(1j.&%F{blue}%B%j%b%f.)'

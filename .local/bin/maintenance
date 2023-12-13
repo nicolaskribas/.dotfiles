@@ -45,7 +45,7 @@ yn "clean pacman cache" &&\
 	paccache -r
 
 yn "remove lostfiles" &&\
-	sudo lostfiles | sudo xargs --open-tty --no-run-if-empty rm -iv
+	sudo lostfiles | sudo xargs --open-tty --no-run-if-empty rm -div
 
 yn "reboot" &&\
 	systemctl reboot

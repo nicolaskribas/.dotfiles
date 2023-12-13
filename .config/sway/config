@@ -50,8 +50,9 @@ font pango:sans-serif 10
 
 bar swaybar_command waybar
 
+gaps inner 15
 smart_borders on
-default_border pixel 4
+default_border pixel 5
 titlebar_border_thickness 0
 
 seat seat0 hide_cursor 5000

@@ -111,18 +111,21 @@ bindkey -M viins '^T' fzf-file-widget
 
 
 # --- History ---
-setopt extended_history # save start/elapsed time
+setopt extended_history # save command's start/elapsed time to history file
+setopt inc_append_history_time # append commands to history file as they finish (to record elapsed time)
+setopt hist_ignore_space # don't save commands begining with a space to the history file
+setopt hist_reduce_blanks # remove superfluous blanks from each command line
 setopt hist_fcntl_lock # use system call when locking history file, for performance
 setopt hist_verify # don't execute the command with history expansion right away
-setopt inc_append_history_time # append commands to history file as they are issued
-setopt hist_ignore_space # forget commands begining with a space
 HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 
 fzf-history-widget() {
 	zle zle-line-init
-	local selected=($(fc -lr 1 | fzf --scheme=history --query="$BUFFER"))
+	local selected=($(fc -lr 1 |\
+		awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |\
+		fzf --scheme=history --query="$BUFFER"))
 	zle zle-keymap-select
 	local ret="$?"
 	if [ -n "$selected" ]; then

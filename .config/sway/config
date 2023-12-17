@@ -26,11 +26,11 @@ input type:keyboard {
 output * bg ~/library/pictures/bg.png fill
 
 set $lock 'swaylock --daemonize --ignore-empty-password --color 000000'
+set $unlock 'pkill --signal SIGUSR1 --euid "$USER" --exact swaylock'
 set $screen_off 'swaymsg "output * power off"'
 set $screen_on 'swaymsg "output * power on"'
 set $screen_off_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power off"'
 set $screen_on_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power on"'
-set $unlock 'pkill --signal SIGUSR1 --euid "$USER" --exact swaylock'
 exec swayidle -w \
 	timeout 310 $lock \
 	timeout 300 $screen_off resume $screen_on \

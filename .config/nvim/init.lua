@@ -172,12 +172,6 @@ require("mini.completion").setup {
 	},
 	set_vim_settings = false,
 }
-require("mini.hues").setup {
-	n_hues = 2,
-	background = "#2B2B2B",
-	foreground = "#A9B7C6",
-	accent = "purple",
-}
 
 -- * overrides a default keymap
 -- ** overrides a default keymap with similar functionality

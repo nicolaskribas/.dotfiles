@@ -8,6 +8,7 @@ alias ll='ls -alh'
 alias ip='ip -color=auto'
 alias sudo='sudo ' # expand command passed to sudo if it is an alias
 alias xargs='xargs ' # same, but for xargs
+alias watch='watch --color ' # same, but for watch
 alias ring='echo -ne \\a' # send bell character
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 

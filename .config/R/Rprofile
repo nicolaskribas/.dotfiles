@@ -1,0 +1,17 @@
+options(menu.graphics=FALSE)
+
+# set RStudio CDN as CRAN mirror
+local({
+  r <- getOption("repos")
+  r["CRAN"] <- "https://cloud.r-project.org/"
+  options(repos = r)
+})
+
+# do not ask to save workspace image
+.env <- new.env()
+.env$q <- function(save = "no", ...) {
+
+  quit(save = save, ...)
+
+}
+attach(.env, warn.conflicts = FALSE)

@@ -191,7 +191,7 @@ exec swaymsg '$ws2; exec "flatpak run org.mozilla.firefox"'
 exec swaymsg '$ws3; exec "nautilus"'
 assign [class="Spotify"] $ws4
 exec swaymsg 'exec "flatpak run com.spotify.Client"'
-exec swaymsg '$ws7'
+exec swaymsg '$ws6'
 
 
 include /etc/sway/config.d/*

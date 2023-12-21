@@ -1,0 +1,12 @@
+[Match]
+Kind=!*
+Type=ether
+
+[Network]
+Description=DHCP configured Ethernet based LAN
+DHCP=yes
+DNSOverTLS=opportunistic
+DNSSEC=allow-downgrade
+
+[DHCP]
+UseDomains=yes

@@ -3,8 +3,10 @@ Kind=!*
 Type=ether
 
 [Network]
-Description=DHCP configured Ethernet based LAN
+Description=DHCP configured Ethernet interface for use at the uni
 DHCP=yes
+LLMNR=no
+MulticastDNS=no
 DNSOverTLS=opportunistic
 DNSSEC=allow-downgrade
 

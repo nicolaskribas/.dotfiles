@@ -1,0 +1,15 @@
+[Match]
+Kind=!*
+Type=ether
+
+[Network]
+Description=DHCP configured Ethernet interface for use at home
+DHCP=yes
+LLMNR=yes
+MulticastDNS=yes
+DNSOverTLS=yes
+DNSSEC=yes
+DNS=2606:4700:4700::1111 1.1.1.1 2606:4700:4700::1001 1.0.0.1
+
+[DHCP]
+UseDNS=no

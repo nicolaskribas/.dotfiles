@@ -1,0 +1,5 @@
+Defaults passprompt="[sudo] password for %p: "
+Defaults passwd_timeout=0
+Defaults insults
+
+%wheel ALL=(ALL:ALL) ALL

@@ -29,6 +29,9 @@ yn "update mirrorlist" &&\
 yn "update system" &&\
 	sudo pacman -Syu
 
+yn "manage .pac* files" &&\
+	DIFFPROG='nvim -d' pacdiff --sudo --threeway
+
 yn "update flatpak" &&\
 	flatpak update
 
@@ -42,7 +45,7 @@ yn "uninstall orphan packages (detecting cicles)" &&\
 	pacman -Qqd | sudo pacman -Rsu -
 
 yn "clean pacman cache" &&\
-	paccache -r
+	paccache --remove --keep 1
 
 yn "remove lostfiles" &&\
 	sudo lostfiles | sudo xargs --open-tty --no-run-if-empty rm -div

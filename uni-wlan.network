@@ -1,0 +1,15 @@
+[Match]
+Kind=!*
+Type=wlan
+
+[Network]
+Description=DHCP configured wireless interface for use at the uni
+DHCP=yes
+LLMNR=no
+MulticastDNS=no
+DNSOverTLS=opportunistic
+DNSSEC=allow-downgrade
+IgnoreCarrierLoss=10s
+
+[DHCP]
+UseDomains=yes

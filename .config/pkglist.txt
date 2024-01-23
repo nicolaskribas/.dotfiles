@@ -45,6 +45,7 @@ man-db
 man-pages
 nautilus
 neovim
+nmap
 noise-suppression-for-voice
 noto-fonts
 noto-fonts-cjk

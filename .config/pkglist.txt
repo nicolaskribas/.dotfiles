@@ -2,6 +2,7 @@ adwaita-cursors
 adwaita-icon-theme
 amd-ucode
 base
+base-devel
 bemenu-wayland
 booster
 blueman
@@ -31,7 +32,6 @@ iptables-nft
 iputils
 iwd
 j4-dmenu-desktop
-languagetool
 ldns
 less
 libnotify
@@ -60,7 +60,7 @@ playerctl
 podman
 polkit
 python
-qemu-desktop
+qemu-full
 rebuild-detector
 reflector
 ripgrep

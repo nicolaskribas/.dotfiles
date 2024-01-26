@@ -8,49 +8,53 @@ yn() {
 	return 1
 }
 
-yn "list failed services (system level)" &&\
+yn 'list failed services (system level)' &&\
 	systemctl --failed
 
-yn "list failed services (user level)" &&\
+yn 'list failed services (user level)' &&\
 	systemctl --user --failed
 
-yn "show journal logs" &&\
+yn 'show journal logs' &&\
 	journalctl -b -p 4
 
-yn "show pacreport" &&\
+yn 'show pacreport' &&\
 	pacreport | less
 
-yn "update firware" &&\
+yn 'update firware' &&\
 	fwupdmgr update
 
-yn "update mirrorlist" &&\
+yn 'update mirrorlist' &&\
 	sudo reflector --verbose --country Brazil --completion-percent 100 --sort rate --save /etc/pacman.d/mirrorlist
 
-yn "update system" &&\
+yn 'update system' &&\
 	sudo pacman -Syu
 
-yn "manage .pac* files" &&\
+yn 'manage .pac* files' &&\
 	DIFFPROG='nvim -d' pacdiff --sudo --threeway
 
-yn "update flatpak" &&\
+yn 'update flatpak packages' &&\
 	flatpak update
 
-yn "uninstall orphan packages" &&\
+yn 'uninstall unused flatpak packages' &&\
+	flatpak uninstall --unused
+
+yn 'uninstall orphan packages' &&\
 	pacman -Qtdq | sudo pacman -Rns -
 
-yn "uninstall orphan packages and optional dependencies" &&\
+yn 'uninstall orphan packages and optional dependencies' &&\
 	pacman -Qttdq | sudo pacman -Rns -
 
-yn "uninstall orphan packages (detecting cicles)" &&\
+yn 'uninstall orphan packages (detecting cicles)' &&\
 	pacman -Qqd | sudo pacman -Rsu -
 
-yn "clean pacman cache" &&\
-	paccache --remove --keep 1
+yn 'clean pacman cache' &&\
+	paccache --remove --verbose               --keep 2 --min-mtime '30 days ago' --min-atime '30 days ago' &&\
+	paccache --remove --verbose --uninstalled --keep 0 --min-mtime '30 days ago' --min-atime '30 days ago'
 
-yn "remove lostfiles" &&\
+yn 'remove lostfiles' &&\
 	sudo lostfiles | sudo xargs --open-tty --no-run-if-empty rm -div
 
-yn "reboot" &&\
+yn 'reboot' &&\
 	systemctl reboot
 
 exit 0

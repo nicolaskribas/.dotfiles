@@ -24,19 +24,18 @@ yn 'update firware' &&\
 	fwupdmgr update
 
 yn 'update mirrorlist' &&\
-	sudo reflector --verbose --country Brazil --completion-percent 100 --sort rate --save /etc/pacman.d/mirrorlist
+	sudo reflector --verbose \
+		--country Brazil \
+		--completion-percent 100 \
+		--protocol http,https \
+		--sort rate \
+		--save /etc/pacman.d/mirrorlist
 
 yn 'update system' &&\
 	sudo pacman -Syu
 
 yn 'manage .pac* files' &&\
 	DIFFPROG='nvim -d' pacdiff --sudo --threeway
-
-yn 'update flatpak packages' &&\
-	flatpak update
-
-yn 'uninstall unused flatpak packages' &&\
-	flatpak uninstall --unused
 
 yn 'uninstall orphan packages' &&\
 	pacman -Qtdq | sudo pacman -Rns -
@@ -46,10 +45,6 @@ yn 'uninstall orphan packages and optional dependencies' &&\
 
 yn 'uninstall orphan packages (detecting cicles)' &&\
 	pacman -Qqd | sudo pacman -Rsu -
-
-yn 'clean pacman cache' &&\
-	paccache --remove --verbose               --keep 2 --min-mtime '30 days ago' --min-atime '30 days ago' &&\
-	paccache --remove --verbose --uninstalled --keep 0 --min-mtime '30 days ago' --min-atime '30 days ago'
 
 yn 'remove lostfiles' &&\
 	sudo lostfiles | sudo xargs --open-tty --no-run-if-empty rm -div

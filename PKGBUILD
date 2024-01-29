@@ -11,6 +11,7 @@ source=('home-ether.network'
 	'paccache-1.hook'
 	'paccache-2.hook'
 	'pacman.conf'
+	'journald.conf'
 	'flatpak-update.service'
 	'flatpak-update.timer'
 	'locale.conf'
@@ -18,6 +19,7 @@ source=('home-ether.network'
 	'sudoers'
 	)
 md5sums=('SKIP'
+	'SKIP'
 	'SKIP'
 	'SKIP'
 	'SKIP'
@@ -51,6 +53,8 @@ package_etcfiles-common() {
 	install -Dm0644 paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
 	install -Dm0644 paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
+
+	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
 
 	install -Dm0644 flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
 	install -Dm0644 flatpak-update.timer "$pkgdir"/etc/systemd/system/flatpak-update.timer

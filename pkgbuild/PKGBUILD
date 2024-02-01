@@ -86,6 +86,7 @@ package_etcfiles-common() {
 		libnotify
 		wl-clipboard
 		polkit
+		polkit-kde-agent
 		rtkit
 		xdg-desktop-portal-gtk
 		xdg-desktop-portal-wlr
@@ -98,6 +99,7 @@ package_etcfiles-common() {
 		wireshark-qt
 
 		cups
+		firewalld
 
 		inter-font
 		noto-fonts
@@ -165,9 +167,11 @@ package_etcfiles-common() {
 		fd
 		tree
 		tcpdump
+		ldns
 		nmap
 		iputils
 		iproute2
+		nftables
 	)
 
 	install -Dm0644 dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook

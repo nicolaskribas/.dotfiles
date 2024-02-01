@@ -3,6 +3,7 @@ post_install() {
 	ln -sfT /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 	ln -sfT /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
+	systemctl enable --now firewalld.service
 	systemctl enable --now flatpak-update.timer
 }
 

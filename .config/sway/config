@@ -44,6 +44,7 @@ exec swayidle -w \
 exec playerctld daemon
 exec blueman-applet
 exec iwgtk --indicators
+exec /usr/lib/polkit-kde-authentication-agent-1
 
 
 # --- Appearance ---
@@ -186,6 +187,7 @@ for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="org.twosheds.iwgtk"] floating enable
+for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
 
 exec swaymsg '$ws1; exec "flatpak run org.mozilla.Thunderbird"'
 exec swaymsg '$ws2; exec "flatpak run org.mozilla.firefox"'

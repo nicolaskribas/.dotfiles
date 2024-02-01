@@ -100,6 +100,8 @@ package_etcfiles-common() {
 
 		cups
 		firewalld
+		openssh
+		lxqt-openssh-askpass
 
 		inter-font
 		noto-fonts
@@ -162,7 +164,6 @@ package_etcfiles-common() {
 		fzf
 		curl
 		sudo
-		openssh
 		ripgrep
 		fd
 		tree

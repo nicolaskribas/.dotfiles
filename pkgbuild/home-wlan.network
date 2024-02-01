@@ -1,0 +1,16 @@
+[Match]
+Kind=!*
+Type=wlan
+
+[Network]
+Description=DHCP configured wireless interface for use at home
+DHCP=yes
+LLMNR=no
+MulticastDNS=yes
+DNSOverTLS=yes
+DNSSEC=yes
+DNS=2606:4700:4700::1111 1.1.1.1 2606:4700:4700::1001 1.0.0.1
+IgnoreCarrierLoss=10s
+
+[DHCP]
+UseDNS=no

@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = bash
+
+[Action]
+Description = Re-pointing /bin/sh symlink to dash...
+Exec = /usr/bin/ln -sfT dash /usr/bin/sh
+When = PostTransaction
+Depends = dash

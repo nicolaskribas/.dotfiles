@@ -17,7 +17,8 @@ source=('home-ether.network'
 	'locale.conf'
 	'locale.gen'
 	'sudoers'
-	)
+)
+
 md5sums=('SKIP'
 	'SKIP'
 	'SKIP'
@@ -34,21 +35,141 @@ md5sums=('SKIP'
 	'SKIP'
 )
 
+
 package_etcfiles-spillway() {
-	depends=('etcfiles-common')
+	depends=('etcfiles-common'
+		amd-ucode
+		iwd
+		bluez
+		bluez-utils
+		blueman
+	)
 	echo 'spillway' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
 	install -Dm0644 uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
 }
 
 package_etcfiles-archbtw() {
-	depends=('etcfiles-common')
+	depends=('etcfiles-common'
+		amd-ucode
+	)
 	echo 'archbtw' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
 	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
 }
 
 package_etcfiles-common() {
+	depends=(
+		base
+		linux
+		linux-firmware
+
+		sway
+		swaybg
+		swayidle
+		swaylock
+		waybar
+		j4-dmenu-desktop
+		bemenu-wayland
+		mako
+		slurp
+		grim
+		swappy
+		playerctl
+
+		pipewire
+		pipewire-audio
+		pipewire-jack
+		pipewire-pulse
+		wireplumber
+
+		libnotify
+		wl-clipboard
+		polkit
+		rtkit
+		xdg-desktop-portal-gtk
+		xdg-desktop-portal-wlr
+		xdg-utils
+		xdg-user-dirs
+		xorg-xwayland
+
+		foot
+		nautilus
+		wireshark-qt
+
+		cups
+
+		inter-font
+		noto-fonts
+		noto-fonts-cjk
+		noto-fonts-emoji
+		ttf-jetbrains-mono
+		ttf-nerd-fonts-symbols-mono
+
+		gnome-themes-extra
+		adwaita-cursors
+		breeze-icons
+		adwaita-icon-theme
+		hicolor-icon-theme
+
+		archlinux-contrib
+		pacman-contrib
+		lostfiles
+		rebuild-detector
+		reflector
+		flatpak
+		fwupd
+
+		clang
+		gcc
+		python
+		rustup
+		git
+		make
+		base-devel
+		stylua
+		sqlite
+		zola
+		neovim
+
+		gdb
+		strace
+		man-db
+		man-pages
+		noise-suppression-for-voice
+		rclone
+
+		texlab
+		texlive-langportuguese
+		texlive-meta
+
+		libvirt
+		qemu-full
+		virt-manager
+		podman
+		dmidecode
+		dnsmasq
+
+		zsh
+		zsh-completions
+		zsh-syntax-highlighting
+		dash
+
+		tmux
+		less
+		fzf
+		curl
+		sudo
+		openssh
+		ripgrep
+		fd
+		tree
+		tcpdump
+		nmap
+		iputils
+		iproute2
+	)
+
 	install -Dm0644 dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
 	install -Dm0644 paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
 	install -Dm0644 paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook

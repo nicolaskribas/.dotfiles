@@ -1,84 +1,31 @@
-# --- Input ---
-# List input names: swaymsg -t get_inputs
-input type:pointer {
-	accel_profile flat
-	pointer_accel 0.5
-	natural_scroll enabled
-}
-
-input type:keyboard {
-	xkb_layout us
-	xkb_variant altgr-intl
-	xkb_options caps:swapescape,compose:prsc
-	xkb_numlock enable
-	repeat_delay 300
-}
-
-
-# --- Output ---
-# List output names: swaymsg -t get_outputs
-# output <name> {
-#     mode 1920x1080@60Hz # set resolution and refresh rate
-#     scale 1.5           # 150% scale
-#     transform 90        # 90° rotation
-#     disable
-# }
-output * bg ~/library/pictures/bg.png fill
-
-set $lock 'swaylock --daemonize --ignore-empty-password --color 000000'
-set $unlock 'pkill --signal SIGUSR1 --euid "$USER" --exact swaylock'
-set $screen_off 'swaymsg "output * power off"'
-set $screen_on 'swaymsg "output * power on"'
-set $screen_off_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power off"'
-set $screen_on_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power on"'
-exec swayidle -w \
-	timeout 310 $lock \
-	timeout 300 $screen_off resume $screen_on \
-	timeout 10 $screen_off_locked resume $screen_on_locked \
-	before-sleep $lock \
-	lock $lock \
-	unlock $unlock
-
-
-# --- Daemons ---
-exec playerctld daemon
-exec blueman-applet
-exec iwgtk --indicators
-exec /usr/lib/polkit-kde-authentication-agent-1
-
-
-# --- Appearance ---
-font pango:sans-serif 10
-
-bar swaybar_command waybar
-
-smart_borders on
-default_border pixel 5
-titlebar_border_thickness 0
-
-seat seat0 hide_cursor 5000
-seat seat0 xcursor_theme Adwaita
-
-set $gnome-schema org.gnome.desktop.interface
-exec_always {
-	gsettings set $gnome-schema color-scheme prefer-dark
-	gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
-	gsettings set $gnome-schema icon-theme 'Adwaita'
-}
-
-
-# --- Bindings ---
+# --- Variables ---
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
 set $term foot
+set $ws1 workspace number 1:1
+set $ws2 workspace number 2:2
+set $ws3 workspace number 3:3
+set $ws4 workspace number 4:4
+set $ws5 workspace number 5:5
+set $ws6 workspace number 6:6
+set $ws7 workspace number 7:7
+set $ws8 workspace number 8:8
+set $ws9 workspace number 9:9
+set $ws10 workspace number 10:10
+set $lock 'swaylock --daemonize --ignore-empty-password --color 000000'
+set $unlock 'pkill --signal SIGUSR1 --euid "$USER" --exact swaylock'
+set $screen_off 'swaymsg "output * power off"'
+set $screen_on 'swaymsg "output * power on"'
+set $screen_off_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power off"'
+set $screen_on_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power on"'
 
+
+# --- Bindings ---
 bindsym $mod+Return exec $term
-bindsym $mod+d exec \
-	j4-dmenu-desktop --no-generic --dmenu='bemenu --prompt=launch' \
-	--term=$term --wrapper='swaymsg exec'
+bindsym $mod+d exec j4-dmenu-desktop --no-generic --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg exec'
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore
 bindsym XF86MonBrightnessDown exec light -T 0.91
@@ -87,31 +34,24 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 bindsym --locked XF86AudioPlay exec playerctl play-pause
 bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec \
-	wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
-bindsym --locked XF86AudioRaiseVolume exec \
-	wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
 bindsym $mod+Shift+p exec slurp | grim -g - - | swappy -f -
 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
-
 bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
-
 bindsym $mod+v split horizontal
 bindsym $mod+s split vertical
-
 bindsym $mod+w layout toggle stacking tabbed
 bindsym $mod+e layout toggle split
-
 bindsym $mod+f fullscreen
 
 floating_modifier $mod normal
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+Shift+s sticky toggle
-
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
@@ -147,17 +87,6 @@ bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
-set $ws1 workspace number 1:1
-set $ws2 workspace number 2:2
-set $ws3 workspace number 3:3
-set $ws4 workspace number 4:4
-set $ws5 workspace number 5:5
-set $ws6 workspace number 6:6
-set $ws7 workspace number 7:7
-set $ws8 workspace number 8:8
-set $ws9 workspace number 9:9
-set $ws10 workspace number 10:10
-
 bindsym $mod+1 $ws1
 bindsym $mod+2 $ws2
 bindsym $mod+3 $ws3
@@ -181,6 +110,16 @@ bindsym $mod+Shift+9 move $ws9
 bindsym $mod+Shift+0 move $ws10
 
 
+# --- Appearance ---
+font pango:sans-serif 10
+smart_borders on
+default_border pixel 5
+titlebar_border_thickness 0
+
+seat seat0 hide_cursor 5000
+seat seat0 xcursor_theme Adwaita
+
+
 # --- Windows ---
 for_window [app_id="firefox"] inhibit_idle fullscreen
 for_window [app_id="pavucontrol"] floating enable
@@ -188,14 +127,68 @@ for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="org.twosheds.iwgtk"] floating enable
 for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
-for_window [class="lxqt-openssh-askpass"] floating enable
+for_window [app_id="lxqt-openssh-askpass"] floating enable
+for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 
+
+# --- Input ---
+# List input names: swaymsg -t get_inputs
+input type:pointer {
+	accel_profile flat
+	pointer_accel 0.5
+	natural_scroll enabled
+}
+
+input type:keyboard {
+	xkb_layout us
+	xkb_variant altgr-intl
+	xkb_options caps:swapescape,compose:prsc
+	xkb_numlock enable
+	repeat_delay 300
+}
+
+
+# --- Output ---
+# List output names: swaymsg -t get_outputs
+# output <name> {
+#     mode 1920x1080@60Hz # set resolution and refresh rate
+#     scale 1.5           # 150% scale
+#     transform 90        # 90° rotation
+#     disable
+# }
+output * bg ~/library/pictures/bg.png fill
+
+
+# --- Includes ---
+include /etc/sway/config.d/*
+include '$(hostnamectl hostname)'
+
+
+# --- Execs ---
+exec_always gsettings set org.gnome.desktop.interface {
+	color-scheme prefer-dark
+	gtk-theme 'Adwaita-dark'
+	icon-theme 'Adwaita'
+}
+
+bar swaybar_command waybar
+
+exec swayidle -w \
+	timeout 310 $lock \
+	timeout 300 $screen_off resume $screen_on \
+	timeout 10 $screen_off_locked resume $screen_on_locked \
+	before-sleep $lock \
+	lock $lock \
+	unlock $unlock
+
+exec playerctld daemon
+exec /usr/lib/polkit-kde-authentication-agent-1
+
+
+# --- Setup ---
 exec swaymsg '$ws1; exec "flatpak run org.mozilla.Thunderbird"'
 exec swaymsg '$ws2; exec "flatpak run org.mozilla.firefox"'
 exec swaymsg '$ws3; exec "nautilus"'
 assign [class="Spotify"] $ws4
 exec swaymsg 'exec "flatpak run com.spotify.Client"'
 exec swaymsg '$ws7'
-
-
-include /etc/sway/config.d/*

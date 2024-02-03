@@ -23,14 +23,6 @@ yn 'show pacreport' &&\
 yn 'update firware' &&\
 	fwupdmgr update
 
-yn 'update mirrorlist' &&\
-	sudo reflector --verbose \
-		--country Brazil \
-		--completion-percent 100 \
-		--protocol http,https \
-		--sort rate \
-		--save /etc/pacman.d/mirrorlist
-
 yn 'update system' &&\
 	sudo pacman -Syu
 

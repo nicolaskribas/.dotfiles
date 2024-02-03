@@ -3,7 +3,9 @@ arch=('x86_64')
 pkgrel=0
 pkgver=0
 install=etcfiles.install
-source=('home-ether.network'
+source=('arch.conf'
+	'arch-lts.conf'
+	'home-ether.network'
 	'home-wlan.network'
 	'uni-ether.network'
 	'uni-wlan.network'
@@ -20,6 +22,8 @@ source=('home-ether.network'
 )
 
 md5sums=('SKIP'
+	'SKIP'
+	'SKIP'
 	'SKIP'
 	'SKIP'
 	'SKIP'
@@ -62,6 +66,7 @@ package_etcfiles-common() {
 	depends=(
 		base
 		linux
+		linux-lts
 		linux-firmware
 
 		sway
@@ -174,6 +179,8 @@ package_etcfiles-common() {
 		iproute2
 		nftables
 	)
+	install -Dm0644 arch.conf "$pkgdir"/boot/loader/entries/arch.conf
+	install -Dm0644 arch-lts.conf "$pkgdir"/boot/loader/entries/arch-lts.conf
 
 	install -Dm0644 dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
 	install -Dm0644 paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook

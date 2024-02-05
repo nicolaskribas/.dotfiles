@@ -68,6 +68,7 @@ package_etcfiles-common() {
 		linux
 		linux-lts
 		linux-firmware
+		booster
 
 		sway
 		swaybg

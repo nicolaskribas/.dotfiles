@@ -1,2 +1,8 @@
+exec_always gsettings set org.gnome.desktop.interface {
+	color-scheme prefer-light
+	gtk-theme 'Adwaita'
+	icon-theme 'Adwaita'
+}
+
 exec blueman-applet
 exec iwgtk --indicators

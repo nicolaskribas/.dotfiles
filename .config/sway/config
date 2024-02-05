@@ -165,12 +165,6 @@ include '$(hostnamectl hostname)'
 
 
 # --- Execs ---
-exec_always gsettings set org.gnome.desktop.interface {
-	color-scheme prefer-dark
-	gtk-theme 'Adwaita-dark'
-	icon-theme 'Adwaita'
-}
-
 bar swaybar_command waybar
 
 exec swayidle -w \

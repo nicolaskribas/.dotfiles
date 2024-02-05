@@ -70,6 +70,7 @@ print_preprompt() {
 	local mins=$(printf "%02d" $((int(elapsed/60))))
 	local secs=$(printf "%02d" $((int(elapsed%60))))
 	print -P "*%F{yellow}%B${mins}′${secs}%b%f"
+	ring # the bell
 }
 
 autoload -U add-zsh-hook

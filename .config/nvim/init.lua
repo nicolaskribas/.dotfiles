@@ -154,6 +154,7 @@ lspconfig.ltex.setup {
 			enablePickyRules = true,
 			motherTongue = "pt-BR",
 		},
+		languageToolHttpServerUri = "http://localhost:8081",
 	} },
 }
 

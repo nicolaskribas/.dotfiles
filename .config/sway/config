@@ -156,7 +156,7 @@ input type:keyboard {
 #     transform 90        # 90° rotation
 #     disable
 # }
-output * bg ~/library/pictures/bg.png fill
+output * bg bg.jpeg fill
 
 
 # --- Includes ---

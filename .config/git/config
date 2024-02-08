@@ -2,8 +2,19 @@
 	name = Nicolas Kolling Ribas
 	email = nicolaskribas@gmail.com
 [alias]
-	dog = log --all --oneline --graph
-	st = status --short --branch
+	a = add
+	ap = add --patch
+	r = restore
+	rp = restore --patch
+	rs = restore --staged
+	rsp = restore --staged --patch
+	s = status --short --branch
+	d = diff
+	ds = diff --staged
+	l = log --all --oneline --graph
+	b = branch
+	c = commit
+	m = merge
 [merge]
 	tool = nvimdiff
 [init]

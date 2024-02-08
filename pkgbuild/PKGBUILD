@@ -179,6 +179,7 @@ package_etcfiles-common() {
 		iputils
 		iproute2
 		nftables
+		miniserve
 	)
 	install -Dm0644 arch.conf "$pkgdir"/boot/loader/entries/arch.conf
 	install -Dm0644 arch-lts.conf "$pkgdir"/boot/loader/entries/arch-lts.conf

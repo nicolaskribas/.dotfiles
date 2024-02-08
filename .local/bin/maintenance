@@ -30,13 +30,16 @@ yn 'manage .pac* files' &&\
 	DIFFPROG='nvim -d' pacdiff --sudo --threeway
 
 yn 'uninstall orphan packages' &&\
-	pacman -Qtdq | sudo pacman -Rns -
+	pacman -Qtdnq | xargs --no-run-if-empty sudo pacman -Rns
 
 yn 'uninstall orphan packages and optional dependencies' &&\
-	pacman -Qttdq | sudo pacman -Rns -
+	pacman -Qttdnq | xargs --no-run-if-empty sudo pacman -Rns
 
 yn 'uninstall orphan packages (detecting cicles)' &&\
-	pacman -Qqd | sudo pacman -Rsu -
+	pacman -Qqdn | sudo pacman -Rsu -
+
+yn 'list foreign packages' &&\
+	pacman -Qm
 
 yn 'remove lostfiles' &&\
 	sudo lostfiles | xargs --open-tty --no-run-if-empty sudo rm -div

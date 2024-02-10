@@ -177,11 +177,3 @@ exec swayidle -w \
 
 exec playerctld daemon
 exec /usr/lib/polkit-kde-authentication-agent-1
-
-
-# --- Setup ---
-exec swaymsg '$ws1; exec "flatpak run org.mozilla.Thunderbird"'
-exec swaymsg '$ws2; exec "flatpak run com.spotify.Client"'
-exec swaymsg '$ws3; exec "nautilus"'
-exec swaymsg '$ws7; exec "flatpak run org.mozilla.firefox"'
-exec swaymsg '$ws8; exec "flatpak run md.obsidian.Obsidian"'

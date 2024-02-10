@@ -25,7 +25,7 @@ set $screen_on_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output 
 
 # --- Bindings ---
 bindsym $mod+Return exec $term
-bindsym $mod+d exec j4-dmenu-desktop --no-generic --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg exec'
+bindsym $mod+d exec j4-dmenu-desktop --no-generic --dmenu='bemenu --prompt=launch' --term=$term --wrapper='swaymsg --pretty exec'
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore
 bindsym XF86MonBrightnessDown exec light -T 0.91

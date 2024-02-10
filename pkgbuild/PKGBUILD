@@ -13,6 +13,7 @@ source=('arch.conf'
 	'paccache-1.hook'
 	'paccache-2.hook'
 	'pacman.conf'
+	'reflector.conf'
 	'journald.conf'
 	'flatpak-update.service'
 	'flatpak-update.timer'
@@ -22,6 +23,7 @@ source=('arch.conf'
 )
 
 md5sums=('SKIP'
+	'SKIP'
 	'SKIP'
 	'SKIP'
 	'SKIP'
@@ -188,6 +190,8 @@ package_etcfiles-common() {
 	install -Dm0644 paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
 	install -Dm0644 paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
+
+	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
 
 	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
 

@@ -5,7 +5,7 @@ post_install() {
 
 	systemctl enable --now firewalld.service
 	systemctl enable --now seatd.service
-	systemctl enable --now reflector.service
+	systemctl enable --now reflector.timer
 	systemctl enable --now flatpak-update.timer
 }
 

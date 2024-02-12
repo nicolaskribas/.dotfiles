@@ -45,10 +45,7 @@ md5sums=('SKIP'
 package_etcfiles-spillway() {
 	depends=('etcfiles-common'
 		amd-ucode
-		iwd
-		bluez
-		bluez-utils
-		blueman
+		iwd bluez bluez-utils blueman
 	)
 	echo 'spillway' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
@@ -66,122 +63,32 @@ package_etcfiles-archbtw() {
 
 package_etcfiles-common() {
 	depends=(
-		base
-		linux
-		linux-lts
-		linux-firmware
-		booster
+		base linux linux-lts linux-firmware booster
 
-		sway
-		swaybg
-		swayidle
-		swaylock
-		waybar
-		j4-dmenu-desktop
-		bemenu-wayland
-		mako
-		slurp
-		grim
-		swappy
-		playerctl
+		sway swaybg swayidle swaylock waybar j4-dmenu-desktop bemenu-wayland
+		playerctl mako slurp grim swappy
+		polkit-kde-agent lxqt-openssh-askpass
+		inter-font noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono
+		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme
+		pipewire pipewire-audio pipewire-jack pipewire-pulse wireplumber noise-suppression-for-voice
+		xorg-xwayland libnotify wl-clipboard rtkit polkit
+		xdg-desktop-portal-gtk xdg-desktop-portal-wlr xdg-utils xdg-user-dirs
+		flatpak foot nautilus wireshark-qt
 
-		pipewire
-		pipewire-audio
-		pipewire-jack
-		pipewire-pulse
-		wireplumber
+		tmux dash zsh zsh-completions zsh-syntax-highlighting
+		gcc clang rustup python
+		git make base-devel gdb strace
+		sudo less man-db man-pages
+		fzf ripgrep fd tree
+		tcpdump ldns nmap iputils iproute2 nftables curl firewalld openssh cups
+		sqlite zola rclone miniserve
+		neovim stylua
 
-		libnotify
-		wl-clipboard
-		polkit
-		polkit-kde-agent
-		rtkit
-		xdg-desktop-portal-gtk
-		xdg-desktop-portal-wlr
-		xdg-utils
-		xdg-user-dirs
-		xorg-xwayland
+		texlive-meta texlive-langportuguese texlab
 
-		foot
-		nautilus
-		wireshark-qt
+		virt-manager libvirt qemu-full dmidecode dnsmasq podman docker docker-buildx
 
-		cups
-		firewalld
-		openssh
-		lxqt-openssh-askpass
-
-		inter-font
-		noto-fonts
-		noto-fonts-cjk
-		noto-fonts-emoji
-		ttf-jetbrains-mono
-		ttf-nerd-fonts-symbols-mono
-
-		gnome-themes-extra
-		adwaita-cursors
-		breeze-icons
-		adwaita-icon-theme
-		hicolor-icon-theme
-
-		archlinux-contrib
-		pacman-contrib
-		lostfiles
-		rebuild-detector
-		reflector
-		flatpak
-		fwupd
-
-		clang
-		gcc
-		python
-		rustup
-		git
-		make
-		base-devel
-		stylua
-		sqlite
-		zola
-		neovim
-
-		gdb
-		strace
-		man-db
-		man-pages
-		noise-suppression-for-voice
-		rclone
-
-		texlab
-		texlive-langportuguese
-		texlive-meta
-
-		libvirt
-		qemu-full
-		virt-manager
-		podman
-		dmidecode
-		dnsmasq
-
-		zsh
-		zsh-completions
-		zsh-syntax-highlighting
-		dash
-
-		tmux
-		less
-		fzf
-		curl
-		sudo
-		ripgrep
-		fd
-		tree
-		tcpdump
-		ldns
-		nmap
-		iputils
-		iproute2
-		nftables
-		miniserve
+		archlinux-contrib pacman-contrib reflector rebuild-detector lostfiles fwupd
 	)
 	install -Dm0644 arch.conf "$pkgdir"/boot/loader/entries/arch.conf
 	install -Dm0644 arch-lts.conf "$pkgdir"/boot/loader/entries/arch-lts.conf

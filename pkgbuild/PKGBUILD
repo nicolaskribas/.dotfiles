@@ -3,42 +3,21 @@ arch=('x86_64')
 pkgrel=0
 pkgver=0
 install=etcfiles.install
-source=('arch.conf'
-	'arch-lts.conf'
-	'home-ether.network'
-	'home-wlan.network'
-	'uni-ether.network'
-	'uni-wlan.network'
+source=('arch.conf' 'arch-lts.conf'
+	'home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
 	'dashbinsh.hook'
-	'paccache-1.hook'
-	'paccache-2.hook'
-	'pacman.conf'
-	'reflector.conf'
+	'paccache-1.hook' 'paccache-2.hook'
+	'pacman.conf' 'reflector.conf'
 	'journald.conf'
-	'flatpak-update.service'
-	'flatpak-update.timer'
-	'locale.conf'
-	'locale.gen'
+	'flatpak-update.service' 'flatpak-update.timer'
+	'locale.conf' 'locale.gen'
 	'sudoers'
 )
 
-md5sums=('SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
-	'SKIP'
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	'SKIP' 'SKIP'
 )
 
 
@@ -84,7 +63,7 @@ package_etcfiles-common() {
 		sqlite zola rclone miniserve
 		neovim stylua
 
-		texlive-meta texlive-langportuguese texlab
+		texlive-meta texlive-langenglish texlive-langportuguese texlab
 
 		virt-manager libvirt qemu-full dmidecode dnsmasq podman docker docker-buildx
 

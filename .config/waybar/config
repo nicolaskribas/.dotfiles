@@ -2,7 +2,7 @@
 	"position": "top",
 	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window", "sway/mode"],
 	"modules-center": [ "clock" ],
-	"modules-right": ["tray", "idle_inhibitor", "network", "wireplumber", "battery"],
+	"modules-right": ["tray", "sway/language", "idle_inhibitor", "network", "wireplumber", "battery"],
 	"sway/workspaces": {
 		"disable-scroll-wraparound": true,
 		"format": "{name}",
@@ -19,6 +19,12 @@
 	"sway/window": {
 		"format": "{shell}: {app_id}",
 		"tooltip": false,
+	},
+	"sway/language": {
+		"format": " {}",
+		"min-length": 5,
+		"tooltip": false,
+		"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
 	},
 	"tray": {
 		// "icon-size": 10,

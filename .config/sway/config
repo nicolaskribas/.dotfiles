@@ -140,8 +140,7 @@ input type:pointer {
 }
 
 input type:keyboard {
-	xkb_layout us
-	xkb_variant altgr-intl
+	xkb_layout us(altgr-intl),br
 	xkb_options caps:swapescape,compose:prsc
 	xkb_numlock enable
 	repeat_delay 300

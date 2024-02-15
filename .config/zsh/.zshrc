@@ -69,7 +69,8 @@ print_preprompt() {
 	[[ $elapsed -lt 1 ]] && return
 	local mins=$(printf "%02d" $((int(elapsed/60))))
 	local secs=$(printf "%02d" $((int(elapsed%60))))
-	print -P "*%F{yellow}%B${mins}′${secs}%b%f"
+	local cents=${elapsed#*.}
+	print -P "%F{yellow}%B${mins}′${secs}″\u208${cents[1]}\u208${cents[2]}%b%f"
 	ring # the bell
 }
 

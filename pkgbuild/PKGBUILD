@@ -54,7 +54,7 @@ package_etcfiles-common() {
 		xdg-desktop-portal-gtk xdg-desktop-portal-wlr xdg-utils xdg-user-dirs
 		flatpak foot nautilus wireshark-qt
 
-		tmux dash zsh zsh-completions zsh-syntax-highlighting
+		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
 		gcc clang rustup python
 		git make base-devel gdb strace
 		sudo less man-db man-pages

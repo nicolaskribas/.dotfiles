@@ -4,7 +4,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term foot
+set $term footclient
 set $ws1 workspace number 1:1
 set $ws2 workspace number 2:2
 set $ws3 workspace number 3:3
@@ -181,5 +181,6 @@ exec swayidle -w \
 	lock $lock \
 	unlock $unlock
 
+exec foot --server
 exec playerctld daemon
 exec /usr/lib/polkit-kde-authentication-agent-1

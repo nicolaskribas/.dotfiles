@@ -46,7 +46,9 @@
 		"format-icons": {
 			"default": ["󰖀", "󰕾"]
 		},
-		"on-click": "swaymsg exec flatpak run org.pulseaudio.pavucontrol"
+		"on-click": "swaymsg exec flatpak run org.pulseaudio.pavucontrol",
+		"on-scroll-up": "swaymsg exec '$volume_up'",
+		"on-scroll-down": "swaymsg exec '$volume_down'",
 	},
 	"network": {
 		"format-ethernet": "󰌘",

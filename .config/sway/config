@@ -23,8 +23,11 @@ set $screen_off_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output
 set $screen_on_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power on"'
 set $menu 'j4-dmenu-desktop --no-generic --dmenu="bemenu --prompt=launch" --term="$term" --wrapper="swaymsg --pretty exec"'
 set $player_prev 'playerctl previous'
-set $player_toggle 'playerctl play-pause'
 set $player_next 'playerctl next'
+set $player_play_pause 'playerctl play-pause'
+set $player_stop 'playerctl stop'
+set $player_shift 'playerctld shift'
+set $player_unshift 'playerctld unshift'
 set $volume_toggle 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
 set $volume_down 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-'
 set $volume_up 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0'
@@ -38,7 +41,7 @@ bindsym $mod+Shift+n exec makoctl restore
 bindsym XF86MonBrightnessDown exec light -T 0.91
 bindsym XF86MonBrightnessUp exec light -T 1.1
 bindsym --locked XF86AudioPrev exec $player_prev
-bindsym --locked XF86AudioPlay exec $player_toggle
+bindsym --locked XF86AudioPlay exec $player_play_pause
 bindsym --locked XF86AudioNext exec $player_next
 bindsym --locked XF86AudioMute exec $volume_toggle
 bindsym --locked XF86AudioLowerVolume exec $volume_down
@@ -171,8 +174,6 @@ include '$(hostnamectl hostname)'
 
 
 # --- Execs ---
-bar swaybar_command waybar
-
 exec swayidle -w \
 	timeout 310 $lock \
 	timeout 300 $screen_off resume $screen_on \
@@ -184,3 +185,5 @@ exec swayidle -w \
 exec foot --server
 exec playerctld daemon
 exec /usr/lib/polkit-kde-authentication-agent-1
+
+bar swaybar_command waybar

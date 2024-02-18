@@ -1,77 +1,122 @@
 {
+	"height": 24,
 	"position": "top",
-	"modules-left": ["sway/workspaces", "sway/scratchpad", "sway/window", "sway/mode"],
-	"modules-center": [ "clock" ],
-	"modules-right": ["tray", "sway/language", "idle_inhibitor", "network", "wireplumber", "battery"],
+	"modules-left": [
+		"custom/menu",
+		"sway/window",
+		"sway/scratchpad",
+		"sway/mode",
+	],
+	"modules-center": ["sway/workspaces"],
+	"modules-right": [
+		"tray",
+		"custom/systemd",
+		"custom/pacman",
+		"sway/language",
+		"idle_inhibitor",
+		"network",
+		"wireplumber",
+		"clock",
+	],
+	"custom/menu": {
+		"format": "󰣇 ",
+		"on-click": "swaymsg exec '$menu'",
+		"tooltip": false,
+	},
 	"sway/workspaces": {
 		"disable-scroll-wraparound": true,
 		"format": "{name}",
+		"persistent-workspaces": {
+			"1:1": [], "2:2": [], "3:3": [], "4:4": [], "5:5": [],
+			"6:6": [], "7:7": [], "8:8": [], "9:9": [], "10:10": [],
+		}
 	},
 	"sway/scratchpad": {
-		"show-empty": true,
-		"format": "^{count}",
+		"format-icons": ["", "󰖯", "󰖲"],
 		"on-click": "swaymsg scratchpad show",
    		"on-click-right": "swaymsg move scratchpad"
+	},
+	"sway/window": {
+		"max-length": 30,
+		"tooltip": false,
 	},
 	"sway/mode": {
 		"tooltip": false,
 	},
-	"sway/window": {
-		"format": "{shell}: {app_id}",
-		"tooltip": false,
-	},
 	"sway/language": {
-		"format": " {}",
-		"min-length": 5,
-		"tooltip": false,
+		"format": "󰌌 ",
+		"tooltip-format": "{long}",
 		"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
 	},
+	"cpu": {
+		"format": "󰻠 ",
+		"on-click": "swaymsg exec '$float_term' htop",
+	},
+	"memory": {
+		"format": "󰘚 ",
+		"on-click": "swaymsg exec '$float_term' htop",
+	},
 	"tray": {
-		// "icon-size": 10,
+		"icon-size": 15,
+		"spacing": 16,
 		"show-passive-items": true,
-		"spacing": 10,
-		// "reverse-direction": true,
+	},
+	"custom/pacman": {
+		"exec": "waybar-pacman",
+		"return-type": "json",
+		"interval": 10,
+	},
+	"custom/systemd": {
+		"exec": "waybar-systemd",
+		"return-type": "json",
+		"interval": 30,
 	},
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
-			"activated": "󰅶",
-			"deactivated": "󰛊"
+			"activated": "󰒳",
+			"deactivated": "󰒲"
 		}
 	},
-	"wireplumber": {
-		"format": "{icon} {volume}%",
-		"format-muted": "󰝟 {volume}%",
-		"format-source": "󰍬 {volume}%",
-		"format-icons": {
-			"default": ["󰖀", "󰕾"]
+	"mpris": {
+		"format": "{player_icon} {status_icon} {dynamic}",
+		"dynamic-order": ["title", "artist", "album"],
+		"player-icons": {
+			"default": "󰐌",
+			"spotify": "󰓇",
+			"firefox": "󰈹",
 		},
-		"on-click": "swaymsg exec flatpak run org.pulseaudio.pavucontrol",
+		"status-icons": {
+                     "playing": "󰐌",
+                     "paused": "󰏥",
+                     "stopped": "󰙦",
+                },
+		"on-click": "swaymsg exec '$player_play_pause'",
+		"on-click-right": "swaymsg exec '$player_stop'",
+		"on-scroll-up": "swaymsg exec '$player_shift'",
+		"on-scroll-down": "swaymsg exec '$player_unshift'",
+	},
+	"wireplumber": {
+		"format": "{icon}",
+		"format-muted": "󰝟",
+		"format-icons": ["󰖀", "󰕾"],
+		"on-click": "swaymsg exec '$volume_toggle'",
+		"on-right-click": "swaymsg exec flatpak run org.pulseaudio.pavucontrol",
 		"on-scroll-up": "swaymsg exec '$volume_up'",
 		"on-scroll-down": "swaymsg exec '$volume_down'",
 	},
 	"network": {
-		"format-ethernet": "󰌘",
-		"format-linked": "󰌘 No IP",
+		"format-ethernet": "󰈀",
+		"format-linked": "󰈀 No IP",
 		"format-disabled": "{ifname} Disabled",
-		"format-disconnected": "󰤮 Disconnected",
+		"format-disconnected": "󰤮",
 		"format-wifi": "{icon}",
 		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
 		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}",
 	},
-	"battery": {
-		"format": "{icon} {capacity}%",
-		"format-icons": {
-			"default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-		},
-		"states": {
-			"low": 20,
-		},
-	},
 	"clock": {
-		"format": "{:%a. %d %b. %R}",
+		"format": "{:%a %d %b %R}",
 		"tooltip-format": "<tt>{calendar}</tt>",
 	},
 }
-
+// vi:ft=jsonc

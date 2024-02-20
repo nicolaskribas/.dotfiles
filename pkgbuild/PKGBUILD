@@ -58,7 +58,7 @@ package_etcfiles-common() {
 		gcc clang rustup python
 		git make base-devel gdb strace
 		sudo less man-db man-pages
-		fzf ripgrep fd tree
+		fzf ripgrep fd tree gdu
 		tcpdump ldns nmap iputils iproute2 nftables curl firewalld openssh cups
 		sqlite zola rclone miniserve
 		neovim stylua

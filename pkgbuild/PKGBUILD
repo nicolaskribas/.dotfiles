@@ -2,7 +2,6 @@ pkgname=('etcfiles-common' 'etcfiles-spillway' 'etcfiles-archbtw')
 arch=('x86_64')
 pkgrel=0
 pkgver=0
-install=etcfiles.install
 source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
 	'dashbinsh.hook'
@@ -22,6 +21,7 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 
 
 package_etcfiles-spillway() {
+	install=spillway.install
 	depends=('etcfiles-common'
 		amd-ucode
 		iwd bluez bluez-utils blueman
@@ -41,6 +41,7 @@ package_etcfiles-archbtw() {
 }
 
 package_etcfiles-common() {
+	install=etcfiles.install
 	depends=(
 		base linux linux-lts linux-firmware booster
 

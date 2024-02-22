@@ -8,7 +8,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'dashbinsh.hook'
 	'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
-	'journald.conf'
+	'journald.conf' 'wait-online-override.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
 	'locale.conf' 'locale.gen'
 	'sudoers'
@@ -17,7 +17,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP'
 )
 
 
@@ -81,6 +81,7 @@ package_etcfiles-common() {
 	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
 
 	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
+	install -Dm0644 wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
 
 	install -Dm0644 flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
 	install -Dm0644 flatpak-update.timer "$pkgdir"/etc/systemd/system/flatpak-update.timer

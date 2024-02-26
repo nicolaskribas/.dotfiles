@@ -45,7 +45,7 @@ package_etcfiles-common() {
 	depends=(
 		base linux linux-lts linux-firmware booster
 
-		sway swaybg swayidle swaylock waybar j4-dmenu-desktop bemenu-wayland
+		sway swaybg swayidle swaylock waybar j4-dmenu-desktop wmenu
 		playerctl mako slurp grim swappy
 		polkit-kde-agent lxqt-openssh-askpass
 		inter-font noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono

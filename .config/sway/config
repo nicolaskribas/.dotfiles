@@ -5,6 +5,7 @@ set $down j
 set $up k
 set $right l
 set $term footclient
+set $term_multiplexed footclient tmux
 set $ws1 workspace number 1:1
 set $ws2 workspace number 2:2
 set $ws3 workspace number 3:3
@@ -35,6 +36,7 @@ set $volume_up 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0'
 
 # --- Bindings ---
 bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $term_multiplexed
 bindsym $mod+d exec $menu
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore

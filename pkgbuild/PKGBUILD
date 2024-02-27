@@ -53,7 +53,7 @@ package_etcfiles-common() {
 		pipewire pipewire-audio pipewire-jack pipewire-pulse wireplumber noise-suppression-for-voice
 		xorg-xwayland libnotify wl-clipboard rtkit polkit
 		xdg-desktop-portal-gtk xdg-desktop-portal-wlr xdg-utils xdg-user-dirs
-		flatpak foot nautilus wireshark-qt
+		flatpak foot foot-terminfo nautilus wireshark-qt
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
 		gcc clang rustup python

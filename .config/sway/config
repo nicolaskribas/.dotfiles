@@ -16,22 +16,22 @@ set $ws7 workspace number 7:7
 set $ws8 workspace number 8:8
 set $ws9 workspace number 9:9
 set $ws10 workspace number 10:10
-set $lock 'swaylock --daemonize --ignore-empty-password --color 000000'
-set $unlock 'pkill --signal SIGUSR1 --euid "$USER" --exact swaylock'
-set $screen_off 'swaymsg "output * power off"'
-set $screen_on 'swaymsg "output * power on"'
-set $screen_off_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power off"'
-set $screen_on_locked 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power on"'
-set $menu 'j4-dmenu-desktop --no-generic --dmenu="wmenu -i -p launch" --term="$term" | xargs --no-run-if-empty swaymsg exec --'
-set $player_prev 'playerctl previous'
-set $player_next 'playerctl next'
-set $player_play_pause 'playerctl play-pause'
-set $player_stop 'playerctl stop'
-set $player_shift 'playerctld shift'
-set $player_unshift 'playerctld unshift'
-set $volume_toggle 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'
-set $volume_down 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-'
-set $volume_up 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0'
+set $lock swaylock --daemonize --ignore-empty-password --color 000000
+set $unlock pkill --signal SIGUSR1 --euid "$USER" --exact swaylock
+set $screen_off swaymsg "output * power off"
+set $screen_on swaymsg "output * power on"
+set $screen_off_locked pgrep --euid "$USER" --exact swaylock && $screen_off
+set $screen_on_locked pgrep --euid "$USER" --exact swaylock && $screen_on
+set $menu j4-dmenu-desktop --no-generic --dmenu='wmenu -i -p launch' --term='$term' | xargs --no-run-if-empty swaymsg exec --
+set $player_prev playerctl previous
+set $player_next playerctl next
+set $player_play_pause playerctl play-pause
+set $player_stop playerctl stop
+set $player_shift playerctld shift
+set $player_unshift playerctld unshift
+set $volume_toggle wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+set $volume_down wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
+set $volume_up wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
 
 
 # --- Bindings ---
@@ -69,7 +69,7 @@ bindsym $mod+minus scratchpad show
 
 set $system_mode '<u>L</u>ock <u>S</u>uspend <u>E</u>xit <u>P</u>oweroff <u>R</u>eboot'
 mode --pango_markup $system_mode {
-	bindsym l mode default, exec $lock
+	bindsym l mode default, exec loginctl lock-session
 	bindsym s mode default, exec systemctl suspend
 	bindsym e exec swaymsg exit
 	bindsym p exec systemctl poweroff
@@ -177,12 +177,12 @@ include '$(hostnamectl hostname)'
 
 # --- Execs ---
 exec swayidle -w \
-	timeout 310 $lock \
-	timeout 300 $screen_off resume $screen_on \
-	timeout 10 $screen_off_locked resume $screen_on_locked \
-	before-sleep $lock \
-	lock $lock \
-	unlock $unlock
+	timeout 310 '$lock' \
+	timeout 300 '$screen_off' resume '$screen_on' \
+	timeout 10 '$screen_off_locked' resume '$screen_on_locked' \
+	before-sleep '$lock' \
+	lock '$lock' \
+	unlock '$unlock'
 
 exec foot --server
 exec playerctld daemon

@@ -21,3 +21,5 @@
 	defaultBranch = main
 [diff]
 	algorithm = histogram
+[commit]
+	verbose = true

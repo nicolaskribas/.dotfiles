@@ -28,12 +28,12 @@ bindkey -M vicmd 'v' edit-command-line
 
 
 # --- Cursor ---
-zle-line-init() { echo -ne '\e[6 q' } # starts with a beam
+zle-line-init() { echo -ne '\e[5 q' } # starts with a blinking beam
 zle -N zle-line-init
 
 zle-keymap-select() {
 	if [[ "$KEYMAP" == 'vicmd' ]]; then
-		echo -ne '\e[2 q' # go to a block when in vicmd
+		echo -ne '\e[1 q' # go to a blinking block when in vicmd
 	else
 		zle-line-init # beam again when back to main/viins mode
 	fi

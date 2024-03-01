@@ -1,0 +1,25 @@
+# Taken from https://gist.github.com/kabili207/2cd2d637e5c7617411a666d8d7e97101
+
+# Start/enable each remote by using rclone@<remote>
+# systemctl --user enable --now rclone@drive
+
+[Unit]
+Description=rclone: Remote FUSE filesystem for cloud storage config %i
+Documentation=man:rclone(1)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+ExecStartPre=/usr/bin/mkdir -p %h/%i
+ExecStart=/usr/bin/rclone mount \
+	--vfs-cache-mode writes \
+	--vfs-cache-max-size 256M \
+	--log-level INFO \
+	--drive-export-formats desktop \
+	%i: %h/%i
+ExecStop=/usr/bin/fusermount -u %h/%i
+ExecStopPost=/usr/bin/rmdir %h/%i
+
+[Install]
+WantedBy=default.target

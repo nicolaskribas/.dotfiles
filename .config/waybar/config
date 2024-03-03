@@ -3,8 +3,8 @@
 	"position": "top",
 	"modules-left": [
 		"custom/menu",
-		"sway/window",
 		"sway/scratchpad",
+		"sway/window",
 		"sway/mode",
 	],
 	"modules-center": ["sway/workspaces"],
@@ -32,7 +32,8 @@
 		}
 	},
 	"sway/scratchpad": {
-		"format-icons": ["", "󰖯", "󰖲"],
+		"format-icons": "󰖲",
+		"show-empty": true,
 		"on-click": "swaymsg scratchpad show",
    		"on-click-right": "swaymsg move scratchpad"
 	},

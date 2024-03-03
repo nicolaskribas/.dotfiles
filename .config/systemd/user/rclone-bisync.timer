@@ -1,0 +1,9 @@
+[Unit]
+Description=rclone: Bidirectional sync of local files and Google Drive
+
+[Timer]
+OnStartupSec=1min
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target

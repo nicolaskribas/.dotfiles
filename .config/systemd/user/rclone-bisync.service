@@ -1,0 +1,20 @@
+# Resync before using this service (dry-run first to be sure that no data will be lost)
+# rclone bisync --dry-run --resync --log-level INFO drive:computers ~/library
+#
+# Enable the timer
+# systemctl --user enable --now rclone-bisync.timer
+
+[Unit]
+Description=rclone: Bidirectional sync of local files and Google Drive
+Documentation=man:rclone(1)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rclone bisync \
+	--log-level INFO \
+	drive:computers %h/library
+
+[Install]
+WantedBy=default.target

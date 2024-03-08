@@ -22,7 +22,7 @@ set $screen_off swaymsg "output * power off"
 set $screen_on swaymsg "output * power on"
 set $screen_off_locked pgrep --euid "$USER" --exact swaylock && $screen_off
 set $screen_on_locked pgrep --euid "$USER" --exact swaylock && $screen_on
-set $menu j4-dmenu-desktop --no-generic --dmenu='wmenu -i -p launch' --term='$term' | xargs --no-run-if-empty swaymsg exec --
+set $menu j4-dmenu-desktop --no-generic --dmenu='wmenu -i -f "sans-serif 11" -p launch' --term='$term' | xargs --no-run-if-empty swaymsg exec --
 set $player_prev playerctl previous
 set $player_next playerctl next
 set $player_play_pause playerctl play-pause
@@ -123,7 +123,7 @@ bindsym $mod+Shift+0 move $ws10
 
 
 # --- Appearance ---
-font pango:sans-serif 10
+font pango:sans-serif 11
 smart_borders on
 default_border pixel 5
 titlebar_border_thickness 0

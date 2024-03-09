@@ -72,3 +72,8 @@ user_pref("services.sync.engine.creditcards", false);
 user_pref("services.sync.engine.addons", false);
 // Settings
 user_pref("services.sync.engine.prefs", false);
+
+
+// --- Inspector ---
+// Dock to Right
+user_pref("devtools.toolbox.host", "right");

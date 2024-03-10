@@ -11,6 +11,7 @@ alias xargs='xargs ' # same, but for xargs
 alias watch='watch --color ' # same, but for watch
 alias ring='echo -ne "\a"' # send bell character
 alias dots='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
+alias pacdiff='pacdiff --sudo --threeway'
 
 
 # --- Vi Mode ---

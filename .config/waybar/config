@@ -63,9 +63,12 @@
 		"show-passive-items": true,
 	},
 	"custom/pacman": {
-		"exec": "waybar-pacman",
+		"exec": "waybar-pacman show",
+		"format": "󰁪{}",
 		"return-type": "json",
-		"interval": 10,
+		"interval": "once",
+		"signal": 1,
+		"on-click": "waybar-pacman refresh",
 	},
 	"custom/systemd": {
 		"exec": "waybar-systemd",

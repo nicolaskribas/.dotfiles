@@ -4,6 +4,7 @@ export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 export SSH_ASKPASS=lxqt-openssh-askpass
 export EDITOR=nvim
 export VISUAL=nvim
+export DIFFPROG='nvim -d'
 export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen'
 export MANPAGER='less --color=d+m --color=u+b' # bold -> magenta, underlined -> blue
 export MANROFFOPT='-P -c' # to get colors: man passes -c flag to grotty through groff (-P)

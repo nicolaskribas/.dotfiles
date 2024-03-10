@@ -20,12 +20,6 @@ yn 'show pacreport' &&\
 yn 'update firware' &&\
 	fwupdmgr update
 
-yn 'update system' &&\
-	sudo pacman -Syu
-
-yn 'manage .pac* files' &&\
-	DIFFPROG='nvim -d' pacdiff --sudo --threeway
-
 yn 'uninstall orphan packages' &&\
 	pacman -Qtdnq | xargs --open-tty --no-run-if-empty sudo pacman -Rns
 

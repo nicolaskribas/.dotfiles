@@ -66,7 +66,8 @@ package_etcfiles-common() {
 		fzf ripgrep fd tree gdu
 		tcpdump ldns nmap iputils iproute2 nftables curl firewalld openssh cups
 		sqlite zola rclone miniserve
-		neovim stylua
+		neovim
+		stylua shellcheck
 
 		texlive-meta texlive-langenglish texlive-langportuguese texlab
 

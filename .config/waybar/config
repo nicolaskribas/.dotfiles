@@ -10,7 +10,7 @@
 	"modules-center": ["sway/workspaces"],
 	"modules-right": [
 		"tray",
-		"custom/systemd",
+		"systemd-failed-units",
 		"custom/pacman",
 		"sway/language",
 		"idle_inhibitor",
@@ -70,10 +70,8 @@
 		"signal": 1,
 		"on-click": "waybar-pacman refresh",
 	},
-	"custom/systemd": {
-		"exec": "waybar-systemd",
-		"return-type": "json",
-		"interval": 30,
+	"systemd-failed-units": {
+		"format": " {nr_failed}",
 	},
 	"idle_inhibitor": {
 		"format": "{icon}",

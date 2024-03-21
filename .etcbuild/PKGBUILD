@@ -62,7 +62,7 @@ package_etcfiles-common() {
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
 		gcc clang rustup python
 		make base-devel gdb strace
-		git difftastic
+		git difftastic git-delta
 		sudo less man-db man-pages
 		fzf ripgrep fd tree gdu
 		tcpdump ldns nmap iputils iproute2 nftables curl firewalld openssh cups

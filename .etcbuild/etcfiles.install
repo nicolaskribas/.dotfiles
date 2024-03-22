@@ -12,6 +12,7 @@ post_install() {
 	systemctl enable --now systemd-timesyncd.service
 	systemctl enable --now reflector.timer
 	systemctl enable --now flatpak-update.timer
+	systemctl enable --now cups.socket
 }
 
 post_upgrade() {

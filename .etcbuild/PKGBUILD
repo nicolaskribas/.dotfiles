@@ -65,7 +65,7 @@ package_etcfiles-common() {
 		git difftastic git-delta
 		sudo less man-db man-pages
 		fzf ripgrep fd tree gdu
-		tcpdump ldns nmap iputils iproute2 nftables curl firewalld openssh cups
+		tcpdump ldns nmap iputils iproute2 nftables curl firewalld openssh cups cups-pdf
 		sqlite zola rclone miniserve
 		neovim
 		stylua shellcheck

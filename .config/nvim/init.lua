@@ -79,15 +79,6 @@ map("n", "[b", "<Cmd>bprev<CR>")
 map("n", "]a", "<Cmd>next<CR>")
 map("n", "[a", "<Cmd>prev<CR>")
 
-map("n", "<Leader>lg", function() -- loclist grep
-	vim.ui.input({ prompt = "rg --smart-case " }, function(args)
-		if args ~= nil and args ~= "" then
-			vim.cmd.lgrep { args, mods = { silent = true } }
-			vim.cmd.lopen()
-		end
-	end)
-end)
-
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
@@ -150,13 +141,15 @@ lspconfig.texlab.setup {
 	} },
 }
 lspconfig.ltex.setup {
-	settings = { ltex = {
-		additionalRules = {
-			enablePickyRules = true,
-			motherTongue = "pt-BR",
+	settings = {
+		ltex = {
+			additionalRules = {
+				enablePickyRules = true,
+				motherTongue = "pt-BR",
+			},
+			languageToolHttpServerUri = "http://localhost:8081",
 		},
-		languageToolHttpServerUri = "http://localhost:8081",
-	} },
+	},
 }
 
 require("nvim-treesitter.configs").setup {

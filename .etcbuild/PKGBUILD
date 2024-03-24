@@ -6,6 +6,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'booster.yaml' 'nvidia.conf'
 	'home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
 	'dashbinsh.hook'
+	'systemd-boot.hook'
 	'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
 	'journald.conf' 'wait-online-override.conf'
@@ -18,7 +19,7 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP'
+	'SKIP' 'SKIP'
 )
 
 
@@ -84,6 +85,7 @@ package_etcfiles-common() {
 	install -Dm0644 nvidia.conf "$pkgdir"/etc/modprobe.d/nvidia.conf
 
 	install -Dm0644 dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
+	install -Dm0644 systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
 	install -Dm0644 paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
 	install -Dm0644 paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf

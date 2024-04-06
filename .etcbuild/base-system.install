@@ -5,17 +5,7 @@ post_install() {
 	ln -sfT /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 	ln -sfT /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
-	systemctl enable --now seatd.service
-	systemctl enable --now firewalld.service
-	systemctl enable --now systemd-networkd.service
-	systemctl enable --now systemd-resolved.service
-	systemctl enable --now systemd-timesyncd.service
-
-	systemctl enable --now reflector.timer
-	systemctl enable --now flatpak-update.timer
-	systemctl enable --now fstrim.timer
-
-	systemctl enable --now cups.socket
+	systemctl preset-all
 }
 
 post_upgrade() {

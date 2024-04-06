@@ -1,7 +1,5 @@
-
 post_install() {
-	systemctl enable --now sshd.service
-	systemctl enable --now bluetooth.service
+	systemctl systemctl-preset
 }
 
 post_upgrade() {

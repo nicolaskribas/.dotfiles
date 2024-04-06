@@ -10,6 +10,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'systemd-boot.hook'
 	'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
+	'base-system.preset' 'kahve-system.preset'
 	'journald.conf' 'wait-online-override.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
 	'locale.conf' 'locale.gen'
@@ -20,7 +21,7 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP'
 )
 
 
@@ -34,6 +35,8 @@ package_kahve-system() {
 	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
 	install -Dm0644 uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
+
+	install -Dm0644 kahve-system.preset "$pkgdir"/etc/systemd/system-preset/70-kahve-system.preset
 
 	install -Dm0644 loader.conf "$pkgdir"/boot/loader/loader.conf
 	install -Dm0644 arch.conf "$pkgdir"/boot/loader/entries/arch.conf
@@ -101,6 +104,8 @@ package_base-system() {
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
 
 	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
+
+	install -Dm0644 base-system.preset "$pkgdir"/etc/systemd/system-preset/80-base-system.preset
 
 	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
 	install -Dm0644 wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf

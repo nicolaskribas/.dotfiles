@@ -1,4 +1,4 @@
-pkgname=('etcfiles-common' 'etcfiles-spillway' 'etcfiles-archbtw')
+pkgname=('etcfiles-common' 'etcfiles-kahve' 'etcfiles-cimarron')
 arch=('x86_64')
 pkgrel=0
 pkgver=0
@@ -23,24 +23,24 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 )
 
 
-package_etcfiles-spillway() {
-	install=spillway.install
+package_etcfiles-kahve() {
+	install=kahve.install
 	depends=('etcfiles-common'
 		amd-ucode
 		nvidia nvidia-lts
 		iwd bluez bluez-utils blueman
 	)
-	echo 'spillway' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
+	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
 	install -Dm0644 uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
 }
 
-package_etcfiles-archbtw() {
+package_etcfiles-cimarron() {
 	depends=('etcfiles-common'
 		amd-ucode
 		nvidia nvidia-lts
 	)
-	echo 'archbtw' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
+	echo 'cimarron' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
 	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
 }

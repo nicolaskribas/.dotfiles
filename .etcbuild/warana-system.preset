@@ -1,0 +1,4 @@
+enable tlp.service
+enable iwd.service
+enable bluetooth.service
+enable greetd.service

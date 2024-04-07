@@ -32,6 +32,8 @@ set $player_unshift playerctld unshift
 set $volume_toggle wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 set $volume_down wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
 set $volume_up wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
+set $brightness_down brightnessctl --min-value=300 --exponent=1 set 5%-
+set $brightness_up brightnessctl --min-value=300 --exponent=1 set +5%
 
 
 # --- Bindings ---
@@ -40,8 +42,8 @@ bindsym $mod+Shift+Return exec $term_multiplexed
 bindsym $mod+d exec $menu
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore
-bindsym XF86MonBrightnessDown exec light -T 0.91
-bindsym XF86MonBrightnessUp exec light -T 1.1
+bindsym XF86MonBrightnessDown exec $brightness_down
+bindsym XF86MonBrightnessUp exec $brightness_up
 bindsym --locked XF86AudioPrev exec $player_prev
 bindsym --locked XF86AudioPlay exec $player_play_pause
 bindsym --locked XF86AudioNext exec $player_next
@@ -148,6 +150,16 @@ for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 input type:pointer {
 	accel_profile flat
 	pointer_accel 0.5
+	natural_scroll enabled
+}
+
+input 2:10:TPPS/2_Elan_TrackPoint {
+	accel_profile adaptive
+	pointer_accel 0
+	natural_scroll disabled
+}
+
+input type:touchpad {
 	natural_scroll enabled
 }
 

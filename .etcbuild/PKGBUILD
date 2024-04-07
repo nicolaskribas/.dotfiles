@@ -1,5 +1,5 @@
 pkgbase=system-meta-pkgs
-pkgname=('base-system' 'kahve-system' 'cimarron-system')
+pkgname=('base-system' 'kahve-system' 'cimarron-system' 'warana-system')
 arch=('x86_64')
 pkgrel=0
 pkgver=0
@@ -8,9 +8,11 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
 	'dashbinsh.hook'
 	'systemd-boot.hook'
+	'tlp-battery-care.conf'
+	'greetd-config.toml'
 	'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
-	'base-system.preset' 'kahve-system.preset'
+	'base-system.preset' 'kahve-system.preset' 'warana-system.preset'
 	'journald.conf' 'wait-online-override.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
 	'locale.conf' 'locale.gen'
@@ -21,7 +23,8 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	'SKIP' 'SKIP'
 )
 
 
@@ -62,16 +65,32 @@ package_cimarron-system() {
 
 	install -Dm0644 booster.yaml "$pkgdir"/etc/booster.yaml
 	install -Dm0644 nvidia.conf "$pkgdir"/etc/modprobe.d/nvidia.conf
+}
 
+package_warana-system() {
+	install=warana-system.install
+	depends=(base-system
+		intel-ucode intel-media-driver
+		iwd bluez bluez-utils blueman sof-firmware
+		cryptsetup sbctl systemd-ukify
+		tlp
+	)
+	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
+	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/10-battery-care.conf
+	install -Dm0644 warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset
+	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
+	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
+
+	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
 }
 
 package_base-system() {
 	install=base-system.install
 	depends=(
-		base linux linux-lts linux-firmware booster
+		base linux linux-lts linux-firmware booster btrfs-progs
 
 		sway swaybg swayidle swaylock waybar j4-dmenu-desktop wmenu
-		playerctl mako slurp grim swappy
+		brightnessctl playerctl mako slurp grim swappy
 		polkit-kde-agent lxqt-openssh-askpass
 		inter-font noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono
 		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme
@@ -86,7 +105,10 @@ package_base-system() {
 		git difftastic git-delta
 		sudo less man-db man-pages
 		fzf ripgrep fd tree gdu
-		tcpdump ldns nmap iputils iproute2 nftables curl firewalld openssh cups cups-pdf
+		smartmontools
+		tcpdump ldns nmap iputils iproute2 nftables curl ethtool
+		firewalld openssh
+		cups cups-pdf
 		sqlite zola rclone miniserve
 		neovim
 		stylua shellcheck

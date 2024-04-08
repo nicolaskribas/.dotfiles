@@ -31,7 +31,7 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 package_kahve-system() {
 	install=kahve-system.install
 	depends=(base-system
-		amd-ucode
+		amd-ucode sof-firmware
 		nvidia nvidia-lts
 		iwd bluez bluez-utils blueman
 	)
@@ -70,10 +70,9 @@ package_cimarron-system() {
 package_warana-system() {
 	install=warana-system.install
 	depends=(base-system
-		intel-ucode intel-media-driver
-		iwd bluez bluez-utils blueman sof-firmware
+		intel-ucode intel-media-driver sof-firmware tlp
+		iwd bluez bluez-utils blueman
 		cryptsetup sbctl systemd-ukify
-		tlp
 	)
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/10-battery-care.conf
@@ -104,7 +103,7 @@ package_base-system() {
 		make base-devel gdb strace
 		git difftastic git-delta
 		sudo less man-db man-pages
-		fzf ripgrep fd tree gdu
+		fzf ripgrep ripgrap-all fd tree gdu
 		smartmontools
 		tcpdump ldns nmap iputils iproute2 nftables curl ethtool
 		firewalld openssh

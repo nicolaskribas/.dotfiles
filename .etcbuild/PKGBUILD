@@ -8,8 +8,6 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
 	'dashbinsh.hook'
 	'systemd-boot.hook'
-	'tlp-battery-care.conf'
-	'greetd-config.toml'
 	'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
 	'base-system.preset' 'kahve-system.preset' 'warana-system.preset'
@@ -17,6 +15,12 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
 	'locale.conf' 'locale.gen'
 	'sudoers'
+
+	# warana
+	'vconsole.conf'
+	'greetd-config.toml'
+	'logind-power-key-hibernate.conf'
+	'tlp-battery-care.conf'
 )
 
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
@@ -24,13 +28,14 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP'
 )
 
 
 package_kahve-system() {
 	install=kahve-system.install
 	depends=(base-system
+		booster
 		amd-ucode sof-firmware
 		nvidia nvidia-lts
 		iwd bluez bluez-utils blueman
@@ -52,6 +57,7 @@ package_kahve-system() {
 
 package_cimarron-system() {
 	depends=(base-system
+		booster
 		amd-ucode
 		nvidia nvidia-lts
 	)
@@ -70,53 +76,61 @@ package_cimarron-system() {
 package_warana-system() {
 	install=warana-system.install
 	depends=(base-system
-		intel-ucode intel-media-driver sof-firmware tlp
+		intel-ucode mesa vulkan-intel intel-media-driver sof-firmware tlp
 		iwd bluez bluez-utils blueman
-		cryptsetup sbctl systemd-ukify
+		mkinitcpio cryptsetup sbctl fprintd
+		greetd greetd-tuigreet
 	)
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
-	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/10-battery-care.conf
+	install -Dm0644 vconsole.conf "$pkgdir"/etc/vconsole.conf
+
+	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf
 	install -Dm0644 warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset
 	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
 	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
 
 	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
+	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/10-battery-care.conf
 }
 
 package_base-system() {
 	install=base-system.install
 	depends=(
-		base linux linux-lts linux-firmware booster btrfs-progs
+		base linux linux-lts linux-firmware btrfs-progs
 
 		sway swaybg swayidle swaylock waybar j4-dmenu-desktop wmenu
 		brightnessctl playerctl mako slurp grim swappy
 		polkit-kde-agent lxqt-openssh-askpass
-		inter-font noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono
+		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr
+		foot foot-terminfo neovim htop nautilus
+		sudo polkit rtkit
+		xdg-utils xdg-user-dirs
+		inter-font ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono terminus-font
+		noto-fonts noto-fonts-cjk noto-fonts-emoji
 		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme
 		pipewire pipewire-audio pipewire-jack pipewire-pulse wireplumber noise-suppression-for-voice
-		xorg-xwayland libnotify wl-clipboard rtkit polkit
-		xdg-desktop-portal-gtk xdg-desktop-portal-wlr xdg-utils xdg-user-dirs
-		flatpak foot foot-terminfo nautilus wireshark-qt
+		xorg-xwayland libnotify wl-clipboard
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
-		gcc clang rustup python
-		make base-devel gdb strace
+		less man-db man-pages
 		git difftastic git-delta
-		sudo less man-db man-pages
-		fzf ripgrep ripgrap-all fd tree gdu
-		smartmontools
-		tcpdump ldns nmap iputils iproute2 nftables curl ethtool
-		firewalld openssh
-		cups cups-pdf
-		sqlite zola rclone miniserve
-		neovim
+		fzf ripgrep ripgrep-all fd tree gdu
+		gcc clang rustup python
 		stylua shellcheck
+		sqlite zola miniserve
+		make base-devel gdb strace
+
+		iproute2 ethtool nftables
+		iputils nmap ldns tcpdump
+		curl rclone
+		firewalld openssh cups cups-pdf
 
 		texlive-meta texlive-langenglish texlive-langportuguese texlab
 
 		virt-manager libvirt qemu-full dmidecode dnsmasq podman docker docker-buildx
 
 		archlinux-contrib pacman-contrib reflector rebuild-detector lostfiles fwupd
+		smartmontools
 	)
 	install -Dm0644 dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
 	install -Dm0644 systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook

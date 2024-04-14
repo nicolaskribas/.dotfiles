@@ -2,5 +2,4 @@
 vt = 1
 
 [default_session]
-command = "tuigreet --issue --time --user-menu --remember --remember-session"
-user = "greeter"
+command = "tuigreet --issue --time --user-menu --remember --remember-user-session --asterisks"

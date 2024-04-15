@@ -37,7 +37,7 @@ package_kahve-system() {
 	depends=(base-system
 		booster
 		amd-ucode sof-firmware
-		nvidia nvidia-lts
+		mesa libva-mesa-driver mesa-vdpau
 		iwd bluez bluez-utils blueman
 	)
 	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
@@ -49,10 +49,6 @@ package_kahve-system() {
 	install -Dm0644 loader.conf "$pkgdir"/boot/loader/loader.conf
 	install -Dm0644 arch.conf "$pkgdir"/boot/loader/entries/arch.conf
 	install -Dm0644 arch-lts.conf "$pkgdir"/boot/loader/entries/arch-lts.conf
-
-	install -Dm0644 booster.yaml "$pkgdir"/etc/booster.yaml
-	install -Dm0644 nvidia.conf "$pkgdir"/etc/modprobe.d/nvidia.conf
-
 }
 
 package_cimarron-system() {

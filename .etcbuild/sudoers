@@ -1,6 +1,7 @@
 Defaults passprompt="[sudo] password for %p: "
 Defaults passwd_timeout=0
-Defaults timestamp_timeout=0
+Defaults timestamp_type=ppid
+Defaults timestamp_timeout=60
 Defaults insults
 
 %wheel ALL=(ALL:ALL) ALL

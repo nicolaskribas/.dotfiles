@@ -76,6 +76,7 @@ package_warana-system() {
 		iwd bluez bluez-utils blueman
 		mkinitcpio cryptsetup sbctl fprintd
 		greetd greetd-tuigreet
+		snapper snap-pac
 	)
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 vconsole.conf "$pkgdir"/etc/vconsole.conf

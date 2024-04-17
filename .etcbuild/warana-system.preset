@@ -2,3 +2,5 @@ enable tlp.service
 enable iwd.service
 enable bluetooth.service
 enable greetd.service
+enable snapper-timeline.timer
+enable snapper-cleanup.timer

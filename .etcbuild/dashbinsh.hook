@@ -1,3 +1,5 @@
+# https://aur.archlinux.org/packages/dashbinsh
+
 [Trigger]
 Operation = Install
 Operation = Upgrade

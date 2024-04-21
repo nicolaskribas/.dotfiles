@@ -2,6 +2,5 @@ enable firewalld.service
 
 enable reflector.timer
 enable flatpak-update.timer
-enable fstrim.timer
 
 enable cups.socket

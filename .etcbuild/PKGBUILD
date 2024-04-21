@@ -10,7 +10,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'systemd-boot.hook'
 	'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
-	'base-system.preset' 'kahve-system.preset' 'warana-system.preset'
+	'base-system.preset' 'kahve-system.preset' 'warana-system.preset' 'cimarron-system.preset'
 	'journald.conf' 'wait-online-override.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
 	'locale.conf' 'locale.gen'
@@ -28,7 +28,7 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 )
 
 
@@ -60,6 +60,8 @@ package_cimarron-system() {
 	echo 'cimarron' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
 	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
+
+	install -Dm0644 cimarron-system.preset "$pkgdir"/etc/systemd/system-preset/70-cimarron-system.preset
 
 	install -Dm0644 loader.conf "$pkgdir"/boot/loader/loader.conf
 	install -Dm0644 arch.conf "$pkgdir"/boot/loader/entries/arch.conf

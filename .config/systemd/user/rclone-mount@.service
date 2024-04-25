@@ -19,6 +19,13 @@ ExecStart=/usr/bin/rclone mount \
 	%i: %h/%i
 ExecStop=/usr/bin/fusermount -u %h/%i
 ExecStopPost=/usr/bin/rmdir %h/%i
+Restart=on-failure
+RestartSec=1s
+RestartSteps=10
+RestartMaxDelaySec=30min
+RestartPreventExitStatus=2
+# 2 for a critically aborted run (requires a --resync to recover)
+# I'm not sure the above applies to `rclone mount`
 
 [Install]
 WantedBy=default.target

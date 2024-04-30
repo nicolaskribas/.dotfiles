@@ -1,3 +1,4 @@
 enable fstrim.timer
 enable sshd.service
+enable iwd.service
 enable bluetooth.service

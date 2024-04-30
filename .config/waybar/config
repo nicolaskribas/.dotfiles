@@ -14,6 +14,7 @@
 		"custom/pacman",
 		"sway/language",
 		"idle_inhibitor",
+		"network#wlan",
 		"network",
 		"battery",
 		"wireplumber",
@@ -109,17 +110,29 @@
 		"on-scroll-down": "swaymsg exec '$volume_down'",
 	},
 	"network": {
+		"interface": "en*",
 		"format-ethernet": "󰈀",
 		"format-linked": "󰈀 No IP",
 		"format-disabled": "{ifname} Disabled",
-		"format-disconnected": "󰤮",
-		"format-wifi": "{icon}",
+		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}",
+		// "on-click-right": launch networkctl edit or something
+	},
+	"network#wlan": {
+		"interface": "wl*",
+		"interval": 10,
 		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}",
+		"format-wifi": "{icon}",
+		"format-disconnected": "󰤮",
+		"format-disabled": "{ifname} Disabled",
+		"tooltip-format-wifi": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
+		"tooltip-format-disconnected": "Disconnected\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
+		"tooltip-format-disabled": "Disabled\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
+		// "on-click": rfkill or something,
+		// "on-click-right": launch iwctl on a floating term
 	},
 	"clock": {
 		"format": "{:%a %d %b %R}",
 		"tooltip-format": "<tt>{calendar}</tt>",
 	},
 }
-// vi:ft=jsonc
+// vim:ft=jsonc

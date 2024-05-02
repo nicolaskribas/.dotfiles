@@ -3,7 +3,7 @@ Description=Containerized LanguageTool HTTP server
 
 [Container]
 Image=docker.io/erikvl87/languagetool:latest
-PublishPort=127.0.0.1:8081:8010/tcp
+AutoUpdate=registry
 PublishPort=[::1]:8081:8010/tcp
 
 [Install]

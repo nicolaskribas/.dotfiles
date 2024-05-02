@@ -10,3 +10,9 @@ border-color=#285577
 
 [urgency=critical]
 border-color=#900000
+
+[category=progress]
+layer=overlay
+anchor=center
+history=0
+default-timeout=1000

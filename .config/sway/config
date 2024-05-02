@@ -23,6 +23,7 @@ set $screen_on swaymsg "output * power on"
 set $screen_off_locked pgrep --euid "$USER" --exact swaylock && $screen_off
 set $screen_on_locked pgrep --euid "$USER" --exact swaylock && $screen_on
 set $menu j4-dmenu-desktop --no-generic --dmenu='wmenu -i -f "sans-serif 11" -p launch' --term='$term' | xargs --no-run-if-empty swaymsg exec --
+set $notify_progress xargs --no-run-if-empty -I{} notify-send --category=progress --hint=string:x-canonical-private-synchronous:progress --hint=int:value:{}
 set $player_prev playerctl previous
 set $player_next playerctl next
 set $player_play_pause playerctl play-pause
@@ -30,11 +31,13 @@ set $player_stop playerctl stop
 set $player_shift playerctld shift
 set $player_unshift playerctld unshift
 set $mic_mute wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-set $volume_toggle wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-set $volume_down wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
-set $volume_up wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0
-set $brightness_down brightnessctl --min-value=300 --exponent=1 set 5%-
-set $brightness_up brightnessctl --min-value=300 --exponent=1 set +5%
+set $get_volume wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g'
+set $volume_toggle wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $get_volume | $notify_progress Volume
+set $volume_down wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- && $get_volume | $notify_progress Volume
+set $volume_up wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0 && $get_volume | $notify_progress Volume
+set $notify_brightness grep -Po '[0-9]{1,3}(?=%)' | $notify_progress Brightness
+set $brightness_down brightnessctl --machine-readable --min-value=300 --exponent=1 set 5%- | $notify_brightness
+set $brightness_up brightnessctl --machine-readable --min-value=300 --exponent=1 set +5% | $notify_brightness
 
 
 # --- Bindings ---

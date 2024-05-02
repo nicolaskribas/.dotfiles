@@ -146,4 +146,3 @@
 		"tooltip-format": "<tt>{calendar}</tt>",
 	},
 }
-// vim:ft=jsonc

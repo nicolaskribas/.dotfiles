@@ -50,6 +50,7 @@ window#waybar {
 #idle_inhibitor,
 #network,
 #wireplumber,
+#battery,
 #clock {
 	padding: 0 8pt;
 }

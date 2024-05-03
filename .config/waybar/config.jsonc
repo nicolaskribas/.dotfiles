@@ -138,8 +138,8 @@
 		"tooltip-format-wifi": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
 		"tooltip-format-disconnected": "Disconnected\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
 		"tooltip-format-disabled": "Disabled\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
+		"on-click-right": "swaymsg exec '$term_float' iwctl",
 		// "on-click": rfkill or something,
-		// "on-click-right": launch iwctl on a floating term
 	},
 	"clock": {
 		"format": "{:%a %d %b %R}",

@@ -1,6 +1,8 @@
 font=sans-serif 10
 anchor=bottom-right
+max-history=128
 background-color=#222222
+on-button-middle=exec swaymsg -- exec makoctl menu -n "$id" '$menu -p "select action"'
 
 [urgency=low]
 border-color=#5F676A

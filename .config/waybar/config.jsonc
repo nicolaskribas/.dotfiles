@@ -22,7 +22,7 @@
 	],
 	"custom/menu": {
 		"format": "󰣇 ",
-		"on-click": "swaymsg exec '$menu'",
+		"on-click": "swaymsg exec '$launch'",
 		"tooltip": false,
 	},
 	"sway/workspaces": {

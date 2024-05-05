@@ -14,7 +14,7 @@ window#waybar {
 }
 
 #workspaces button {
-	padding: 0 5pt;
+	padding: 0 3pt;
 }
 #workspaces button.focused {
 	font-weight: bold;
@@ -29,12 +29,12 @@ window#waybar {
 
 
 #custom-menu {
-	padding: 0 10 0 20pt;
+	padding: 0 6 0 12pt;
 }
 #window,
 #scratchpad,
 #mode {
-	padding: 0 10pt;
+	padding: 0 6pt;
 }
 
 #workspaces,
@@ -52,8 +52,8 @@ window#waybar {
 #wireplumber,
 #battery,
 #clock {
-	padding: 0 8pt;
+	padding: 0 6pt;
 }
 #clock {
-	padding-right: 20pt;
+	padding-right: 12pt;
 }

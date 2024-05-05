@@ -61,7 +61,7 @@
 	},
 	"tray": {
 		"icon-size": 15,
-		"spacing": 16,
+		"spacing": 12,
 		"show-passive-items": true,
 	},
 	"custom/pacman": {
@@ -118,6 +118,9 @@
 			"discharging": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
 			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰂈", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
 		},
+		"tooltip-format-plugged": "Capacity: {capacity}%",
+		"tooltip-format-discharging": "Capacity: {capacity}%\nTime to empty: {time}",
+		"tooltip-format-charging": "Capacity: {capacity}%\nTime to full: {time}",
 	},
 	"network": {
 		"interface": "en*",

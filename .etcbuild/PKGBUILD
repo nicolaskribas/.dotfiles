@@ -99,7 +99,7 @@ package_base-system() {
 
 		sway swaybg swayidle swaylock waybar j4-dmenu-desktop wmenu
 		brightnessctl playerctl mako slurp grim swappy
-		polkit-kde-agent lxqt-openssh-askpass
+		lxqt-policykit lxqt-openssh-askpass
 		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr
 		foot foot-terminfo neovim htop nautilus
 		sudo polkit rtkit

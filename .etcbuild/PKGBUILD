@@ -116,7 +116,7 @@ package_base-system() {
 		fzf ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python
 		stylua shellcheck
-		sqlite zola miniserve
+		jq sqlite zola miniserve
 		make base-devel gdb strace
 
 		iproute2 ethtool nftables

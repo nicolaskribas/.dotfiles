@@ -8,8 +8,8 @@ export DIFFPROG='nvim -d'
 export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen'
 export MANPAGER='less --color=d+m --color=u+b' # bold -> magenta, underlined -> blue
 export MANROFFOPT='-P -c' # to get colors: man passes -c flag to grotty through groff (-P)
-export FZF_DEFAULT_COMMAND='fd --type=file'
-export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --color=16'
+export FZF_DEFAULT_COMMAND='fd --hidden --follow --type=file --type=dir'
+export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --color=16'
 
 typeset -U path
 path+=(~/.local/bin)

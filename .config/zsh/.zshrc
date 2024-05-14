@@ -28,7 +28,7 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 
 autoload -U edit-command-line && zle -N edit-command-line
-bindkey -M vicmd 'v' edit-command-line
+bindkey -M vicmd '^v' edit-command-line
 
 
 # --- Cursor ---
@@ -121,9 +121,19 @@ zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f'
 zstyle ':completion:*:messages' format '%F{yellow}-- %d --%f'
 zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
 
+
 # --- Plugins ---
 # syntax highlighting plugin, should be sourced at the end
 typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[command]='fg=cyan'
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='bold'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=cyan,underline'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value
+ZSH_HIGHLIGHT_STYLES[redirection]='none'
+ZSH_HIGHLIGHT_STYLES[arg0]='fg=cyan'
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

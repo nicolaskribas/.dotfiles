@@ -20,7 +20,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'vconsole.conf'
 	'greetd-config.toml'
 	'logind-power-key-hibernate.conf'
-	'tlp-battery-care.conf'
+	'tlp-performance.conf' 'tlp-battery-care.conf'
 )
 
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
@@ -29,6 +29,7 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
+	'SKIP'
 )
 
 
@@ -89,7 +90,8 @@ package_warana-system() {
 	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
 
 	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
-	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/10-battery-care.conf
+	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
+	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
 }
 
 package_base-system() {

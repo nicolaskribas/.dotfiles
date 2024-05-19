@@ -10,7 +10,6 @@ opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500" -- make cursor blink
 opt.guicursor:append "a:Cursor" -- make cursor follow neovim colorscheme
 opt.cursorline = true
 opt.colorcolumn = "81"
-opt.termguicolors = true
 opt.mouse = "a"
 opt.undofile = true -- save undo history between sessions
 opt.virtualedit = "block" -- allow placing the cursor where no character exist when in visual block
@@ -23,10 +22,10 @@ opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
 opt.completeopt = { "menuone", "noinsert", "noselect" }
-opt.shortmess:append "cC"
+opt.shortmess:append "c"
 opt.wildmode = { "longest:full:lastused", "full" } -- complete until longest common string, then iterate over other matches, sort buffers by last used
 opt.path:append "**" -- recursive :find
-opt.grepprg = "rg --smart-case --vimgrep"
+opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 vim.diagnostic.config {
@@ -61,9 +60,6 @@ map({ "n", "x" }, "k", "gk")
 map({ "n", "x" }, "gj", "j")
 map({ "n", "x" }, "gk", "k")
 
-map("n", "<Leader>d", vim.diagnostic.open_float)
-map("n", "[d", vim.diagnostic.goto_prev) -- *
-map("n", "]d", vim.diagnostic.goto_next) -- *
 map("n", "<Leader>qd", vim.diagnostic.setqflist)
 map("n", "<Leader>qe", function()
 	vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR }
@@ -113,7 +109,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		local lsp = vim.lsp.buf
 		local opts = { buffer = args.buf }
-		map("n", "K", lsp.hover, opts) -- **
 		map("n", "gd", lsp.declaration, opts) -- ** for definition use Ctrl-]
 		map("n", "gD", lsp.type_definition, opts) -- **
 		map({ "n", "i" }, "<C-s>", lsp.signature_help, opts)
@@ -160,7 +155,6 @@ require("nvim-treesitter.configs").setup {
 	indent = { enable = true },
 }
 
-require("mini.comment").setup {}
 require("mini.completion").setup {
 	lsp_completion = {
 		source_func = "omnifunc",

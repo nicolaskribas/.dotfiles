@@ -47,7 +47,7 @@ zle -N zle-keymap-select
 
 # --- Prompt ---
 # shows current working directory
-PROMPT='%(?..?%F{red}%B%?%b%f )%n@%m %B%4~%b %# '
+PROMPT='%(?..?%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f %# '
 
 # right prompt: shows current number of background jobs
 RPROMPT='%(1j.&%F{blue}%B%j%b%f.)'
@@ -109,17 +109,20 @@ setopt hist_verify # don't execute the command with history expansion right away
 
 
 # --- Completion ---
+setopt no_list_ambiguous
+setopt complete_in_word
 setopt list_packed
 autoload -U compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
 zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' # smart-case completion
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f'
-zstyle ':completion:*:messages' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:messages' format '%F{yellow}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
+zstyle ':completion:*:functions' ignored-patterns '_*'
 
 
 # --- Plugins ---

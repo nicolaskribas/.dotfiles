@@ -129,6 +129,7 @@
 		"format-disconnected": "󰈂",
 		"format-disabled": "{ifname} Disabled",
 		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nMask: {netmask}\nGateway: {gwaddr}",
+		"tooltip-format-disconnected": "Disconnected\nInterface: {ifname}",
 		// "on-click-right": launch networkctl edit or something
 	},
 	"network#wlan": {

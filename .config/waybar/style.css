@@ -38,7 +38,7 @@ window#waybar {
 }
 
 #workspaces,
-#custom-systemd,
+#systemd-failed-units,
 #custom-pacman,
 #tray,
 #mpris,

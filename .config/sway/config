@@ -208,5 +208,6 @@ exec swayidle -w \
 exec foot --server
 exec playerctld daemon
 exec lxqt-policykit-agent
+exec wl-paste --watch cliphist store
 
 bar swaybar_command waybar

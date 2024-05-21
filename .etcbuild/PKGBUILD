@@ -110,7 +110,7 @@ package_base-system() {
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
 		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme
 		pipewire pipewire-audio pipewire-jack pipewire-pulse wireplumber noise-suppression-for-voice
-		xorg-xwayland libnotify wl-clipboard
+		xorg-xwayland libnotify wl-clipboard mailcap cliphist
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
 		less man-db man-pages

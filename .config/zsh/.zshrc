@@ -16,6 +16,46 @@ alias pacdiff='pacdiff --sudo --threeway'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g L='| less'
+alias -g F='| fzf'
+
+
+# --- Misc ---
+setopt extended_glob
+setopt no_clobber
+setopt interactive_comments
+
+eval "$(dircolors -b)" # setup colors for `ls` and for completion
+
+
+# --- History ---
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zhistory"
+
+setopt extended_history # save command's start/elapsed time to history file
+setopt inc_append_history_time # append commands to history file as they finish (to record elapsed time)
+setopt hist_ignore_space # don't save commands begining with a space to the history file
+setopt hist_reduce_blanks # remove superfluous blanks from each command line
+setopt hist_fcntl_lock # use system call when locking history file, for performance
+setopt hist_verify # don't execute the command with history expansion right away
+
+
+# --- Completion ---
+setopt no_list_ambiguous # in a single tab press: insert unambiguous prefix then show comp list
+setopt complete_in_word # do not jump to end of the word before completing
+setopt list_packed # pack the completion list by using columns with different widths
+
+autoload -U compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
+zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
+zstyle ':completion:*' group-name '' # group completions by type
+zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f' # print groups type
+zstyle ':completion:*:messages' format '%F{yellow}%d%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
+zstyle ':completion:*:functions' ignored-patterns '_*'
 
 
 # --- Vi Mode ---
@@ -31,22 +71,8 @@ autoload -U edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
 
 
-# --- Cursor ---
-zle-line-init() { echo -ne '\e[5 q' } # starts with a blinking beam
-zle -N zle-line-init
-
-zle-keymap-select() {
-	if [[ "$KEYMAP" == 'vicmd' ]]; then
-		echo -ne '\e[1 q' # go to a blinking block when in vicmd
-	else
-		zle-line-init # beam again when back to main/viins mode
-	fi
-}
-zle -N zle-keymap-select
-
-
 # --- Prompt ---
-# shows current working directory
+# shows return code, user, hostname and current working directory
 PROMPT='%(?..?%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f %# '
 
 # right prompt: shows current number of background jobs
@@ -63,7 +89,7 @@ stop_exec_timer() {
 	unset EXEC_START_TIME
 }
 
-print_preprompt() {
+print_elapsed_time() {
 	[[ -z $EXEC_ELAPSED_TIME ]] && return
 	local elapsed=$EXEC_ELAPSED_TIME
 	unset EXEC_ELAPSED_TIME
@@ -76,56 +102,37 @@ print_preprompt() {
 	ring # the bell
 }
 
+set_window_title_prompt() { print -Pn "\e]0;zsh %n@%m %#\a" }
+
+set_window_title_exec() { print -Pn "\e]0;${(q)1}\a" }
+
 autoload -U add-zsh-hook
+add-zsh-hook preexec set_window_title_exec
 add-zsh-hook preexec start_exec_timer
 add-zsh-hook precmd stop_exec_timer
-add-zsh-hook precmd print_preprompt
+add-zsh-hook precmd print_elapsed_time
+add-zsh-hook precmd set_window_title_prompt
 
 
-# --- Other Options ---
-setopt extended_glob
-setopt no_clobber
-setopt interactive_comments
+# --- Cursor ---
+zle-line-init() { echo -ne '\e[5 q' } # starts with a blinking beam
+zle -N zle-line-init
 
-
-# --- Files and Directories ---
-eval "$(dircolors -b)" # setup colors for `ls`
-
-FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_ALT_C_COMMAND='fd --hidden --follow --type=dir'
-eval "$(fzf --zsh)" # set <C-R>, <C-T> and <A-C> bindings that use fzf for selecting things
-
-
-# --- History ---
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zhistory"
-setopt extended_history # save command's start/elapsed time to history file
-setopt inc_append_history_time # append commands to history file as they finish (to record elapsed time)
-setopt hist_ignore_space # don't save commands begining with a space to the history file
-setopt hist_reduce_blanks # remove superfluous blanks from each command line
-setopt hist_fcntl_lock # use system call when locking history file, for performance
-setopt hist_verify # don't execute the command with history expansion right away
-
-
-# --- Completion ---
-setopt no_list_ambiguous
-setopt complete_in_word
-setopt list_packed
-autoload -U compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
-zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f'
-zstyle ':completion:*:messages' format '%F{yellow}%d%f'
-zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
-zstyle ':completion:*:functions' ignored-patterns '_*'
+zle-keymap-select() {
+	if [[ "$KEYMAP" == 'vicmd' ]]; then
+		echo -ne '\e[1 q' # go to a blinking block when in vicmd
+	else
+		zle-line-init # beam again when back to main/viins mode
+	fi
+}
+zle -N zle-keymap-select
 
 
 # --- Plugins ---
+FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+FZF_ALT_C_COMMAND='fd --hidden --follow --type=dir'
+source /usr/share/fzf/key-bindings.zsh # set <C-R>, <C-T> and <A-C> bindings that use fzf for selecting things
+
 # syntax highlighting plugin, should be sourced at the end
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'

@@ -9,24 +9,35 @@
 }
 
 window#waybar {
-	background: @theme_bg_color;
-	color: @wm_icon_bg;
+	color: @theme_text_color;
+	background: @theme_base_color;
 }
 
 #workspaces button {
 	padding: 0 3pt;
 }
+
+#workspaces button.persistent {
+	color: @theme_unfocused_fg_color;
+}
+
 #workspaces button.focused {
 	font-weight: bold;
+	color: @theme_selected_fg_color;
 	background: @theme_selected_bg_color;
 }
+
 #workspaces button.urgent {
 	background: @error_color;
 }
-#workspaces button.persistent {
-	color: @wm_unfocused_title;
+
+#mode {
+	background: @success_color;
 }
 
+#systemd-failed-units {
+	background: @error_color;
+}
 
 #custom-menu {
 	padding: 0 6 0 12pt;

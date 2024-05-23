@@ -105,17 +105,17 @@ package_base-system() {
 		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr
 		foot foot-terminfo neovim htop nautilus
 		sudo polkit rtkit
-		xdg-utils xdg-user-dirs
+		xdg-user-dirs
 		inter-font ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono terminus-font
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
 		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme
 		pipewire pipewire-audio pipewire-jack pipewire-pulse wireplumber noise-suppression-for-voice
-		xorg-xwayland libnotify wl-clipboard mailcap cliphist
+		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
 		less man-db man-pages
 		git difftastic git-delta
-		fzf ripgrep ripgrep-all fd tree gdu
+		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python
 		stylua shellcheck
 		jq sqlite zola miniserve

@@ -9,7 +9,6 @@ alias ip='ip -color=auto'
 alias sudo='sudo ' # expand command passed to sudo if it is an alias
 alias xargs='xargs ' # same, but for xargs
 alias watch='watch --color ' # same, but for watch
-alias ring='echo -ne "\a"' # send bell character
 alias dots='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias man='MANWIDTH="$((COLUMNS > 80 ? 80 : COLUMNS))" man' # limit man width to 80 columns
 alias pacdiff='pacdiff --sudo --threeway'
@@ -72,11 +71,13 @@ bindkey -M vicmd '^v' edit-command-line
 
 
 # --- Prompt ---
+setopt prompt_subst
+
 # shows return code, user, hostname and current working directory
-PROMPT='%(?..?%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f %# '
+PROMPT='${EXEC_ELAPSED_TIME_FORMATED}%(?..%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f %# '
 
 # right prompt: shows current number of background jobs
-RPROMPT='%(1j.&%F{blue}%B%j%b%f.)'
+RPROMPT='%(1j.%F{blue}%B%j%b%f.)'
 
 zmodload zsh/datetime
 zmodload zsh/mathfunc
@@ -85,42 +86,35 @@ start_exec_timer() { EXEC_START_TIME=$EPOCHREALTIME }
 
 stop_exec_timer() {
 	[[ -z $EXEC_START_TIME ]] && return
-	EXEC_ELAPSED_TIME=$((EPOCHREALTIME - EXEC_START_TIME))
+	local elapsed=$((EPOCHREALTIME - EXEC_START_TIME))
 	unset EXEC_START_TIME
-}
 
-print_elapsed_time() {
-	[[ -z $EXEC_ELAPSED_TIME ]] && return
-	local elapsed=$EXEC_ELAPSED_TIME
-	unset EXEC_ELAPSED_TIME
-
+	unset EXEC_ELAPSED_TIME_FORMATED
 	[[ $elapsed -lt 1 ]] && return
-	local mins=$(printf "%02d" $((int(elapsed/60))))
-	local secs=$(printf "%02d" $((int(elapsed%60))))
-	local cents=${elapsed#*.}
-	print -P "%F{yellow}%B${mins}′${secs}″\u208${cents[1]}\u208${cents[2]}%b%f"
-	ring # the bell
+	printf -v EXEC_ELAPSED_TIME_FORMATED '%s%02d:%02d%s ' '%F{yellow}%B' "$((int(elapsed/60)))" "$((int(elapsed%60)))" '%b%f'
 }
 
-set_window_title_prompt() { print -Pn "\e]0;zsh %n@%m %#\a" }
+set_window_title_prompt() { print -nP '\e]2;zsh %n@%m %#\a' }
 
-set_window_title_exec() { print -Pn "\e]0;${(q)1}\a" }
+set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
+
+ring() { print -n '\a' } # print bell character
 
 autoload -U add-zsh-hook
 add-zsh-hook preexec set_window_title_exec
 add-zsh-hook preexec start_exec_timer
 add-zsh-hook precmd stop_exec_timer
-add-zsh-hook precmd print_elapsed_time
 add-zsh-hook precmd set_window_title_prompt
+add-zsh-hook precmd ring
 
 
 # --- Cursor ---
-zle-line-init() { echo -ne '\e[5 q' } # starts with a blinking beam
+zle-line-init() { print -n '\e[5 q' } # starts with a blinking beam
 zle -N zle-line-init
 
 zle-keymap-select() {
 	if [[ "$KEYMAP" == 'vicmd' ]]; then
-		echo -ne '\e[1 q' # go to a blinking block when in vicmd
+		print -n '\e[1 q' # go to a blinking block when in vicmd
 	else
 		zle-line-init # beam again when back to main/viins mode
 	fi

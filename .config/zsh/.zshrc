@@ -94,7 +94,7 @@ stop_exec_timer() {
 	printf -v EXEC_ELAPSED_TIME_FORMATED '%s%02d:%02d%s ' '%F{yellow}%B' "$((int(elapsed/60)))" "$((int(elapsed%60)))" '%b%f'
 }
 
-set_window_title_prompt() { print -nP '\e]2;zsh %n@%m %#\a' }
+set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a' }
 
 set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
 

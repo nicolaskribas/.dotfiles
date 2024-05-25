@@ -18,7 +18,7 @@ yn 'show pacreport' &&\
 	pacreport | less
 
 yn 'update firware' &&\
-	fwupdmgr update
+	(fwupdmgr refresh; fwupdmgr update)
 
 yn 'uninstall orphan packages' &&\
 	pacman -Qtdnq | xargs --open-tty --no-run-if-empty sudo pacman -Rns

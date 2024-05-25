@@ -39,9 +39,10 @@ package_kahve-system() {
 		booster
 		amd-ucode sof-firmware
 		mesa libva-mesa-driver mesa-vdpau
-		iwd bluez bluez-utils blueman
+		iwd wireless-regdb bluez bluez-utils blueman
 	)
 	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
+	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
 	install -Dm0644 uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
 	install -Dm0644 uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
 
@@ -76,12 +77,13 @@ package_warana-system() {
 	install=warana-system.install
 	depends=(base-system
 		intel-ucode mesa vulkan-intel intel-media-driver sof-firmware tlp
-		iwd bluez bluez-utils blueman
+		iwd wireless-regdb bluez bluez-utils blueman
 		mkinitcpio cryptsetup sbctl fprintd
 		greetd greetd-tuigreet
 		snapper snap-pac
 	)
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
+	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
 	install -Dm0644 vconsole.conf "$pkgdir"/etc/vconsole.conf
 
 	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf

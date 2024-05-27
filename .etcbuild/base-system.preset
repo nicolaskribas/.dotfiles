@@ -1,3 +1,5 @@
+disable systemd-boot-update.service
+
 enable firewalld.service
 
 enable reflector.timer

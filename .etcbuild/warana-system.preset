@@ -2,5 +2,6 @@ enable tlp.service
 enable iwd.service
 enable bluetooth.service
 enable greetd.service
+enable btrfs-scrub@.timer -
 enable snapper-timeline.timer
 enable snapper-cleanup.timer

@@ -119,7 +119,7 @@ package_base-system() {
 		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python
-		stylua shellcheck
+		stylua shellcheck ruff jedi-language-server
 		jq sqlite zola miniserve
 		make base-devel gdb strace
 

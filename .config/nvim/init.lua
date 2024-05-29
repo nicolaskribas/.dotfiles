@@ -129,7 +129,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
-lspconfig.pylsp.setup {}
+lspconfig.ruff.setup {}
+lspconfig.jedi_language_server.setup {}
 lspconfig.texlab.setup {
 	settings = { texlab = {
 		build = { onSave = true },

@@ -6,5 +6,8 @@ Image=docker.io/erikvl87/languagetool:latest
 AutoUpdate=registry
 PublishPort=[::1]:8081:8010/tcp
 
+[Service]
+Restart=on-failure
+
 [Install]
 WantedBy=default.target

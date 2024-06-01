@@ -14,7 +14,7 @@ window#waybar {
 }
 
 #workspaces button {
-	padding: 0 3pt;
+	padding: 0 2.5pt;
 }
 
 #workspaces button.persistent {
@@ -40,12 +40,12 @@ window#waybar {
 }
 
 #custom-menu {
-	padding: 0 6 0 12pt;
+	padding: 0 5 0 10pt;
 }
 #window,
 #scratchpad,
 #mode {
-	padding: 0 6pt;
+	padding: 0 5pt;
 }
 
 #workspaces,
@@ -63,8 +63,8 @@ window#waybar {
 #wireplumber,
 #battery,
 #clock {
-	padding: 0 6pt;
+	padding: 0 5pt;
 }
 #clock {
-	padding-right: 12pt;
+	padding-right: 10pt;
 }

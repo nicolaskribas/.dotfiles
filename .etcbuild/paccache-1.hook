@@ -1,3 +1,5 @@
+# https://aur.archlinux.org/packages/pacman-cleanup-hook
+
 [Trigger]
 Operation = Install
 Operation = Upgrade
@@ -7,6 +9,6 @@ Target = *
 
 [Action]
 Description = Removing old cached package files (keeping at least two)...
-Exec = /usr/bin/paccache --remove --verbose --keep 2 --min-mtime '30 days ago' --min-atime '30 days ago'
+Exec = /usr/bin/paccache --remove --verbose --keep 2 --min-mtime '30 days ago'
 When = PostTransaction
 Depends = pacman-contrib

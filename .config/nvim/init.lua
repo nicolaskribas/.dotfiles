@@ -3,6 +3,7 @@ opt.tabstop = 8
 opt.shiftwidth = 0 -- 0 means: same value as 'tabstop'
 opt.shiftround = true -- round indent to multiples of 'shifwidth'
 opt.number = true
+opt.relativenumber = true
 opt.signcolumn = "yes"
 opt.fillchars = { eob = " " }
 opt.guicursor:append "c:ver25" -- vertical bar as cursor when inserting in command-line mode
@@ -130,7 +131,7 @@ local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
 lspconfig.ruff.setup {}
-lspconfig.jedi_language_server.setup {}
+lspconfig.pyright.setup {}
 lspconfig.texlab.setup {
 	settings = { texlab = {
 		build = { onSave = true },

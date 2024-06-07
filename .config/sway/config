@@ -142,8 +142,7 @@ bindsym $mod+Shift+0 move $ws10
 # --- Appearance ---
 font pango:sans-serif 11
 smart_borders on
-default_border pixel 5
-titlebar_border_thickness 0
+default_border pixel 2
 
 seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme Adwaita

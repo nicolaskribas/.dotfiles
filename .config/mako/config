@@ -1,9 +1,15 @@
-font=sans-serif 10
-anchor=bottom-right
+# --- Global ---
 max-history=128
-background-color=#222222
+sort=+time
+
+# --- Binding ---
 on-button-middle=exec swaymsg -- exec makoctl menu -n "$id" '$menu -p "select action"'
 
+# --- Style ---
+font=sans-serif 10
+background-color=#222222
+
+# --- Criteria ---
 [urgency=low]
 border-color=#5F676A
 
@@ -14,6 +20,6 @@ border-color=#285577
 border-color=#900000
 
 [category=system]
+history=0
 layer=overlay
 anchor=center
-history=0

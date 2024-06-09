@@ -12,4 +12,4 @@ export FZF_DEFAULT_COMMAND='fd --hidden --follow --type=file --type=dir'
 export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --color=16'
 
 typeset -U path
-path+=(~/.local/bin)
+path=(~/.local/bin $path)

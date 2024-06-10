@@ -105,7 +105,7 @@ package_base-system() {
 		brightnessctl playerctl mako slurp grim swappy
 		lxqt-policykit lxqt-openssh-askpass
 		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr
-		foot foot-terminfo neovim htop nautilus
+		foot foot-terminfo neovim nautilus
 		sudo polkit rtkit
 		xdg-user-dirs
 		inter-font ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono terminus-font
@@ -119,12 +119,13 @@ package_base-system() {
 		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python
-		stylua shellcheck ruff jedi-language-server
+		stylua shellcheck ruff pyright
 		jq sqlite zola miniserve
 		make base-devel gdb strace
+		htop bpftop bpftrace
 
 		iproute2 ethtool nftables
-		iputils nmap ldns tcpdump
+		iputils nmap ldns tcpdump tcpreplay
 		curl rclone sshfs
 		firewalld openssh cups cups-pdf
 

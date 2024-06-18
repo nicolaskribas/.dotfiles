@@ -1,3 +1,5 @@
+# https://gitlab.freedesktop.org/xdg/shared-mime-info/-/blob/master/data/freedesktop.org.xml.in
+
 [Default Applications]
 x-scheme-handler/http=org.mozilla.firefox.desktop
 x-scheme-handler/https=org.mozilla.firefox.desktop
@@ -7,6 +9,8 @@ message/rfc822=org.mozilla.Thunderbird.desktop
 
 application/pdf=org.gnome.Evince.desktop
 
+text/plain=nvim.desktop
+
 image/jpeg=org.gnome.Loupe.desktop
 image/png=org.gnome.Loupe.desktop
 image/gif=org.gnome.Loupe.desktop
@@ -15,4 +19,10 @@ image/svg+xml=org.gnome.Loupe.desktop
 image/svg+xml-compressed=org.gnome.Loupe.desktop
 
 video/mp4=org.gnome.Totem.desktop
+video/mpeg=org.gnome.Totem.desktop
+video/ogg=org.gnome.Totem.desktop
 video/webm=org.gnome.Totem.desktop
+
+audio/mpeg=io.bassi.Amberol.desktop
+audio/flac=io.bassi.Amberol.desktop
+audio/vnd.wave=io.bassi.Amberol.desktop

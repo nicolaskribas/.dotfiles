@@ -24,6 +24,3 @@
 	external = difft
 [commit]
 	verbose = true
-[core]
-	pager = delta
-; TODO: take a look at other recommended settings https://github.com/dandavison/delta#get-started

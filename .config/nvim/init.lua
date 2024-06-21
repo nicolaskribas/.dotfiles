@@ -167,5 +167,23 @@ require("mini.completion").setup {
 	set_vim_settings = false,
 }
 
+require("mini.bufremove").setup {
+	set_vim_settings = false,
+}
+
+-- TODO: make it work more like :bdelete (e.g. accepting the file name)
+vim.api.nvim_create_user_command("Bdelete", function(args)
+	local buf_id
+	if args.args ~= "" then
+		buf_id = tonumber(args.args)
+	else
+		buf_id = 0
+	end
+
+	if buf_id ~= nil then
+		MiniBufremove.delete(buf_id, args.bang)
+	end
+end, { bang = true, nargs = "?" })
+
 -- * overrides a default keymap
 -- ** overrides a default keymap with similar functionality

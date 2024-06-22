@@ -1,4 +1,5 @@
 #!/bin/sh
+# inspired by: https://wiki.archlinux.org/title/System_maintenance
 
 yn() {
 	printf '%s? [Y/n] ' "$1"
@@ -17,8 +18,8 @@ yn 'show sway logs' &&\
 yn 'show pacreport' &&\
 	pacreport | less
 
-yn 'update firware' &&\
-	(fwupdmgr refresh; fwupdmgr update)
+yn 'update packages' &&\
+	sudo pacman -Syu
 
 yn 'uninstall orphan packages' &&\
 	pacman -Qtdnq | xargs --open-tty --no-run-if-empty sudo pacman -Rns
@@ -29,11 +30,20 @@ yn 'uninstall orphan packages and optional dependencies' &&\
 yn 'uninstall orphan packages (detecting cicles)' &&\
 	pacman -Qqdn | sudo pacman -Rsu -
 
-yn 'list foreign packages' &&\
-	pacman -Qm
+yn 'run checkrebuild' &&\
+	checkrebuild
+
+yn 'run pacdiff' &&\
+	pacdiff --sudo --threeway
+
+yn 'run checkservices' &&\
+	sudo checkservices -Pu
 
 yn 'remove lostfiles' &&\
 	sudo lostfiles | xargs --open-tty --no-run-if-empty sudo rm -div
+
+yn 'update firware' &&\
+	(fwupdmgr refresh; fwupdmgr update)
 
 yn 'reboot' &&\
 	systemctl reboot

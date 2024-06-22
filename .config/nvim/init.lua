@@ -159,6 +159,8 @@ require("nvim-treesitter.configs").setup {
 	indent = { enable = true },
 }
 
+require("mini.trailspace").setup {}
+
 require("mini.completion").setup {
 	lsp_completion = {
 		source_func = "omnifunc",

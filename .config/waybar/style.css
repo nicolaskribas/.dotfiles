@@ -39,6 +39,10 @@ window#waybar {
 	background: @error_color;
 }
 
+#battery.discharging.low {
+	background: @error_color;
+}
+
 #custom-menu {
 	padding: 0 5 0 10pt;
 }

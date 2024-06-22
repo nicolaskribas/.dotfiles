@@ -118,6 +118,9 @@
 			"discharging": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
 			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰂈", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
 		},
+		"states": {
+			"low": 20,
+		},
 		"tooltip-format-plugged": "Capacity: {capacity}%",
 		"tooltip-format-discharging": "Capacity: {capacity}%\nTime to empty: {time}",
 		"tooltip-format-charging": "Capacity: {capacity}%\nTime to full: {time}",

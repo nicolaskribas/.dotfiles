@@ -23,3 +23,6 @@ border-color=#900000
 history=0
 layer=overlay
 anchor=center
+
+[mode=dnd]
+invisible=1

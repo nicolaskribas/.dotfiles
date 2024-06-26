@@ -12,6 +12,7 @@
 		"tray",
 		"systemd-failed-units",
 		"sway/language",
+		"custom/dnd",
 		"idle_inhibitor",
 		"network#wlan",
 		"network",
@@ -65,6 +66,15 @@
 	},
 	"systemd-failed-units": {
 		"format": " {nr_failed}",
+	},
+	"custom/dnd": {
+		"format": "{}",
+		"interval": "once",
+		"return-type": "json",
+		"exec": "printf '{\"text\": \"%s\", \"tooltip\": \"\"}\n' \"$(makoctl mode | grep -q dnd && echo -n 󰂛 || echo -n 󰂚 )\"",
+		"exec-on-event": false,
+		"on-click": "makoctl mode -t dnd; pkill --signal SIGRTMIN+1 --euid \"$USER\" --exact waybar",
+		"signal": 1,
 	},
 	"idle_inhibitor": {
 		"format": "{icon}",

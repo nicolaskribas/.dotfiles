@@ -37,7 +37,7 @@
 		"format-icons": "󰖲",
 		"show-empty": true,
 		"on-click": "swaymsg scratchpad show",
-   		"on-click-right": "swaymsg move scratchpad"
+		"on-click-right": "swaymsg move scratchpad"
 	},
 	"sway/window": {
 		"max-length": 30,
@@ -71,9 +71,9 @@
 		"format": "{}",
 		"interval": "once",
 		"return-type": "json",
-		"exec": "printf '{\"text\": \"%s\", \"tooltip\": \"\"}\n' \"$(makoctl mode | grep -q dnd && echo -n 󰂛 || echo -n 󰂚 )\"",
+		"exec": "printf '{\"text\": \"%s\", \"tooltip\": \"mako mode:\\\\n%s\"}\n' \"$(makoctl mode | grep -q dnd && echo -n 󰂛 || echo -n 󰂚 )\" \"$(makoctl mode | sed ':a;N;$!ba;s/\\n/\\\\n/g')\"",
 		"exec-on-event": false,
-		"on-click": "makoctl mode -t dnd; pkill --signal SIGRTMIN+1 --euid \"$USER\" --exact waybar",
+		"on-click": "makoctl mode -t dnd > /dev/null; pkill --signal SIGRTMIN+1 --euid \"$USER\" --exact waybar",
 		"signal": 1,
 	},
 	"idle_inhibitor": {
@@ -92,10 +92,10 @@
 			"firefox": "󰈹",
 		},
 		"status-icons": {
-                     "playing": "󰐌",
-                     "paused": "󰏥",
-                     "stopped": "󰙦",
-                },
+			"playing": "󰐌",
+			"paused": "󰏥",
+			"stopped": "󰙦",
+		},
 		"on-click": "swaymsg exec '$player_play_pause'",
 		"on-click-right": "swaymsg exec '$player_stop'",
 		"on-scroll-up": "swaymsg exec '$player_shift'",

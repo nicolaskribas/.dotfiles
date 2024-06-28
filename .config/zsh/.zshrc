@@ -33,7 +33,7 @@ HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zhistory"
 
 setopt extended_history # save command's start/elapsed time to history file
 setopt inc_append_history_time # append commands to history file as they finish (to record elapsed time)
-setopt hist_ignore_space # don't save commands begining with a space to the history file
+setopt hist_ignore_space # don't save commands beginning with a space to the history file
 setopt hist_reduce_blanks # remove superfluous blanks from each command line
 setopt hist_fcntl_lock # use system call when locking history file, for performance
 setopt hist_verify # don't execute the command with history expansion right away

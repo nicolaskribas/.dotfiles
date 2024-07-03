@@ -79,7 +79,6 @@ package_warana-system() {
 		intel-ucode mesa vulkan-intel intel-media-driver sof-firmware
 		iwd wireless-regdb bluez bluez-utils blueman
 		mkinitcpio cryptsetup sbctl fprintd
-		greetd greetd-tuigreet
 		snapper snap-pac
 	)
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
@@ -92,7 +91,6 @@ package_warana-system() {
 	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
 	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
 
-	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
 	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
 }
 
@@ -100,6 +98,7 @@ package_base-system() {
 	install=base-system.install
 	depends=(
 		base linux linux-lts linux-firmware btrfs-progs tlp
+		greetd greetd-tuigreet
 
 		sway swaybg swayidle swaylock waybar j4-dmenu-desktop wmenu
 		brightnessctl playerctl mako slurp grim swappy
@@ -159,4 +158,6 @@ package_base-system() {
 
 	install -dm0750 "$pkgdir"/etc/sudoers.d
 	install -Dm0440 sudoers "$pkgdir"/etc/sudoers.d/10-defaults
+
+	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
 }

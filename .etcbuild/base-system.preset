@@ -1,5 +1,7 @@
 disable systemd-boot-update.service
 
+enable greetd.service
+
 enable tlp.service
 enable firewalld.service
 

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+WLR_RENDERER=vulkan systemd-cat --identifier=sway sway --unsupported-gpu

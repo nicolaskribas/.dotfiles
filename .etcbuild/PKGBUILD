@@ -58,6 +58,7 @@ package_cimarron-system() {
 		booster
 		amd-ucode
 		nvidia nvidia-lts
+		libva-nvidia-driver vulkan-validation-layers
 	)
 	echo 'cimarron' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network

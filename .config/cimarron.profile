@@ -1,0 +1,2 @@
+export LIBVA_DRIVER_NAME=nvidia
+export VDPAU_DRIVER=nvidia

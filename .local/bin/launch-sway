@@ -1,5 +1,3 @@
 #!/bin/sh
 
-export VDPAU_DRIVER=nouveau
-
 systemd-cat --identifier=sway sway

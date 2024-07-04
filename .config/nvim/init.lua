@@ -79,6 +79,17 @@ map("n", "[b", "<Cmd>bprev<CR>")
 map("n", "]a", "<Cmd>next<CR>")
 map("n", "[a", "<Cmd>prev<CR>")
 
+-- like :grep but silent, opens the quickfix window automatically and invert the bang logic (do not jump to first result by default)
+vim.api.nvim_create_user_command("Grep", function(args)
+	vim.cmd.grep { args.args, bang = not args.bang, mods = { silent = true } }
+	vim.cmd.copen()
+end, { bang = true, nargs = "+", complete = "file" })
+
+vim.api.nvim_create_user_command("Lgrep", function(args)
+	vim.cmd.lgrep { args.args, bang = not args.bang, mods = { silent = true } }
+	vim.cmd.lopen()
+end, { bang = true, nargs = "+", complete = "file" })
+
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
@@ -100,7 +111,7 @@ for _, v in ipairs {
 	vim.lsp.handlers[v] = vim.lsp.with(vim.lsp.handlers[v], {
 		on_list = function(options)
 			vim.fn.setloclist(0, {}, " ", options)
-			vim.api.nvim_command "lopen"
+			vim.cmd.lopen()
 		end,
 	})
 end

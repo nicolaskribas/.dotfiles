@@ -11,14 +11,14 @@ Wants=network-online.target
 
 [Service]
 Type=notify
-ExecStartPre=/usr/bin/mkdir -p %h/%i
+ExecStartPre=/usr/bin/mkdir -p %h/mnt/%i
 ExecStart=/usr/bin/rclone mount \
 	--vfs-cache-mode full \
 	--log-level INFO \
 	--drive-export-formats desktop \
-	%i: %h/%i
-ExecStop=/usr/bin/fusermount -u %h/%i
-ExecStopPost=/usr/bin/rmdir %h/%i
+	%i: %h/mnt/%i
+ExecStop=/usr/bin/fusermount -u %h/mnt/%i
+ExecStopPost=/usr/bin/rmdir %h/mnt/%i
 Restart=on-failure
 RestartSec=1s
 RestartSteps=10

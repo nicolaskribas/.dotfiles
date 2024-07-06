@@ -18,6 +18,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 
 	# warana
 	'vconsole.conf'
+	'warana-linux.preset' 'warana-linux-lts.preset' 'warana-hooks.conf'
 	'greetd-config.toml'
 	'logind-power-key-hibernate.conf'
 	'tlp-performance.conf' 'tlp-battery-care.conf'
@@ -29,7 +30,7 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
 	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP'
+	'SKIP' 'SKIP' 'SKIP' 'SKIP'
 )
 
 
@@ -79,13 +80,16 @@ package_warana-system() {
 	depends=(base-system
 		intel-ucode mesa vulkan-intel intel-media-driver sof-firmware
 		iwd wireless-regdb bluez bluez-utils blueman
-		mkinitcpio cryptsetup sbctl fprintd
+		mkinitcpio systemd-ukify cryptsetup sbctl fprintd
 		snapper snap-pac
 	)
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
 	echo 'options i915 enable_guc=3' | install -Dm0644 /dev/stdin "$pkgdir"/etc/modprobe.d/i915.conf
 	install -Dm0644 vconsole.conf "$pkgdir"/etc/vconsole.conf
+	install -Dm0644 warana-linux.preset "$pkgdir"/etc/mkinitcpio.d/linux.preset
+	install -Dm0644 warana-linux-lts.preset "$pkgdir"/etc/mkinitcpio.d/linux-lts.preset
+	install -Dm0644 warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
 
 	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf
 	install -Dm0644 warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset

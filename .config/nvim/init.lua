@@ -198,5 +198,12 @@ vim.api.nvim_create_user_command("Bdelete", function(args)
 	end
 end, { bang = true, nargs = "?" })
 
+require("mini.pick").setup { window = { config = { border = "none" } } }
+map("n", "<Leader>pf", MiniPick.builtin.files)
+map("n", "<Leader>pg", MiniPick.builtin.grep)
+map("n", "<Leader>pl", MiniPick.builtin.grep_live)
+map("n", "<Leader>pb", MiniPick.builtin.buffers)
+map("n", "<Leader>pr", MiniPick.builtin.resume)
+
 -- * overrides a default keymap
 -- ** overrides a default keymap with similar functionality

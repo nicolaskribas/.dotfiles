@@ -11,5 +11,5 @@ export MANROFFOPT='-P -c' # to get colors: man passes -c flag to grotty through 
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --type=file --type=dir'
 export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --color=16'
 
-typeset -U path
+typeset -U PATH path
 path=(~/.local/bin $path)

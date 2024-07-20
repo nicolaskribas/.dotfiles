@@ -1,3 +1,12 @@
+# --- Environment Variables ---
+export EDITOR=nvim
+export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen'
+export MANPAGER='less --color=u+b' # underlined -> blue
+export MANROFFOPT='-P -c' # to get colors: man passes -c flag to grotty through groff (-P)
+export FZF_DEFAULT_COMMAND='fd --hidden --follow --type=file --type=dir'
+export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --color=16'
+eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completion
+
 # --- Aliases ---
 alias cp='cp -iv'
 alias mv='mv -iv'
@@ -11,7 +20,6 @@ alias xargs='xargs ' # same, but for xargs
 alias watch='watch --color ' # same, but for watch
 alias dots='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias man='MANWIDTH="$((COLUMNS > 80 ? 80 : COLUMNS))" man' # limit man width to 80 columns
-alias pacdiff='pacdiff --sudo --threeway'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g L='| less'
@@ -22,8 +30,6 @@ alias -g F='| fzf'
 setopt extended_glob
 setopt no_clobber
 setopt interactive_comments
-
-eval "$(dircolors -b)" # setup colors for `ls` and for completion
 
 
 # --- History ---

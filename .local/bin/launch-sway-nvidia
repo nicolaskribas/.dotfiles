@@ -1,3 +1,4 @@
 #!/bin/sh
+export SSH_ASKPASS=lxqt-openssh-askpass
 
 WLR_RENDERER=vulkan systemd-cat --identifier=sway sway --unsupported-gpu

@@ -141,9 +141,10 @@ ZSH_HIGHLIGHT_STYLES[precommand]='fg=cyan,underline'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=green'
-ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value
-ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value
-ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value (NvimLightGrey2)
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value (NvimLightGrey2)
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value (NvimLightGrey2)
 ZSH_HIGHLIGHT_STYLES[redirection]='none'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#9b9ea4' # fixme: remove hardcoded value (NvimLightGrey4)
 ZSH_HIGHLIGHT_STYLES[arg0]='fg=cyan'
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

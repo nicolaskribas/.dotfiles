@@ -2,7 +2,7 @@
 # inspired by: https://wiki.archlinux.org/title/System_maintenance
 
 yn() {
-	printf '%s? [Y/n] ' "$1"
+	printf '%s? [y/N] ' "$1"
 	read 'response'
 
 	[ "$response" = 'y' ] && return 0

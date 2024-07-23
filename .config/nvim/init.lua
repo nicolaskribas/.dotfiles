@@ -103,17 +103,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-for _, v in ipairs {
-	"textDocument/implementation",
-	"textDocument/references",
-	"textDocument/documentSymbol",
-} do
-	vim.lsp.handlers[v] = vim.lsp.with(vim.lsp.handlers[v], {
-		on_list = function(options)
-			vim.fn.setloclist(0, {}, " ", options)
-			vim.cmd.lopen()
-		end,
-	})
+for _, v in ipairs { "textDocument/implementation", "textDocument/references", "textDocument/documentSymbol" } do
+	vim.lsp.handlers[v] = vim.lsp.with(vim.lsp.handlers[v], { loclist = true })
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {

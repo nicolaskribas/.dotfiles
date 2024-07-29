@@ -2,6 +2,7 @@ set $main DP-1
 set $secondary DVI-D-1
 
 output $main pos 0 0
+output $secondary pos 1920 430
 
 exec_always gsettings set org.gnome.desktop.interface {
 	color-scheme prefer-dark

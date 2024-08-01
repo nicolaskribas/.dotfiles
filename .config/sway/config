@@ -24,7 +24,7 @@ set $screen_on swaymsg "output * power on"
 set $screen_off_locked pgrep --euid "$USER" --exact swaylock && $screen_off
 set $screen_on_locked pgrep --euid "$USER" --exact swaylock && $screen_on
 set $menu wmenu -i -f "sans-serif 11"
-set $launch j4-dmenu-desktop --no-generic --dmenu='$menu -p launch' --term='$term' | xargs --no-run-if-empty swaymsg exec --
+set $launch j4-dmenu-desktop --no-generic --dmenu='$menu -p launch' --term='$term' --i3-ipc
 set $notify_progress xargs --no-run-if-empty -I{} notify-send --category=system --expire-time=1000 --hint=string:x-canonical-private-synchronous:progress --hint=int:value:{}
 set $notify_lock notify-send --urgency=critical --category=system --expire-time=5000 "Locking in 5 seconds"
 set $player_prev playerctl previous

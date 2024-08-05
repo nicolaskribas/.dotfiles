@@ -51,6 +51,8 @@ setopt complete_in_word # do not jump to end of the word before completing
 setopt list_packed # pack the completion list by using columns with different widths
 
 autoload -U compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
+zstyle ':completion:*' completer _complete _approximate
+zstyle ':completion:*:approximate:*:*:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3)) numeric)' # one error for every three characters
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
@@ -58,6 +60,7 @@ zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
 zstyle ':completion:*' group-name '' # group completions by type
 zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f' # print groups type
+zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f' # _approximate
 zstyle ':completion:*:messages' format '%F{yellow}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
 zstyle ':completion:*:functions' ignored-patterns '_*'

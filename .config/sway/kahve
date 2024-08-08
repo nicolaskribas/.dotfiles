@@ -4,6 +4,17 @@ set $secondary DVI-D-1
 output $main pos 0 0
 output $secondary pos 1920 430
 
+workspace $ws1 output $main
+workspace $ws2 output $main
+workspace $ws3 output $main
+workspace $ws4 output $main
+workspace $ws5 output $main
+workspace $ws6 output $main
+workspace $ws7 output $main
+workspace $ws8 output $main
+workspace $ws9 output $secondary
+workspace $ws10 output $secondary
+
 exec_always gsettings set org.gnome.desktop.interface {
 	color-scheme prefer-dark
 	gtk-theme 'Adwaita-dark'

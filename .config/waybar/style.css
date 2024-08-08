@@ -21,6 +21,10 @@ window#waybar {
 	color: @theme_unfocused_fg_color;
 }
 
+#workspaces button.visible {
+	background: @theme_selected_bg_color;
+}
+
 #workspaces button.focused {
 	font-weight: bold;
 	color: @theme_selected_fg_color;

@@ -2,11 +2,21 @@
 Description=Containerized LanguageTool HTTP server
 
 [Container]
-Image=docker.io/erikvl87/languagetool:latest
+Image=docker.io/meyay/languagetool:latest
 AutoUpdate=registry
+DropCapability=all
+AddCapability=CAP_SETUID CAP_SETGID CAP_CHOWN
+NoNewPrivileges=true
+Environment=download_ngrams_for_langs=en
+Environment=langtool_languageModel=/ngrams
+Environment=langtool_fasttextModel=/fasttext/lid.176.bin
+Volume=%h/.local/share/ngrams:/ngrams
+Volume=%h/.local/share/fasttext:/fasttext
 PublishPort=[::1]:8081:8010/tcp
 
 [Service]
+ExecStartPre=/usr/bin/mkdir -p %h/.local/share/ngrams
+ExecStartPre=/usr/bin/mkdir -p %h/.local/share/fasttext
 Restart=on-failure
 
 [Install]

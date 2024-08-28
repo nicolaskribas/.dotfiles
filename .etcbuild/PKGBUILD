@@ -122,7 +122,7 @@ package_base-system() {
 		less man-db man-pages
 		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu
-		gcc clang rustup python
+		gcc clang rustup python uv
 		stylua shellcheck ruff pyright
 		jq sqlite zola miniserve
 		make base-devel gdb strace

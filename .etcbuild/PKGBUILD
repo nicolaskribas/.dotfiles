@@ -102,7 +102,8 @@ package_warana-system() {
 package_base-system() {
 	install=base-system.install
 	depends=(
-		base linux linux-lts linux-firmware btrfs-progs tlp
+		base linux linux-lts linux-firmware tlp
+		btrfs-progs dosfstools exfatprogs veracrypt
 		greetd greetd-tuigreet
 
 		sway swaybg swayidle swaylock waybar j4-dmenu-desktop wmenu

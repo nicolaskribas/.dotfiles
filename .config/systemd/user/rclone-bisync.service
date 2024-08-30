@@ -13,6 +13,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/rclone bisync \
+	--password-command 'pass rclone' \
 	--log-level INFO \
 	drive:computers %h/library
 Restart=on-failure

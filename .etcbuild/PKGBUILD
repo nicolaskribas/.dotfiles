@@ -108,7 +108,7 @@ package_base-system() {
 
 		sway swaybg swayidle swaylock waybar j4-dmenu-desktop wmenu
 		brightnessctl playerctl mako slurp grim swappy
-		lxqt-policykit lxqt-openssh-askpass
+		lxqt-policykit lxqt-openssh-askpass pinentry kguiaddons kwindowsystem
 		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr
 		foot foot-terminfo neovim nautilus
 		sudo polkit rtkit
@@ -132,7 +132,8 @@ package_base-system() {
 		iproute2 ethtool nftables
 		iputils nmap ldns tcpdump tcpreplay
 		curl rclone sshfs
-		firewalld openssh cups cups-pdf
+		firewalld cups cups-pdf
+		openssh gnupg pass
 
 		texlive-meta texlive-langenglish texlive-langportuguese texlab
 

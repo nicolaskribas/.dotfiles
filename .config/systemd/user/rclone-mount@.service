@@ -13,6 +13,7 @@ Wants=network-online.target
 Type=notify
 ExecStartPre=/usr/bin/mkdir -p %h/mnt/%i
 ExecStart=/usr/bin/rclone mount \
+	--password-command 'pass rclone' \
 	--vfs-cache-mode full \
 	--log-level INFO \
 	--drive-export-formats desktop \

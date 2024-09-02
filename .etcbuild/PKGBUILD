@@ -24,14 +24,7 @@ source=('loader.conf' 'arch.conf' 'arch-lts.conf'
 	'tlp-performance.conf' 'tlp-battery-care.conf'
 )
 
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP'
-	'SKIP' 'SKIP' 'SKIP' 'SKIP'
-)
+md5sums=($(yes 'SKIP' | head -n "${#source[@]}"))
 
 
 package_kahve-system() {

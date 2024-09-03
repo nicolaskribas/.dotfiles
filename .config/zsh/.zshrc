@@ -7,6 +7,7 @@ export FZF_DEFAULT_COMMAND='fd --hidden --follow --type=file --type=dir'
 export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --color=16'
 eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completion
 
+
 # --- Aliases ---
 alias cp='cp -iv'
 alias mv='mv -iv'

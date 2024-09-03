@@ -46,6 +46,7 @@ set $brightness_up brightnessctl --machine-readable --min-value=300 --exponent=1
 # --- Bindings ---
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term_multiplexed
+bindsym $mod+p exec $term_float --title=clipselect clipselect
 bindsym $mod+d exec $launch
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore

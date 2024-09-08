@@ -126,7 +126,7 @@ package_base-system() {
 		iputils nmap ldns tcpdump tcpreplay
 		curl rclone sshfs
 		firewalld cups cups-pdf
-		openssh gnupg pass
+		openssh gnupg pass pass-otp
 
 		texlive-meta texlive-langenglish texlive-langportuguese texlab
 

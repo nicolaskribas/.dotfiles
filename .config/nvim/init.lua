@@ -131,6 +131,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+local words = {}
+for word in io.open(vim.fn.stdpath "config" .. "/spell/en.utf-8.add", "r"):lines() do
+	table.insert(words, word)
+end
+
 local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
@@ -150,6 +155,9 @@ lspconfig.ltex.setup {
 				motherTongue = "pt-BR",
 			},
 			languageToolHttpServerUri = "http://localhost:8081",
+			dictionary = {
+				["en-US"] = words,
+			},
 		},
 	},
 }

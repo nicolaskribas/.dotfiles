@@ -140,7 +140,9 @@ local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
 lspconfig.ruff.setup {}
-lspconfig.pyright.setup {}
+lspconfig.pyright.setup {
+	settings = { python = { pythonPath = ".venv/bin/python" } },
+}
 lspconfig.texlab.setup {
 	settings = { texlab = {
 		build = { onSave = true },

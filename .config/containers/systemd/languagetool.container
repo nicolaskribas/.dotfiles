@@ -12,7 +12,7 @@ Environment=langtool_languageModel=/ngrams
 Environment=langtool_fasttextModel=/fasttext/lid.176.bin
 Volume=%h/.local/share/ngrams:/ngrams
 Volume=%h/.local/share/fasttext:/fasttext
-PublishPort=[::1]:8081:8010/tcp
+PublishPort=127.0.0.1:8081:8010/tcp
 
 [Service]
 ExecStartPre=/usr/bin/mkdir -p %h/.local/share/ngrams

@@ -152,10 +152,7 @@ lspconfig.texlab.setup {
 lspconfig.ltex.setup {
 	settings = {
 		ltex = {
-			additionalRules = {
-				enablePickyRules = true,
-				motherTongue = "pt-BR",
-			},
+			additionalRules = { enablePickyRules = true },
 			languageToolHttpServerUri = "http://localhost:8081",
 			dictionary = {
 				["en-US"] = words,

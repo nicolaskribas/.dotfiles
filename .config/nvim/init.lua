@@ -31,10 +31,7 @@ opt.path:append "**" -- recursive :find
 opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
-vim.diagnostic.config {
-	virtual_text = false,
-	severity_sort = true,
-}
+vim.diagnostic.config { virtual_text = false, severity_sort = true }
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -64,12 +61,8 @@ map({ "n", "x" }, "gj", "j")
 map({ "n", "x" }, "gk", "k")
 
 map("n", "<Leader>qd", vim.diagnostic.setqflist)
-map("n", "<Leader>qe", function()
-	vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR }
-end)
-map("n", "<Leader>qw", function()
-	vim.diagnostic.setqflist { severity = vim.diagnostic.severity.WARN }
-end)
+map("n", "<Leader>qe", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR } end)
+map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.WARN } end)
 map("n", "]q", "<Cmd>cnext<CR>")
 map("n", "[q", "<Cmd>cprev<CR>")
 map("n", "]l", "<Cmd>lnext<CR>")
@@ -98,9 +91,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,
-	callback = function()
-		vim.highlight.on_yank { on_visual = false }
-	end,
+	callback = function() vim.highlight.on_yank { on_visual = false } end,
 })
 
 for _, v in ipairs { "textDocument/implementation", "textDocument/references", "textDocument/documentSymbol" } do
@@ -125,9 +116,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "<Leader>lr", lsp.references, opts)
 		map("n", "<Leader>wa", lsp.add_workspace_folder, opts)
 		map("n", "<Leader>wr", lsp.remove_workspace_folder, opts)
-		map("n", "<Leader>wl", function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, opts)
+		map("n", "<Leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
 	end,
 })
 
@@ -154,9 +143,7 @@ lspconfig.ltex.setup {
 		ltex = {
 			additionalRules = { enablePickyRules = true },
 			languageToolHttpServerUri = "http://localhost:8081",
-			dictionary = {
-				["en-US"] = words,
-			},
+			dictionary = { ["en-US"] = words },
 		},
 	},
 }
@@ -171,10 +158,7 @@ require("nvim-treesitter.configs").setup {
 require("mini.trailspace").setup {}
 
 require("mini.completion").setup {
-	lsp_completion = {
-		source_func = "omnifunc",
-		auto_setup = false,
-	},
+	lsp_completion = { source_func = "omnifunc", auto_setup = false },
 	set_vim_settings = false,
 }
 
@@ -190,10 +174,7 @@ vim.api.nvim_create_user_command("Bdelete", function(args)
 	else
 		buf_id = 0
 	end
-
-	if buf_id ~= nil then
-		MiniBufremove.delete(buf_id, args.bang)
-	end
+	if buf_id ~= nil then MiniBufremove.delete(buf_id, args.bang) end
 end, { bang = true, nargs = "?" })
 
 require("mini.pick").setup { window = { config = { border = "none" } } }

@@ -69,6 +69,7 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # --- Vi Mode ---
 bindkey -v # use vi keymap
+KEYTIMEOUT=1 # reduce time waited reading multi-character key bindings (fixes escape delay when exiting insert mode)
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char

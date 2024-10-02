@@ -120,6 +120,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+require("mini.deps").setup()
+MiniDeps.add {
+       source = "nvim-treesitter/nvim-treesitter",
+       hooks = { post_checkout = function() vim.cmd "TSUpdate" end },
+}
+MiniDeps.add {
+       source = "neovim/nvim-lspconfig",
+       checkout = "v1.0.0",
+}
+
 local words = {}
 for word in io.open(vim.fn.stdpath "config" .. "/spell/en.utf-8.add", "r"):lines() do
 	table.insert(words, word)

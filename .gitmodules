@@ -1,9 +1,3 @@
-[submodule "nvim-treesitter"]
-	path = .config/nvim/pack/ages/start/nvim-treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter.git
-[submodule "nvim-lspconfig"]
-	path = .config/nvim/pack/ages/start/nvim-lspconfig
-	url = https://github.com/neovim/nvim-lspconfig.git
 [submodule "mini.nvim"]
 	path = .config/nvim/pack/ages/start/mini.nvim
 	url = https://github.com/echasnovski/mini.nvim.git

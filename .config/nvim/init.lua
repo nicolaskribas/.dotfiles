@@ -32,6 +32,7 @@ opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 vim.diagnostic.config { virtual_text = false, severity_sort = true }
+vim.cmd.highlight "Comment gui=italic cterm=italic"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -122,12 +123,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 require("mini.deps").setup()
 MiniDeps.add {
-       source = "nvim-treesitter/nvim-treesitter",
-       hooks = { post_checkout = function() vim.cmd "TSUpdate" end },
+	source = "nvim-treesitter/nvim-treesitter",
+	hooks = { post_checkout = function() vim.cmd "TSUpdate" end },
 }
 MiniDeps.add {
-       source = "neovim/nvim-lspconfig",
-       checkout = "v1.0.0",
+	source = "neovim/nvim-lspconfig",
+	checkout = "v1.0.0",
 }
 
 local words = {}

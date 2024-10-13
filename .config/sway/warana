@@ -1,10 +1,19 @@
 set $laptop eDP-1
+set $hdmi HDMI-A-1
+
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
-output $laptop {
-	scale 1.5
-}
+workspace $ws1 output $laptop
+workspace $ws2 output $laptop
+workspace $ws3 output $laptop
+workspace $ws4 output $laptop
+workspace $ws5 output $laptop
+workspace $ws6 output $laptop
+workspace $ws7 output $laptop
+workspace $ws8 output $laptop
+workspace $ws9 output $hdmi $laptop
+workspace $ws10 output $hdmi $laptop
 
 input 1:1:AT_Translated_Set_2_keyboard {
 	xkb_layout us(altgr-intl),br(thinkpad)

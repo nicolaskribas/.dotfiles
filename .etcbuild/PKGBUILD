@@ -24,6 +24,7 @@ source=('home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.n
 	# warana
 	'vconsole.conf'
 	'warana-hooks.conf'
+	'warana-cmdline-rootflags.conf' 'warana-cmdline-resume.conf'
 	'logind-power-key-hibernate.conf'
 	'tlp-performance.conf' 'tlp-battery-care.conf'
 )
@@ -81,6 +82,8 @@ package_warana-system() {
 	echo 'options i915 enable_guc=3' | install -Dm0644 /dev/stdin "$pkgdir"/etc/modprobe.d/i915.conf
 	install -Dm0644 vconsole.conf "$pkgdir"/etc/vconsole.conf
 	install -Dm0644 warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
+	install -Dm0644 warana-cmdline-rootflags.conf "$pkgdir"/etc/cmdline.d/rootflags.conf
+	install -Dm0644 warana-cmdline-resume.conf "$pkgdir"/etc/cmdline.d/resume.conf
 
 	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf
 	install -Dm0644 warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset

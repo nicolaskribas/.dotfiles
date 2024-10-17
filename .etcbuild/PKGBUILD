@@ -140,6 +140,7 @@ package_base-system() {
 	install -Dm0644 paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
 
+	echo 'quiet' | install -Dm0644 /dev/stdin "$pkgdir"/etc/cmdline.d/quiet.conf
 	install -Dm0644 mkinitcpio-linux.preset "$pkgdir"/etc/mkinitcpio.d/linux.preset
 	install -Dm0644 mkinitcpio-linux-lts.preset "$pkgdir"/etc/mkinitcpio.d/linux-lts.preset
 

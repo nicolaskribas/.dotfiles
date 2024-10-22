@@ -31,6 +31,5 @@ exec_always gsettings set org.gnome.desktop.interface {
 
 exec mpris-proxy
 exec blueman-applet
-exec iwgtk --indicators
 
 # vim:ft=swayconfig

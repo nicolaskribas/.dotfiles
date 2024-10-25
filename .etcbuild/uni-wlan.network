@@ -11,5 +11,6 @@ DNSOverTLS=opportunistic
 DNSSEC=allow-downgrade
 IgnoreCarrierLoss=10s
 
-[DHCP]
+[DHCPv4]
 UseDomains=yes
+RouteMetric=1024

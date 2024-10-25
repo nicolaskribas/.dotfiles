@@ -10,5 +10,6 @@ MulticastDNS=no
 DNSOverTLS=opportunistic
 DNSSEC=allow-downgrade
 
-[DHCP]
+[DHCPv4]
 UseDomains=yes
+RouteMetric=512

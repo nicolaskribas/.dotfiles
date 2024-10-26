@@ -1,3 +1,5 @@
+; vim: ft=systemd
+
 [Match]
 Kind=!*
 Type=ether
@@ -5,11 +7,22 @@ Type=ether
 [Network]
 Description=DHCP configured Ethernet interface for use at the uni
 DHCP=yes
+IPv6AcceptRA=yes
 LLMNR=no
 MulticastDNS=no
 DNSOverTLS=opportunistic
 DNSSEC=allow-downgrade
+DNS=
+UseDomains=yes
+IgnoreCarrierLoss=no
 
 [DHCPv4]
-UseDomains=yes
+UseDNS=yes
+RouteMetric=512
+
+[DHCPv6]
+UseDNS=yes
+
+[IPv6AcceptRA]
+UseDNS=yes
 RouteMetric=512

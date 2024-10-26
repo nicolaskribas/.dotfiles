@@ -1,3 +1,5 @@
+; vim: ft=systemd
+
 [Match]
 Kind=!*
 Type=wlan
@@ -5,13 +7,22 @@ Type=wlan
 [Network]
 Description=DHCP configured wireless interface for use at home
 DHCP=yes
+IPv6AcceptRA=yes
 LLMNR=no
 MulticastDNS=yes
 DNSOverTLS=yes
 DNSSEC=yes
 DNS=2606:4700:4700::1111 1.1.1.1 2606:4700:4700::1001 1.0.0.1
+UseDomains=no
 IgnoreCarrierLoss=10s
 
 [DHCPv4]
+UseDNS=no
+RouteMetric=1024
+
+[DHCPv6]
+UseDNS=no
+
+[IPv6AcceptRA]
 UseDNS=no
 RouteMetric=1024

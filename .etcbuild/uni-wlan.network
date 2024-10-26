@@ -1,3 +1,5 @@
+; vim: ft=systemd
+
 [Match]
 Kind=!*
 Type=wlan
@@ -5,12 +7,22 @@ Type=wlan
 [Network]
 Description=DHCP configured wireless interface for use at the uni
 DHCP=yes
+IPv6AcceptRA=yes
 LLMNR=no
 MulticastDNS=no
 DNSOverTLS=opportunistic
 DNSSEC=allow-downgrade
+DNS=
+UseDomains=yes
 IgnoreCarrierLoss=10s
 
 [DHCPv4]
-UseDomains=yes
+UseDNS=yes
+RouteMetric=1024
+
+[DHCPv6]
+UseDNS=yes
+
+[IPv6AcceptRA]
+UseDNS=yes
 RouteMetric=1024

@@ -111,7 +111,7 @@ package_base-system() {
 		xdg-user-dirs
 		inter-font ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono terminus-font
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
-		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme
+		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme capitaine-cursors
 		pipewire pipewire-audio pipewire-jack pipewire-pulse wireplumber noise-suppression-for-voice
 		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap
 

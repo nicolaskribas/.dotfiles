@@ -287,6 +287,11 @@ user_pref("services.sync.engine.prefs", false);
 // Dock to Right
 user_pref("devtools.toolbox.host", "right");
 
+
+// Enable vertical tabs
+user_pref("sidebar.revamp", true);
+user_pref("sidebar.verticalTabs", true);
+
 /****************************************************************************
  * SECTION: SMOOTHFOX                                                       *
 ****************************************************************************/

@@ -112,7 +112,9 @@ package_base-system() {
 		inter-font ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono terminus-font
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
 		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme capitaine-cursors
-		pipewire pipewire-audio pipewire-jack pipewire-pulse wireplumber noise-suppression-for-voice
+		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
+		wireplumber noise-suppression-for-voice
+		gstreamer gst-plugin-va gst-plugin-pipewire
 		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting

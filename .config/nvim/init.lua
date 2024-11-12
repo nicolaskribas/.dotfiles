@@ -56,8 +56,8 @@ map({ "n", "x" }, "<Leader>p", '"+p')
 map({ "n", "x" }, "<Leader>P", '"+P')
 
 -- dealing with word wrap
-map({ "n", "x" }, "j", "gj")
-map({ "n", "x" }, "k", "gk")
+map({ "n", "x" }, "j", function() return vim.v.count == 0 and "gj" or "j" end, { expr = true })
+map({ "n", "x" }, "k", function() return vim.v.count == 0 and "gk" or "k" end, { expr = true })
 map({ "n", "x" }, "gj", "j")
 map({ "n", "x" }, "gk", "k")
 

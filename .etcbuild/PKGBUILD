@@ -35,7 +35,7 @@ md5sums=($(yes 'SKIP' | head -n "${#source[@]}"))
 package_kahve-system() {
 	install=kahve-system.install
 	depends=(base-system
-		amd-ucode mesa libva-mesa-driver mesa-vdpau sof-firmware
+		amd-ucode mesa sof-firmware
 		iwd wireless-regdb bluez bluez-utils blueman
 	)
 	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname

@@ -38,12 +38,13 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.netrw_banner = false
 vim.g.netrw_winsize = 20 -- 20%
+vim.g.tex_flavor = "latex" -- |ft-tex-plugin|
 
 local map = vim.keymap.set
 map("", "<Space>", "<NOP>") -- disable space, it is the leader key
 
 -- resizing windows
--- <C-w> is better then :resize/:vertical as it allows being multipied by a 'count'
+-- <C-w> is better then :resize/:vertical as it allows being multiplied by a 'count'
 map("n", "<Left>", "<C-w>>")
 map("n", "<Right>", "<C-w><")
 map("n", "<Up>", "<C-w>-")
@@ -87,9 +88,11 @@ end, { bang = true, nargs = "+", complete = "file" })
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
-	pattern = { "tex", "plaintex", "markdown" },
+	pattern = { "tex", "text", "markdown" },
 	command = "setlocal wrap breakindent colorcolumn=",
 })
+vim.api.nvim_create_autocmd("FileType", { group = init, pattern = "rust", command = "setlocal colorcolumn=101" })
+vim.api.nvim_create_autocmd("FileType", { group = init, pattern = "gitcommit", command = "setlocal colorcolumn=73" })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,
 	callback = function() vim.highlight.on_yank { on_visual = false } end,

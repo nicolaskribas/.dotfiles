@@ -6,6 +6,7 @@ post_install() {
 	ln -sfT /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 	systemctl preset-all
+	systemctl --global preset-all
 }
 
 post_upgrade() {

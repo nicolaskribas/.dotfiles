@@ -7,7 +7,8 @@ source=('home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.n
 	'networkd-ipv6-privacy-extensions.conf'
 	'dashbinsh.hook' 'systemd-boot.hook' 'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
-	'base-system.preset' 'kahve-system.preset' 'warana-system.preset' 'cimarron-system.preset'
+	'base-user.preset' 'base-system.preset'
+	'kahve-system.preset' 'warana-system.preset' 'cimarron-system.preset'
 	'journald.conf' 'wait-online-override.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
 	'locale.conf' 'locale.gen'
@@ -153,6 +154,8 @@ package_base-system() {
 	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
 
 	install -Dm0644 base-system.preset "$pkgdir"/etc/systemd/system-preset/80-base-system.preset
+	install -Dm0644 base-user.preset "$pkgdir"/etc/systemd/user-preset/80-base-user.preset
+	echo 'disable *' | install -Dm0644 /dev/stdin "$pkgdir"/etc/systemd/user-preset/99-default.preset
 
 	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
 

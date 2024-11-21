@@ -4,7 +4,6 @@
 	"modules-left": [
 		"custom/menu",
 		"sway/scratchpad",
-		"sway/window",
 		"sway/mode",
 	],
 	"modules-center": ["sway/workspaces"],

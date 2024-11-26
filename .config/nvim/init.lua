@@ -143,6 +143,7 @@ local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
 lspconfig.ruff.setup {}
+lspconfig.marksman.setup {}
 lspconfig.pyright.setup {
 	settings = { python = { pythonPath = ".venv/bin/python" } },
 }

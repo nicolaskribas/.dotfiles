@@ -123,7 +123,7 @@ package_base-system() {
 		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python uv
-		stylua shellcheck shfmt ruff pyright
+		stylua shellcheck shfmt ruff pyright marksman
 		jq sqlite zola miniserve
 		make base-devel gdb strace
 		htop bpftop bpftrace

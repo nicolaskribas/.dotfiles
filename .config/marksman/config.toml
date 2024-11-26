@@ -1,0 +1,5 @@
+[core]
+title_from_heading = false
+
+[completion]
+wiki.style = "file-stem"

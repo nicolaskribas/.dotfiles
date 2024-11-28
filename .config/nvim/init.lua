@@ -85,6 +85,30 @@ vim.api.nvim_create_user_command("Lgrep", function(args)
 	vim.cmd.lopen()
 end, { bang = true, nargs = "+", complete = "file" })
 
+vim.api.nvim_create_user_command("MarkdowlintDirectory", function(args)
+	local cmd = { "fd", "--extension=.md", "--exec-batch=markdownlint-cli2" }
+	if args.args ~= "" then table.insert(cmd, "--search-path=" .. args.args) end
+
+	local obj = vim.system(cmd, { text = true }):wait()
+	if obj.code == 0 then
+		vim.notify("Mardownlint found no errors", vim.log.levels.INFO)
+		vim.notify(obj.stdout, vim.log.levels.INFO) -- TODO: delete
+		vim.notify(obj.stderr, vim.log.levels.INFO) -- TODO: delete
+		return
+	elseif obj.code == 2 then
+		vim.notify("Error running linter", vim.log.levels.ERROR)
+		vim.notify(obj.stdout, vim.log.levels.ERROR) -- TODO: delete
+		vim.notify(obj.stderr, vim.log.levels.ERROR) -- TODO: delete
+		return
+	end
+	vim.fn.setqflist({}, "r", {
+		title = ":" .. table.concat(cmd, " "),
+		lines = vim.split(obj.stderr, "\n", { trimempty = true }),
+		efm = "%f:%l:%c %m,%f:%l %m",
+	})
+	vim.cmd.copen()
+end, { nargs = "?", complete = "dir" })
+
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,

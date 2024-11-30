@@ -1,0 +1,26 @@
+config:
+  heading-style: # MD003
+    style: consistent # Maybe settle with atx or setex
+  ul-style: # MD004
+    style: dash
+  no-trailing-spaces: # MD009
+    strict: true # Include unnecessary breaks
+  no-hard-tabs: # MD010
+    spaces_per_tab: 4 # When fixing, replace a tab with 4 spaces
+  line-length: # MD013
+    stern: true
+  no-missing-space-atx: false # MD018 this breaks tags on obsidian
+  list-marker-space: # MD030
+    ol_multi: 2 # To align with multi-line list items
+    ul_multi: 3
+  code-fence-style: # MD048
+    style: backtick
+  emphasis-style: # MD049
+    style: consistent # Sometimes _, sometimes *
+  strong-style: # MD050
+    style: asterisk # Use **
+  table-pipe-style: # MD055
+    style: leading_and_trailing
+
+noBanner: true
+noProgress: true

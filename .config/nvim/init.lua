@@ -86,7 +86,14 @@ vim.api.nvim_create_user_command("Lgrep", function(args)
 end, { bang = true, nargs = "+", complete = "file" })
 
 vim.api.nvim_create_user_command("MarkdowlintDirectory", function(args)
-	local cmd = { "fd", "--extension=.md", "--exec-batch=markdownlint-cli2" }
+	local cmd = {
+		"fd",
+		"--extension=.md",
+		"--exec-batch",
+		"markdownlint-cli2",
+		"--config",
+		"/home/nicolas/.config/markdownlint-cli2/.markdownlint-cli2.yaml",
+	}
 	if args.args ~= "" then table.insert(cmd, "--search-path=" .. args.args) end
 
 	local obj = vim.system(cmd, { text = true }):wait()

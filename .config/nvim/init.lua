@@ -112,8 +112,13 @@ end, { nargs = "?", complete = "dir" })
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
-	pattern = { "tex", "text", "markdown" },
+	pattern = { "tex", "text" },
 	command = "setlocal wrap breakindent colorcolumn=",
+})
+vim.api.nvim_create_autocmd("FileType", {
+	group = init,
+	pattern = "markdown",
+	command = "setlocal textwidth=80 colorcolumn=81",
 })
 vim.api.nvim_create_autocmd("FileType", { group = init, pattern = "rust", command = "setlocal colorcolumn=101" })
 vim.api.nvim_create_autocmd("FileType", { group = init, pattern = "gitcommit", command = "setlocal colorcolumn=73" })

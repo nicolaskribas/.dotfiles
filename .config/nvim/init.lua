@@ -95,6 +95,7 @@ vim.api.nvim_create_user_command("MarkdowlintDirectory", function(args)
 		"/home/nicolas/.config/markdownlint-cli2/.markdownlint-cli2.yaml",
 	}
 	if args.args ~= "" then table.insert(cmd, "--search-path=" .. args.args) end
+	if args.bang then table.insert(cmd, "--fix") end
 
 	local obj = vim.system(cmd, { text = true }):wait()
 	if obj.code == 0 then
@@ -114,7 +115,7 @@ vim.api.nvim_create_user_command("MarkdowlintDirectory", function(args)
 		efm = "%f:%l:%c %m,%f:%l %m",
 	})
 	vim.cmd.copen()
-end, { nargs = "?", complete = "dir" })
+end, { bang = true, nargs = "?", complete = "dir" })
 
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {

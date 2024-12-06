@@ -221,3 +221,5 @@ exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 
 bar swaybar_command waybar
+
+xwayland disable

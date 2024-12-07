@@ -52,7 +52,7 @@ setopt no_list_ambiguous # in a single tab press: insert unambiguous prefix then
 setopt complete_in_word # do not jump to end of the word before completing
 setopt list_packed # pack the completion list by using columns with different widths
 
-autoload -U compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
+autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
 zstyle ':completion:*' completer _complete _approximate
 zstyle ':completion:*:approximate:*:*:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3)) numeric)' # one error for every three characters
 zstyle ':completion:*' menu select
@@ -111,7 +111,7 @@ if [[ -n "${terminfo[knp]}" ]]; then # page down
 	bindkey -M vicmd "${terminfo[knp]}" end-of-buffer-or-history
 fi
 
-autoload -U edit-command-line && zle -N edit-command-line
+autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
 
 
@@ -171,7 +171,7 @@ set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
 
 ring() { print -n '\a' } # print bell character
 
-autoload -U add-zsh-hook
+autoload -Uz add-zsh-hook
 add-zsh-hook preexec set_window_title_exec
 add-zsh-hook preexec start_exec_timer
 add-zsh-hook precmd stop_exec_timer

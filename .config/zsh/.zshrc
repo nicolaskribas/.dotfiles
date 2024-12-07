@@ -67,18 +67,77 @@ zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 
-# --- Vi Mode ---
+# --- Key Bindings ---
 bindkey -v # use vi keymap
 KEYTIMEOUT=1 # reduce time waited reading multi-character key bindings (fixes escape delay when exiting insert mode)
 
-zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
+bindkey -M viins '^h' backward-delete-char # this is mapped to vi-backward-delete-char by default
+bindkey -M viins '^w' backward-kill-word # this is mapped to vi-backward-kill-word by default
+bindkey -M viins '^u' kill-whole-line # this is mapped to vi-kill-line by default
+
+if [[ -n "${terminfo[kcbt]}" ]]; then # shift-Tab
+	zmodload zsh/complist
+	bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
+fi
+
+if [[ -n "${terminfo[khome]}" ]]; then # home
+	bindkey -M viins "${terminfo[khome]}" vi-beginning-of-line
+	bindkey -M vicmd "${terminfo[khome]}" vi-beginning-of-line
+fi
+
+if [[ -n "${terminfo[kend]}" ]]; then # end
+	bindkey -M viins "${terminfo[kend]}" vi-end-of-line
+	bindkey -M vicmd "${terminfo[kend]}" vi-end-of-line
+fi
+
+if [[ -n "${terminfo[kich1]}" ]]; then # insert
+	bindkey -M viins "${terminfo[kich1]}" overwrite-mode
+	bindkey -M vicmd "${terminfo[kich1]}" vi-insert
+fi
+
+if [[ -n "${terminfo[kdch1]}" ]]; then # delete
+	bindkey -M viins "${terminfo[kdch1]}" vi-delete-char
+	bindkey -M vicmd "${terminfo[kdch1]}" vi-delete-char
+fi
+
+if [[ -n "${terminfo[kpp]}" ]]; then # page up
+	bindkey -M viins "${terminfo[kpp]}" beginning-of-buffer-or-history
+	bindkey -M vicmd "${terminfo[kpp]}" beginning-of-buffer-or-history
+fi
+
+if [[ -n "${terminfo[knp]}" ]]; then # page down
+	bindkey -M viins "${terminfo[knp]}" end-of-buffer-or-history
+	bindkey -M vicmd "${terminfo[knp]}" end-of-buffer-or-history
+fi
 
 autoload -U edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
+
+
+# --- Cursor and Application Mode ---
+zle-line-init() {
+	if (( ${+terminfo[smkx]} )); then
+		echoti smkx # enable terminal application mode
+	fi
+	print -n '\e[5 q' # starts with a blinking beam
+}
+zle -N zle-line-init
+
+zle-line-finish() {
+	if (( ${+terminfo[rmkx]} )); then
+		echoti rmkx # disable terminal application mode
+	fi
+}
+zle -N zle-line-finish
+
+zle-keymap-select() {
+	if [[ "$KEYMAP" == 'vicmd' ]]; then
+		print -n '\e[1 q' # go to a blinking block when in vicmd
+	else
+		print -n '\e[5 q' # beam again when back to viins mode
+	fi
+}
+zle -N zle-keymap-select
 
 
 # --- Prompt ---
@@ -117,20 +176,6 @@ add-zsh-hook preexec start_exec_timer
 add-zsh-hook precmd stop_exec_timer
 add-zsh-hook precmd set_window_title_prompt
 add-zsh-hook precmd ring
-
-
-# --- Cursor ---
-zle-line-init() { print -n '\e[5 q' } # starts with a blinking beam
-zle -N zle-line-init
-
-zle-keymap-select() {
-	if [[ "$KEYMAP" == 'vicmd' ]]; then
-		print -n '\e[1 q' # go to a blinking block when in vicmd
-	else
-		zle-line-init # beam again when back to main/viins mode
-	fi
-}
-zle -N zle-keymap-select
 
 
 # --- Plugins ---

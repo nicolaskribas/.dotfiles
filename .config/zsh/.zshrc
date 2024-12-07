@@ -142,10 +142,19 @@ zle -N zle-keymap-select
 
 
 # --- Prompt ---
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git # enable only git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
+zstyle ':vcs_info:*' unstagedstr '%F{red}!%f'
+zstyle ':vcs_info:*' formats ' %B%b%%b%c%u'
+zstyle ':vcs_info:*' actionformats ' %B%b%%b%c%u (%F{yellow}%a%f)'
+
 setopt prompt_subst
 
 # shows return code, user, hostname and current working directory
-PROMPT='${EXEC_ELAPSED_TIME_FORMATED}%(?..%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f %# '
+PROMPT='${EXEC_ELAPSED_TIME_FORMATED}%(?..%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# '
 
 # right prompt: shows current number of background jobs
 RPROMPT='%(1j.%F{blue}%B%j%b%f.)'
@@ -177,6 +186,7 @@ add-zsh-hook preexec start_exec_timer
 add-zsh-hook precmd stop_exec_timer
 add-zsh-hook precmd set_window_title_prompt
 add-zsh-hook precmd ring
+add-zsh-hook precmd vcs_info
 
 
 # --- Plugins ---

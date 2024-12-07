@@ -119,7 +119,7 @@ package_base-system() {
 		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
-		less man-db man-pages
+		less man-db man-pages stdoutisatty
 		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python uv

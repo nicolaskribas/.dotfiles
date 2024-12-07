@@ -19,6 +19,7 @@ alias ip='ip -color=auto'
 alias sudo='sudo ' # expand command passed to sudo if it is an alias
 alias xargs='xargs ' # same, but for xargs
 alias watch='watch --color ' # same, but for watch
+alias color='stdoutisatty ' # same, but for stdoutisatty
 alias dots='git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME'
 alias man='MANWIDTH="$((COLUMNS > 80 ? 80 : COLUMNS))" man' # limit man width to 80 columns
 alias -g H='| head'

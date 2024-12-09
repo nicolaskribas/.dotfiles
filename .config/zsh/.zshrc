@@ -45,6 +45,7 @@ setopt hist_ignore_space # don't save commands beginning with a space to the his
 setopt hist_reduce_blanks # remove superfluous blanks from each command line
 setopt hist_fcntl_lock # use system call when locking history file, for performance
 setopt hist_verify # don't execute the command with history expansion right away
+setopt hist_find_no_dups # do not display duplicates of a line previously found, even if the duplicates are not contiguous
 
 
 # --- Completion ---
@@ -76,7 +77,23 @@ bindkey -M viins '^h' backward-delete-char # this is mapped to vi-backward-delet
 bindkey -M viins '^w' backward-kill-word # this is mapped to vi-backward-kill-word by default
 bindkey -M viins '^u' kill-whole-line # this is mapped to vi-kill-line by default
 
-if [[ -n "${terminfo[kcbt]}" ]]; then # shift-Tab
+autoload -Uz up-line-or-beginning-search && zle -N up-line-or-beginning-search
+autoload -Uz down-line-or-beginning-search && zle -N down-line-or-beginning-search
+
+bindkey -M vicmd 'k' up-line-or-beginning-search
+bindkey -M vicmd 'j' down-line-or-beginning-search
+
+if [[ -n "${terminfo[kcuu1]}" ]]; then # up
+	bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+	bindkey -M vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search
+fi
+
+if [[ -n "${terminfo[kcud1]}" ]]; then # down
+	bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
+	bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+fi
+
+if [[ -n "${terminfo[kcbt]}" ]]; then # shift-tab
 	zmodload zsh/complist
 	bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
 fi
@@ -117,7 +134,7 @@ bindkey -M vicmd '^v' edit-command-line
 
 # --- Cursor and Application Mode ---
 zle-line-init() {
-	if (( ${+terminfo[smkx]} )); then
+	if (( "${+terminfo[smkx]}" )); then
 		echoti smkx # enable terminal application mode
 	fi
 	print -n '\e[5 q' # starts with a blinking beam
@@ -125,7 +142,7 @@ zle-line-init() {
 zle -N zle-line-init
 
 zle-line-finish() {
-	if (( ${+terminfo[rmkx]} )); then
+	if (( "${+terminfo[rmkx]}" )); then
 		echoti rmkx # disable terminal application mode
 	fi
 }

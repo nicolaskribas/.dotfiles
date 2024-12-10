@@ -134,7 +134,7 @@ bindkey -M vicmd '^v' edit-command-line
 
 # --- Cursor and Application Mode ---
 zle-line-init() {
-	if (( "${+terminfo[smkx]}" )); then
+	if (( ${+terminfo[smkx]} )); then
 		echoti smkx # enable terminal application mode
 	fi
 	print -n '\e[5 q' # starts with a blinking beam
@@ -142,7 +142,7 @@ zle-line-init() {
 zle -N zle-line-init
 
 zle-line-finish() {
-	if (( "${+terminfo[rmkx]}" )); then
+	if (( ${+terminfo[rmkx]} )); then
 		echoti rmkx # disable terminal application mode
 	fi
 }

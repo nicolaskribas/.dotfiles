@@ -170,7 +170,7 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-# shows return code, user, hostname and current working directory
+# shows command duration, return code, username, hostname, cwd, and git info
 PROMPT='${EXEC_ELAPSED_TIME_FORMATED}%(?..%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# '
 
 # right prompt: shows current number of background jobs

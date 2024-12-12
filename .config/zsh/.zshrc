@@ -210,6 +210,7 @@ add-zsh-hook precmd vcs_info
 FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 FZF_ALT_C_COMMAND='fd --hidden --follow --type=dir'
 source /usr/share/fzf/key-bindings.zsh # set <C-R>, <C-T> and <A-C> bindings that use fzf for selecting things
+bindkey -M vicmd '^r' redo # this is the default, but the fzf plugin changes it, so we change it back
 
 # syntax highlighting plugin, should be sourced at the end
 typeset -A ZSH_HIGHLIGHT_STYLES

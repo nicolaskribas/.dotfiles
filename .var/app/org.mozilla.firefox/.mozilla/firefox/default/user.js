@@ -245,9 +245,6 @@ user_pref("browser.urlbar.suggest.engines", false);
 
 
 // --- Privacy & Security ---
-// Send websites a “Do Not Track” request
-user_pref("privacy.donottrackheader.enabled", true);
-
 // Ask to save passwords
 user_pref("signon.rememberSignons", false);
 

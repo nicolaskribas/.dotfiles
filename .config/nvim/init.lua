@@ -168,7 +168,7 @@ MiniDeps.add {
 }
 MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
-	checkout = "v1.0.0",
+	checkout = "v1.1.0",
 }
 
 local words = {}
@@ -190,7 +190,7 @@ lspconfig.texlab.setup {
 		chktex = { onOpenAndSave = true, onEdit = true },
 	} },
 }
-lspconfig.ltex.setup {
+lspconfig.ltex_plus.setup {
 	settings = {
 		ltex = {
 			additionalRules = { enablePickyRules = true },

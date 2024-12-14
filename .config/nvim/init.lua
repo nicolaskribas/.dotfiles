@@ -216,7 +216,7 @@ require("mini.completion").setup {
 }
 
 require("mini.pick").setup { window = { config = { border = "none" } } }
-map("n", "<Leader>ff", MiniPick.builtin.files)
+map("n", "<Leader>ff", function() MiniPick.builtin.files { tool = "fd" } end)
 map("n", "<Leader>fg", MiniPick.builtin.grep)
 map("n", "<Leader>fl", MiniPick.builtin.grep_live)
 map("n", "<Leader>fb", MiniPick.builtin.buffers)

@@ -164,7 +164,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 require("mini.deps").setup()
 MiniDeps.add {
 	source = "nvim-treesitter/nvim-treesitter",
-	hooks = { post_checkout = function() vim.cmd "TSUpdate" end },
+	hooks = { post_checkout = function() vim.cmd.TSUpdateSync() end },
 }
 MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
@@ -202,6 +202,7 @@ lspconfig.ltex_plus.setup {
 
 require("nvim-treesitter.configs").setup {
 	ensure_installed = "all",
+	auto_install = false,
 	parser_install_dir = vim.fn.stdpath "data" .. "/site",
 	highlight = { enable = true },
 	indent = { enable = true },

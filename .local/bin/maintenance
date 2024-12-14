@@ -30,6 +30,10 @@ yn 'uninstall orphan packages and optional dependencies' &&\
 yn 'uninstall orphan packages (detecting cicles)' &&\
 	pacman -Qqdn | sudo pacman -Rsu -
 
+yn 'update neovim packages' &&\
+	nvim --headless -c "lua MiniDeps.update(nil, { force = true }) vim.cmd.exit()"
+	echo
+
 yn 'run checkrebuild' &&\
 	checkrebuild
 

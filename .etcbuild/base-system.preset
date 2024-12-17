@@ -4,6 +4,7 @@ enable greetd.service
 
 enable tlp.service
 enable firewalld.service
+enable tailscaled.service
 
 enable reflector.timer
 enable flatpak-update.timer

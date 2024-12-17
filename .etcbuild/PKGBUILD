@@ -131,7 +131,7 @@ package_base-system() {
 		iproute2 ethtool nftables
 		iputils nmap ldns tcpdump tcpreplay
 		curl rclone sshfs
-		firewalld cups cups-pdf
+		tailscale firewalld cups cups-pdf
 		openssh gnupg pass pass-otp
 
 		texlive-meta texlive-langenglish texlive-langportuguese texlab

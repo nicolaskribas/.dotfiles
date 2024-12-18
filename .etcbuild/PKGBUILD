@@ -135,6 +135,7 @@ package_base-system() {
 		openssh gnupg pass pass-otp
 
 		texlive-meta texlive-langenglish texlive-langportuguese texlab
+		perl-yaml-tiny perl-file-homedir # for latexindent
 
 		virt-manager libvirt qemu-full dmidecode dnsmasq podman docker docker-buildx
 

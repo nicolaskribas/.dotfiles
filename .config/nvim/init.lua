@@ -120,12 +120,12 @@ end, { bang = true, nargs = "?", complete = "dir" })
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
-	pattern = { "tex", "text" },
+	pattern = "text",
 	command = "setlocal wrap breakindent colorcolumn=",
 })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
-	pattern = "markdown",
+	pattern = { "markdown", "tex" },
 	command = "setlocal textwidth=80 colorcolumn=81",
 })
 vim.api.nvim_create_autocmd("FileType", { group = init, pattern = "rust", command = "setlocal colorcolumn=101" })
@@ -185,10 +185,16 @@ lspconfig.pyright.setup {
 	settings = { python = { pythonPath = ".venv/bin/python" } },
 }
 lspconfig.texlab.setup {
-	settings = { texlab = {
-		build = { onSave = true },
-		chktex = { onOpenAndSave = true, onEdit = true },
-	} },
+	settings = {
+		texlab = {
+			build = { onSave = true },
+			chktex = { onOpenAndSave = true, onEdit = true },
+			latexindent = {
+				modifyLineBreaks = true,
+				["local"] = vim.fs.joinpath(vim.env.HOME, ".config/latexindent.yaml"),
+			},
+		},
+	},
 }
 lspconfig.ltex_plus.setup {
 	settings = {

@@ -191,7 +191,7 @@ lspconfig.texlab.setup {
 			chktex = { onOpenAndSave = true, onEdit = true },
 			latexindent = {
 				modifyLineBreaks = true,
-				["local"] = vim.fs.joinpath(vim.env.HOME, ".config/latexindent.yaml"),
+				["local"] = (vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. "/.config")) .. "/latexindent.yaml",
 			},
 		},
 	},

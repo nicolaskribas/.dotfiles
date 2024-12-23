@@ -9,7 +9,8 @@ config:
     code_blocks: false # Ignore code blocks
     spaces_per_tab: 4 # When fixing, replace a tab with 4 spaces
   line-length: # MD013
-    stern: true
+    code_blocks: false
+    heading_line_length: 100
   no-missing-space-atx: false # MD018 this breaks tags on obsidian
   code-fence-style: # MD048
     style: backtick

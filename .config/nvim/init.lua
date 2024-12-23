@@ -168,7 +168,7 @@ MiniDeps.add {
 }
 MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
-	checkout = "v1.1.0",
+	checkout = "v1.2.0",
 }
 
 local words = {}

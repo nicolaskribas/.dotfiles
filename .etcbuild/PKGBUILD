@@ -116,6 +116,7 @@ package_base-system() {
 		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
 		wireplumber noise-suppression-for-voice
 		gstreamer gst-plugin-va gst-plugin-pipewire
+		ffmpeg
 		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
@@ -128,7 +129,7 @@ package_base-system() {
 		make base-devel gdb strace
 		htop bpftop bpftrace
 
-		iproute2 ethtool nftables
+		iproute2 ethtool iptables-nft
 		iputils nmap ldns tcpdump tcpreplay
 		curl rclone sshfs
 		tailscale firewalld cups cups-pdf

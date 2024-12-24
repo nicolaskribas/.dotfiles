@@ -86,32 +86,26 @@ vim.api.nvim_create_user_command("Lgrep", function(args)
 end, { bang = true, nargs = "+", complete = "file" })
 
 vim.api.nvim_create_user_command("MarkdownlintDirectory", function(args)
+	if args.args ~= "" then args.args = args.args .. "/" end
 	local cmd = {
-		"fd",
-		"--extension=.md",
-		"--exec-batch",
-		"markdownlint-cli2",
-		"--config",
-		"/home/nicolas/.config/markdownlint-cli2/.markdownlint-cli2.yaml",
+		"markdownlint",
+		args.args .. "**/*.md",
+		"!" .. args.args .. "**/*.excalidraw.md",
 	}
-	if args.args ~= "" then table.insert(cmd, 3, "--search-path=" .. args.args) end
 	if args.bang then table.insert(cmd, "--fix") end
 
 	local obj = vim.system(cmd, { text = true }):wait()
 	if obj.code == 0 then
 		vim.notify("Mardownlint found no errors", vim.log.levels.INFO)
-		vim.notify(obj.stdout, vim.log.levels.INFO) -- TODO: delete
-		vim.notify(obj.stderr, vim.log.levels.INFO) -- TODO: delete
 		return
 	elseif obj.code == 2 then
 		vim.notify("Error running linter", vim.log.levels.ERROR)
-		vim.notify(obj.stdout, vim.log.levels.ERROR) -- TODO: delete
-		vim.notify(obj.stderr, vim.log.levels.ERROR) -- TODO: delete
+		vim.notify(obj.stderr, vim.log.levels.ERROR)
 		return
 	end
 	vim.fn.setqflist({}, "r", {
 		title = ":" .. table.concat(cmd, " "),
-		lines = vim.split(obj.stderr, "\n", { trimempty = true }),
+		lines = vim.split(obj.stdout, "\n", { trimempty = true }),
 		efm = "%f:%l:%c %m,%f:%l %m",
 	})
 	vim.cmd.copen()

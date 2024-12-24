@@ -2,54 +2,58 @@
 # inspired by: https://wiki.archlinux.org/title/System_maintenance
 
 yn() {
-	printf '%s? [y/N] ' "$1"
-	read 'response'
-
-	[ "$response" = 'y' ] && return 0
-	return 1
+	while :; do
+		printf '%s? [y/n] ' "$1"
+		read -r 'response'
+		printf '%s' "$response" | grep -Eq "$(locale yesexpr)" && return 0
+		printf '%s' "$response" | grep -Eq "$(locale noexpr)" && return 1
+	done
 }
 
-yn 'show journal logs' &&\
+yn 'show journal logs' &&
 	journalctl -b -p 4
 
-yn 'show sway logs' &&\
+yn 'show sway logs' &&
 	journalctl -b -t sway
 
-yn 'show pacreport' &&\
+yn 'show pacreport' &&
 	pacreport | less
 
-yn 'update packages' &&\
+yn 'update packages' &&
 	sudo pacman -Syu
 
-yn 'uninstall orphan packages' &&\
+yn 'uninstall orphan packages' &&
 	pacman -Qtdnq | xargs --open-tty --no-run-if-empty sudo pacman -Rns
 
-yn 'uninstall orphan packages and optional dependencies' &&\
+yn 'uninstall orphan packages and optional dependencies' &&
 	pacman -Qttdnq | xargs --open-tty --no-run-if-empty sudo pacman -Rns
 
-yn 'uninstall orphan packages (detecting cicles)' &&\
+yn 'uninstall orphan packages (detecting cicles)' &&
 	pacman -Qqdn | sudo pacman -Rsu -
 
-yn 'update neovim packages' &&\
+yn 'update neovim packages' && (
 	nvim --headless -c "lua MiniDeps.update(nil, { force = true }) vim.cmd.exit()"
 	echo
+)
 
-yn 'run checkrebuild' &&\
+yn 'run checkrebuild' &&
 	checkrebuild
 
-yn 'run pacdiff' &&\
+yn 'run pacdiff' &&
 	DIFFPROG='nvim -d' pacdiff --sudo --threeway
 
-yn 'run checkservices' &&\
+yn 'run checkservices' &&
 	sudo checkservices -Pu
 
-yn 'remove lostfiles' &&\
+yn 'remove lostfiles' &&
 	sudo lostfiles | xargs --open-tty --no-run-if-empty sudo rm -div
 
-yn 'update firware' &&\
-	(fwupdmgr refresh; fwupdmgr update)
+yn 'update firware' && (
+	fwupdmgr refresh
+	fwupdmgr update
+)
 
-yn 'reboot' &&\
+yn 'reboot' &&
 	systemctl reboot
 
 exit 0

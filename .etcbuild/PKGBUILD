@@ -124,7 +124,8 @@ package_base-system() {
 		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python uv
-		stylua shellcheck shfmt ruff pyright marksman markdownlint-cli2
+		bash-language-server shellcheck shfmt
+		stylua ruff pyright marksman markdownlint-cli2 vale
 		jq sqlite zola miniserve
 		make base-devel gdb strace
 		htop bpftop bpftrace

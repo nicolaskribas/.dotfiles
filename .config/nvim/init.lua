@@ -164,6 +164,10 @@ MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
 	checkout = "v1.2.0",
 }
+MiniDeps.add {
+	source = "nvimtools/none-ls.nvim",
+	depends = { "nvim-lua/plenary.nvim" },
+}
 
 local words = {}
 for word in io.open(vim.fn.stdpath "config" .. "/spell/en.utf-8.add", "r"):lines() do
@@ -173,8 +177,9 @@ end
 local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
-lspconfig.ruff.setup {}
+lspconfig.bashls.setup {}
 lspconfig.marksman.setup {}
+lspconfig.ruff.setup {}
 lspconfig.pyright.setup {
 	settings = { python = { pythonPath = ".venv/bin/python" } },
 }
@@ -197,6 +202,15 @@ lspconfig.ltex_plus.setup {
 			languageToolHttpServerUri = "http://localhost:8081",
 			dictionary = { ["en-US"] = words },
 		},
+	},
+}
+
+local null_ls = require "null-ls"
+null_ls.setup {
+	sources = {
+		null_ls.builtins.formatting.stylua,
+		null_ls.builtins.formatting.mdformat,
+		-- null_ls.builtins.diagnostics.vale, TODO: configure
 	},
 }
 

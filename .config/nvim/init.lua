@@ -210,7 +210,7 @@ null_ls.setup {
 	sources = {
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.mdformat,
-		-- null_ls.builtins.diagnostics.vale, TODO: configure
+		null_ls.builtins.diagnostics.vale,
 	},
 }
 

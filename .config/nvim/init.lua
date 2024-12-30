@@ -21,7 +21,7 @@ opt.wrap = false
 opt.linebreak = true -- use 'breakat' for determine when to wrap
 opt.breakindent = true
 opt.spell = true
-opt.spelllang = "en_us"
+opt.spelllang = { "en_us", "pt_br" }
 opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
@@ -163,11 +163,6 @@ MiniDeps.add {
 	depends = { "nvim-lua/plenary.nvim" },
 }
 
-local words = {}
-for word in io.open(vim.fn.stdpath "config" .. "/spell/en.utf-8.add", "r"):lines() do
-	table.insert(words, word)
-end
-
 local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
 lspconfig.clangd.setup {}
@@ -189,12 +184,28 @@ lspconfig.texlab.setup {
 		},
 	},
 }
+local get_dict = function(lang)
+	local file = io.open(vim.fn.stdpath "config" .. "/spell/" .. lang .. ".utf-8.add", "r")
+	if not file then return {} end
+	local words = {}
+	for word in file:lines() do
+		table.insert(words, word)
+	end
+	return words
+end
 lspconfig.ltex_plus.setup {
 	settings = {
 		ltex = {
-			additionalRules = { enablePickyRules = true },
 			languageToolHttpServerUri = "http://localhost:8081",
-			dictionary = { ["en-US"] = words },
+			additionalRules = { enablePickyRules = true },
+			dictionary = {
+				["en-US"] = get_dict "en",
+				["pt-BR"] = get_dict "pt",
+			},
+			disabledRules = { -- see: https://community.languagetool.org/rule/list
+				["en-US"] = { "EN_QUOTES" },
+				["pt-BR"] = { "PT_SMART_QUOTES" },
+			},
 		},
 	},
 }

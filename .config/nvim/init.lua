@@ -10,7 +10,7 @@ opt.guicursor:append "c:ver25" -- vertical bar as cursor when inserting in comma
 opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500" -- make cursor blink
 opt.guicursor:append "a:Cursor" -- make cursor follow neovim colorscheme
 opt.cursorline = true
-opt.colorcolumn = "81"
+opt.colorcolumn = "+1"
 opt.mouse = "a"
 opt.undofile = true -- save undo history between sessions
 opt.virtualedit = "block" -- allow placing the cursor where no character exist when in visual block
@@ -19,6 +19,7 @@ opt.smartcase = true
 opt.gdefault = true -- substitute all matches in a line by default
 opt.wrap = false
 opt.linebreak = true -- use 'breakat' for determine when to wrap
+opt.breakindent = true
 opt.spell = true
 opt.spelllang = "en_us"
 opt.splitbelow = true
@@ -114,16 +115,9 @@ end, { bang = true, nargs = "?", complete = "dir" })
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
-	pattern = "text",
-	command = "setlocal wrap breakindent colorcolumn=",
-})
-vim.api.nvim_create_autocmd("FileType", {
-	group = init,
 	pattern = { "markdown", "tex" },
-	command = "setlocal textwidth=80 colorcolumn=81",
+	command = "setlocal textwidth=80",
 })
-vim.api.nvim_create_autocmd("FileType", { group = init, pattern = "rust", command = "setlocal colorcolumn=101" })
-vim.api.nvim_create_autocmd("FileType", { group = init, pattern = "gitcommit", command = "setlocal colorcolumn=73" })
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,
 	callback = function() vim.highlight.on_yank { on_visual = false } end,

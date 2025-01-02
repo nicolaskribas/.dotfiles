@@ -162,6 +162,9 @@ MiniDeps.add {
 	source = "nvimtools/none-ls.nvim",
 	depends = { "nvim-lua/plenary.nvim" },
 }
+MiniDeps.add {
+	source = "stevearc/oil.nvim",
+}
 
 local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
@@ -241,6 +244,8 @@ map("n", "<Leader>fg", MiniPick.builtin.grep)
 map("n", "<Leader>fl", MiniPick.builtin.grep_live)
 map("n", "<Leader>fb", MiniPick.builtin.buffers)
 map("n", "<Leader>fr", MiniPick.builtin.resume)
+
+require("oil").setup {}
 
 -- * overrides a default keymap
 -- ** overrides a default keymap with similar functionality

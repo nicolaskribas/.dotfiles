@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import re
+import sys
+
+area_pattern = re.compile(r"(\d)-.+")
+category_pattern = re.compile(r"(\d\d)-.+")
+id_pattern = re.compile(r"(\d\d)\.\d\d-.+")
+
+
+def issues_in_id(id_path):
+    for file in os.listdir(id_path):
+        file_path = os.path.join(id_path, file)
+        if os.path.isdir(file_path):
+            yield file_path
+            continue
+
+
+def issues_in_category(category_path, category_number):
+    for id in os.listdir(category_path):
+        id_path = os.path.join(category_path, id)
+
+        if not os.path.isdir(id_path):
+            yield id_path
+            continue
+
+        match = id_pattern.fullmatch(id)
+        if match is None or match.group(1) != category_number:
+            yield id_path
+            continue
+
+        yield from issues_in_id(id_path)
+
+
+def issues_in_area(area_path, area_digit):
+    for category in os.listdir(area_path):
+        category_path = os.path.join(area_path, category)
+
+        if not os.path.isdir(category_path):
+            yield category_path
+            continue
+
+        match = category_pattern.fullmatch(category)
+        if match is None or match.group(1)[0] != area_digit:
+            yield category_path
+            continue
+
+        yield from issues_in_category(category_path, category_number=match.group(1))
+
+
+def jhonnycheck(root):
+    for area in filter(lambda a: not a.startswith("."), os.listdir(root)):
+        area_path = os.path.join(root, area)
+
+        if not os.path.isdir(area_path):
+            yield area_path
+            continue
+
+        match = area_pattern.fullmatch(area)
+        if match is None:
+            yield area_path
+            continue
+
+        yield from issues_in_area(area_path, area_digit=match.group(1))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Check if a directory follows the johnny.decimal rules. It prints directories and files that doesn't"
+    )
+    parser.add_argument(
+        "directory",
+        type=str,
+        nargs="?",
+        default="./",
+        metavar="dir",
+        help="directory to be checked (default: %(default)s)",
+    )
+    args = parser.parse_args()
+
+    if not os.path.exists(args.directory):
+        print("Error: The specified directory does not exist.", file=sys.stderr)
+        sys.exit(3)
+
+    issues = jhonnycheck(args.directory)
+    if issues:
+        print("\n".join(sorted(issues)))

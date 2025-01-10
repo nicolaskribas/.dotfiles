@@ -1,3 +1,19 @@
+@define-color focused_border     #4c7899;
+@define-color focused_background #285577;
+@define-color focused_text       #ffffff;
+
+@define-color focused_inactive_border     #333333;
+@define-color focused_inactive_background #5f676a;
+@define-color focused_inactive_text       #ffffff;
+
+@define-color unfocused_border     #333333;
+@define-color unfocused_background #222222;
+@define-color unfocused_text       #888888;
+
+@define-color urgent_border     #2f343a;
+@define-color urgent_background #900000;
+@define-color urgent_text       #ffffff;
+
 * {
 	border: none;
 	border-radius: 0;
@@ -9,42 +25,48 @@
 }
 
 window#waybar {
-	color: @theme_text_color;
-	background: @theme_base_color;
+	color: @focused_text;
+	background: @unfocused_background;
 }
 
 #workspaces button {
 	padding: 0 2.5pt;
-}
-
-#workspaces button.persistent {
-	color: @theme_unfocused_fg_color;
+	border: 1px solid @unfocused_border;
+	color: @unfocused_text;
+	background: @unfocused_background;
 }
 
 #workspaces button.visible {
-	background: @theme_selected_bg_color;
+	border: 1px solid @focused_inactive_border;
+	color: @focused_inactive_text;
+	background: @focused_inactive_background;
 }
 
 #workspaces button.focused {
-	font-weight: bold;
-	color: @theme_selected_fg_color;
-	background: @theme_selected_bg_color;
+	border: 1px solid @focused_border;
+	color: @focused_text;
+	background: @focused_background;
 }
 
 #workspaces button.urgent {
-	background: @error_color;
+	border: 1px solid @urgent_border;
+	color: @urgent_text;
+	background: @urgent_background;
 }
 
 #mode {
-	background: @success_color;
+	color: @urgent_text;
+	background: @urgent_background;
 }
 
 #systemd-failed-units {
-	background: @error_color;
+	color: @urgent_text;
+	background: @urgent_background;
 }
 
 #battery.discharging.low {
-	background: @error_color;
+	color: @urgent_text;
+	background: @urgent_background;
 }
 
 #custom-menu {

@@ -97,6 +97,11 @@ mode --pango_markup $system_mode {
 }
 bindsym $mod+x mode $system_mode
 
+mode passthrough {
+	bindsym $mod+Pause mode default
+}
+bindsym $mod+Pause mode passthrough
+
 mode resize {
     bindsym $left resize shrink width
     bindsym $down resize grow height

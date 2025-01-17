@@ -21,7 +21,7 @@ opt.wrap = false
 opt.linebreak = true -- use 'breakat' for determine when to wrap
 opt.breakindent = true
 opt.spell = true
-opt.spelllang = { "en_us", "pt_br" }
+opt.spelllang = { "en_us", "pt_br", "programming" }
 opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
@@ -165,6 +165,10 @@ MiniDeps.add {
 MiniDeps.add {
 	source = "stevearc/oil.nvim",
 }
+MiniDeps.add {
+	source = "psliwka/vim-dirtytalk",
+	hooks = { post_checkout = function() vim.cmd.DirtytalkUpdate() end },
+}
 
 local lspconfig = require "lspconfig"
 lspconfig.rust_analyzer.setup {}
@@ -245,7 +249,9 @@ map("n", "<Leader>fl", MiniPick.builtin.grep_live)
 map("n", "<Leader>fb", MiniPick.builtin.buffers)
 map("n", "<Leader>fr", MiniPick.builtin.resume)
 
-require("oil").setup {}
+require("oil").setup {
+	default_file_explorer = false, -- keep using netrw because it is needed for downloading spelling files: https://github.com/neovim/neovim/issues/7189
+}
 
 -- * overrides a default keymap
 -- ** overrides a default keymap with similar functionality

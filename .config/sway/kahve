@@ -12,11 +12,11 @@ workspace $ws5 output $main
 workspace $ws6 output $main
 workspace $ws7 output $main
 workspace $ws8 output $main
-workspace $ws9 output $secondary
+workspace $ws9 output $main
 workspace $ws10 output $secondary
 
 exec_always gsettings set org.gnome.desktop.interface {
-	color-scheme prefer-dark
+	color-scheme prefer-light
 	gtk-theme 'Adwaita-dark'
 	icon-theme 'Adwaita'
 }

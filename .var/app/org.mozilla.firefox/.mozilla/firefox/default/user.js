@@ -277,6 +277,8 @@ user_pref("devtools.toolbox.host", "right");
 user_pref("sidebar.revamp", true);
 user_pref("sidebar.verticalTabs", true);
 
+user_pref("browser.fullscreen.autohide", false);
+
 /****************************************************************************
  * SECTION: SMOOTHFOX                                                       *
 ****************************************************************************/

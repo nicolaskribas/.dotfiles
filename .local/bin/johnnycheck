@@ -5,15 +5,22 @@ import os
 import re
 import sys
 
-area_pattern = re.compile(r"(\d)-.+")
-category_pattern = re.compile(r"(\d\d)-.+")
-id_pattern = re.compile(r"(\d\d)\.\d\d-.+")
+allowed_chars = r"[a-z0-9\-\.]"
+area_pattern = re.compile(rf"(\d)-{allowed_chars}+")
+category_pattern = re.compile(rf"(\d\d)-{allowed_chars}+")
+id_pattern = re.compile(rf"(\d\d)\.\d\d-{allowed_chars}+")
+file_pattern = re.compile(rf"{allowed_chars}+")
 
 
 def issues_in_id(id_path):
     for file in os.listdir(id_path):
         file_path = os.path.join(id_path, file)
         if os.path.isdir(file_path):
+            yield file_path
+            continue
+
+        match = file_pattern.fullmatch(file)
+        if match is None:
             yield file_path
             continue
 
@@ -68,7 +75,7 @@ def jhonnycheck(root):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Check if a directory follows the johnny.decimal rules. It prints directories and files that doesn't"
+        description="Check if a directory follows my custom johnny.decimal rules. It prints directories and files that doesn't"
     )
     parser.add_argument(
         "directory",
@@ -84,6 +91,5 @@ if __name__ == "__main__":
         print("Error: The specified directory does not exist.", file=sys.stderr)
         sys.exit(3)
 
-    issues = jhonnycheck(args.directory)
-    if issues:
-        print("\n".join(sorted(issues)))
+    for issue in jhonnycheck(args.directory):
+        print(issue)

@@ -7,7 +7,7 @@ x-scheme-handler/https=org.mozilla.firefox.desktop
 x-scheme-handler/mailto=org.mozilla.Thunderbird.desktop
 message/rfc822=org.mozilla.Thunderbird.desktop
 
-application/pdf=org.gnome.Evince.desktop
+application/pdf=org.gnome.Papers.desktop
 
 text/plain=nvim.desktop
 

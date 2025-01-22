@@ -32,7 +32,6 @@ source=('home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.n
 
 md5sums=($(yes 'SKIP' | head -n "${#source[@]}"))
 
-
 package_kahve-system() {
 	install=kahve-system.install
 	depends=(base-system
@@ -139,7 +138,8 @@ package_base-system() {
 		texlive-meta texlive-langenglish texlive-langportuguese texlab
 		perl-yaml-tiny perl-file-homedir # for latexindent
 
-		virt-manager libvirt qemu-full dmidecode dnsmasq podman docker docker-buildx
+		virt-manager libvirt qemu-full dmidecode dnsmasq openbsd-netcat
+		podman docker docker-buildx
 
 		archlinux-contrib pacman-contrib reflector rebuild-detector lostfiles fwupd
 		smartmontools

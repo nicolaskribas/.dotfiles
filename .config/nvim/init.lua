@@ -156,7 +156,7 @@ MiniDeps.add {
 }
 MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
-	checkout = "v1.3.0",
+	checkout = "v1.4.0",
 }
 MiniDeps.add {
 	source = "nvimtools/none-ls.nvim",

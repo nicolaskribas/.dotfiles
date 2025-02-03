@@ -32,7 +32,7 @@ opt.path:append "**" -- recursive :find
 opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
-vim.diagnostic.config { virtual_text = false, severity_sort = true }
+vim.diagnostic.config { underline = false, virtual_text = false, severity_sort = true }
 vim.cmd.highlight "Comment gui=italic cterm=italic"
 
 vim.g.mapleader = " "
@@ -210,8 +210,8 @@ lspconfig.ltex_plus.setup {
 				["pt-BR"] = get_dict "pt",
 			},
 			disabledRules = { -- see: https://community.languagetool.org/rule/list
-				["en-US"] = { "EN_QUOTES" },
-				["pt-BR"] = { "PT_SMART_QUOTES" },
+				["en-US"] = { "EN_QUOTES", "WHITESPACE_RULE" },
+				["pt-BR"] = { "PT_SMART_QUOTES", "WHITESPACE_RULE" },
 			},
 		},
 	},

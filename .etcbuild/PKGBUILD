@@ -10,6 +10,7 @@ source=('home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.n
 	'base-user.preset' 'base-system.preset'
 	'kahve-system.preset' 'warana-system.preset' 'cimarron-system.preset'
 	'journald.conf' 'wait-online-override.conf'
+	'slice-oom-kill.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
 	'locale.conf' 'locale.gen'
 	'sudoers'
@@ -165,6 +166,9 @@ package_base-system() {
 	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
 	install -Dm0644 networkd-ipv6-privacy-extensions.conf "$pkgdir"/etc/systemd/networkd.conf.d/ipv6-privacy-extensions.conf
 	install -Dm0644 wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
+
+	install -Dm0644 slice-oom-kill.conf "$pkgdir"/etc/systemd/system/user.slice.d/10-oom-kill.conf
+	install -Dm0644 slice-oom-kill.conf "$pkgdir"/etc/systemd/system/system.slice.d/10-oom-kill.conf
 
 	install -Dm0644 flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
 	install -Dm0644 flatpak-update.timer "$pkgdir"/etc/systemd/system/flatpak-update.timer

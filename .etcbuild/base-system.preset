@@ -1,5 +1,7 @@
 disable systemd-boot-update.service
 
+enable systemd-oomd.service
+
 enable greetd.service
 
 enable tlp.service

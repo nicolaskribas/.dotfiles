@@ -1,5 +1,5 @@
 pkgbase=system-meta-pkgs
-pkgname=('base-system' 'kahve-system' 'cimarron-system' 'warana-system')
+pkgname=('base-system' 'kahve-system' 'warana-system')
 arch=('x86_64')
 pkgrel=0
 pkgver=0
@@ -16,10 +16,6 @@ source=('home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.n
 	'sudoers'
 	'mkinitcpio-linux.preset' 'mkinitcpio-linux-lts.preset'
 	'greetd-config.toml'
-
-	# cimarron
-	'loader.conf' 'arch.conf' 'arch-lts.conf'
-	'booster.yaml' 'nvidia.conf'
 
 	# kahve
 	'kahve-hooks.conf'
@@ -48,27 +44,6 @@ package_kahve-system() {
 	install -Dm0644 kahve-system.preset "$pkgdir"/etc/systemd/system-preset/70-kahve-system.preset
 
 	install -Dm0644 kahve-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
-}
-
-package_cimarron-system() {
-	depends=(base-system
-		booster
-		amd-ucode
-		nvidia nvidia-lts
-		libva-nvidia-driver vulkan-validation-layers
-	)
-	echo 'cimarron' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
-	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
-	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
-
-	install -Dm0644 cimarron-system.preset "$pkgdir"/etc/systemd/system-preset/70-cimarron-system.preset
-
-	install -Dm0644 loader.conf "$pkgdir"/boot/loader/loader.conf
-	install -Dm0644 arch.conf "$pkgdir"/boot/loader/entries/arch.conf
-	install -Dm0644 arch-lts.conf "$pkgdir"/boot/loader/entries/arch-lts.conf
-
-	install -Dm0644 booster.yaml "$pkgdir"/etc/booster.yaml
-	install -Dm0644 nvidia.conf "$pkgdir"/etc/modprobe.d/nvidia.conf
 }
 
 package_warana-system() {

@@ -164,8 +164,10 @@ exec_always gsettings set org.gnome.desktop.interface {
 
 # --- Windows ---
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="com.saivert.pwvucontrol"] floating enable
 for_window [app_id="footclient_float"] floating enable
 for_window [app_id="org.gnome.Calculator"] floating enable
+for_window [app_id="org.gnome.Nautilus"] floating enable
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="lxqt-openssh-askpass"] floating enable
 for_window [app_id="lxqt-policykit-agent"] floating enable

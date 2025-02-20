@@ -1,14 +1,17 @@
+# vim:ft=bash
+
 pkgbase=system-meta-pkgs
 pkgname=('base-system' 'kahve-system' 'warana-system')
 arch=('x86_64')
 pkgrel=0
 pkgver=0
-source=('home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
+source=(
+	# base
+	'home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
 	'networkd-ipv6-privacy-extensions.conf'
 	'dashbinsh.hook' 'systemd-boot.hook' 'paccache-1.hook' 'paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
 	'base-user.preset' 'base-system.preset'
-	'kahve-system.preset' 'warana-system.preset' 'cimarron-system.preset'
 	'journald.conf' 'wait-online-override.conf'
 	'slice-oom-kill.conf'
 	'flatpak-update.service' 'flatpak-update.timer'
@@ -16,18 +19,21 @@ source=('home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.n
 	'sudoers'
 	'mkinitcpio-linux.preset' 'mkinitcpio-linux-lts.preset'
 	'greetd-config.toml'
+	'tlp-performance.conf'
 
 	# kahve
+	'kahve-system.preset'
 	'kahve-hooks.conf'
 
 	# warana
 	'warana-hooks.conf'
+	'warana-system.preset'
 	'warana-cmdline-rootflags.conf' 'warana-cmdline-resume.conf'
 	'logind-power-key-hibernate.conf'
-	'tlp-performance.conf' 'tlp-battery-care.conf'
+	'tlp-battery-care.conf'
 )
 
-md5sums=($(yes 'SKIP' | head -n "${#source[@]}"))
+cksums=($(yes 'SKIP' | head -n "${#source[@]}"))
 
 package_kahve-system() {
 	install=kahve-system.install
@@ -156,5 +162,3 @@ package_base-system() {
 
 	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
 }
-
-# vim:ft=bash

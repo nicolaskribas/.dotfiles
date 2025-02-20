@@ -1,6 +1,5 @@
 enable iwd.service
 enable bluetooth.service
-enable fstrim.timer
 enable btrfs-scrub@.timer -
 enable snapper-timeline.timer
 enable snapper-cleanup.timer

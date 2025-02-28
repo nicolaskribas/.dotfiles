@@ -17,10 +17,33 @@
 	m = merge
 [merge]
 	tool = nvimdiff
+	conflictstyle = zdiff3
 [init]
 	defaultBranch = main
 [diff]
 	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
 	external = difft
 [commit]
 	verbose = true
+[column]
+	ui = auto # supported commands (e.g. branch and tag) should output in columns if the output is to the terminal
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[push]
+	autoSetupRemote = true
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true

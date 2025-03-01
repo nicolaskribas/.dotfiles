@@ -7,78 +7,52 @@ pkgrel=0
 pkgver=0
 source=(
 	# base
-	'networkd-home-ether.network' 'networkd-home-wlan.network' 'networkd-uni-ether.network' 'networkd-uni-wlan.network'
-	'networkd-ipv6-privacy-extensions.conf'
-	'pacman-dashbinsh.hook' 'pacman-systemd-boot.hook' 'pacman-paccache-1.hook' 'pacman-paccache-2.hook'
-	'pacman.conf' 'reflector.conf'
-	'systemd-base-user.preset' 'systemd-base-system.preset'
-	'journald.conf' 'systemd-networkd-wait-online-override.conf'
-	'oomd-slice-oom-kill.conf'
-	'systemd-flatpak-update.service' 'systemd-flatpak-update.timer'
-	'locale.conf' 'locale.gen'
-	'sudoers'
-	'mkinitcpio-linux.preset' 'mkinitcpio-linux-lts.preset'
-	'greetd-config.toml'
-	'tlp-performance.conf'
-	'sshd-hardened.conf'
+	locale.conf
+	locale.gen
+	mkinitcpio-linux.preset
+	mkinitcpio-linux-lts.preset
+	systemd-base-system.preset
+	systemd-base-user.preset
+	systemd-flatpak-update.service
+	systemd-flatpak-update.timer
+	systemd-networkd-wait-online-override.conf
+	journald.conf
+	oomd-slice-oom-kill.conf
+	networkd-ipv6-privacy-extensions.conf
+	tlp-performance.conf
+	sshd-hardened.conf
+	greetd-config.toml
+	reflector.conf
+	sudoers
+	pacman-dashbinsh.hook
+	pacman-paccache-1.hook
+	pacman-paccache-2.hook
+	pacman-systemd-boot.hook
+	pacman.conf
+
+	# shared
+	networkd-home-ether.network
+	networkd-home-wlan.network
+	networkd-uni-ether.network
+	networkd-uni-wlan.network
 
 	# kahve
-	'systemd-kahve-system.preset'
-	'mkinitcpio-kahve-hooks.conf'
+	mkinitcpio-kahve-hooks.conf
+	systemd-kahve-system.preset
 
 	# warana
-	'mkinitcpio-warana-hooks.conf'
-	'systemd-warana-system.preset'
-	'cmdline-warana-rootflags.conf' 'cmdline-warana-resume.conf'
-	'logind-power-key-hibernate.conf'
-	'tlp-battery-care.conf'
+	cmdline-warana-resume.conf
+	cmdline-warana-rootflags.conf
+	mkinitcpio-warana-hooks.conf
+	systemd-warana-system.preset
+	logind-power-key-hibernate.conf
+	tlp-battery-care.conf
 )
 
 cksums=($(yes 'SKIP' | head -n "${#source[@]}"))
 
-package_kahve-system() {
-	install=kahve-system.install
-	depends=(base-system
-		amd-ucode mesa sof-firmware
-		iwd wireless-regdb bluez bluez-utils blueman
-	)
-	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
-	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
-	echo 'FONT=ter-v18n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
-	install -Dm0644 networkd-uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
-	install -Dm0644 networkd-uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
-
-	install -Dm0644 systemd-kahve-system.preset "$pkgdir"/etc/systemd/system-preset/70-kahve-system.preset
-
-	install -Dm0644 mkinitcpio-kahve-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
-}
-
-package_warana-system() {
-	install=warana-system.install
-	depends=(base-system
-		intel-ucode mesa vulkan-intel intel-media-driver sof-firmware
-		iwd wireless-regdb bluez bluez-utils blueman
-		cryptsetup sbctl fprintd
-		snapper snap-pac
-	)
-	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
-	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
-	echo 'options i915 enable_guc=3' | install -Dm0644 /dev/stdin "$pkgdir"/etc/modprobe.d/i915.conf
-	echo 'FONT=ter-v24n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
-	install -Dm0644 mkinitcpio-warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
-	install -Dm0644 cmdline-warana-rootflags.conf "$pkgdir"/etc/cmdline.d/rootflags.conf
-	install -Dm0644 cmdline-warana-resume.conf "$pkgdir"/etc/cmdline.d/resume.conf
-
-	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf
-	install -Dm0644 systemd-warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset
-	install -Dm0644 networkd-home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
-	install -Dm0644 networkd-home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
-
-	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
-}
-
 package_base-system() {
-	install=base-system.install
+	install='base-system.install'
 	depends=(
 		base linux linux-lts linux-firmware tlp
 		mkinitcpio systemd-ukify
@@ -127,40 +101,92 @@ package_base-system() {
 		archlinux-contrib pacman-contrib reflector rebuild-detector lostfiles fwupd
 		smartmontools
 	)
-	install -Dm0644 pacman-dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
-	install -Dm0644 pacman-systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
-	install -Dm0644 pacman-paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
-	install -Dm0644 pacman-paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
-	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
+
+	install -Dm0644 locale.conf "$pkgdir"/etc/locale.conf
+	install -Dm0644 locale.gen "$pkgdir"/etc/locale.gen
 
 	echo 'quiet' | install -Dm0644 /dev/stdin "$pkgdir"/etc/cmdline.d/quiet.conf
 	install -Dm0644 mkinitcpio-linux.preset "$pkgdir"/etc/mkinitcpio.d/linux.preset
 	install -Dm0644 mkinitcpio-linux-lts.preset "$pkgdir"/etc/mkinitcpio.d/linux-lts.preset
 
-	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
-
 	install -Dm0644 systemd-base-system.preset "$pkgdir"/etc/systemd/system-preset/80-base-system.preset
 	install -Dm0644 systemd-base-user.preset "$pkgdir"/etc/systemd/user-preset/80-base-user.preset
 	echo 'disable *' | install -Dm0644 /dev/stdin "$pkgdir"/etc/systemd/user-preset/99-default.preset
 
-	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
+	install -Dm0644 systemd-flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
+	install -Dm0644 systemd-flatpak-update.timer "$pkgdir"/etc/systemd/system/flatpak-update.timer
+	install -Dm0644 systemd-networkd-wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
 
 	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
-	install -Dm0644 networkd-ipv6-privacy-extensions.conf "$pkgdir"/etc/systemd/networkd.conf.d/ipv6-privacy-extensions.conf
-	install -Dm0644 systemd-networkd-wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
 
 	install -Dm0644 oomd-slice-oom-kill.conf "$pkgdir"/etc/systemd/system/user.slice.d/10-oom-kill.conf
 	install -Dm0644 oomd-slice-oom-kill.conf "$pkgdir"/etc/systemd/system/system.slice.d/10-oom-kill.conf
 
-	install -Dm0644 systemd-flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
-	install -Dm0644 systemd-flatpak-update.timer "$pkgdir"/etc/systemd/system/flatpak-update.timer
+	install -Dm0644 networkd-ipv6-privacy-extensions.conf "$pkgdir"/etc/systemd/networkd.conf.d/ipv6-privacy-extensions.conf
 
-	install -Dm0644 locale.conf "$pkgdir"/etc/locale.conf
-	install -Dm0644 locale.gen "$pkgdir"/etc/locale.gen
+	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
 
-	install -dm0750 "$pkgdir"/etc/sudoers.d
-	install -Dm0440 sudoers "$pkgdir"/etc/sudoers.d/10-defaults
 	install -Dm0644 sshd-hardened.conf "$pkgdir"/etc/ssh/sshd_config.d/20-hardened.conf
 
 	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
+
+	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
+
+	install -dm0750 "$pkgdir"/etc/sudoers.d
+	install -Dm0440 sudoers "$pkgdir"/etc/sudoers.d/10-defaults
+
+	install -Dm0644 pacman-dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
+	install -Dm0644 pacman-paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
+	install -Dm0644 pacman-paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
+	install -Dm0644 pacman-systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
+	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
+}
+
+package_kahve-system() {
+	depends=(
+		base-system
+		amd-ucode mesa sof-firmware
+		iwd wireless-regdb
+		bluez bluez-utils blueman
+	)
+
+	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
+	echo 'FONT=ter-v18n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
+
+	install -Dm0644 mkinitcpio-kahve-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
+
+	install -Dm0644 systemd-kahve-system.preset "$pkgdir"/etc/systemd/system-preset/70-kahve-system.preset
+
+	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
+	install -Dm0644 networkd-uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
+	install -Dm0644 networkd-uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
+}
+
+package_warana-system() {
+	depends=(
+		base-system
+		intel-ucode mesa vulkan-intel intel-media-driver sof-firmware
+		iwd wireless-regdb
+		bluez bluez-utils blueman
+		cryptsetup sbctl fprintd
+		snapper snap-pac
+	)
+
+	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
+	echo 'FONT=ter-v24n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
+
+	echo 'options i915 enable_guc=3' | install -Dm0644 /dev/stdin "$pkgdir"/etc/modprobe.d/i915.conf
+	install -Dm0644 cmdline-warana-resume.conf "$pkgdir"/etc/cmdline.d/resume.conf
+	install -Dm0644 cmdline-warana-rootflags.conf "$pkgdir"/etc/cmdline.d/rootflags.conf
+	install -Dm0644 mkinitcpio-warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
+
+	install -Dm0644 systemd-warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset
+
+	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
+	install -Dm0644 networkd-home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
+	install -Dm0644 networkd-home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
+
+	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf
+
+	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
 }

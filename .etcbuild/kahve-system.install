@@ -1,7 +1,0 @@
-post_install() {
-	systemctl preset-all
-}
-
-post_upgrade() {
-	post_install
-}

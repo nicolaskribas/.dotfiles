@@ -20,6 +20,7 @@ source=(
 	'mkinitcpio-linux.preset' 'mkinitcpio-linux-lts.preset'
 	'greetd-config.toml'
 	'tlp-performance.conf'
+	'sshd-hardened.conf'
 
 	# kahve
 	'kahve-system.preset'
@@ -159,6 +160,7 @@ package_base-system() {
 
 	install -dm0750 "$pkgdir"/etc/sudoers.d
 	install -Dm0440 sudoers "$pkgdir"/etc/sudoers.d/10-defaults
+	install -Dm0644 sshd-hardened.conf "$pkgdir"/etc/ssh/sshd_config.d/20-hardened.conf
 
 	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
 }

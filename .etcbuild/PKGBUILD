@@ -7,14 +7,14 @@ pkgrel=0
 pkgver=0
 source=(
 	# base
-	'home-ether.network' 'home-wlan.network' 'uni-ether.network' 'uni-wlan.network'
+	'networkd-home-ether.network' 'networkd-home-wlan.network' 'networkd-uni-ether.network' 'networkd-uni-wlan.network'
 	'networkd-ipv6-privacy-extensions.conf'
-	'dashbinsh.hook' 'systemd-boot.hook' 'paccache-1.hook' 'paccache-2.hook'
+	'pacman-dashbinsh.hook' 'pacman-systemd-boot.hook' 'pacman-paccache-1.hook' 'pacman-paccache-2.hook'
 	'pacman.conf' 'reflector.conf'
-	'base-user.preset' 'base-system.preset'
-	'journald.conf' 'wait-online-override.conf'
-	'slice-oom-kill.conf'
-	'flatpak-update.service' 'flatpak-update.timer'
+	'systemd-base-user.preset' 'systemd-base-system.preset'
+	'journald.conf' 'systemd-networkd-wait-online-override.conf'
+	'oomd-slice-oom-kill.conf'
+	'systemd-flatpak-update.service' 'systemd-flatpak-update.timer'
 	'locale.conf' 'locale.gen'
 	'sudoers'
 	'mkinitcpio-linux.preset' 'mkinitcpio-linux-lts.preset'
@@ -23,13 +23,13 @@ source=(
 	'sshd-hardened.conf'
 
 	# kahve
-	'kahve-system.preset'
-	'kahve-hooks.conf'
+	'systemd-kahve-system.preset'
+	'mkinitcpio-kahve-hooks.conf'
 
 	# warana
-	'warana-hooks.conf'
-	'warana-system.preset'
-	'warana-cmdline-rootflags.conf' 'warana-cmdline-resume.conf'
+	'mkinitcpio-warana-hooks.conf'
+	'systemd-warana-system.preset'
+	'cmdline-warana-rootflags.conf' 'cmdline-warana-resume.conf'
 	'logind-power-key-hibernate.conf'
 	'tlp-battery-care.conf'
 )
@@ -45,12 +45,12 @@ package_kahve-system() {
 	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
 	echo 'FONT=ter-v18n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
-	install -Dm0644 uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
-	install -Dm0644 uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
+	install -Dm0644 networkd-uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
+	install -Dm0644 networkd-uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
 
-	install -Dm0644 kahve-system.preset "$pkgdir"/etc/systemd/system-preset/70-kahve-system.preset
+	install -Dm0644 systemd-kahve-system.preset "$pkgdir"/etc/systemd/system-preset/70-kahve-system.preset
 
-	install -Dm0644 kahve-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
+	install -Dm0644 mkinitcpio-kahve-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
 }
 
 package_warana-system() {
@@ -65,14 +65,14 @@ package_warana-system() {
 	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
 	echo 'options i915 enable_guc=3' | install -Dm0644 /dev/stdin "$pkgdir"/etc/modprobe.d/i915.conf
 	echo 'FONT=ter-v24n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
-	install -Dm0644 warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
-	install -Dm0644 warana-cmdline-rootflags.conf "$pkgdir"/etc/cmdline.d/rootflags.conf
-	install -Dm0644 warana-cmdline-resume.conf "$pkgdir"/etc/cmdline.d/resume.conf
+	install -Dm0644 mkinitcpio-warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
+	install -Dm0644 cmdline-warana-rootflags.conf "$pkgdir"/etc/cmdline.d/rootflags.conf
+	install -Dm0644 cmdline-warana-resume.conf "$pkgdir"/etc/cmdline.d/resume.conf
 
 	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf
-	install -Dm0644 warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset
-	install -Dm0644 home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
-	install -Dm0644 home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
+	install -Dm0644 systemd-warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset
+	install -Dm0644 networkd-home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
+	install -Dm0644 networkd-home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
 
 	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
 }
@@ -127,10 +127,10 @@ package_base-system() {
 		archlinux-contrib pacman-contrib reflector rebuild-detector lostfiles fwupd
 		smartmontools
 	)
-	install -Dm0644 dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
-	install -Dm0644 systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
-	install -Dm0644 paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
-	install -Dm0644 paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
+	install -Dm0644 pacman-dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
+	install -Dm0644 pacman-systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
+	install -Dm0644 pacman-paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
+	install -Dm0644 pacman-paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
 
 	echo 'quiet' | install -Dm0644 /dev/stdin "$pkgdir"/etc/cmdline.d/quiet.conf
@@ -139,21 +139,21 @@ package_base-system() {
 
 	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
 
-	install -Dm0644 base-system.preset "$pkgdir"/etc/systemd/system-preset/80-base-system.preset
-	install -Dm0644 base-user.preset "$pkgdir"/etc/systemd/user-preset/80-base-user.preset
+	install -Dm0644 systemd-base-system.preset "$pkgdir"/etc/systemd/system-preset/80-base-system.preset
+	install -Dm0644 systemd-base-user.preset "$pkgdir"/etc/systemd/user-preset/80-base-user.preset
 	echo 'disable *' | install -Dm0644 /dev/stdin "$pkgdir"/etc/systemd/user-preset/99-default.preset
 
 	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
 
 	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
 	install -Dm0644 networkd-ipv6-privacy-extensions.conf "$pkgdir"/etc/systemd/networkd.conf.d/ipv6-privacy-extensions.conf
-	install -Dm0644 wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
+	install -Dm0644 systemd-networkd-wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
 
-	install -Dm0644 slice-oom-kill.conf "$pkgdir"/etc/systemd/system/user.slice.d/10-oom-kill.conf
-	install -Dm0644 slice-oom-kill.conf "$pkgdir"/etc/systemd/system/system.slice.d/10-oom-kill.conf
+	install -Dm0644 oomd-slice-oom-kill.conf "$pkgdir"/etc/systemd/system/user.slice.d/10-oom-kill.conf
+	install -Dm0644 oomd-slice-oom-kill.conf "$pkgdir"/etc/systemd/system/system.slice.d/10-oom-kill.conf
 
-	install -Dm0644 flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
-	install -Dm0644 flatpak-update.timer "$pkgdir"/etc/systemd/system/flatpak-update.timer
+	install -Dm0644 systemd-flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
+	install -Dm0644 systemd-flatpak-update.timer "$pkgdir"/etc/systemd/system/flatpak-update.timer
 
 	install -Dm0644 locale.conf "$pkgdir"/etc/locale.conf
 	install -Dm0644 locale.gen "$pkgdir"/etc/locale.gen

@@ -48,7 +48,6 @@ source=(
 	logind-power-key-hibernate.conf
 	tlp-battery-care.conf
 )
-
 cksums=($(yes 'SKIP' | head -n "${#source[@]}"))
 
 package_base-system() {

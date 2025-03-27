@@ -25,14 +25,13 @@ opt.spelllang = { "en_us", "pt_br", "programming" }
 opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
-opt.completeopt = { "menuone", "noinsert", "noselect" }
+opt.completeopt = { "fuzzy", "menuone", "noinsert", "noselect" }
 opt.shortmess:append "c"
 opt.wildmode = { "longest:full:lastused", "full" } -- complete until longest common string, then iterate over other matches, sort buffers by last used
 opt.path:append "**" -- recursive :find
 opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
-vim.diagnostic.config { underline = false, virtual_text = false, severity_sort = true }
 vim.cmd.highlight "Comment gui=italic cterm=italic"
 
 vim.g.mapleader = " "
@@ -66,14 +65,6 @@ map({ "n", "x" }, "gk", "k")
 map("n", "<Leader>qd", vim.diagnostic.setqflist)
 map("n", "<Leader>qe", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR } end)
 map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.WARN } end)
-map("n", "]q", "<Cmd>cnext<CR>")
-map("n", "[q", "<Cmd>cprev<CR>")
-map("n", "]l", "<Cmd>lnext<CR>")
-map("n", "[l", "<Cmd>lprev<CR>")
-map("n", "]b", "<Cmd>bnext<CR>")
-map("n", "[b", "<Cmd>bprev<CR>")
-map("n", "]a", "<Cmd>next<CR>")
-map("n", "[a", "<Cmd>prev<CR>")
 
 -- like :grep but silent, opens the quickfix window automatically and invert the bang logic (do not jump to first result by default)
 vim.api.nvim_create_user_command("Grep", function(args)
@@ -130,19 +121,16 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = init,
 	callback = function(args)
-		vim.bo[args.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client:supports_method "textDocument/completion" then
+			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+		end
 
 		local lsp = vim.lsp.buf
 		local opts = { buffer = args.buf }
 		map("n", "gd", lsp.declaration, opts) -- ** for definition use Ctrl-]
 		map("n", "gD", lsp.type_definition, opts) -- **
-		map({ "n", "i" }, "<C-s>", lsp.signature_help, opts)
-		map({ "n", "x" }, "<Leader>ca", lsp.code_action, opts)
-		map({ "n", "x" }, "<Leader>cf", lsp.format, opts)
-		map("n", "<Leader>cw", lsp.rename, opts)
-		map("n", "<Leader>ls", lsp.document_symbol, opts)
-		map("n", "<Leader>li", lsp.implementation, opts)
-		map("n", "<Leader>lr", lsp.references, opts)
+		map({ "n", "x" }, "grf", lsp.format, opts)
 		map("n", "<Leader>wa", lsp.add_workspace_folder, opts)
 		map("n", "<Leader>wr", lsp.remove_workspace_folder, opts)
 		map("n", "<Leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
@@ -236,11 +224,6 @@ require("nvim-treesitter.configs").setup {
 }
 
 require("mini.trailspace").setup {}
-
-require("mini.completion").setup {
-	lsp_completion = { source_func = "omnifunc", auto_setup = false },
-	set_vim_settings = false,
-}
 
 require("mini.pick").setup { window = { config = { border = "none" } } }
 map("n", "<Leader>ff", function() MiniPick.builtin.files { tool = "fd" } end)

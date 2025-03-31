@@ -32,6 +32,7 @@ opt.path:append "**" -- recursive :find
 opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
+vim.diagnostic.config { underline = false, severity_sort = true }
 vim.cmd.highlight "Comment gui=italic cterm=italic"
 
 vim.g.mapleader = " "

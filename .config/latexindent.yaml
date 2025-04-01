@@ -1,3 +1,7 @@
 modifyLineBreaks:
   textWrapOptions:
     columns: 81
+    when: after
+lookForAlignDelims:
+  tabular:
+    multiColumnGrouping: 1

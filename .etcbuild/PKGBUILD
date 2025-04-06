@@ -76,7 +76,7 @@ package_base-system() {
 
 		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
 		less man-db man-pages stdoutisatty
-		git git-zsh-completion difftastic git-delta
+		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python uv
 		bash-language-server shellcheck shfmt

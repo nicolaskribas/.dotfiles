@@ -217,7 +217,6 @@ null_ls.setup {
 
 require("nvim-treesitter.configs").setup {
 	ensure_installed = "all",
-	ignore_installed = { "latex" },
 	auto_install = false,
 	parser_install_dir = vim.fn.stdpath "data" .. "/site",
 	highlight = { enable = true },

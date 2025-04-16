@@ -124,8 +124,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client:supports_method "textDocument/completion" then
-			extra_chars = vim.split(" _abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", "")
-			vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters, extra_chars)
+			var_name_chars = vim.split("_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "")
+			vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters or {}, var_name_chars)
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 		end
 

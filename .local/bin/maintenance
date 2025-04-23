@@ -19,6 +19,12 @@ yn 'show sway logs' &&
 yn 'show pacreport' &&
 	pacreport | less
 
+yn 'update rust' &&
+	rustup update
+
+yn 'clean uv cache' &&
+	uv cache clean
+
 yn 'update packages' &&
 	sudo pacman -Syu
 

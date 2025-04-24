@@ -1,0 +1,19 @@
+#!/bin/bash
+set -Eeuo pipefail
+trap 'echo "$0: Error on line ${LINENO}: ${BASH_COMMAND}" >&2' ERR
+
+if [ -z "${1-}" ]; then
+	echo 'No argument supplied' >&2
+	exit 1
+fi
+
+VAULT="$1"
+
+if [ ! -d "${VAULT}" ]; then
+	echo "'${VAULT}' is not a directory" >&2
+	exit 1
+fi
+
+mdformat "${VAULT}"
+markdownlint "${VAULT}/**/*.md" "!${VAULT}/**/*.excalidraw.md" --fix || true
+johnnycheck "${VAULT}"

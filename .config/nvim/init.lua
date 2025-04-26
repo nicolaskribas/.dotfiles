@@ -147,7 +147,7 @@ MiniDeps.add {
 }
 MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
-	checkout = "v2.0.0",
+	checkout = "v2.1.0",
 }
 MiniDeps.add {
 	source = "nvimtools/none-ls.nvim",
@@ -161,16 +161,20 @@ MiniDeps.add {
 	hooks = { post_checkout = function() vim.cmd.DirtytalkUpdate() end },
 }
 
-local lspconfig = require "lspconfig"
-lspconfig.rust_analyzer.setup {}
-lspconfig.clangd.setup {}
-lspconfig.bashls.setup {}
-lspconfig.marksman.setup {}
-lspconfig.ruff.setup {}
-lspconfig.pyright.setup {
-	settings = { python = { pythonPath = ".venv/bin/python" } },
+vim.lsp.enable {
+	"rust_analyzer",
+	"clangd",
+	"bashls",
+	"marksman",
+	"ruff",
+	"pyright",
+	"texlab",
+	"ltex_plus",
 }
-lspconfig.texlab.setup {
+vim.lsp.config("pyright", {
+	settings = { python = { pythonPath = ".venv/bin/python" } },
+})
+vim.lsp.config("texlab", {
 	settings = {
 		texlab = {
 			build = { onSave = true },
@@ -181,7 +185,7 @@ lspconfig.texlab.setup {
 			},
 		},
 	},
-}
+})
 local get_dict = function(lang)
 	local file = io.open(vim.fn.stdpath "config" .. "/spell/" .. lang .. ".utf-8.add", "r")
 	if not file then return {} end
@@ -191,7 +195,7 @@ local get_dict = function(lang)
 	end
 	return words
 end
-lspconfig.ltex_plus.setup {
+vim.lsp.config("ltex_plus", {
 	settings = {
 		ltex = {
 			languageToolHttpServerUri = "http://localhost:8081",
@@ -206,7 +210,7 @@ lspconfig.ltex_plus.setup {
 			},
 		},
 	},
-}
+})
 
 local null_ls = require "null-ls"
 null_ls.setup {

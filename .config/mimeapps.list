@@ -10,6 +10,7 @@ message/rfc822=org.mozilla.Thunderbird.desktop
 application/pdf=org.gnome.Papers.desktop
 
 text/plain=nvim.desktop
+text/html=org.mozilla.firefox.desktop
 
 image/jpeg=org.gnome.Loupe.desktop
 image/png=org.gnome.Loupe.desktop

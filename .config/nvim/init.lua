@@ -115,10 +115,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.highlight.on_yank { on_visual = false } end,
 })
 
-for _, v in ipairs { "textDocument/implementation", "textDocument/references", "textDocument/documentSymbol" } do
-	vim.lsp.handlers[v] = vim.lsp.with(vim.lsp.handlers[v], { loclist = true })
-end
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = init,
 	callback = function(args)

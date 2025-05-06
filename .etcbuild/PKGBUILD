@@ -91,6 +91,7 @@ package_base-system() {
 		tailscale firewalld cups cups-pdf
 		openssh gnupg pass pass-otp
 
+		pandoc-cli
 		texlive-meta texlive-langenglish texlive-langportuguese texlab
 		perl-yaml-tiny perl-file-homedir # for latexindent
 

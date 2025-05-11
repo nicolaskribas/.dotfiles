@@ -45,13 +45,6 @@ vim.g.tex_flavor = "latex" -- |ft-tex-plugin|
 local map = vim.keymap.set
 map("", "<Space>", "<NOP>") -- disable space, it is the leader key
 
--- resizing windows
--- <C-w> is better then :resize/:vertical as it allows being multiplied by a 'count'
-map("n", "<Left>", "<C-w>>")
-map("n", "<Right>", "<C-w><")
-map("n", "<Up>", "<C-w>-")
-map("n", "<Down>", "<C-w>+")
-
 -- use system clipboard
 map({ "n", "x" }, "<Leader>y", '"+y')
 map({ "n", "x" }, "<Leader>Y", '"+Y', { remap = true }) -- recursive: Y is mapped to y$ by default
@@ -67,43 +60,6 @@ map({ "n", "x" }, "gk", "k")
 map("n", "<Leader>qd", vim.diagnostic.setqflist)
 map("n", "<Leader>qe", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR } end)
 map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.WARN } end)
-
--- like :grep but silent, opens the quickfix window automatically and invert the bang logic (do not jump to first result by default)
-vim.api.nvim_create_user_command("Grep", function(args)
-	vim.cmd.grep { args.args, bang = not args.bang, mods = { silent = true } }
-	vim.cmd.copen()
-end, { bang = true, nargs = "+", complete = "file" })
-
-vim.api.nvim_create_user_command("Lgrep", function(args)
-	vim.cmd.lgrep { args.args, bang = not args.bang, mods = { silent = true } }
-	vim.cmd.lopen()
-end, { bang = true, nargs = "+", complete = "file" })
-
-vim.api.nvim_create_user_command("MarkdownlintDirectory", function(args)
-	if args.args ~= "" then args.args = args.args .. "/" end
-	local cmd = {
-		"markdownlint",
-		args.args .. "**/*.md",
-		"!" .. args.args .. "**/*.excalidraw.md",
-	}
-	if args.bang then table.insert(cmd, "--fix") end
-
-	local obj = vim.system(cmd, { text = true }):wait()
-	if obj.code == 0 then
-		vim.notify("Mardownlint found no errors", vim.log.levels.INFO)
-		return
-	elseif obj.code == 2 then
-		vim.notify("Error running linter", vim.log.levels.ERROR)
-		vim.notify(obj.stderr, vim.log.levels.ERROR)
-		return
-	end
-	vim.fn.setqflist({}, "r", {
-		title = ":" .. table.concat(cmd, " "),
-		lines = vim.split(obj.stdout, "\n", { trimempty = true }),
-		efm = "%f:%l:%c %m,%f:%l %m",
-	})
-	vim.cmd.copen()
-end, { bang = true, nargs = "?", complete = "dir" })
 
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -215,6 +171,7 @@ null_ls.setup {
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.mdformat,
 		null_ls.builtins.diagnostics.vale,
+		null_ls.builtins.diagnostics.markdownlint_cli2.with { args = { "$FILENAME" } },
 	},
 }
 

@@ -15,5 +15,5 @@ if [ ! -d "${VAULT}" ]; then
 fi
 
 mdformat "${VAULT}"
-markdownlint "${VAULT}/**/*.md" "!${VAULT}/**/*.excalidraw.md" --fix || true
+markdownlint-cli2 "${VAULT}/**/*.md" "!${VAULT}/**/*.excalidraw.md" --fix || true
 johnnycheck "${VAULT}"

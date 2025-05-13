@@ -1,0 +1,6 @@
+#!/bin/sh
+
+git log --color=always --graph --oneline -- "$@" | fzf --ansi \
+	--with-shell='sh -c' \
+	--scheme=history \
+	--preview='printf "%s" {} | grep --only-matching "[a-f0-9]\+" | head --lines=1 | xargs --no-run-if-empty -- git show --color=always'

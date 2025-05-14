@@ -1,7 +1,8 @@
 #!/bin/sh
 
 select_cliphist() {
-	cliphist list | SHELL=/bin/sh fzf --scheme=history \
+	cliphist list | fzf --with-shell='sh -c' \
+		--scheme=history \
 		--delimiter='\t' --with-nth=2 \
 		--preview-window=wrap --preview="'$0' preview {}" \
 		--bind='alt-d:execute-silent(printf "%s" {} | cliphist delete)+reload(cliphist list)'

@@ -19,8 +19,10 @@ yn 'show sway logs?' &&
 yn 'show pacreport?' &&
 	pacreport | less
 
-yn 'update rust?' &&
+yn 'update rust?' && (
+	rustup self upgrade-data
 	rustup update
+)
 
 yn 'clean uv cache?' &&
 	uv cache clean

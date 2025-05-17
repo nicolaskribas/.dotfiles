@@ -101,7 +101,7 @@
 		"format-muted": "󰝟",
 		"format-icons": ["󰖀", "󰕾"],
 		"on-click": "swaymsg exec '$volume_toggle'",
-		"on-click-right": "swaymsg exec flatpak run org.pulseaudio.pavucontrol",
+		"on-click-right": "swaymsg exec flatpak run com.saivert.pwvucontrol",
 		"on-scroll-up": "swaymsg exec '$volume_up'",
 		"on-scroll-down": "swaymsg exec '$volume_down'",
 	},

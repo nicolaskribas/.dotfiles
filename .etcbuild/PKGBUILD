@@ -74,7 +74,7 @@ package_base-system() {
 		ffmpeg
 		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap
 
-		tmux dash bash zsh zsh-completions zsh-syntax-highlighting
+		tmux dash bash bash-completion zsh zsh-completions zsh-syntax-highlighting
 		less man-db man-pages stdoutisatty
 		git difftastic git-delta
 		fzf chafa ripgrep ripgrep-all fd tree gdu

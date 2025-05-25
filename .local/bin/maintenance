@@ -3,7 +3,7 @@
 
 yn() {
 	while :; do
-		printf '%s [%s/%s] ' "$1" "$(locale yesstr)" "$(locale nostr)"
+		printf '%s [%s/%s] ' "${1}" "$(locale yesstr)" "$(locale nostr)"
 		read -r 'response'
 		printf '%s' "${response}" | grep -Eq "$(locale yesexpr)" && return 0
 		printf '%s' "${response}" | grep -Eq "$(locale noexpr)" && return 1

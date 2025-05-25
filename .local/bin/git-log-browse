@@ -6,7 +6,7 @@ git log --color=always \
 	--decorate \
 	--oneline \
 	--graph \
-	"$@" |
+	"${@}" |
 	fzf	--ansi \
 		--height=0 \
 		--scheme=history \

@@ -4,22 +4,22 @@ select_cliphist() {
 	cliphist list | fzf --with-shell='sh -c' \
 		--scheme=history \
 		--delimiter='\t' --with-nth=2 \
-		--preview-window=wrap --preview="'$0' preview {}" \
+		--preview-window=wrap --preview="'${0}' preview {}" \
 		--bind='alt-d:execute-silent(printf "%s" {} | cliphist delete)+reload(cliphist list)'
 }
 
-case "$1" in
+case "${1}" in
 preview)
-	if printf '%s' "$2" | grep -Pq '^\d+\t\[\[ binary data .*\]\]'; then
-		printf '%s' "$2" | cliphist decode |
+	if printf '%s' "${2}" | grep -Pq '^\d+\t\[\[ binary data .*\]\]'; then
+		printf '%s' "${2}" | cliphist decode |
 			chafa --format sixels --size "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}"
 	else
-		printf '%s' "$2" | cliphist decode
+		printf '%s' "${2}" | cliphist decode
 	fi
 	;;
 *)
 	if selected="$(select_cliphist)"; then
-		printf '%s' "$selected" | cliphist decode | wl-copy
+		printf '%s' "${selected}" | cliphist decode | wl-copy
 	fi
 	;;
 esac

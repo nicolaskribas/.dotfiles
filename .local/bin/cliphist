@@ -1,4 +1,4 @@
 #!/bin/sh
 # cliphist wrapper script so clipboard history is saved to XDG_RUNTIME_DIR
 
-XDG_CACHE_HOME="$XDG_RUNTIME_DIR" exec /usr/bin/cliphist "$@"
+XDG_CACHE_HOME="${XDG_RUNTIME_DIR}" exec /usr/bin/cliphist "${@}"

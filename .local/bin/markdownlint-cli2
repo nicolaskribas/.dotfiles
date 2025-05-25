@@ -1,5 +1,5 @@
 #!/bin/sh
 
 exec /usr/bin/markdownlint-cli2 \
-	--config "${XDG_CONFIG_HOME:-$HOME/.config}/markdownlint-cli2/.markdownlint-cli2.yaml" \
-	"$@"
+	--config "${XDG_CONFIG_HOME:-${HOME}/.config}/markdownlint-cli2/.markdownlint-cli2.yaml" \
+	"${@}"

@@ -67,6 +67,12 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown", "tex" },
 	command = "setlocal textwidth=80",
 })
+vim.api.nvim_create_autocmd("FileType", {
+	group = init,
+	callback = function(args)
+		if vim.treesitter.language.add(vim.treesitter.language.get_lang(args.match)) then vim.treesitter.start() end
+	end,
+})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,
 	callback = function() vim.highlight.on_yank { on_visual = false } end,
@@ -96,7 +102,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 require("mini.deps").setup()
 MiniDeps.add {
 	source = "nvim-treesitter/nvim-treesitter",
-	hooks = { post_checkout = function() vim.cmd.TSUpdateSync() end },
+	checkout = "main",
+	hooks = { post_checkout = function() require("nvim-treesitter").update() end },
 }
 MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
@@ -175,13 +182,7 @@ null_ls.setup {
 	},
 }
 
-require("nvim-treesitter.configs").setup {
-	ensure_installed = "all",
-	auto_install = false,
-	parser_install_dir = vim.fn.stdpath "data" .. "/site",
-	highlight = { enable = true },
-	indent = { enable = true },
-}
+require("nvim-treesitter").install { "stable", "unstable" }
 
 require("mini.trailspace").setup {}
 

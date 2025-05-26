@@ -19,14 +19,6 @@ yn 'show sway logs?' &&
 yn 'show pacreport?' &&
 	pacreport | less
 
-yn 'update rust?' && (
-	rustup self upgrade-data
-	rustup update
-)
-
-yn 'clean uv cache?' &&
-	uv cache clean
-
 yn 'update packages?' &&
 	sudo pacman -Syu
 
@@ -38,6 +30,14 @@ yn 'uninstall orphan packages and optional dependencies?' &&
 
 yn 'uninstall orphan packages (detecting cicles)?' &&
 	pacman -Qqdn | sudo pacman -Rsu -
+
+yn 'update rust?' && (
+	rustup self upgrade-data
+	rustup update
+)
+
+yn 'clean uv cache?' &&
+	uv cache clean
 
 yn 'update neovim packages?' && (
 	nvim --headless -c "lua MiniDeps.update(nil, { force = true }) vim.cmd.exit()"

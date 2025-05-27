@@ -191,6 +191,8 @@ stop_exec_timer() {
 	printf -v EXEC_ELAPSED_TIME_FORMATED '%s%02d:%02d%s ' '%F{yellow}%B' "$((int(elapsed/60)))" "$((int(elapsed%60)))" '%b%f'
 }
 
+mark_prompt() { print -nP '\e]133;A\a' } # emit an OSC-133;A sequence
+
 set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a' }
 
 set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
@@ -201,6 +203,7 @@ autoload -Uz add-zsh-hook
 add-zsh-hook preexec set_window_title_exec
 add-zsh-hook preexec start_exec_timer
 add-zsh-hook precmd stop_exec_timer
+add-zsh-hook precmd mark_prompt
 add-zsh-hook precmd set_window_title_prompt
 add-zsh-hook precmd ring
 add-zsh-hook precmd vcs_info

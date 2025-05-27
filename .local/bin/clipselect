@@ -5,7 +5,8 @@ select_cliphist() {
 		--scheme=history \
 		--delimiter='\t' --with-nth=2 \
 		--preview-window=wrap --preview="'${0}' preview {}" \
-		--bind='alt-d:execute-silent(printf "%s" {} | cliphist delete)+reload(cliphist list)'
+		--bind='alt-d:execute-silent(printf "%s" {} | cliphist delete)+reload(cliphist list)' \
+		--bind 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'
 }
 
 case "${1}" in

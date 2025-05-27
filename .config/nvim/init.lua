@@ -102,7 +102,13 @@ require("mini.deps").setup()
 MiniDeps.add {
 	source = "nvim-treesitter/nvim-treesitter",
 	checkout = "main",
-	hooks = { post_checkout = function() require("nvim-treesitter").update() end },
+	hooks = {
+		post_install = function() require("nvim-treesitter").install { "stable", "unstable" } end,
+		post_checkout = function()
+			require("nvim-treesitter").install { "stable", "unstable" }
+			require("nvim-treesitter").update()
+		end,
+	},
 }
 MiniDeps.add {
 	source = "neovim/nvim-lspconfig",
@@ -180,8 +186,6 @@ null_ls.setup {
 		null_ls.builtins.diagnostics.markdownlint_cli2.with { args = { "$FILENAME" } },
 	},
 }
-
-require("nvim-treesitter").install { "stable", "unstable" }
 
 require("mini.trailspace").setup {}
 

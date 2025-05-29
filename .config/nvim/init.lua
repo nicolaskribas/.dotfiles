@@ -21,7 +21,7 @@ opt.wrap = false
 opt.linebreak = true -- use 'breakat' for determine when to wrap
 opt.breakindent = true
 opt.spell = true
-opt.spelllang = { "en_us", "pt_br", "programming" }
+opt.spelllang = { "en_us", "pt_br" }
 opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
@@ -76,7 +76,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,
 	callback = function() vim.highlight.on_yank { on_visual = false } end,
 })
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = init,
 	callback = function(args)
@@ -99,33 +98,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 require("mini.deps").setup()
-MiniDeps.add {
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+
+add {
 	source = "nvim-treesitter/nvim-treesitter",
 	checkout = "main",
 	hooks = {
-		post_install = function() require("nvim-treesitter").install { "stable", "unstable" } end,
+		post_install = function(args)
+			vim.cmd.packadd(args.name)
+			require("nvim-treesitter").install({ "stable", "unstable" }):wait()
+		end,
 		post_checkout = function()
-			require("nvim-treesitter").install { "stable", "unstable" }
-			require("nvim-treesitter").update()
+			require("nvim-treesitter").install({ "stable", "unstable" }):wait()
+			require("nvim-treesitter").update():wait()
 		end,
 	},
 }
-MiniDeps.add {
+
+add {
 	source = "neovim/nvim-lspconfig",
 	checkout = "v2.2.0",
 }
-MiniDeps.add {
-	source = "nvimtools/none-ls.nvim",
-	depends = { "nvim-lua/plenary.nvim" },
-}
-MiniDeps.add {
-	source = "stevearc/oil.nvim",
-}
-MiniDeps.add {
-	source = "psliwka/vim-dirtytalk",
-	hooks = { post_checkout = function() vim.cmd.DirtytalkUpdate() end },
-}
-
 vim.lsp.enable {
 	"rust_analyzer",
 	"clangd",
@@ -177,28 +170,55 @@ vim.lsp.config("ltex_plus", {
 	},
 })
 
-local null_ls = require "null-ls"
-null_ls.setup {
-	sources = {
-		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.formatting.mdformat,
-		null_ls.builtins.diagnostics.vale,
-		null_ls.builtins.diagnostics.markdownlint_cli2.with { args = { "$FILENAME" } },
-	},
-}
+later(function()
+	add {
+		source = "nvimtools/none-ls.nvim",
+		depends = { "nvim-lua/plenary.nvim" },
+	}
 
-require("mini.trailspace").setup {}
+	local null_ls = require "null-ls"
+	null_ls.setup {
+		sources = {
+			null_ls.builtins.formatting.stylua,
+			null_ls.builtins.formatting.mdformat,
+			null_ls.builtins.diagnostics.vale,
+			null_ls.builtins.diagnostics.markdownlint_cli2.with { args = { "$FILENAME" } },
+		},
+	}
+end)
 
-require("mini.pick").setup { window = { config = { border = "none" } } }
-map("n", "<Leader>ff", function() MiniPick.builtin.files { tool = "fd" } end)
-map("n", "<Leader>fg", MiniPick.builtin.grep)
-map("n", "<Leader>fl", MiniPick.builtin.grep_live)
-map("n", "<Leader>fb", MiniPick.builtin.buffers)
-map("n", "<Leader>fr", MiniPick.builtin.resume)
+later(function()
+	add {
+		source = "psliwka/vim-dirtytalk",
+		hooks = {
+			post_install = function(args)
+				vim.cmd.packadd(args.name)
+				vim.cmd.DirtytalkUpdate()
+			end,
+			post_checkout = function() vim.cmd.DirtytalkUpdate() end,
+		},
+	}
+	opt.spelllang:append "programming"
+end)
 
-require("oil").setup {
-	default_file_explorer = false, -- keep using netrw because it is needed for downloading spelling files: https://github.com/neovim/neovim/issues/7189
-}
+later(function() require("mini.trailspace").setup() end)
+
+later(function()
+	require("mini.pick").setup { window = { config = { border = "none" } } }
+	map("n", "<Leader>ff", function() MiniPick.builtin.files { tool = "fd" } end)
+	map("n", "<Leader>fg", MiniPick.builtin.grep)
+	map("n", "<Leader>fl", MiniPick.builtin.grep_live)
+	map("n", "<Leader>fb", MiniPick.builtin.buffers)
+	map("n", "<Leader>fr", MiniPick.builtin.resume)
+end)
+
+later(function()
+	add "stevearc/oil.nvim"
+
+	require("oil").setup {
+		default_file_explorer = false, -- keep using netrw because it is needed for downloading spelling files: https://github.com/neovim/neovim/issues/7189
+	}
+end)
 
 -- * overrides a default keymap
 -- ** overrides a default keymap with similar functionality

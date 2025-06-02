@@ -1,76 +1,249 @@
 #!/usr/bin/env python3
 
 import argparse
-import os
+import pathlib
 import re
 import sys
+from itertools import filterfalse
+from typing import Callable, Iterator
+
+
+class ParsedDirName:
+    def __init__(
+        self,
+        index: str,
+        transmitted_index: str | None,
+        inherited_index: str | None,
+        is_zero: bool,
+        zero_number: str | None,
+        name: str,
+    ):
+        self.index = index
+        self.transmitted_index = transmitted_index
+        self.inherited_index = inherited_index
+        self.is_zero = is_zero
+        self.zero_number = zero_number
+        self.name = name
+
+
+def group_or_none(match, group: int | None) -> str | None:
+    return match.group(group) if group is not None else None
+
+
+class DirNameSpec:
+    def __init__(
+        self,
+        pattern,
+        index_group: int,
+        transmitted_index_group: int | None,
+        inherited_index_group: int | None,
+        zero_indicator_group: int,
+        zero_number_group: int | None,
+        name_group: int,
+    ):
+        self.pattern = pattern
+        self.index_group = index_group
+        self.transmitted_index_group = transmitted_index_group
+        self.inherited_index_group = inherited_index_group
+        self.zero_indicator_group = zero_indicator_group
+        self.zero_number_group = zero_number_group
+        self.name_group = name_group
+
+    def parse(self, entry: str) -> ParsedDirName | None:
+        if (match := self.pattern.fullmatch(entry)) is None:
+            return None
+
+        return ParsedDirName(
+            index=match.group(self.index_group),
+            transmitted_index=group_or_none(match, self.transmitted_index_group),
+            inherited_index=group_or_none(match, self.inherited_index_group),
+            is_zero=match.group(self.zero_indicator_group) == "0",
+            zero_number=group_or_none(match, self.zero_number_group),
+            name=match.group(self.name_group),
+        )
+
+
+class DirSpec:
+    def __init__(
+        self,
+        name_spec: DirNameSpec,
+        next,
+        ignore: Callable[[pathlib.Path], bool] = lambda _: False,
+    ):
+        self.ignore = ignore
+        self.next: DirSpec | None = next
+        self.name_spec = name_spec
+
+
+archive_number = "9"
+stdzeros = {
+    "0": "meta",
+    "1": "inbox",
+    "3": "lists",
+    "5": "templates",
+    archive_number: "archive",
+}
 
 allowed_chars = r"[a-z0-9\-\.]"
-area_pattern = re.compile(rf"(\d)-{allowed_chars}+")
-category_pattern = re.compile(rf"(\d\d)-{allowed_chars}+")
-id_pattern = re.compile(rf"(\d\d)\.\d\d-{allowed_chars}+")
+
+# Area spec
+dir_specs = DirSpec(
+    ignore=lambda p: str.startswith(p.name, "."),
+    name_spec=DirNameSpec(
+        pattern=re.compile(rf"(\d)-({allowed_chars}+)"),
+        index_group=1,
+        transmitted_index_group=1,
+        inherited_index_group=None,  # Area doesn't inherit
+        zero_indicator_group=1,
+        zero_number_group=None,
+        name_group=2,
+    ),
+    # Category spec
+    next=DirSpec(
+        name_spec=DirNameSpec(
+            pattern=re.compile(rf"((\d)(\d))-({allowed_chars}+)"),
+            index_group=1,
+            transmitted_index_group=1,
+            inherited_index_group=2,
+            zero_indicator_group=3,
+            zero_number_group=None,
+            name_group=4,
+        ),
+        # Id spec
+        next=DirSpec(
+            name_spec=DirNameSpec(
+                pattern=re.compile(rf"((\d\d)\.(\d)(\d))-({allowed_chars}+)"),
+                index_group=1,
+                transmitted_index_group=None,  # Id doesn't transmit down
+                inherited_index_group=2,
+                zero_indicator_group=3,
+                zero_number_group=4,
+                name_group=5,
+            ),
+            next=None,
+        ),
+    ),
+)
+
+
+class ValidDir:
+    def __init__(
+        self,
+        number: str,
+        name: str,
+        path: pathlib.Path,
+    ):
+        self.number = number
+        self.name = name
+        self.path = path
+
+    def __str__(self) -> str:
+        return str(self.path)
+
+
+class InvalidEntry:
+    def __init__(
+        self,
+        path: pathlib.Path,
+    ):
+        self.path = path
+
+    def __str__(self) -> str:
+        return str(self.path)
+
+
+type Entry = ValidDir | InvalidEntry
+
 file_pattern = re.compile(rf"{allowed_chars}+")
 
 
-def issues_in_id(id_path):
-    for file in os.listdir(id_path):
-        file_path = os.path.join(id_path, file)
-        if os.path.isdir(file_path):
-            yield file_path
+def check_files(dir_path: pathlib.Path) -> Iterator[InvalidEntry]:
+    for entry in dir_path.iterdir():
+        if not entry.is_file():
+            yield InvalidEntry(entry)
             continue
 
-        match = file_pattern.fullmatch(file)
-        if match is None:
-            yield file_path
+        if file_pattern.fullmatch(entry.name) is None:
+            yield InvalidEntry(entry)
             continue
 
 
-def issues_in_category(category_path, category_number):
-    for id in os.listdir(category_path):
-        id_path = os.path.join(category_path, id)
+def stdzero_name(parsed_entry: ParsedDirName, transmitted_name: str | None) -> str:
+    first_part = transmitted_name + "-" if transmitted_name is not None else ""
+    second_part = (
+        stdzeros.get(parsed_entry.zero_number, "")
+        if parsed_entry.zero_number is not None
+        else "management"
+    )
 
-        if not os.path.isdir(id_path):
-            yield id_path
+    return first_part + second_part
+
+
+def check_dir(
+    dir_path: pathlib.Path,
+    spec: DirSpec = dir_specs,
+    transmitted_number: str | None = None,
+    transmitted_name: str | None = None,
+    seen: set[str] = set(),
+) -> Iterator[Entry]:
+    for entry in filterfalse(spec.ignore, dir_path.iterdir()):
+        if not entry.is_dir():
+            yield InvalidEntry(entry)
             continue
 
-        match = id_pattern.fullmatch(id)
-        if match is None or match.group(1) != category_number:
-            yield id_path
+        if (entry_parsed := spec.name_spec.parse(entry.name)) is None:
+            yield InvalidEntry(entry)
             continue
 
-        yield from issues_in_id(id_path)
-
-
-def issues_in_area(area_path, area_digit):
-    for category in os.listdir(area_path):
-        category_path = os.path.join(area_path, category)
-
-        if not os.path.isdir(category_path):
-            yield category_path
+        if entry_parsed.inherited_index != transmitted_number:
+            yield InvalidEntry(entry)
             continue
 
-        match = category_pattern.fullmatch(category)
-        if match is None or match.group(1)[0] != area_digit:
-            yield category_path
+        if entry_parsed.is_zero and entry_parsed.name != stdzero_name(
+            entry_parsed, transmitted_name
+        ):
+            yield InvalidEntry(entry)
             continue
 
-        yield from issues_in_category(category_path, category_number=match.group(1))
+        if entry_parsed.index in seen:
+            yield InvalidEntry(entry)
+            continue
+        seen.add(entry_parsed.index)
+
+        yield ValidDir(entry_parsed.index, entry_parsed.name, entry)
+
+        if spec.next is not None:
+            yield from check_dir(
+                dir_path=entry,
+                spec=spec.next,
+                transmitted_number=entry_parsed.transmitted_index,
+                transmitted_name=entry_parsed.name
+                if not entry_parsed.is_zero
+                else transmitted_name,
+                seen=seen,
+            )
+        elif entry_parsed.zero_number != archive_number:  # don't check archive
+            yield from check_files(entry)
 
 
-def jhonnycheck(root):
-    for area in filter(lambda a: not a.startswith("."), os.listdir(root)):
-        area_path = os.path.join(root, area)
+def compare(root: pathlib.Path, ref_root: pathlib.Path) -> Iterator[ValidDir]:
+    # Get valid directories from the reference directory
+    ref_dirs_names = {
+        dir.number: dir.name for dir in check_dir(ref_root) if isinstance(dir, ValidDir)
+    }
 
-        if not os.path.isdir(area_path):
-            yield area_path
+    # Get valid directories from the directory to be checked
+    for dir in (dir for dir in check_dir(root) if isinstance(dir, ValidDir)):
+        if dir.number not in ref_dirs_names:
             continue
 
-        match = area_pattern.fullmatch(area)
-        if match is None:
-            yield area_path
-            continue
+        # Return directories that use the same number but has different names
+        if dir.name != ref_dirs_names[dir.number]:
+            yield dir
 
-        yield from issues_in_area(area_path, area_digit=match.group(1))
+
+def johnnycheck(root_path: pathlib.Path) -> Iterator[InvalidEntry]:
+    return (path for path in check_dir(root_path) if isinstance(path, InvalidEntry))
 
 
 if __name__ == "__main__":
@@ -78,8 +251,15 @@ if __name__ == "__main__":
         description="Check if a directory follows my custom johnny.decimal rules. It prints directories and files that doesn't"
     )
     parser.add_argument(
+        "-c",
+        "--compare",
+        type=pathlib.Path,
+        metavar="dir",
+        help="directory to be compared to",
+    )
+    parser.add_argument(
         "directory",
-        type=str,
+        type=pathlib.Path,
         nargs="?",
         default="./",
         metavar="dir",
@@ -87,9 +267,17 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    if not os.path.exists(args.directory):
-        print("Error: The specified directory does not exist.", file=sys.stderr)
-        sys.exit(3)
+    if not args.directory.exists() or not args.directory.is_dir():
+        print(f"Error: '{args.directory}' is not a directory.", file=sys.stderr)
+        sys.exit(1)
 
-    for issue in jhonnycheck(args.directory):
-        print(issue)
+    if args.compare is not None:
+        if not args.compare.exists() or not args.compare.is_dir():
+            print(f"Error: '{args.compare}' is not a directory.", file=sys.stderr)
+            sys.exit(1)
+
+        for issue in compare(root=args.directory, ref_root=args.compare):
+            print(issue)
+    else:
+        for issue in johnnycheck(args.directory):
+            print(issue)

@@ -4,6 +4,7 @@ opt.shiftwidth = 0 -- 0 means: same value as 'tabstop'
 opt.shiftround = true -- round indent to multiples of 'shifwidth'
 opt.number = true
 opt.relativenumber = true
+opt.ruler = false
 opt.signcolumn = "yes"
 opt.fillchars = { eob = " " }
 opt.guicursor:append "c:ver25" -- vertical bar as cursor when inserting in command-line mode

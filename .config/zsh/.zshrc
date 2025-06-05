@@ -28,6 +28,15 @@ alias -g L='| less'
 alias -g F='| fzf'
 
 
+# --- Functions ---
+jupyter() {
+	uv run \
+		--with=jupyter,jupyterlab-vim,jupyter-ruff \
+		--with=jupyterlab-lsp,python-lsp-server\[all\],python-lsp-ruff \
+		jupyter "${@}"
+}
+
+
 # --- Misc ---
 setopt extended_glob
 setopt no_clobber

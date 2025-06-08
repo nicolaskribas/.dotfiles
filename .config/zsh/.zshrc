@@ -29,6 +29,8 @@ alias -g F='| fzf'
 
 
 # --- Functions ---
+ring() { print -n '\a' } # print bell character
+
 jupyter() {
 	uv run \
 		--with=jupyter,jupyterlab-vim,jupyter-ruff \
@@ -179,41 +181,51 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-# shows command duration, return code, username, hostname, cwd, and git info
-PROMPT='${EXEC_ELAPSED_TIME_FORMATED}%(?..%F{red}%B%?%b%f )%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# '
-
-# right prompt: shows current number of background jobs
-RPROMPT='%(1j.%F{blue}%B%j%b%f.)'
+# shows username, hostname, cwd, git info, and number of background jobs
+PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %(1j.&%F{blue}%B%j%b%f.)
+%# '
 
 zmodload zsh/datetime
 zmodload zsh/mathfunc
 
-start_exec_timer() { EXEC_START_TIME="${EPOCHREALTIME}" }
+_set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
 
-stop_exec_timer() {
-	[[ -z "${EXEC_START_TIME}" ]] && return
-	local elapsed="$((EPOCHREALTIME - EXEC_START_TIME))"
-	unset EXEC_START_TIME
+_start_exec_timer() { _exec_start_time="${EPOCHREALTIME}" }
 
-	unset EXEC_ELAPSED_TIME_FORMATED
-	[[ "${elapsed}" -lt 1 ]] && return
-	printf -v EXEC_ELAPSED_TIME_FORMATED '%s%02d:%02d%s ' '%F{yellow}%B' "$((int(elapsed/60)))" "$((int(elapsed%60)))" '%b%f'
+_stop_exec_timer() {
+	[[ -z "${_exec_start_time}" ]] && return
+	local elapsed="$((EPOCHREALTIME - _exec_start_time))"
+	unset _exec_start_time
+
+	unset _exec_timer_formated
+	((elapsed < 1)) && return
+
+	if ((elapsed < 60)) then;
+		LC_NUMERIC=POSIX printf -v _exec_timer_formated 'Δ%s%.2f%s' '%F{yellow}%B' "${elapsed}" '%b%f'
+	else
+		LC_NUMERIC=POSIX printf -v _exec_timer_formated 'Δ%s%d:%05.2f%s' '%F{yellow}%B' "$((int(elapsed/60)))" "$((elapsed%60))" '%b%f'
+	fi
 }
 
-mark_prompt() { print -nP '\e]133;A\a' } # emit an OSC-133;A sequence
+_print_exit_status_and_timer() {
+	local es="${?}"
+	[[ "${es}" -ne 0 ]] && print -nP "!%F{red}%B${es}%b%f"
+	[[ "${es}" -ne 0 && -n "${_exec_timer_formated}" ]] && print -n ' '
+	print -nP "${_exec_timer_formated}"
+	[[ "${es}" -ne 0 || -n "${_exec_timer_formated}" ]] && print
+}
 
-set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a' }
+_mark_prompt() { print -n '\e]133;A\a' } # emit an OSC-133;A sequence
 
-set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
-
-ring() { print -n '\a' } # print bell character
+_set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a' }
 
 autoload -Uz add-zsh-hook
-add-zsh-hook preexec set_window_title_exec
-add-zsh-hook preexec start_exec_timer
-add-zsh-hook precmd stop_exec_timer
-add-zsh-hook precmd mark_prompt
-add-zsh-hook precmd set_window_title_prompt
+add-zsh-hook preexec _set_window_title_exec
+add-zsh-hook preexec _start_exec_timer
+add-zsh-hook precmd _stop_exec_timer
+add-zsh-hook precmd _print_exit_status_and_timer
+add-zsh-hook precmd _mark_prompt
+add-zsh-hook precmd _set_window_title_prompt
 add-zsh-hook precmd ring
 add-zsh-hook precmd vcs_info
 

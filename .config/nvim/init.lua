@@ -118,7 +118,7 @@ add {
 
 add {
 	source = "neovim/nvim-lspconfig",
-	checkout = "v2.2.0",
+	checkout = "v2.3.0",
 }
 vim.lsp.enable {
 	"rust_analyzer",

@@ -53,7 +53,7 @@ yn 'run checkrebuild?' &&
 	checkrebuild
 
 yn 'run pacdiff?' &&
-	DIFFPROG='nvim -d' pacdiff --sudo --threeway
+	pacdiff --sudo --threeway
 
 yn 'run checkservices?' &&
 	sudo checkservices -Pu

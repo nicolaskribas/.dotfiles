@@ -163,10 +163,7 @@ vim.lsp.config("ltex_plus", {
 				["en-US"] = get_dict "en",
 				["pt-BR"] = get_dict "pt",
 			},
-			disabledRules = { -- see: https://community.languagetool.org/rule/list
-				["en-US"] = { "EN_QUOTES", "WHITESPACE_RULE" },
-				["pt-BR"] = { "PT_SMART_QUOTES", "WHITESPACE_RULE" },
-			},
+			disabledRules = {}, -- see: https://community.languagetool.org/rule/list
 		},
 	},
 })

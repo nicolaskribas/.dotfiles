@@ -220,6 +220,7 @@ exec swayidle -w \
 	timeout 300 '$lock; $screen_off' resume '$screen_on' \
 	timeout 30 '$screen_off_locked' resume '$screen_on_locked'
 
+exec com.github.wwmm.easyeffects --gapplication-service
 exec kanshi
 exec_always kanshictl reload
 exec foot --server

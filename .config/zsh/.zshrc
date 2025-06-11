@@ -209,7 +209,7 @@ _stop_exec_timer() {
 
 _print_exit_status_and_timer() {
 	local es="${?}"
-	[[ "${es}" -ne 0 ]] && print -nP "!%F{red}%B${es}%b%f"
+	[[ "${es}" -ne 0 ]] && print -nP "?%F{red}%B${es}%b%f"
 	[[ "${es}" -ne 0 && -n "${_exec_timer_formated}" ]] && print -n ' '
 	print -nP "${_exec_timer_formated}"
 	[[ "${es}" -ne 0 || -n "${_exec_timer_formated}" ]] && print

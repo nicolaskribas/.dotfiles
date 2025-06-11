@@ -12,4 +12,5 @@ git log --color=always \
 		--scheme=history \
 		--with-shell='sh -c' \
 		--preview="${GIT_SHOW}" \
+		--preview-window=wrap \
 		--bind 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'

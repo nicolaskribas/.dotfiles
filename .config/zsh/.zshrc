@@ -200,11 +200,7 @@ _stop_exec_timer() {
 	unset _exec_timer_formated
 	((elapsed < 1)) && return
 
-	if ((elapsed < 60)) then;
-		LC_NUMERIC=POSIX printf -v _exec_timer_formated 'Δ%s%.2f%s' '%F{yellow}%B' "${elapsed}" '%b%f'
-	else
-		LC_NUMERIC=POSIX printf -v _exec_timer_formated 'Δ%s%d:%05.2f%s' '%F{yellow}%B' "$((int(elapsed/60)))" "$((elapsed%60))" '%b%f'
-	fi
+	LC_NUMERIC=POSIX printf -v _exec_timer_formated 'Δ%s%d:%05.2f%s' '%F{yellow}%B' "$((int(elapsed/60)))" "$((elapsed%60))" '%b%f'
 }
 
 _print_exit_status_and_timer() {

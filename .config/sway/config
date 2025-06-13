@@ -23,6 +23,7 @@ set $screen_off swaymsg "output * power off"
 set $screen_on swaymsg "output * power on"
 set $screen_off_locked pgrep --euid "$USER" --exact swaylock && $screen_off
 set $screen_on_locked pgrep --euid "$USER" --exact swaylock && $screen_on
+set $toggle_bar pkill --signal SIGUSR1 --euid "$USER" --exact waybar
 set $menu wmenu -i -f "sans-serif 11" -N 222222 -n 888888 -M 285577 -m ffffff -S 285577 -s ffffff
 set $launch j4-dmenu-desktop --no-generic --dmenu='$menu -p launch' --term='$term' --i3-ipc
 set $notify_progress xargs --no-run-if-empty -I{} notify-send --category=system --expire-time=1000 --hint=string:x-canonical-private-synchronous:progress --hint=int:value:{}
@@ -48,6 +49,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term_multiplexed
 bindsym $mod+p exec $term_float --title=clipselect clipselect
 bindsym $mod+d exec $launch
+bindsym $mod+o exec $toggle_bar
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore
 bindsym --locked XF86AudioMute exec $volume_toggle

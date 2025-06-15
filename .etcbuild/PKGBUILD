@@ -54,7 +54,7 @@ package_base-system() {
 	install='base-system.install'
 	depends=(
 		base linux linux-lts linux-firmware tlp
-		mkinitcpio systemd-ukify
+		mkinitcpio systemd-ukify efibootmgr
 		btrfs-progs dosfstools exfatprogs veracrypt
 		greetd greetd-tuigreet
 

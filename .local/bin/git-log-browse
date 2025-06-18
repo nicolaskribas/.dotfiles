@@ -1,6 +1,8 @@
 #!/bin/sh
 
-GIT_SHOW='printf "%s" {} | grep --only-matching "[a-f0-9]\+" | head --lines=1 | xargs --no-run-if-empty -- git show --color=always'
+git_show='printf "%s" {} | grep --only-matching "[a-f0-9]\+" | head --lines=1 | xargs --no-run-if-empty -- git show --color=always'
+
+git rev-parse --is-inside-work-tree >/dev/null || exit
 
 git log --color=always \
 	--decorate \
@@ -11,6 +13,6 @@ git log --color=always \
 		--height=0 \
 		--scheme=history \
 		--with-shell='sh -c' \
-		--preview="${GIT_SHOW}" \
+		--preview="${git_show}" \
 		--preview-window=wrap \
 		--bind 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'

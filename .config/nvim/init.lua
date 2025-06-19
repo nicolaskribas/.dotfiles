@@ -6,7 +6,6 @@ opt.number = true
 opt.relativenumber = true
 opt.ruler = false
 opt.signcolumn = "yes"
-opt.fillchars = { eob = " " }
 opt.guicursor:append "c:ver25" -- vertical bar as cursor when inserting in command-line mode
 opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500" -- make cursor blink
 opt.guicursor:append "a:Cursor" -- make cursor follow neovim colorscheme
@@ -35,6 +34,8 @@ opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 vim.diagnostic.config { underline = false, severity_sort = true }
 vim.cmd.highlight "Comment gui=italic cterm=italic"
+vim.cmd.highlight "StatusLine guifg=fg guibg=bg gui=bold cterm=bold"
+vim.cmd.highlight "StatusLineNC guifg=fg guibg=bg"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -44,12 +45,6 @@ vim.g.tex_flavor = "latex" -- |ft-tex-plugin|
 
 local map = vim.keymap.set
 map("", "<Space>", "<NOP>") -- disable space, it is the leader key
-
--- use system clipboard
-map({ "n", "x" }, "<Leader>y", '"+y')
-map({ "n", "x" }, "<Leader>Y", '"+Y', { remap = true }) -- recursive: Y is mapped to y$ by default
-map({ "n", "x" }, "<Leader>p", '"+p')
-map({ "n", "x" }, "<Leader>P", '"+P')
 
 -- dealing with word wrap
 map({ "n", "x" }, "j", function() return vim.v.count == 0 and "gj" or "j" end, { expr = true })

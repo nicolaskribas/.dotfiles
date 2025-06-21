@@ -27,3 +27,5 @@ video/webm=org.gnome.Totem.desktop
 audio/mpeg=io.bassi.Amberol.desktop
 audio/flac=io.bassi.Amberol.desktop
 audio/vnd.wave=io.bassi.Amberol.desktop
+
+inode/directory=org.gnome.Nautilus.desktop

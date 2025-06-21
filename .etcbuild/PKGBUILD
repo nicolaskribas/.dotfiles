@@ -80,7 +80,7 @@ package_base-system() {
 		fzf chafa ripgrep ripgrep-all fd tree gdu
 		gcc clang rustup python uv
 		bash-language-server shellcheck shfmt
-		stylua ruff pyright marksman markdownlint-cli2 vale
+		stylua ruff pyright marksman markdownlint-cli2 vale harper
 		jq sqlite zola miniserve
 		make base-devel gdb strace
 		htop bpftop bpftrace

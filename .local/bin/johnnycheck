@@ -129,11 +129,11 @@ dir_specs = DirSpec(
 class ValidDir:
     def __init__(
         self,
-        number: str,
+        index: str,
         name: str,
         path: pathlib.Path,
     ):
-        self.number = number
+        self.index = index
         self.name = name
         self.path = path
 
@@ -181,10 +181,10 @@ def stdzero_name(parsed_entry: ParsedDirName, transmitted_name: str | None) -> s
 
 def check_dir(
     dir_path: pathlib.Path,
-    spec: DirSpec = dir_specs,
-    transmitted_number: str | None = None,
-    transmitted_name: str | None = None,
-    seen: set[str] = set(),
+    spec: DirSpec,
+    transmitted_index: str | None,
+    transmitted_name: str | None,
+    seen: set[str],
 ) -> Iterator[Entry]:
     for entry in filterfalse(spec.ignore, dir_path.iterdir()):
         if not entry.is_dir():
@@ -195,7 +195,7 @@ def check_dir(
             yield InvalidEntry(entry)
             continue
 
-        if entry_parsed.inherited_index != transmitted_number:
+        if entry_parsed.inherited_index != transmitted_index:
             yield InvalidEntry(entry)
             continue
 
@@ -216,7 +216,7 @@ def check_dir(
             yield from check_dir(
                 dir_path=entry,
                 spec=spec.next,
-                transmitted_number=entry_parsed.transmitted_index,
+                transmitted_index=entry_parsed.transmitted_index,
                 transmitted_name=entry_parsed.name
                 if not entry_parsed.is_zero
                 else transmitted_name,
@@ -226,24 +226,32 @@ def check_dir(
             yield from check_files(entry)
 
 
+def check(dir_path: pathlib.Path) -> Iterator[Entry]:
+    return check_dir(
+        dir_path=dir_path,
+        spec=dir_specs,
+        transmitted_index=None,
+        transmitted_name=None,
+        seen=set(),
+    )
+
+
 def compare(root: pathlib.Path, ref_root: pathlib.Path) -> Iterator[ValidDir]:
     # Get valid directories from the reference directory
-    ref_dirs_names = {
-        dir.number: dir.name for dir in check_dir(ref_root) if isinstance(dir, ValidDir)
-    }
+    ref_dirs = {dir.index: dir for dir in check(ref_root) if isinstance(dir, ValidDir)}
 
     # Get valid directories from the directory to be checked
-    for dir in (dir for dir in check_dir(root) if isinstance(dir, ValidDir)):
-        if dir.number not in ref_dirs_names:
+    for dir in (dir for dir in check(root) if isinstance(dir, ValidDir)):
+        if dir.index not in ref_dirs:
             continue
 
-        # Return directories that use the same number but has different names
-        if dir.name != ref_dirs_names[dir.number]:
+        # Return directories that use the same index but has different names
+        if dir.name != ref_dirs[dir.index].name:
             yield dir
 
 
 def johnnycheck(root_path: pathlib.Path) -> Iterator[InvalidEntry]:
-    return (path for path in check_dir(root_path) if isinstance(path, InvalidEntry))
+    return (path for path in check(root_path) if isinstance(path, InvalidEntry))
 
 
 if __name__ == "__main__":

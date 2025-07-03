@@ -153,6 +153,7 @@ package_kahve-system() {
 
 	echo 'kahve' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	echo 'FONT=ter-v18n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
+	echo 'rcu_nocbs=0-15' | install -Dm0644 /dev/stdin "$pkgdir"/etc/cmdline.d/rcu_nocbs.conf
 
 	install -Dm0644 mkinitcpio-kahve-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
 

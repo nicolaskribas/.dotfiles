@@ -188,20 +188,6 @@ later(function()
 	}
 end)
 
-later(function()
-	add {
-		source = "psliwka/vim-dirtytalk",
-		hooks = {
-			post_install = function(args)
-				vim.cmd.packadd(args.name)
-				vim.cmd.DirtytalkUpdate()
-			end,
-			post_checkout = function() vim.cmd.DirtytalkUpdate() end,
-		},
-	}
-	opt.spelllang:append "programming"
-end)
-
 later(function() require("mini.trailspace").setup() end)
 
 later(function()

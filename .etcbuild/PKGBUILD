@@ -178,7 +178,6 @@ package_warana-system() {
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	echo 'FONT=ter-v24n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
 
-	echo 'options i915 enable_guc=3' | install -Dm0644 /dev/stdin "$pkgdir"/etc/modprobe.d/i915.conf
 	install -Dm0644 cmdline-warana-resume.conf "$pkgdir"/etc/cmdline.d/resume.conf
 	install -Dm0644 cmdline-warana-rootflags.conf "$pkgdir"/etc/cmdline.d/rootflags.conf
 	install -Dm0644 mkinitcpio-warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf

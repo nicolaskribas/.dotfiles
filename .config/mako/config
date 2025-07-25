@@ -3,7 +3,7 @@ max-history=128
 sort=+time
 
 # --- Binding ---
-on-button-middle=exec swaymsg -- exec makoctl menu -n "$id" '$menu -p "select action"'
+on-button-middle=exec swaymsg -- exec makoctl menu -n "$id" -- '$menu -p "select action"'
 
 # --- Style ---
 font=sans-serif 10

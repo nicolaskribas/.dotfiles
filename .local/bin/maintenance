@@ -74,9 +74,10 @@ yn 'update neovim packages?' && (
 
 separator
 
-(($(checkrebuild | wc --lines) >= 1)) && (
-	yn 'run checkrebuild?' &&
-		checkrebuild -v
+number_packages_need_rebuilt="$(checkrebuild | wc --lines)"
+((number_packages_need_rebuilt >= 1)) && (
+	echo "${number_packages_need_rebuilt} packages need to be rebuilt"
+	checkrebuild -v
 
 	separator
 )

@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+set -Eeuo pipefail
+trap 'echo "${0}: Error on line ${LINENO}: ${BASH_COMMAND}" >&2' ERR
+
 # inspired by: https://wiki.archlinux.org/title/System_maintenance
 
 yn() {
@@ -10,34 +13,54 @@ yn() {
 	done
 }
 
-yn 'show journal logs?' &&
-	journalctl -b -p 4
-
-yn 'show sway logs?' &&
-	journalctl -b -t sway
+separator() {
+	yes '-' | head --lines "$(tput cols)" | tr --delete '\n' || true
+	echo
+}
 
 yn 'show pacreport?' &&
-	pacreport | less
+	sudo pacreport --missing-files | less
 
-yn 'update packages?' &&
-	sudo pacman -Syu
+separator
 
-yn 'uninstall orphan packages?' &&
-	pacman -Qtdnq | xargs --open-tty --no-run-if-empty sudo pacman -Rns
+number_of_pending_updates="$(checkupdates | wc --lines || true)"
+((number_of_pending_updates >= 1)) && (
+	yn "${number_of_pending_updates} packages has pending updates. update packages?" &&
+		sudo pacman -Syu || true
 
-yn 'uninstall orphan packages and optional dependencies?' &&
-	pacman -Qttdnq | xargs --open-tty --no-run-if-empty sudo pacman -Rns
+	separator
+)
 
-yn 'uninstall orphan packages (detecting cicles)?' &&
-	pacman -Qqdn | sudo pacman -Rsu -
+number_of_pac_files="$(pacdiff --output | wc --lines)"
+((number_of_pac_files >= 1)) && (
+	yn "${number_of_pac_files} .pac* files need to be handled. run pacdiff?" &&
+		pacdiff --sudo --threeway
+
+	separator
+)
+
+number_orphan_packages=$(pacman -Qdq | pacman -Rsu --print - | grep --count --invert-match '^ there is nothing to do$' || true)
+((number_orphan_packages >= 1)) && (
+	yn "${number_orphan_packages} orphan packages. uninstall?" && (
+		pacman -Qdq | pacman -Rsu --print --print-format '%n' - | sudo pacman -Rsu - || true
+	)
+
+	separator
+)
 
 yn 'update rust?' && (
 	rustup self upgrade-data
 	rustup update
 )
 
-yn 'clean uv cache?' &&
-	uv cache clean
+separator
+
+[ -d "$(uv cache dir)" ] && (
+	yn "remove uv cache ($(du --summarize --human-readable "$(uv cache dir)")})" &&
+		uv cache clean
+
+	separator
+)
 
 yn 'update neovim packages?' && (
 	nvim --headless -c "lua
@@ -49,22 +72,35 @@ yn 'update neovim packages?' && (
 	echo
 )
 
-yn 'run checkrebuild?' &&
-	checkrebuild
+separator
 
-yn 'run pacdiff?' &&
-	pacdiff --sudo --threeway
+(($(checkrebuild | wc --lines) >= 1)) && (
+	yn 'run checkrebuild?' &&
+		checkrebuild -v
 
-yn 'run checkservices?' &&
-	sudo checkservices -Pu
-
-yn 'remove lostfiles?' &&
-	sudo lostfiles | xargs --open-tty --no-run-if-empty sudo rm -div
-
-yn 'update firware?' && (
-	fwupdmgr refresh
-	fwupdmgr update
+	separator
 )
+
+fwupdmgr refresh --force 1>/dev/null 2>/dev/null
+number_devices_with_firmware_updates="$(fwupdmgr get-updates --json | jq '.Devices | length')"
+((number_devices_with_firmware_updates >= 1)) && (
+	yn "${number_devices_with_firmware_updates} devices has firwmare updates. Run fwupdmgr?" &&
+		fwupdmgr update
+
+	separator
+)
+
+yn 'check services?' &&
+	sudo checkservices -AlfPrsumZ
+
+separator
+
+[ ! -d "/usr/lib/modules/$(uname --kernel-release)/" ] &&
+	echo "the running kernel ($(uname --kernel-release)) was not found in /usr/lib/modules/"
 
 yn 'reboot?' &&
 	systemctl reboot
+
+separator
+
+echo 'all done'

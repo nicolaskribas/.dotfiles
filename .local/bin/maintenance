@@ -14,55 +14,68 @@ yn() {
 }
 
 separator() {
+	# or-true: yes return code is nonzero
 	yes '-' | head --lines "$(tput cols)" | tr --delete '\n' || true
 	echo
 }
 
-yn 'show pacreport?' &&
-	sudo pacreport --missing-files | less
+number_failed_system_units="$(systemctl --system --failed --quiet | wc --lines)"
+if ((number_failed_system_units >= 1)); then
+	echo "${number_failed_system_units} failed system units"
+	systemctl --system --failed --quiet
+
+	separator
+fi
+
+number_failed_user_units="$(systemctl --user --failed --quiet | wc --lines)"
+if ((number_failed_user_units >= 1)); then
+	echo "${number_failed_user_units} failed user units"
+	systemctl --user --failed --quiet
+
+	separator
+fi
+
+yn 'show pacreport?' && sudo pacreport --missing-files | less
 
 separator
 
+# or-true: checkupdates returns nonzero code when no update is found
 number_of_pending_updates="$(checkupdates | wc --lines || true)"
-((number_of_pending_updates >= 1)) && (
-	yn "${number_of_pending_updates} packages has pending updates. update packages?" &&
-		sudo pacman -Syu || true
+if ((number_of_pending_updates >= 1)); then
+	yn "${number_of_pending_updates} packages has pending updates. update packages?" && sudo pacman -Syu
 
 	separator
-)
+fi
 
 number_of_pac_files="$(pacdiff --output | wc --lines)"
-((number_of_pac_files >= 1)) && (
-	yn "${number_of_pac_files} .pac* files need to be handled. run pacdiff?" &&
-		pacdiff --sudo --threeway
+if ((number_of_pac_files >= 1)); then
+	yn "${number_of_pac_files} .pac* files need to be handled. run pacdiff?" && pacdiff --sudo --threeway
 
 	separator
-)
+fi
 
+# or-true: grep return code is 1 when no match is found
 number_orphan_packages=$(pacman -Qdq | pacman -Rsu --print - | grep --count --invert-match '^ there is nothing to do$' || true)
-((number_orphan_packages >= 1)) && (
-	yn "${number_orphan_packages} orphan packages. uninstall?" && (
-		pacman -Qdq | pacman -Rsu --print --print-format '%n' - | sudo pacman -Rsu - || true
-	)
+if ((number_orphan_packages >= 1)); then
+	yn "${number_orphan_packages} orphan packages. uninstall?" && pacman -Qdq | pacman -Rsu --print --print-format '%n' - | sudo pacman -Rsu -
 
 	separator
-)
+fi
 
-yn 'update rust?' && (
+if yn 'update rust?'; then
 	rustup self upgrade-data
 	rustup update
-)
+fi
 
 separator
 
-[ -d "$(uv cache dir)" ] && (
-	yn "remove uv cache ($(du --summarize --human-readable "$(uv cache dir)")})" &&
-		uv cache clean
+if [ -d "$(uv cache dir)" ]; then
+	yn "remove uv cache ($(du --summarize --human-readable "$(uv cache dir)")})" && uv cache clean
 
 	separator
-)
+fi
 
-yn 'update neovim packages?' && (
+if yn 'update neovim packages?'; then
 	nvim --headless -c "lua
 		MiniDeps.later(function()
 			MiniDeps.clean(nil, { force = true })
@@ -70,37 +83,35 @@ yn 'update neovim packages?' && (
 			vim.cmd.exit()
 		end)"
 	echo
-)
+fi
 
 separator
 
 number_packages_need_rebuilt="$(checkrebuild | wc --lines)"
-((number_packages_need_rebuilt >= 1)) && (
+if ((number_packages_need_rebuilt >= 1)); then
 	echo "${number_packages_need_rebuilt} packages need to be rebuilt"
 	checkrebuild -v
 
 	separator
-)
+fi
 
 fwupdmgr refresh --force 1>/dev/null 2>/dev/null
 number_devices_with_firmware_updates="$(fwupdmgr get-updates --json | jq '.Devices | length')"
-((number_devices_with_firmware_updates >= 1)) && (
-	yn "${number_devices_with_firmware_updates} devices has firwmare updates. Run fwupdmgr?" &&
-		fwupdmgr update
+if ((number_devices_with_firmware_updates >= 1)); then
+	yn "${number_devices_with_firmware_updates} devices has firwmare updates. Run fwupdmgr?" && fwupdmgr update
 
 	separator
-)
+fi
 
-yn 'check services?' &&
-	sudo checkservices -AlfPrsumZ
+yn 'check services?' && sudo checkservices -AlfPrsumZ
 
 separator
 
-[ ! -d "/usr/lib/modules/$(uname --kernel-release)/" ] &&
-	echo "the running kernel ($(uname --kernel-release)) was not found in /usr/lib/modules/"
+modules_dir='/usr/lib/modules'
+kernel_release="$(uname --kernel-release)"
+[ ! -d "${modules_dir}/${kernel_release}/" ] && echo "the running kernel (${kernel_release}) was not found in ${modules_dir}/"
 
-yn 'reboot?' &&
-	systemctl reboot
+yn 'reboot?' && systemctl reboot
 
 separator
 

@@ -15,7 +15,7 @@ yn() {
 
 separator() {
 	# or-true: yes return code is nonzero
-	yes '-' | head --lines "$(tput cols)" | tr --delete '\n' || true
+	{ yes '-' || true; } | head --lines "$(tput cols)" | tr --delete '\n'
 	echo
 }
 
@@ -40,7 +40,7 @@ yn 'show pacreport?' && sudo pacreport --missing-files | less
 separator
 
 # or-true: checkupdates returns nonzero code when no update is found
-number_of_pending_updates="$(checkupdates | wc --lines || true)"
+number_of_pending_updates="$({ checkupdates || true; } | wc --lines)"
 if ((number_of_pending_updates >= 1)); then
 	yn "${number_of_pending_updates} packages has pending updates. update packages?" && sudo pacman -Syu
 
@@ -55,7 +55,7 @@ if ((number_of_pac_files >= 1)); then
 fi
 
 # or-true: grep return code is 1 when no match is found
-number_orphan_packages=$(pacman -Qdq | pacman -Rsu --print - | grep --count --invert-match '^ there is nothing to do$' || true)
+number_orphan_packages=$(pacman -Qdq | pacman -Rsu --print - | { grep --count --invert-match '^ there is nothing to do$' || true; })
 if ((number_orphan_packages >= 1)); then
 	yn "${number_orphan_packages} orphan packages. uninstall?" && pacman -Qdq | pacman -Rsu --print --print-format '%n' - | sudo pacman -Rsu -
 

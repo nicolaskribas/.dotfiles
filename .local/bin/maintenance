@@ -57,7 +57,8 @@ fi
 # or-true: grep return code is 1 when no match is found
 number_orphan_packages=$(pacman -Qdq | pacman -Rsu --print - | { grep --count --invert-match '^ there is nothing to do$' || true; })
 if ((number_orphan_packages >= 1)); then
-	yn "${number_orphan_packages} orphan packages. uninstall?" && pacman -Qdq | pacman -Rsu --print --print-format '%n' - | sudo pacman -Rsu -
+	# or-true: user may cancel the removal of packages then pacman returns nonzero code
+	yn "${number_orphan_packages} orphan packages. uninstall?" && pacman -Qdq | pacman -Rsu --print --print-format '%n' - | { sudo pacman -Rsu - || true; }
 
 	separator
 fi

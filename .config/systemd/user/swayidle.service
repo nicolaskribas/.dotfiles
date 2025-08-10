@@ -7,7 +7,7 @@ After=wayland-session@sway.desktop.target
 
 [Service]
 Type=exec
-ExecStart=swayidle -w
+ExecStart=/usr/bin/swayidle -w
 Restart=on-failure
 Slice=background-graphical.slice
 

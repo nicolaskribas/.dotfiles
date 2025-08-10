@@ -1,0 +1,9 @@
+# vim: ft=config
+
+lock 'swaylock --daemonize --color 000000'
+unlock 'pkill --signal SIGUSR1 --euid "$USER" --exact swaylock'
+before-sleep 'swaylock --daemonize --color 000000'
+idlehint 300
+timeout 295 'notify-send --urgency=critical --category=system --expire-time=5000 "Locking in 5 seconds"'
+timeout 300 'swaylock --daemonize --color 000000; swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+timeout 30 'pgrep --euid "$USER" --exact swaylock && swaymsg "output * power off"' resume 'swaymsg "output * power on"'

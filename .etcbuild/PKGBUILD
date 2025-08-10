@@ -12,7 +12,6 @@ source=(
 	mkinitcpio-linux.preset
 	mkinitcpio-linux-lts.preset
 	systemd-base-system.preset
-	systemd-base-user.preset
 	systemd-flatpak-update.service
 	systemd-flatpak-update.timer
 	systemd-networkd-wait-online-override.conf
@@ -22,6 +21,7 @@ source=(
 	tlp-performance.conf
 	sshd-hardened.conf
 	greetd-config.toml
+	sway-uwsm.desktop
 	reflector.conf
 	sudoers
 	pacman-dashbinsh.hook
@@ -58,7 +58,7 @@ package_base-system() {
 		btrfs-progs dosfstools exfatprogs veracrypt
 		greetd greetd-tuigreet
 
-		sway swaybg swayidle swaylock kanshi waybar j4-dmenu-desktop wmenu
+		uwsm sway swaybg swayidle swaylock kanshi waybar j4-dmenu-desktop wmenu
 		brightnessctl playerctl mako slurp grim swappy
 		lxqt-policykit lxqt-openssh-askpass pinentry kguiaddons kwindowsystem
 		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr wayvnc
@@ -90,7 +90,8 @@ package_base-system() {
 		iproute2 ethtool iptables-nft
 		iputils nmap ldns tcpdump tcpreplay
 		curl rclone sshfs
-		tailscale firewalld cups cups-pdf
+		tailscale cups cups-pdf
+		firewalld python-pyqt6
 		openssh gnupg pass pass-otp
 
 		pandoc-cli
@@ -112,7 +113,6 @@ package_base-system() {
 	install -Dm0644 mkinitcpio-linux-lts.preset "$pkgdir"/etc/mkinitcpio.d/linux-lts.preset
 
 	install -Dm0644 systemd-base-system.preset "$pkgdir"/etc/systemd/system-preset/80-base-system.preset
-	install -Dm0644 systemd-base-user.preset "$pkgdir"/etc/systemd/user-preset/80-base-user.preset
 	echo 'disable *' | install -Dm0644 /dev/stdin "$pkgdir"/etc/systemd/user-preset/99-default.preset
 
 	install -Dm0644 systemd-flatpak-update.service "$pkgdir"/etc/systemd/system/flatpak-update.service
@@ -131,6 +131,7 @@ package_base-system() {
 	install -Dm0644 sshd-hardened.conf "$pkgdir"/etc/ssh/sshd_config.d/20-hardened.conf
 
 	install -Dm0644 greetd-config.toml "$pkgdir"/etc/greetd/config.toml
+	install -Dm0644 sway-uwsm.desktop "$pkgdir"/usr/share/wayland-sessions/sway-uwsm.desktop
 
 	install -Dm0644 reflector.conf "$pkgdir"/etc/xdg/reflector/reflector.conf
 

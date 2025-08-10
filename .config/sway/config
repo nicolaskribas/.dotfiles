@@ -17,17 +17,10 @@ set $ws7 7:7
 set $ws8 8:8
 set $ws9 9:9
 set $ws10 10:10
-set $lock swaylock --daemonize --color 000000
-set $unlock pkill --signal SIGUSR1 --euid "$USER" --exact swaylock
-set $screen_off swaymsg "output * power off"
-set $screen_on swaymsg "output * power on"
-set $screen_off_locked pgrep --euid "$USER" --exact swaylock && $screen_off
-set $screen_on_locked pgrep --euid "$USER" --exact swaylock && $screen_on
 set $toggle_bar pkill --signal SIGUSR1 --euid "$USER" --exact waybar
 set $menu wmenu -i -f "sans-serif 11" -N 222222 -n 888888 -M 285577 -m ffffff -S 285577 -s ffffff
-set $launch j4-dmenu-desktop --no-generic --dmenu='$menu -p launch' --term='$term' --i3-ipc
+set $launch j4-dmenu-desktop --no-generic --dmenu='$menu -p launch' --term='$term' --wrapper 'uwsm-app --'
 set $notify_progress xargs --no-run-if-empty -I{} notify-send --category=system --expire-time=1000 --hint=string:x-canonical-private-synchronous:progress --hint=int:value:{}
-set $notify_lock notify-send --urgency=critical --category=system --expire-time=5000 "Locking in 5 seconds"
 set $player_prev playerctl previous
 set $player_next playerctl next
 set $player_play_pause playerctl play-pause
@@ -45,10 +38,11 @@ set $brightness_up brightnessctl --machine-readable --min-value=300 --exponent=1
 
 
 # --- Bindings ---
-bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term_multiplexed
-bindsym $mod+p exec $term_float --title=clipselect clipselect
+bindsym $mod+Return exec uwsm-app -- $term
+bindsym $mod+Shift+Return exec uwsm-app -- $term_multiplexed
+bindsym $mod+p exec uwsm-app -- $term_float --title=clipselect clipselect
 bindsym $mod+d exec $launch
+bindsym $mod+u exec uuctl $menu -l 10 -p
 bindsym $mod+o exec $toggle_bar
 bindsym $mod+n exec makoctl dismiss
 bindsym $mod+Shift+n exec makoctl restore
@@ -91,7 +85,7 @@ mode --pango_markup $system_mode {
 	bindsym l mode default, exec loginctl lock-session
 	bindsym s mode default, exec systemctl suspend
 	bindsym h mode default, exec systemctl hibernate
-	bindsym e exec swaymsg exit
+	bindsym e exec uwsm stop
 	bindsym p exec systemctl poweroff
 	bindsym r exec systemctl reboot
 	bindsym Return mode default
@@ -213,24 +207,7 @@ include '$(hostnamectl hostname)'
 
 
 # --- Execs ---
-exec swayidle -w \
-	lock '$lock' \
-	unlock '$unlock' \
-	before-sleep '$lock' \
-	idlehint 300 \
-	timeout 295 '$notify_lock' \
-	timeout 300 '$lock; $screen_off' resume '$screen_on' \
-	timeout 30 '$screen_off_locked' resume '$screen_on_locked'
-
-exec com.github.wwmm.easyeffects --gapplication-service
-exec kanshi
 exec_always kanshictl reload
-exec foot --server
-exec playerctld daemon
-exec lxqt-policykit-agent
-exec wl-paste --type text --watch cliphist store
-exec wl-paste --type image --watch cliphist store
 
-bar swaybar_command waybar
 
 xwayland disable

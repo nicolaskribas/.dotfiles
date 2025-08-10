@@ -1,0 +1,13 @@
+[Unit]
+Description=Polkit agent for the LXQt desktop environment
+Documentation=man:lxqt-policykit-agent(1)
+After=wayland-session@sway.desktop.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/lxqt-policykit-agent
+Restart=on-failure
+Slice=app-graphical.slice
+
+[Install]
+WantedBy=wayland-session@sway.desktop.target

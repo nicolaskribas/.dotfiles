@@ -1,0 +1,15 @@
+# https://github.com/Vladimir-csp/uwsm/blob/master/example-units/swayidle.service
+
+[Unit]
+Description=Sway idle and locking handler
+Documentation=man:swayidle(1)
+After=wayland-session@sway.desktop.target
+
+[Service]
+Type=exec
+ExecStart=swayidle -w
+Restart=on-failure
+Slice=background-graphical.slice
+
+[Install]
+WantedBy=wayland-session@sway.desktop.target

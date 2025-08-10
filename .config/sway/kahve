@@ -21,7 +21,4 @@ exec_always gsettings set org.gnome.desktop.interface {
 	icon-theme 'Adwaita'
 }
 
-exec mpris-proxy
-exec blueman-applet
-
 # vim:ft=swayconfig

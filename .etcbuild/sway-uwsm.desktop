@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Sway (with UWSM)
+Comment=An i3-compatible Wayland compositor, UWSM session
+Exec=systemd-cat --identifier=uwsm_start -- uwsm start -- sway.desktop
+Type=Application
+DesktopNames=sway;wlroots

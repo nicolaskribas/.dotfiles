@@ -3,7 +3,7 @@
 export SSH_ASKPASS=lxqt-openssh-askpass
 
 if lsmod | grep nvidia; then
-	WLR_RENDERER=vulkan exec systemd-cat --identifier=sway /usr/bin/sway --unsupported-gpu "${@}"
+	WLR_RENDERER=vulkan exec /usr/bin/sway --unsupported-gpu "${@}"
 else
-	exec systemd-cat --identifier=sway /usr/bin/sway "${@}"
+	exec /usr/bin/sway "${@}"
 fi

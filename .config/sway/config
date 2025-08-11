@@ -4,9 +4,9 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term footclient
-set $term_float footclient --app-id=footclient_float
-set $term_multiplexed footclient tmux
+set $term foot
+set $term_float foot --app-id=foot_float
+set $term_multiplexed foot tmux
 set $ws1 1:1
 set $ws2 2:2
 set $ws3 3:3
@@ -160,7 +160,7 @@ exec_always gsettings set org.gnome.desktop.interface {
 
 # --- Windows ---
 for_window [app_id="com.saivert.pwvucontrol"] floating enable
-for_window [app_id="footclient_float"] floating enable
+for_window [app_id="foot_float"] floating enable
 for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="org.gnome.Nautilus"] floating enable
 for_window [app_id="blueman-manager"] floating enable

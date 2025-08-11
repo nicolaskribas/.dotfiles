@@ -21,7 +21,7 @@
 	],
 	"custom/menu": {
 		"format": "󰣇 ",
-		"on-click": "swaymsg -- exec '$launch'",
+		"on-click": "swaymsg --pretty -- exec '$launch'",
 		"tooltip": false,
 	},
 	"sway/workspaces": {
@@ -31,8 +31,8 @@
 	"sway/scratchpad": {
 		"format-icons": "󰖲",
 		"show-empty": true,
-		"on-click": "swaymsg scratchpad show",
-		"on-click-right": "swaymsg move scratchpad"
+		"on-click": "swaymsg --pretty scratchpad show",
+		"on-click-right": "swaymsg --pretty move scratchpad"
 	},
 	"sway/window": {
 		"max-length": 30,
@@ -44,15 +44,15 @@
 	"sway/language": {
 		"format": "󰌌 ",
 		"tooltip-format": "{long}",
-		"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+		"on-click": "swaymsg --pretty input type:keyboard xkb_switch_layout next"
 	},
 	"cpu": {
 		"format": "󰻠 ",
-		"on-click": "swaymsg -- exec uwsm-app -- '$float_term' htop",
+		"on-click": "swaymsg --pretty -- exec uwsm-app -- '$float_term' htop",
 	},
 	"memory": {
 		"format": "󰘚 ",
-		"on-click": "swaymsg -- exec uwsm-app -- '$float_term' htop",
+		"on-click": "swaymsg --pretty -- exec uwsm-app -- '$float_term' htop",
 	},
 	"tray": {
 		"icon-size": 15,
@@ -91,19 +91,19 @@
 			"paused": "󰏥",
 			"stopped": "󰙦",
 		},
-		"on-click": "swaymsg -- exec '$player_play_pause'",
-		"on-click-right": "swaymsg -- exec '$player_stop'",
-		"on-scroll-up": "swaymsg -- exec '$player_shift'",
-		"on-scroll-down": "swaymsg -- exec '$player_unshift'",
+		"on-click": "swaymsg --pretty -- exec '$player_play_pause'",
+		"on-click-right": "swaymsg --pretty -- exec '$player_stop'",
+		"on-scroll-up": "swaymsg --pretty -- exec '$player_shift'",
+		"on-scroll-down": "swaymsg --pretty -- exec '$player_unshift'",
 	},
 	"wireplumber": {
 		"format": "{icon}",
 		"format-muted": "󰝟",
 		"format-icons": ["󰖀", "󰕾"],
-		"on-click": "swaymsg -- exec '$volume_toggle'",
-		"on-click-right": "swaymsg -- exec uwsm-app -- com.saivert.pwvucontrol.desktop",
-		"on-scroll-up": "swaymsg -- exec '$volume_up'",
-		"on-scroll-down": "swaymsg -- exec '$volume_down'",
+		"on-click": "swaymsg --pretty -- exec '$volume_toggle'",
+		"on-click-right": "swaymsg --pretty -- exec uwsm-app -- com.saivert.pwvucontrol.desktop",
+		"on-scroll-up": "swaymsg --pretty -- exec '$volume_up'",
+		"on-scroll-down": "swaymsg --pretty -- exec '$volume_down'",
 	},
 	"battery": {
 		"bat": "BAT0",
@@ -143,7 +143,7 @@
 		"tooltip-format-linked": "Linked\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
 		"tooltip-format-disconnected": "Disconnected\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
 		"tooltip-format-disabled": "Disabled\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
-		"on-click-right": "swaymsg -- exec uwsm-app -- '$term_float' iwctl",
+		"on-click-right": "swaymsg --pretty -- exec uwsm-app -- '$term_float' iwctl",
 		// "on-click": rfkill or something,
 	},
 	"clock": {

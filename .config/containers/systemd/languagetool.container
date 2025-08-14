@@ -3,6 +3,10 @@
 [Unit]
 Description=Containerized LanguageTool HTTP server
 
+# Disables default dependency (After=/Wants=podman-user-wait-network-online.service)
+[Quadlet]
+DefaultDependencies=false
+
 [Container]
 Image=docker.io/meyay/languagetool:latest
 AutoUpdate=registry

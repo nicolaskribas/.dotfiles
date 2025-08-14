@@ -1,0 +1,16 @@
+# https://github.com/wwmm/easyeffects/blob/master/debian/easyeffects/systemd/easyeffects.service
+
+[Unit]
+Description=EasyEffects Service
+After=pipewire-pulse.service
+BindsTo=pipewire-pulse.service
+PartOf=pipewire-pulse.service
+
+[Service]
+ExecStart=easyeffects --gapplication-service
+Restart=no
+StartLimitInterval=3
+GuessMainPID=yes
+
+[Install]
+WantedBy=graphical-session.target

@@ -72,6 +72,7 @@ package_base-system() {
 		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme capitaine-cursors
 		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
 		wireplumber noise-suppression-for-voice
+		easyeffects
 		gstreamer gst-plugin-va gst-plugin-pipewire
 		ffmpeg
 		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap

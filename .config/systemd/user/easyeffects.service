@@ -2,6 +2,8 @@
 
 [Unit]
 Description=EasyEffects Service
+Documentation=https://wwmm.github.io/easyeffects
+After=graphical-session.target
 After=pipewire-pulse.service
 BindsTo=pipewire-pulse.service
 PartOf=pipewire-pulse.service
@@ -11,6 +13,7 @@ ExecStart=easyeffects --gapplication-service
 Restart=no
 StartLimitInterval=3
 GuessMainPID=yes
+Slice=app-graphical.slice
 
 [Install]
 WantedBy=graphical-session.target

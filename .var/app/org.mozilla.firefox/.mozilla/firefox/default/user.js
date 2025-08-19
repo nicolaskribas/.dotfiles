@@ -211,6 +211,10 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 // visit https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening
 // Enter your personal overrides below this line:
 
+// --- Revert Betterfox ---
+// Allow new requests asking to allow notifications
+user_pref("permissions.default.desktop-notification", 0);
+
 // --- General ---
 // Open previous windows and tabs
 user_pref("browser.startup.page", 3);

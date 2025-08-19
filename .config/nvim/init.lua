@@ -34,8 +34,6 @@ opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 vim.diagnostic.config { underline = false, severity_sort = true }
 vim.cmd.highlight "Comment gui=italic cterm=italic"
-vim.cmd.highlight "StatusLine guifg=fg guibg=bg gui=bold cterm=bold"
-vim.cmd.highlight "StatusLineNC guifg=fg guibg=bg"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

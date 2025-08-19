@@ -2,6 +2,8 @@
 
 [Unit]
 Description=Containerized LanguageTool HTTP server
+# Disable it on my laptop (this service is heavy)
+ConditionHost=!warana
 
 # Disables default dependency (After=/Wants=podman-user-wait-network-online.service)
 [Quadlet]

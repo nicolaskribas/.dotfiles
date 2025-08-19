@@ -148,6 +148,7 @@ smart_borders on
 default_border pixel 2
 default_floating_border normal 2
 hide_edge_borders --i3 none
+workspace_layout tabbed
 
 seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme capitaine-cursors 24

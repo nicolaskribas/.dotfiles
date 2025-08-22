@@ -19,10 +19,11 @@ border-color=#285577
 [urgency=critical]
 border-color=#900000
 
+[mode=dnd]
+invisible=1
+
 [category=system]
 history=0
 layer=overlay
 anchor=center
-
-[mode=dnd]
-invisible=1
+invisible=0

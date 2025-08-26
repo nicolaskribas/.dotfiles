@@ -1,3 +1,4 @@
+enable btrfs-scrub@.timer - home
 enable sshd.service
 enable iwd.service
 enable bluetooth.service

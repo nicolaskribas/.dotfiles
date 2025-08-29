@@ -64,6 +64,7 @@ package_base-system() {
 		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr wayvnc
 		foot foot-terminfo nautilus
 		thunderbird hunspell-en_us # don't forget hunspell-pt-br from AUR
+		profile-sync-daemon
 		neovim inotify-tools tree-sitter-cli
 		sudo polkit rtkit
 		xdg-user-dirs

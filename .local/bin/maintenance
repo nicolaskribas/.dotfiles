@@ -42,7 +42,8 @@ separator
 # or-true: checkupdates returns nonzero code when no update is found
 number_of_pending_updates="$({ checkupdates || true; } | wc --lines)"
 if ((number_of_pending_updates >= 1)); then
-	yn "${number_of_pending_updates} packages has pending updates. update packages?" && sudo pacman -Syu
+	# or-true: user may cancel the installation of packages then pacman returns nonzero code
+	yn "${number_of_pending_updates} packages has pending updates. update packages?" && { sudo pacman -Syu || true; }
 
 	separator
 fi

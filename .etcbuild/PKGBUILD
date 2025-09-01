@@ -29,6 +29,7 @@ source=(
 	pacman-paccache-2.hook
 	pacman-systemd-boot.hook
 	pacman.conf
+	psd-firefox-flatpak
 
 	# shared
 	networkd-home-ether.network
@@ -145,6 +146,8 @@ package_base-system() {
 	install -Dm0644 pacman-paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
 	install -Dm0644 pacman-systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
+
+	install -Dm0644 psd-firefox-flatpak "$pkgdir"/usr/share/psd/browsers/firefox-flatpak
 }
 
 package_kahve-system() {

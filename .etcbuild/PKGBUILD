@@ -18,7 +18,6 @@ source=(
 	journald.conf
 	oomd-slice-oom-kill.conf
 	networkd-ipv6-privacy-extensions.conf
-	logind-runtime-directory-size.conf
 	tlp-performance.conf
 	sshd-hardened.conf
 	greetd-config.toml
@@ -127,8 +126,6 @@ package_base-system() {
 	install -Dm0644 oomd-slice-oom-kill.conf "$pkgdir"/etc/systemd/system/system.slice.d/10-oom-kill.conf
 
 	install -Dm0644 networkd-ipv6-privacy-extensions.conf "$pkgdir"/etc/systemd/networkd.conf.d/ipv6-privacy-extensions.conf
-
-	install -Dm0644 logind-runtime-directory-size.conf "$pkgdir"/etc/systemd/logind.conf.d/runtime-directory-size.conf
 
 	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
 

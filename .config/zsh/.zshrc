@@ -46,8 +46,8 @@ setopt interactive_comments
 
 
 # --- History ---
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000000
+SAVEHIST=1000000
 HISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/zhistory"
 
 setopt extended_history # save command's start/elapsed time to history file

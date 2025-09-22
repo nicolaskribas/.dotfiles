@@ -16,6 +16,7 @@ alias ls='ls --color=auto'
 alias la='ls -A'
 alias ll='ls -alh'
 alias ip='ip -color=auto'
+alias ss='ss --numeric --no-queues'
 alias sudo='sudo ' # expand command passed to sudo if it is an alias
 alias xargs='xargs ' # same, but for xargs
 alias watch='watch --color ' # same, but for watch

@@ -71,8 +71,8 @@ package_base-system() {
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
 		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme capitaine-cursors
 		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
-		wireplumber noise-suppression-for-voice
-		easyeffects
+		wireplumber
+		easyeffects lsp-plugins-lv2 jalv # lsp-plugins-lv2 for equalizer, needs lv2-host which is provided by jalv, see: https://gitlab.archlinux.org/archlinux/packaging/packages/mda.lv2/-/issues/1
 		gstreamer gst-plugin-va gst-plugin-pipewire
 		ffmpeg
 		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap

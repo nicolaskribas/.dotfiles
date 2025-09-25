@@ -69,7 +69,8 @@ package_base-system() {
 		xdg-user-dirs
 		inter-font ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono terminus-font
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
-		gnome-themes-extra adwaita-icon-theme breeze-icons hicolor-icon-theme capitaine-cursors
+		gnome-themes-extra
+		adwaita-icon-theme breeze-icons hicolor-icon-theme
 		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
 		wireplumber
 		easyeffects lsp-plugins-lv2 jalv # lsp-plugins-lv2 for equalizer, needs lv2-host which is provided by jalv, see: https://gitlab.archlinux.org/archlinux/packaging/packages/mda.lv2/-/issues/1

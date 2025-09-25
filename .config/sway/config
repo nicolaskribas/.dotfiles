@@ -151,12 +151,7 @@ hide_edge_borders --i3 none
 workspace_layout tabbed
 
 seat seat0 hide_cursor 5000
-seat seat0 xcursor_theme capitaine-cursors 24
-
-exec_always gsettings set org.gnome.desktop.interface {
-	cursor-theme capitaine-cursors
-	cursor-size 24
-}
+seat seat0 xcursor_theme Adwaita
 
 
 # --- Windows ---

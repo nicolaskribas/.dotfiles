@@ -53,58 +53,132 @@ cksums=($(yes 'SKIP' | head -n "${#source[@]}"))
 package_base-system() {
 	install='base-system.install'
 	depends=(
-		base linux linux-lts linux-firmware tlp
-		mkinitcpio systemd-ukify efibootmgr
-		btrfs-progs dosfstools exfatprogs veracrypt
+		base linux linux-lts linux-firmware mkinitcpio systemd-ukify
+
+		# services
+		tlp
+		reflector
+
+		# network services
+		firewalld python-pyqt6
+		tailscale
+		openssh
+		cups cups-pdf
+
+		# login manager
 		greetd greetd-tuigreet
 
-		uwsm sway swaybg swayidle swaylock kanshi waybar j4-dmenu-desktop wmenu
+		# sway session
+		uwsm sway swaybg swayidle swaylock
+		waybar j4-dmenu-desktop wmenu
 		brightnessctl playerctl mako slurp grim swappy
-		lxqt-policykit lxqt-openssh-askpass pinentry kguiaddons kwindowsystem
-		flatpak xdg-desktop-portal-gtk xdg-desktop-portal-wlr wayvnc
-		foot foot-terminfo nautilus
-		thunderbird hunspell-en_us # don't forget hunspell-pt-br from AUR
-		neovim inotify-tools tree-sitter-cli
-		sudo polkit rtkit
-		xdg-user-dirs
-		inter-font ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono terminus-font
+		xdg-desktop-portal-gtk xdg-desktop-portal-wlr
+		libnotify cliphist
+		wl-clipboard xdg-utils mailcap
+		xorg-xwayland
+		kanshi
+
+		# fonts
+		terminus-font
+		inter-font
+		ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
+
+		# themes and icons
 		gnome-themes-extra
 		adwaita-icon-theme breeze-icons hicolor-icon-theme
+
+		# sound system
 		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
 		wireplumber
 		easyeffects lsp-plugins-lv2 jalv # lsp-plugins-lv2 for equalizer, needs lv2-host which is provided by jalv, see: https://gitlab.archlinux.org/archlinux/packaging/packages/mda.lv2/-/issues/1
-		gstreamer gst-plugin-va gst-plugin-pipewire
-		ffmpeg
-		xorg-xwayland libnotify wl-clipboard cliphist xdg-utils mailcap
+		gstreamer gst-plugin-pipewire gst-plugin-va
 
-		tmux dash bash bash-completion zsh zsh-completions zsh-syntax-highlighting
-		less man-db man-pages stdoutisatty
-		git difftastic git-delta
-		fzf chafa ripgrep ripgrep-all fd tree gdu
-		gcc clang rustup python uv
-		bash-language-server shellcheck shfmt
-		stylua ruff pyright marksman markdownlint-cli2 vale harper
-		jq sqlite zola miniserve
-		make base-devel gdb strace
-		htop bpftop bpftrace
+		# password dialogs
+		lxqt-policykit                    # polkit
+		lxqt-openssh-askpass              # ssh
+		pinentry kguiaddons kwindowsystem # gnupg
 
-		iproute2 ethtool iptables-nft
-		iputils nmap ldns tcpdump tcpreplay wireshark-cli
-		curl rclone sshfs
-		tailscale cups cups-pdf
-		firewalld python-pyqt6
-		openssh gnupg pass pass-otp
+		# applications
+		flatpak
+		foot foot-terminfo
+		neovim inotify-tools tree-sitter-cli # inotify-tools for lsp file watcher, tree-sitter-cli for nvim-treesitter plugin
+		nautilus
+		thunderbird hunspell-en_us # don't forget hunspell-pt-br from AUR
 
+		# other dependencies
+		polkit rtkit
+
+		# shell
+		dash
+		bash bash-completion
+		zsh zsh-completions zsh-syntax-highlighting
+		tmux
+
+		# shell tools
+		sudo
+		man-db man-pages
+		less stdoutisatty
+		fzf fd ripgrep ripgrep-all
+		tree gdu
+		chafa
+		htop bpftop
+		bpftrace
 		pandoc-cli
-		texlive-meta texlive-langenglish texlive-langportuguese texlab
+		ffmpeg
+		efibootmgr
+		rclone
+		sshfs
+
+		# dev tools
+		base-devel
+		git difftastic
+		jq sqlite zola miniserve
+		make gdb strace
+
+		# network tools
+		iproute2 ethtool iptables-nft   # configure
+		iputils nmap ldns curl          # poke
+		tcpdump tcpreplay wireshark-cli # capture
+
+		# filesystems tools
+		btrfs-progs dosfstools exfatprogs veracrypt
+
+		# languages
+		gcc clang
+		rustup
+		python uv
+
+		# language servers, linters, formatters
+		bash-language-server shellcheck shfmt
+		ruff pyright
+		stylua
+		marksman markdownlint-cli2
+		texlab
+		vale harper
+
+		# keys and passwords
+		gnupg
+		pass pass-otp
+
+		# latex
+		texlive-meta texlive-langenglish texlive-langportuguese
 		perl-yaml-tiny perl-file-homedir # for latexindent
 
-		virt-manager libvirt qemu-full dmidecode dnsmasq openbsd-netcat
-		podman docker docker-buildx
+		# virtualization
+		virt-manager
+		libvirt qemu-full dmidecode dnsmasq openbsd-netcat
 
-		archlinux-contrib pacman-contrib reflector rebuild-detector lostfiles fwupd
-		smartmontools
+		# containers
+		podman
+		docker docker-buildx
+
+		# maintenance
+		archlinux-contrib
+		pacman-contrib
+		rebuild-detector
+		lostfiles
+		fwupd
 	)
 
 	install -Dm0644 locale.conf "$pkgdir"/etc/locale.conf

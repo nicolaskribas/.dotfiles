@@ -6,7 +6,7 @@ opt.number = true
 opt.relativenumber = true
 opt.ruler = false
 opt.signcolumn = "yes"
-opt.guicursor:append "c:ver25" -- vertical bar as cursor when inserting in command-line mode
+opt.guicursor:append { "c:ver25", "t:ver25" } -- vertical bar as cursor when inserting in command-line mode, and when in terminal mode
 opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500" -- make cursor blink
 opt.guicursor:append "a:Cursor" -- make cursor follow neovim colorscheme
 opt.cursorline = true
@@ -189,12 +189,16 @@ end)
 later(function() require("mini.trailspace").setup() end)
 
 later(function()
-	require("mini.pick").setup { window = { config = { border = "none" } } }
-	map("n", "<Leader>ff", function() MiniPick.builtin.files { tool = "fd" } end)
-	map("n", "<Leader>fg", MiniPick.builtin.grep)
-	map("n", "<Leader>fl", MiniPick.builtin.grep_live)
-	map("n", "<Leader>fb", MiniPick.builtin.buffers)
-	map("n", "<Leader>fr", MiniPick.builtin.resume)
+	add "ibhagwan/fzf-lua"
+	require("fzf-lua").setup {
+		winopts = { border = "none", preview = { border = "none" } },
+		files = { raw_cmd = "fd --follow --type=file" },
+	}
+	map("n", "<Leader>ff", FzfLua.files)
+	map("n", "<Leader>fg", FzfLua.grep)
+	map("n", "<Leader>fl", FzfLua.live_grep)
+	map("n", "<Leader>fb", FzfLua.buffers)
+	map("n", "<Leader>fr", FzfLua.resume)
 end)
 
 later(function()

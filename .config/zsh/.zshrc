@@ -3,7 +3,7 @@ export EDITOR=nvim
 export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen'
 export MANPAGER='less --color=u+b' # underlined -> blue
 export MANROFFOPT='-P -c' # to get colors: man passes -c flag to grotty through groff (-P)
-export FZF_DEFAULT_COMMAND='fd --hidden --follow --type=file --type=dir'
+export FZF_DEFAULT_COMMAND='fd --follow --type=file'
 export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --color=16'
 eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completion
 
@@ -228,8 +228,8 @@ add-zsh-hook precmd vcs_info
 
 
 # --- Plugins ---
-FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-FZF_ALT_C_COMMAND='fd --hidden --follow --type=dir'
+FZF_CTRL_T_COMMAND='fd --follow --type=file --type=dir'
+FZF_ALT_C_COMMAND='fd --follow --type=dir'
 source /usr/share/fzf/key-bindings.zsh # set <C-R>, <C-T> and <A-C> bindings that use fzf for selecting things
 bindkey -M vicmd '^r' redo # this is the default, but the fzf plugin changes it, so we change it back
 

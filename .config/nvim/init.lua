@@ -193,6 +193,10 @@ later(function()
 	require("fzf-lua").setup {
 		winopts = { border = "none", preview = { border = "none" } },
 		files = { raw_cmd = "fd --follow --type=file" },
+		keymap = { builtin = {
+			["<C-d>"] = "preview-half-page-down",
+			["<C-u>"] = "preview-half-page-up",
+		} },
 	}
 	map("n", "<Leader>ff", FzfLua.files)
 	map("n", "<Leader>fg", FzfLua.grep)

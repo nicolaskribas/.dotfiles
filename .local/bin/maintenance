@@ -48,6 +48,10 @@ if ((number_of_pending_updates >= 1)); then
 	separator
 fi
 
+yn "update AUR packages?" && paru -Sua --fm nvim
+
+separator
+
 number_of_pac_files="$(pacdiff --output | wc --lines)"
 if ((number_of_pac_files >= 1)); then
 	yn "${number_of_pac_files} .pac* files need to be handled. run pacdiff?" && pacdiff --sudo --threeway

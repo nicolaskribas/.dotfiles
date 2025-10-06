@@ -12,7 +12,7 @@ eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completi
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -Iv'
-alias ls='ls --color=auto'
+alias ls='LC_COLLATE=POSIX ls --group-directories-first --color=auto' # list order: dirs, then hidden, then uppercase, then lowercase
 alias la='ls -A'
 alias ll='ls -alh'
 alias ip='ip -color=auto'

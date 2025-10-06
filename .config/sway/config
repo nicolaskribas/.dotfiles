@@ -60,7 +60,7 @@ bindsym XF86MonBrightnessUp exec $brightness_up
 bindsym --locked XF86AudioPrev exec $player_prev
 bindsym --locked XF86AudioPlay exec $player_play_pause
 bindsym --locked XF86AudioNext exec $player_next
-# bindsym XF86Calculator
+bindsym XF86Calculator exec uwsm-app -- org.gnome.Calculator
 bindsym $mod+Shift+p exec slurp | grim -g - - | swappy -f -
 
 bindsym $mod+Shift+q kill

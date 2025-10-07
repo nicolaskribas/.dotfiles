@@ -7,6 +7,12 @@ post_install() {
 
 	systemctl preset-all
 	systemctl --global preset-all
+
+	# setup local repository
+	groupadd --force custompkgs
+	install -dm=2775 -gcustompkgs /var/cache/pacman/custompkgs # make all files inherit the dir group and give permissions to the group
+	repo-add /var/cache/pacman/custompkgs/custom.db.tar.gz
+	chmod g+w /var/cache/pacman/custompkgs/custom.db.tar.gz # give write permissions to the group
 }
 
 post_upgrade() {

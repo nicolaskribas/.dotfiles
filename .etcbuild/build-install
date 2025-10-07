@@ -1,0 +1,12 @@
+#!/bin/bash
+set -Eeuo pipefail
+trap 'echo "${0}: Error on line ${LINENO}: ${BASH_COMMAND}" >&2' ERR
+
+dir="$(dirname -- "$(realpath -- "${0}")")"
+
+if pushd "${dir}" >/dev/null; then
+	aur build --clean
+else
+	echo "ERROR: Could not change to ${dir}"
+	exit 1
+fi

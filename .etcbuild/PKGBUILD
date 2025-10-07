@@ -3,8 +3,8 @@
 pkgbase=system-meta-pkgs
 pkgname=('base-system' 'kahve-system' 'warana-system')
 arch=('x86_64')
-pkgrel=0
 pkgver=0
+pkgrel="$(date +%s)"
 source=(
 	# base
 	locale.conf

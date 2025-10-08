@@ -48,7 +48,7 @@ if ((number_of_pending_updates >= 1)); then
 	separator
 fi
 
-yn "update AUR packages?" && paru -Sua --fm nvim
+yn "update AUR packages?" && aur sync -u
 
 separator
 

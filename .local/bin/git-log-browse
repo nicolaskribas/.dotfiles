@@ -9,10 +9,13 @@ git log --color=always \
 	--oneline \
 	--graph \
 	"${@}" |
-	fzf	--ansi \
+	fzf	--raw \
+		--ansi \
 		--height=0 \
 		--scheme=history \
 		--with-shell='sh -c' \
 		--preview="${git_show}" \
 		--preview-window=wrap \
-		--bind 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'
+		--bind=ctrl-d:preview-half-page-down \
+		--bind=ctrl-u:preview-half-page-up \
+		--bind=alt-r:toggle-raw

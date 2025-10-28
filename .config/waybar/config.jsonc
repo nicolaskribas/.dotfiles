@@ -147,7 +147,7 @@
 		// "on-click": rfkill or something,
 	},
 	"clock": {
-		"format": "{:%a %d %b %R}",
-		"tooltip-format": "<tt>{calendar}</tt>",
+		"format": "{:%A %R}",
+		"tooltip-format": "{:%Y-%m-%d}",
 	},
 }

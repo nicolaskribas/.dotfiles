@@ -19,7 +19,7 @@ set $ws9 9:9
 set $ws10 10:10
 set $toggle_bar pkill --signal SIGUSR1 --euid "$USER" --exact waybar
 set $menu wmenu -i -f "sans-serif 11" -N 222222 -n 888888 -M 285577 -m ffffff -S 285577 -s ffffff
-set $launch j4-dmenu-desktop --no-generic --dmenu='$menu -p launch' --term='$term' --wrapper 'uwsm-app --'
+set $launch j4-dmenu-desktop --display-binary-base --dmenu='$menu -l 10 -p launch' --term='$term' --wrapper 'uwsm-app --'
 set $notify_progress xargs --no-run-if-empty -I{} notify-send --category=system --expire-time=1000 --hint=string:x-canonical-private-synchronous:progress --hint=int:value:{}
 set $player_prev playerctl previous
 set $player_next playerctl next

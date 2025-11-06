@@ -75,6 +75,18 @@ fi
 
 separator
 
+yn "list packages installed with cargo" && cargo install --list
+
+separator
+
+yn "list tools installed with uv?" && uv tool list
+
+separator
+
+yn "upgrade all tools installed with uv?" && uv tool upgrade --all
+
+separator
+
 if [ -d "$(uv cache dir)" ]; then
 	yn "remove uv cache ($(du --summarize --human-readable "$(uv cache dir)")})" && uv cache clean
 

@@ -1,0 +1,2 @@
+python-downloads = "manual" # Do not automatically download managed Python installations; require explicit installation
+python-preference = "system" # Prefer system Python installations over managed Python installations

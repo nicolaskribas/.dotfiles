@@ -1,13 +1,13 @@
-output eDP-1 {
-	scale 1.5
-	position 0,0
-	alias $laptop
-}
-
 output HDMI-A-1 {
 	scale 1
-	position 1280,0
+	position 0,0
 	alias $hdmi
+}
+
+output eDP-1 {
+	scale 1.5
+	position 1920,360
+	alias $laptop
 }
 
 profile laptop {

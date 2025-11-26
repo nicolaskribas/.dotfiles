@@ -4,16 +4,16 @@ set $hdmi HDMI-A-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
-workspace $ws1 output $laptop
-workspace $ws2 output $laptop
-workspace $ws3 output $laptop
-workspace $ws4 output $laptop
-workspace $ws5 output $laptop
-workspace $ws6 output $laptop
-workspace $ws7 output $laptop
-workspace $ws8 output $laptop
-workspace $ws9 output $hdmi $laptop
-workspace $ws10 output $hdmi $laptop
+workspace $ws1 output $hdmi $laptop
+workspace $ws2 output $hdmi $laptop
+workspace $ws3 output $hdmi $laptop
+workspace $ws4 output $hdmi $laptop
+workspace $ws5 output $hdmi $laptop
+workspace $ws6 output $hdmi $laptop
+workspace $ws7 output $hdmi $laptop
+workspace $ws8 output $hdmi $laptop
+workspace $ws9 output $laptop
+workspace $ws10 output $laptop
 
 input 1:1:AT_Translated_Set_2_keyboard {
 	xkb_layout us(altgr-intl),br(thinkpad)
@@ -24,7 +24,7 @@ input 2:10:TPPS/2_Elan_TrackPoint {
 }
 
 exec_always gsettings set org.gnome.desktop.interface {
-	color-scheme prefer-dark
+	color-scheme prefer-light
 	gtk-theme 'Adwaita-dark'
 	icon-theme 'Adwaita'
 }

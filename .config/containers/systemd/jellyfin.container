@@ -1,0 +1,31 @@
+# vim: ft=systemd
+
+[Unit]
+Description=Containerized Jellyfin Media Server
+Documentation=https://jellyfin.org/docs/
+
+# Disables default dependency (After=/Wants=podman-user-wait-network-online.service)
+[Quadlet]
+DefaultDependencies=false
+
+[Container]
+Image=docker.io/jellyfin/jellyfin:latest
+AutoUpdate=registry
+
+UserNS=keep-id
+
+# 8096: Default HTTP
+# 7359: Client Discovery
+PublishPort=0.0.0.0:8096:8096/tcp
+PublishPort=0.0.0.0:7359:7359/udp
+
+AddDevice=/dev/dri/:/dev/dri/
+
+Volume=%E/jellyfin:/config
+Volume=%C/jellyfin:/cache
+Volume=%h/library/jellyfin-media:/media:ro
+
+[Service]
+ExecStartPre=/usr/bin/mkdir -p %E/jellyfin
+ExecStartPre=/usr/bin/mkdir -p %C/jellyfin
+ExecStartPre=/usr/bin/mkdir -p %h/library/jellyfin-media

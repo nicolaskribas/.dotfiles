@@ -19,6 +19,7 @@ source=(
 	oomd-slice-oom-kill.conf
 	networkd-ipv6-privacy-extensions.conf
 	firewalld-service-localsend.xml
+	firewalld-service-jellyfin.xml
 	tlp-performance.conf
 	sshd-hardened.conf
 	greetd-config.toml
@@ -204,6 +205,7 @@ package_base-system() {
 	install -Dm0644 networkd-ipv6-privacy-extensions.conf "$pkgdir"/etc/systemd/networkd.conf.d/ipv6-privacy-extensions.conf
 
 	install -Dm0644 firewalld-service-localsend.xml "$pkgdir"/etc/firewalld/services/localsend.xml
+	install -Dm0644 firewalld-service-jellyfin.xml "$pkgdir"/etc/firewalld/services/jellyfin.xml
 
 	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
 

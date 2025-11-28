@@ -125,6 +125,15 @@ yn 'check services?' && sudo checkservices -AlfPrsumZ
 
 separator
 
+yn 'show firewall state' && {
+	zones="$(firewall-cmd --get-active-zones | grep -Po '^\S+')"
+	for zone in $zones; do
+		sudo firewall-cmd --zone="${zone}" --list-all
+	done
+}
+
+separator
+
 modules_dir='/usr/lib/modules'
 kernel_release="$(uname --kernel-release)"
 [ ! -d "${modules_dir}/${kernel_release}/" ] && echo "the running kernel (${kernel_release}) was not found in ${modules_dir}/"

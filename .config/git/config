@@ -12,6 +12,7 @@
 	d = diff
 	ds = diff --staged
 	l = log --all --oneline --graph
+	lb = log-browse
 	b = branch
 	c = commit
 	m = merge

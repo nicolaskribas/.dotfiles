@@ -14,7 +14,7 @@ if [ ! -d "${VAULT}" ]; then
 	exit 1
 fi
 
-mdformat "${VAULT}"
+mdformat --number --wrap 80 --exclude '**/*.excalidraw.md' "${VAULT}"
 markdownlint-cli2 "${VAULT}/**/*.md" "!${VAULT}/**/*.excalidraw.md" --fix || true
 johnnycheck "${VAULT}"
 fd --color=never --type=file --exclude='*.md' . "${VAULT}"

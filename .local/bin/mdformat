@@ -1,7 +1,0 @@
-#!/bin/sh
-
-exec uvx \
-	--with=mdformat-gfm,mdformat-frontmatter,mdformat-footnote,mdformat-gfm-alerts \
-	--with=mdformat-wikilink \
-	--with=mdformat-ruff,mdformat-rustfmt,mdformat-shfmt \
-	mdformat --number --wrap 80 --exclude '**/*.excalidraw.md' "${@}"

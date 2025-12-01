@@ -79,7 +79,7 @@ yn "list packages installed with cargo" && cargo install --list
 
 separator
 
-yn "list tools installed with uv?" && uv tool list
+yn "list tools installed with uv?" && uv tool list --show-with
 
 separator
 

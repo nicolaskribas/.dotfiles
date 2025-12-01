@@ -9,7 +9,7 @@ BindsTo=pipewire-pulse.service
 PartOf=pipewire-pulse.service
 
 [Service]
-ExecStart=easyeffects --gapplication-service
+ExecStart=easyeffects --service-mode --hide-window
 Restart=no
 StartLimitInterval=3
 GuessMainPID=yes

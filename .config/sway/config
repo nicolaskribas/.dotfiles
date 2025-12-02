@@ -44,8 +44,8 @@ bindsym $mod+p exec uwsm-app -- $term_float --title=clipselect clipselect
 bindsym $mod+d exec $launch
 bindsym $mod+u exec uuctl $menu -l 10 -p
 bindsym $mod+o exec $toggle_bar
-bindsym $mod+n exec makoctl dismiss
-bindsym $mod+Shift+n exec makoctl restore
+bindsym $mod+n exec makoctl mode | grep --quiet --line-regexp dnd || makoctl dismiss
+bindsym $mod+Shift+n exec makoctl mode | grep --quiet --line-regexp dnd || makoctl restore
 bindsym --locked XF86AudioMute exec $volume_toggle
 bindsym --locked XF86AudioLowerVolume exec $volume_down
 bindsym --locked XF86AudioRaiseVolume exec $volume_up

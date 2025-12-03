@@ -48,3 +48,5 @@
 	autoSquash = true
 	autoStash = true
 	updateRefs = true
+[credential]
+	helper = !pass-git-helper $@

@@ -12,19 +12,22 @@ DefaultDependencies=false
 [Container]
 Image=docker.io/meyay/languagetool:latest
 AutoUpdate=registry
+
 DropCapability=all
-AddCapability=CAP_SETUID CAP_SETGID CAP_CHOWN
 NoNewPrivileges=true
+UserNS=keep-id
+ReadOnly=true
+
+Tmpfs=/tmp
 Environment=download_ngrams_for_langs=en
-Environment=langtool_languageModel=/ngrams
-Environment=langtool_fasttextModel=/fasttext/lid.176.bin
-Volume=%h/.local/share/ngrams:/ngrams
-Volume=%h/.local/share/fasttext:/fasttext
+Volume=%D/ngrams:/ngrams
+Volume=%D/fasttext:/fasttext
+
 PublishPort=0.0.0.0:8081:8081/tcp
 
 [Service]
-ExecStartPre=/usr/bin/mkdir -p %h/.local/share/ngrams
-ExecStartPre=/usr/bin/mkdir -p %h/.local/share/fasttext
+ExecStartPre=/usr/bin/mkdir -p %D/ngrams
+ExecStartPre=/usr/bin/mkdir -p %D/fasttext
 Restart=on-failure
 
 [Install]

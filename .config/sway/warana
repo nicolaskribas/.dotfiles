@@ -10,8 +10,8 @@ workspace $ws3 output $hdmi $laptop
 workspace $ws4 output $hdmi $laptop
 workspace $ws5 output $hdmi $laptop
 workspace $ws6 output $hdmi $laptop
-workspace $ws7 output $hdmi $laptop
-workspace $ws8 output $hdmi $laptop
+workspace $ws7 output $laptop
+workspace $ws8 output $laptop
 workspace $ws9 output $laptop
 workspace $ws10 output $laptop
 

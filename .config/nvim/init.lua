@@ -119,14 +119,11 @@ vim.lsp.enable {
 	"bashls",
 	"marksman",
 	"ruff",
-	"pyright",
+	"ty",
 	"texlab",
 	"harper_ls",
 	"ltex_plus",
 }
-vim.lsp.config("pyright", {
-	settings = { python = { pythonPath = ".venv/bin/python" } },
-})
 vim.lsp.config("texlab", {
 	settings = {
 		texlab = {

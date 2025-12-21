@@ -123,6 +123,7 @@ vim.lsp.enable {
 	"texlab",
 	"harper_ls",
 	"ltex_plus",
+	"vale_ls",
 }
 vim.lsp.config("texlab", {
 	settings = {
@@ -165,23 +166,6 @@ vim.lsp.config("ltex_plus", {
 		},
 	},
 })
-
-later(function()
-	add {
-		source = "nvimtools/none-ls.nvim",
-		depends = { "nvim-lua/plenary.nvim" },
-	}
-
-	local null_ls = require "null-ls"
-	null_ls.setup {
-		sources = {
-			null_ls.builtins.formatting.stylua,
-			null_ls.builtins.formatting.mdformat,
-			null_ls.builtins.diagnostics.vale,
-			null_ls.builtins.diagnostics.markdownlint_cli2.with { args = { "$FILENAME" } },
-		},
-	}
-end)
 
 later(function() require("mini.trailspace").setup() end)
 

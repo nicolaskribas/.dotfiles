@@ -157,7 +157,7 @@ package_base-system() {
 		stylua
 		marksman markdownlint-cli2
 		texlab
-		vale harper
+		harper
 
 		# keys and passwords
 		gnupg

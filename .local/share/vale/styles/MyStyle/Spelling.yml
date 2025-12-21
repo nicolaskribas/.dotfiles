@@ -1,0 +1,7 @@
+extends: spelling
+level: suggestion
+message: "Did you really mean '%s'?"
+dicpath: /usr/share/hunspell
+dictionaries:
+  - en_US-large
+  - pt_BR

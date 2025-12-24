@@ -23,9 +23,9 @@ AddDevice=/dev/dri/:/dev/dri/
 
 Volume=%E/jellyfin:/config
 Volume=%C/jellyfin:/cache
-Volume=%h/library/jellyfin-media:/media:ro
+Volume=%h/jellyfin-media:/media:ro
 
 [Service]
 ExecStartPre=/usr/bin/mkdir -p %E/jellyfin
 ExecStartPre=/usr/bin/mkdir -p %C/jellyfin
-ExecStartPre=/usr/bin/mkdir -p %h/library/jellyfin-media
+ExecStartPre=/usr/bin/mkdir -p %h/jellyfin-media

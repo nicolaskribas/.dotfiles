@@ -67,8 +67,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
-bindsym $mod+v split horizontal
-bindsym $mod+s split vertical
+bindsym $mod+s split toggle
 bindsym $mod+w layout toggle stacking tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
@@ -147,8 +146,6 @@ font pango:sans-serif 11
 smart_borders on
 default_border pixel 2
 default_floating_border normal 2
-hide_edge_borders --i3 none
-workspace_layout tabbed
 
 seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme Adwaita

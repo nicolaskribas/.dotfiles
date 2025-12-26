@@ -24,7 +24,7 @@ input 2:10:TPPS/2_Elan_TrackPoint {
 }
 
 exec_always gsettings set org.gnome.desktop.interface {
-	color-scheme prefer-light
+	color-scheme prefer-dark
 	gtk-theme 'Adwaita-dark'
 	icon-theme 'Adwaita'
 }

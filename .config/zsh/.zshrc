@@ -146,18 +146,13 @@ bindkey -M vicmd '^v' edit-command-line
 
 # --- Cursor and Application Mode ---
 zle-line-init() {
-	if (( ${+terminfo[smkx]} )); then
-		echoti smkx # enable terminal application mode
-	fi
+	(( ${+terminfo[smkx]} )) && echoti smkx # enable terminal application mode
 	print -n '\e[5 q' # starts with a blinking beam
 }
 zle -N zle-line-init
 
-zle-line-finish() {
-	if (( ${+terminfo[rmkx]} )); then
-		echoti rmkx # disable terminal application mode
-	fi
-}
+# disable terminal application mode
+zle-line-finish() { (( ${+terminfo[rmkx]} )) && echoti rmkx }
 zle -N zle-line-finish
 
 zle-keymap-select() {
@@ -182,34 +177,30 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-# shows username, hostname, cwd, git info, and number of background jobs
-PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %(1j.&%F{blue}%B%j%b%f.)
-%# '
+PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
+RPROMPT='%(1j.%B&%b%F{blue}%j%f.)' # number of background jobs
+RPROMPT+='%(1j.${_exec_timer_formated:+ }.)' # space
+RPROMPT+='${_exec_timer_formated}' # elapsed time
+RPROMPT+='%(?..%(1j. .${_exec_timer_formated:+ }))' # space
+RPROMPT+='%(?..%B?%b%F{red}%?%f)' # return code
+
 
 zmodload zsh/datetime
 zmodload zsh/mathfunc
 
 _set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
 
-_start_exec_timer() { _exec_start_time="${EPOCHREALTIME}" }
+_start_exec_timer() { _exec_start_time=$EPOCHREALTIME }
 
 _stop_exec_timer() {
 	[[ -z "${_exec_start_time}" ]] && return
-	local elapsed="$((EPOCHREALTIME - _exec_start_time))"
+	local elapsed=$((EPOCHREALTIME - _exec_start_time))
 	unset _exec_start_time
 
 	unset _exec_timer_formated
 	((elapsed < 1)) && return
 
-	LC_NUMERIC=POSIX printf -v _exec_timer_formated 'Δ%s%d:%05.2f%s' '%F{yellow}%B' "$((int(elapsed/60)))" "$((elapsed%60))" '%b%f'
-}
-
-_print_exit_status_and_timer() {
-	local es="${?}"
-	[[ "${es}" -ne 0 ]] && print -nP "?%F{red}%B${es}%b%f"
-	[[ "${es}" -ne 0 && -n "${_exec_timer_formated}" ]] && print -n ' '
-	print -nP "${_exec_timer_formated}"
-	[[ "${es}" -ne 0 || -n "${_exec_timer_formated}" ]] && print
+	LC_NUMERIC=POSIX printf -v _exec_timer_formated '%st%s%s%d:%05.2f%s' '%B' '%b' '%F{yellow}' "$((int(elapsed/60)))" "$((elapsed%60))" '%f'
 }
 
 _mark_prompt() { print -n '\e]133;A\a' } # emit an OSC-133;A sequence
@@ -220,7 +211,6 @@ autoload -Uz add-zsh-hook
 add-zsh-hook preexec _set_window_title_exec
 add-zsh-hook preexec _start_exec_timer
 add-zsh-hook precmd _stop_exec_timer
-add-zsh-hook precmd _print_exit_status_and_timer
 add-zsh-hook precmd _mark_prompt
 add-zsh-hook precmd _set_window_title_prompt
 add-zsh-hook precmd ring

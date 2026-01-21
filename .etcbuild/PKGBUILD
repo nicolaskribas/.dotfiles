@@ -134,13 +134,14 @@ package_base-system() {
 
 		# dev tools
 		base-devel
-		git difftastic
+		git git-lfs difftastic
 		jq sqlite zola miniserve
 		make gdb strace
 
 		# network tools
 		iproute2 ethtool iptables-nft   # configure
-		iputils nmap ldns curl          # poke
+		iputils nmap curl               # poke
+		ldns whois                      # query
 		tcpdump tcpreplay wireshark-cli # capture
 
 		# filesystems tools
@@ -157,7 +158,6 @@ package_base-system() {
 		stylua
 		marksman markdownlint-cli2
 		texlab
-		harper
 
 		# keys and passwords
 		gnupg

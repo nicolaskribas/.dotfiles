@@ -35,6 +35,11 @@ if ((number_failed_user_units >= 1)); then
 	separator
 fi
 
+yn 'show btrfs info?' && {
+	sudo btrfs scrub status /
+	sudo btrfs filesystem usage /
+}
+
 yn 'show pacreport?' && sudo pacreport --missing-files | less
 
 separator

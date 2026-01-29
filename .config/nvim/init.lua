@@ -121,7 +121,6 @@ vim.lsp.enable {
 	"ruff",
 	"ty",
 	"texlab",
-	"harper_ls",
 	"ltex_plus",
 	"vale_ls",
 }
@@ -134,13 +133,6 @@ vim.lsp.config("texlab", {
 				modifyLineBreaks = true,
 				["local"] = (vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. "/.config")) .. "/latexindent.yaml",
 			},
-		},
-	},
-})
-vim.lsp.config("harper_ls", {
-	settings = {
-		["harper-ls"] = {
-			userDictPath = vim.fn.stdpath "config" .. "/spell/en.utf-8.add",
 		},
 	},
 })

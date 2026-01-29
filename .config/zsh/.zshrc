@@ -191,7 +191,7 @@ _stop_exec_timer() {
 	unset _exec_timer_formated
 	((elapsed < 1)) && return
 
-	LC_NUMERIC=POSIX printf -v _exec_timer_formated '%st%s%s%d:%05.2f%s' '%B' '%b' '%F{yellow}' "$((int(elapsed / 60)))" "$((elapsed % 60))" '%f'
+	LC_NUMERIC=POSIX printf -v _exec_timer_formated '%sT%s%s%d:%05.2f%s' '%B' '%b' '%F{yellow}' "$((int(elapsed / 60)))" "$((elapsed % 60))" '%f'
 }
 
 _mark_prompt() { print -n '\e]133;A\a' } # emit an OSC-133;A sequence

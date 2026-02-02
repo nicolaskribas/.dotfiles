@@ -2,8 +2,6 @@
 
 [Unit]
 Description=Containerized LanguageTool HTTP server
-# Disable it on my laptop (this service is heavy)
-ConditionHost=!warana
 
 # Disables default dependency (After=/Wants=podman-user-wait-network-online.service)
 [Quadlet]
@@ -24,6 +22,8 @@ Volume=%D/ngrams:/ngrams
 Volume=%D/fasttext:/fasttext
 
 PublishPort=0.0.0.0:8081:8081/tcp
+
+PodmanArgs=--cpus=1
 
 [Service]
 ExecStartPre=/usr/bin/mkdir -p %D/ngrams

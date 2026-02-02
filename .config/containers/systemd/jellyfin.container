@@ -25,7 +25,12 @@ Volume=%E/jellyfin:/config
 Volume=%C/jellyfin:/cache
 Volume=%h/jellyfin-media:/media:ro
 
+PodmanArgs=--cpus=1
+
 [Service]
 ExecStartPre=/usr/bin/mkdir -p %E/jellyfin
 ExecStartPre=/usr/bin/mkdir -p %C/jellyfin
 ExecStartPre=/usr/bin/mkdir -p %h/jellyfin-media
+
+[Install]
+WantedBy=default.target

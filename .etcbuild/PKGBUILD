@@ -62,7 +62,7 @@ package_base-system() {
 		reflector
 
 		# network services
-		firewalld python-pyqt6
+		firewalld firewall-config
 		tailscale
 		openssh
 		cups cups-pdf

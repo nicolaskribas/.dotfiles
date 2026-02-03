@@ -93,7 +93,7 @@ package_base-system() {
 		# sound system
 		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
 		wireplumber
-		easyeffects calf lsp-plugins-lv2 jalv # calf for bass enhancer. lsp-plugins-lv2 for equalizer, needs lv2-host which is provided by jalv, see: https://gitlab.archlinux.org/archlinux/packaging/packages/mda.lv2/-/issues/1
+		easyeffects calf lsp-plugins-lv2 # calf for bass enhancer. lsp-plugins-lv2 for equalizer
 		gstreamer gst-plugin-pipewire gst-plugin-va
 
 		# password dialogs

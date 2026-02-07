@@ -91,10 +91,10 @@ package_base-system() {
 		adwaita-icon-theme breeze-icons hicolor-icon-theme
 
 		# sound system
-		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse
+		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse pipewire-libcamera pipewire-v4l2
 		wireplumber
 		easyeffects calf lsp-plugins-lv2 # calf for bass enhancer. lsp-plugins-lv2 for equalizer
-		gstreamer gst-plugin-pipewire gst-plugin-va
+		gstreamer gst-plugins-base gst-plugins-good gst-plugin-pipewire gst-plugin-va gst-plugin-libcamera
 
 		# password dialogs
 		lxqt-policykit                    # polkit

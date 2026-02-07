@@ -159,6 +159,7 @@ for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="lxqt-openssh-askpass"] floating enable
 for_window [app_id="lxqt-policykit-agent"] floating enable
 for_window [app_id="xdg-desktop-portal-gtk"] floating enable
+for_window [app_id="org.gnome.Nautilus"] floating enable
 
 
 # --- Input ---

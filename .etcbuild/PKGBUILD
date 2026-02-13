@@ -181,6 +181,9 @@ package_base-system() {
 		rebuild-detector
 		lostfiles
 		fwupd
+
+		#
+		aws-cli-v2 github-cli
 	)
 
 	install -Dm0644 locale.conf "$pkgdir"/etc/locale.conf

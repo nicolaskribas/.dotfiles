@@ -6,7 +6,7 @@ sort=+time
 on-button-middle=exec swaymsg --pretty -- exec makoctl menu -n "$id" -- '$menu -p "select action"'
 
 # --- Style ---
-font=sans-serif 10
+font=system-ui 10
 background-color=#222222
 
 # --- Criteria ---

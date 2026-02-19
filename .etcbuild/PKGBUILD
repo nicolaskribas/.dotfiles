@@ -82,7 +82,9 @@ package_base-system() {
 
 		# fonts
 		terminus-font
+		ttf-ubuntu-font-family
 		inter-font
+		ttc-iosevka
 		ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
 

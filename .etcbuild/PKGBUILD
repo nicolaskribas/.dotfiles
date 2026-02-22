@@ -65,6 +65,7 @@ package_base-system() {
 		firewalld firewall-config
 		tailscale
 		openssh
+		openvpn
 		cups cups-pdf
 
 		# login manager

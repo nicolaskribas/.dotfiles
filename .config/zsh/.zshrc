@@ -37,6 +37,8 @@ jupyter() {
 		jupyter "${@}"
 }
 
+ssh-copy-current-terminfo () { infocmp -x | ssh "$@" -- 'tic -x -' }
+
 # --- Misc ---
 setopt extended_glob
 setopt no_clobber

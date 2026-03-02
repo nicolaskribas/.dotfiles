@@ -125,6 +125,7 @@ package_base-system() {
 		man-db man-pages
 		less stdoutisatty
 		fzf fd ripgrep ripgrep-all
+		parallel
 		tree gdu
 		chafa
 		htop bpftop
@@ -134,6 +135,7 @@ package_base-system() {
 		efibootmgr
 		rclone
 		sshfs
+		bandwhich
 
 		# dev tools
 		base-devel

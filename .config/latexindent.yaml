@@ -1,7 +1,9 @@
+# Settings that play nice with Semantic Line Breaks https://sembr.org/
+# indentPreamble: 1
 modifyLineBreaks:
-  textWrapOptions:
-    columns: 81
-    when: after
+  oneSentencePerLine:
+    manipulateSentences: 1
+    removeSentenceLineBreaks: 0
 lookForAlignDelims:
   tabular:
     multiColumnGrouping: 1

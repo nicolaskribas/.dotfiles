@@ -98,10 +98,10 @@ mode passthrough {
 bindsym $mod+Pause mode passthrough
 
 mode resize {
-    bindsym $left resize shrink width
-    bindsym $down resize grow height
-    bindsym $up resize shrink height
-    bindsym $right resize grow width
+    bindsym $left resize shrink width 3
+    bindsym $down resize grow height 3
+    bindsym $up resize shrink height 3
+    bindsym $right resize grow width 3
     bindsym Return mode default
     bindsym Escape mode default
 }

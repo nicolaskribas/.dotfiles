@@ -55,6 +55,8 @@ map("n", "<Leader>qd", vim.diagnostic.setqflist)
 map("n", "<Leader>qe", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR } end)
 map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.WARN } end)
 
+map({ "n", "v" }, "<Leader>", [["+]])
+
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,

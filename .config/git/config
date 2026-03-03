@@ -25,7 +25,7 @@
 	algorithm = histogram
 	colorMoved = plain
 	mnemonicPrefix = true
-	external = difft
+	external = difft --display inline
 [commit]
 	verbose = true
 [column]

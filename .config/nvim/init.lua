@@ -9,6 +9,7 @@ opt.signcolumn = "yes"
 opt.guicursor:append { "c:ver25", "t:ver25" } -- vertical bar as cursor when inserting in command-line mode, and when in terminal mode
 opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500" -- make cursor blink
 opt.guicursor:append "a:Cursor" -- make cursor follow neovim colorscheme
+opt.title = true
 opt.cursorline = true
 opt.colorcolumn = "+1"
 opt.mouse = "a"

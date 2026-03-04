@@ -21,8 +21,8 @@ opt.gdefault = true -- substitute all matches in a line by default
 opt.wrap = false
 opt.linebreak = true -- use 'breakat' for determine when to wrap
 opt.breakindent = true
-opt.spell = true
-opt.spelllang = { "en_us", "pt_br" }
+-- opt.spell = true
+-- opt.spelllang = { "en_us", "pt_br" }
 opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
@@ -78,8 +78,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client:supports_method "textDocument/completion" then
-			local var_name_chars = vim.split("_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "")
-			vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters or {}, var_name_chars)
+			-- local var_name_chars = vim.split("_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "")
+			-- vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters or {}, var_name_chars)
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 		end
 

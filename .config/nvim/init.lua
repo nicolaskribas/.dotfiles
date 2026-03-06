@@ -53,7 +53,7 @@ map({ "n", "x" }, "gk", "k")
 
 map("n", "<Leader>qd", vim.diagnostic.setqflist)
 map("n", "<Leader>qe", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR } end)
-map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.WARN } end)
+map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = { min = vim.diagnostic.severity.WARN } } end)
 
 map({ "n", "v" }, "<Leader>", [["+]])
 

@@ -4,5 +4,6 @@ Defaults timestamp_type=ppid
 Defaults timestamp_timeout=60
 Defaults env_keep += "EDITOR"
 Defaults insults
+Defaults pwfeedback
 
 %wheel ALL=(ALL:ALL) ALL

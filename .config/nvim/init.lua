@@ -33,7 +33,7 @@ opt.path:append "**" -- recursive :find
 opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
-vim.diagnostic.config { underline = false, severity_sort = true, jump = { float = true } }
+vim.diagnostic.config { underline = false, severity_sort = true, jump = { float = true }, float = { source = "if_many" } }
 vim.cmd.highlight "Comment gui=italic cterm=italic"
 
 vim.g.mapleader = " "
@@ -167,17 +167,28 @@ later(function() require("mini.trailspace").setup() end)
 later(function()
 	add "ibhagwan/fzf-lua"
 	require("fzf-lua").setup {
+		fzf_opts = {
+			["--no-separator"] = true,
+			["--color"] = "16",
+		},
 		winopts = { border = "none", preview = { border = "none" } },
 		files = { raw_cmd = "fd --follow --type=file" },
+		grep = { follow = true },
 		keymap = { builtin = {
 			["<C-d>"] = "preview-half-page-down",
 			["<C-u>"] = "preview-half-page-up",
 		} },
 	}
 	map("n", "<Leader>ff", FzfLua.files)
-	map("n", "<Leader>fg", FzfLua.grep)
-	map("n", "<Leader>fl", FzfLua.live_grep)
+	map("n", "<Leader>fg", FzfLua.live_grep)
+	map("n", "<Leader>fa", FzfLua.args)
 	map("n", "<Leader>fb", FzfLua.buffers)
+	map("n", "<Leader>fd", FzfLua.diagnostics_document)
+	map("n", "<Leader>fq", FzfLua.quickfix)
+	map("n", "<Leader>fl", FzfLua.loclist)
+	map("n", "<Leader>f*", FzfLua.grep_cword)
+	map("v", "<Leader>f*", FzfLua.grep_visual)
+	map("n", "<Leader>f/", FzfLua.lines)
 	map("n", "<Leader>fr", FzfLua.resume)
 end)
 

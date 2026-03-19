@@ -170,9 +170,10 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-PROMPT=$'%{\e]133;A\a%}'                                    # mark prompt start (OSC-133;A), allows jumping between prompts
+PROMPT=$'%{\e]133;A;cl=line\a%}'                            # mark prompt start (OSC-133;A), allows jumping between prompts
 PROMPT+='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
 PROMPT+=$'%{\e]133;B\a%}'                                   # martk prompt end (OSC-133;B)
+PROMPT2=$'%{\e]133;A;k=s\a%}'$PROMPT2$'%{\e]133;B\a%}'      # mark secondary prompt start/end (OSC-133;A/B)
 RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                          # number of background jobs
 RPROMPT+='%(1j.${_exec_timer_formated:+ }.)'                # space
 RPROMPT+='${_exec_timer_formated}'                          # elapsed time
@@ -201,17 +202,17 @@ _stop_exec_timer() {
 	LC_NUMERIC=POSIX printf -v _exec_timer_formated '%sT%s%s%d:%05.2f%s' '%B' '%b' '%F{yellow}' "$((int(elapsed / 60)))" "$((elapsed % 60))" '%f'
 }
 
-_mark_command_end() { print -n '\e]133;D\a'; } # emit an OSC-133;D sequence
+_mark_command_end() { print -n '\e]133;D;'$?'\a'; } # emit an OSC-133;D sequence
 
 _set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a'; }
 
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec _restore_default_cursor_shape
 add-zsh-hook preexec _set_window_title_exec
-add-zsh-hook preexec _mark_command_start
 add-zsh-hook preexec _start_exec_timer
+add-zsh-hook preexec _mark_command_start
+add-zsh-hook precmd _mark_command_end # must be the very first precmd so it captures the status code correctly
 add-zsh-hook precmd _stop_exec_timer
-add-zsh-hook precmd _mark_command_end
 add-zsh-hook precmd _set_window_title_prompt
 add-zsh-hook precmd ring
 add-zsh-hook precmd vcs_info

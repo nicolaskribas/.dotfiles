@@ -11,7 +11,7 @@ eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completi
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -Iv'
-alias ls='LC_COLLATE=POSIX ls --group-directories-first --color=auto' # list order: dirs, then hidden, then uppercase, then lowercase
+alias ls='LC_COLLATE=POSIX ls --group-directories-first --color=auto --hyperlink=auto' # list order: dirs, then hidden, then uppercase, then lowercase
 alias la='ls -A'
 alias ll='ls -alh'
 alias ip='ip -color=auto'
@@ -170,15 +170,19 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-PROMPT=$'%{\e]133;A;cl=line\a%}'                            # mark prompt start (OSC-133;A), allows jumping between prompts
+PROMPT=$'%{\e]133;A;cl=line\a%}'                            # mark prompt start (OSC-133;A, OSC-133;P;k=i is implicit here)
 PROMPT+='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
-PROMPT+=$'%{\e]133;B\a%}'                                   # martk prompt end (OSC-133;B)
-PROMPT2=$'%{\e]133;A;k=s\a%}'$PROMPT2$'%{\e]133;B\a%}'      # mark secondary prompt start/end (OSC-133;A/B)
-RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                          # number of background jobs
-RPROMPT+='%(1j.${_exec_timer_formated:+ }.)'                # space
-RPROMPT+='${_exec_timer_formated}'                          # elapsed time
-RPROMPT+='%(?..%(1j. .${_exec_timer_formated:+ }))'         # space
-RPROMPT+='%(?..%B?%b%F{red}%?%f)'                           # return code
+PROMPT+=$'%{\e]133;B\a%}'                                   # mark prompt end (OSC-133;B)
+
+PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt start/end (OSC-133;P/B)
+
+RPROMPT=$'%{\e]133;P;k=r\a%}'                       # mark right prompt start (OSC-133;P)
+RPROMPT+='%(1j.%B&%b%F{blue}%j%f.)'                 # number of background jobs
+RPROMPT+='%(1j.${_exec_timer_formated:+ }.)'        # space
+RPROMPT+='${_exec_timer_formated}'                  # elapsed time
+RPROMPT+='%(?..%(1j. .${_exec_timer_formated:+ }))' # space
+RPROMPT+='%(?..%B?%b%F{red}%?%f)'                   # return code
+RPROMPT+=$'%{\e]133;B\a%}'                          # mark right prompt end (OSC-133;B)
 
 zmodload zsh/datetime
 zmodload zsh/mathfunc
@@ -196,7 +200,11 @@ _mark_command_start() {
 
 _mark_command_end() {
 	local command_status=$?
-	((_command_start_marked)) && print -n '\e]133;D;'${command_status}'\a' # emit an OSC-133;D sequence
+	if ((_command_start_marked)); then
+		print -n '\e]133;D;'${command_status}'\a' # emit an OSC-133;D sequence
+	else
+		print -n '\e]133;D\a' # emit an OSC-133;D sequence
+	fi
 	unset _command_start_marked
 }
 

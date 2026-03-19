@@ -5,8 +5,8 @@ set $down j
 set $up k
 set $right l
 set $term ghostty +new-window
-set $term_float foot --app-id=foot_float
-set $term_multiplexed foot tmux
+set $term_float ghostty --class=floating.ghostty -e
+set $term_multiplexed ghostty -e tmux
 set $ws1 1:1
 set $ws2 2:2
 set $ws3 3:3
@@ -19,7 +19,7 @@ set $ws9 9:9
 set $ws10 10:10
 set $toggle_bar pkill --signal SIGUSR1 --euid "$USER" --exact waybar
 set $menu wmenu -i -f "system-ui 11" -N 222222 -n 888888 -M 285577 -m ffffff -S 285577 -s ffffff
-set $launch j4-dmenu-desktop --display-binary-base --dmenu='$menu -l 10 -p launch' --term-mode custom --term="$term --title {name} -e {cmdline@}" --wrapper 'uwsm-app --'
+set $launch j4-dmenu-desktop --display-binary-base --dmenu='$menu -l 10 -p launch' --term-mode custom --term="ghostty --title={name} -e {cmdline@}" --wrapper 'uwsm-app --'
 set $notify_progress xargs --no-run-if-empty -I{} notify-send --category=system --expire-time=1000 --hint=string:x-canonical-private-synchronous:progress --hint=int:value:{}
 set $player_prev playerctl previous
 set $player_next playerctl next
@@ -40,7 +40,7 @@ set $brightness_up brightnessctl --machine-readable --min-value=300 --exponent=1
 # --- Bindings ---
 bindsym $mod+Return exec uwsm-app -- $term
 bindsym $mod+Shift+Return exec uwsm-app -- $term_multiplexed
-bindsym $mod+p exec uwsm-app -- $term_float --title=clipselect clipselect
+bindsym $mod+p exec uwsm-app -- $term_float clipselect
 bindsym $mod+d exec $launch
 bindsym $mod+u exec uuctl $menu -l 10 -p
 bindsym $mod+o exec $toggle_bar
@@ -153,7 +153,7 @@ seat seat0 xcursor_theme Adwaita
 
 # --- Windows ---
 for_window [app_id="com.saivert.pwvucontrol"] floating enable
-for_window [app_id="foot_float"] floating enable
+for_window [app_id="floating.ghostty"] floating enable
 for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="lxqt-openssh-askpass"] floating enable

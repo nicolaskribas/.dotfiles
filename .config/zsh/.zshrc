@@ -142,12 +142,12 @@ bindkey -M vicmd '^v' edit-command-line
 # --- Cursor and Application Mode ---
 zle-line-init() {
 	((${+terminfo[smkx]})) && echoti smkx # enable terminal application mode
-	print -n '\e[5 q'                    # starts with a blinking beam
+	print -n '\e[5 q'                     # starts with a blinking beam
 }
 zle -N zle-line-init
 
 # disable terminal application mode
-zle-line-finish() { ((${+terminfo[rmkx]})) && echoti rmkx }
+zle-line-finish() { ((${+terminfo[rmkx]})) && echoti rmkx; }
 zle -N zle-line-finish
 
 zle-keymap-select() {
@@ -187,9 +187,18 @@ _restore_default_cursor_shape() { print -n '\e[0 q'; }
 
 _set_window_title_exec() { print -n "\e]2;${(q)1}\a"; }
 
-_mark_command_start() { print -n '\e]133;C\a'; } # emit an OSC-133;C sequence
-
 _start_exec_timer() { _exec_start_time=$EPOCHREALTIME; }
+
+_mark_command_start() {
+	print -n '\e]133;C\a' # emit an OSC-133;C sequence
+	_command_start_marked=1
+}
+
+_mark_command_end() {
+	local command_status=$?
+	((_command_start_marked)) && print -n '\e]133;D;'${command_status}'\a' # emit an OSC-133;D sequence
+	unset _command_start_marked
+}
 
 _stop_exec_timer() {
 	[[ -z "${_exec_start_time}" ]] && return
@@ -201,8 +210,6 @@ _stop_exec_timer() {
 
 	LC_NUMERIC=POSIX printf -v _exec_timer_formated '%sT%s%s%d:%05.2f%s' '%B' '%b' '%F{yellow}' "$((int(elapsed / 60)))" "$((elapsed % 60))" '%f'
 }
-
-_mark_command_end() { print -n '\e]133;D;'$?'\a'; } # emit an OSC-133;D sequence
 
 _set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a'; }
 

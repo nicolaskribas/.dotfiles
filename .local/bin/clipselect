@@ -13,7 +13,7 @@ case "${1}" in
 preview)
 	if printf '%s' "${2}" | grep -Pq '^\d+\t\[\[ binary data .*\]\]'; then
 		printf '%s' "${2}" | cliphist decode |
-			chafa --format sixels --size "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}"
+			chafa --format kitty --size "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}"
 	else
 		printf '%s' "${2}" | cliphist decode
 	fi

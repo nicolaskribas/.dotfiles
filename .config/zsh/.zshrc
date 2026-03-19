@@ -170,14 +170,14 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-PROMPT=$'%{\e]133;A\a%}'                                   # mark prompt start (OSC-133;A), allows jumping between prompts
+PROMPT=$'%{\e]133;A\a%}'                                    # mark prompt start (OSC-133;A), allows jumping between prompts
 PROMPT+='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
-PROMPT+=$'%{\e]133;B\a%}'                                  # martk prompt end (OSC-133;B)
-RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                         # number of background jobs
-RPROMPT+='%(1j.${_exec_timer_formated:+ }.)'               # space
-RPROMPT+='${_exec_timer_formated}'                         # elapsed time
-RPROMPT+='%(?..%(1j. .${_exec_timer_formated:+ }))'        # space
-RPROMPT+='%(?..%B?%b%F{red}%?%f)'                          # return code
+PROMPT+=$'%{\e]133;B\a%}'                                   # martk prompt end (OSC-133;B)
+RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                          # number of background jobs
+RPROMPT+='%(1j.${_exec_timer_formated:+ }.)'                # space
+RPROMPT+='${_exec_timer_formated}'                          # elapsed time
+RPROMPT+='%(?..%(1j. .${_exec_timer_formated:+ }))'         # space
+RPROMPT+='%(?..%B?%b%F{red}%?%f)'                           # return code
 
 zmodload zsh/datetime
 zmodload zsh/mathfunc

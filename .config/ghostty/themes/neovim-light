@@ -1,0 +1,24 @@
+# Neovim Colors
+palette = 0=#eef1f8
+palette = 1=#590008
+palette = 2=#005523
+palette = 3=#6b5300
+palette = 4=#004c73
+palette = 5=#470045
+palette = 6=#007373
+palette = 7=#2c2e33
+palette = 8=#c4c6cd
+palette = 9=#590008
+palette = 10=#005523
+palette = 11=#6b5300
+palette = 12=#004c73
+palette = 13=#470045
+palette = 14=#007373
+palette = 15=#07080d
+background = e0e2ea
+foreground = 14161b
+cursor-color = 14161b
+cursor-text = e0e2ea
+selection-background = 9b9ea4
+selection-foreground = 14161b
+# split-divider-color = 414559

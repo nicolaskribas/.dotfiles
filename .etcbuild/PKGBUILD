@@ -107,6 +107,7 @@ package_base-system() {
 		# applications
 		flatpak
 		foot foot-terminfo
+		ghostty
 		neovim inotify-tools tree-sitter-cli # inotify-tools for lsp file watcher, tree-sitter-cli for nvim-treesitter plugin
 		nautilus
 		thunderbird hunspell-en_us # don't forget hunspell-pt-br from AUR

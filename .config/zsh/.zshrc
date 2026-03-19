@@ -28,7 +28,7 @@ alias -g L='| less'
 alias -g F='| fzf'
 
 # --- Functions ---
-ring() { print -n '\a' } # print bell character
+ring() { print -n '\a'; } # print bell character
 
 jupyter() {
 	uv run \
@@ -37,7 +37,7 @@ jupyter() {
 		jupyter "${@}"
 }
 
-ssh-copy-current-terminfo () { infocmp -x | ssh "$@" -- 'tic -x -' }
+ssh-copy-current-terminfo() { infocmp -x | ssh "$@" -- 'tic -x -'; }
 
 # --- Misc ---
 setopt extended_glob
@@ -151,11 +151,10 @@ zle-line-finish() { ((${+terminfo[rmkx]})) && echoti rmkx }
 zle -N zle-line-finish
 
 zle-keymap-select() {
-	if [[ "${KEYMAP}" == 'vicmd' ]]; then
-		print -n '\e[1 q' # go to a blinking block when in vicmd
-	else
-		print -n '\e[5 q' # beam again when back to viins mode
-	fi
+	case $KEYMAP in
+		vicmd | visual) print -n '\e[1 q' ;; # go to a blinking block when in vicmd
+		*)              print -n '\e[5 q' ;; # beam again when back to viins mode
+	esac
 }
 zle -N zle-keymap-select
 
@@ -171,7 +170,9 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
+PROMPT=$'%{\e]133;A\a%}'                                   # mark prompt start (OSC-133;A), allows jumping between prompts
+PROMPT+='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
+PROMPT+=$'%{\e]133;B\a%}'                                  # martk prompt end (OSC-133;B)
 RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                         # number of background jobs
 RPROMPT+='%(1j.${_exec_timer_formated:+ }.)'               # space
 RPROMPT+='${_exec_timer_formated}'                         # elapsed time
@@ -181,9 +182,13 @@ RPROMPT+='%(?..%B?%b%F{red}%?%f)'                          # return code
 zmodload zsh/datetime
 zmodload zsh/mathfunc
 
-_set_window_title_exec() { print -n "\e]2;${(q)1}\a" }
+_restore_default_cursor_shape() { print -n '\e[0 q'; }
 
-_start_exec_timer() { _exec_start_time=$EPOCHREALTIME }
+_set_window_title_exec() { print -n "\e]2;${(q)1}\a"; }
+
+_mark_command_start() { print -n '\e]133;C\a'; } # emit an OSC-133;C sequence
+
+_start_exec_timer() { _exec_start_time=$EPOCHREALTIME; }
 
 _stop_exec_timer() {
 	[[ -z "${_exec_start_time}" ]] && return
@@ -196,15 +201,17 @@ _stop_exec_timer() {
 	LC_NUMERIC=POSIX printf -v _exec_timer_formated '%sT%s%s%d:%05.2f%s' '%B' '%b' '%F{yellow}' "$((int(elapsed / 60)))" "$((elapsed % 60))" '%f'
 }
 
-_mark_prompt() { print -n '\e]133;A\a' } # emit an OSC-133;A sequence
+_mark_command_end() { print -n '\e]133;D\a'; } # emit an OSC-133;D sequence
 
-_set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a' }
+_set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a'; }
 
 autoload -Uz add-zsh-hook
+add-zsh-hook preexec _restore_default_cursor_shape
 add-zsh-hook preexec _set_window_title_exec
+add-zsh-hook preexec _mark_command_start
 add-zsh-hook preexec _start_exec_timer
 add-zsh-hook precmd _stop_exec_timer
-add-zsh-hook precmd _mark_prompt
+add-zsh-hook precmd _mark_command_end
 add-zsh-hook precmd _set_window_title_prompt
 add-zsh-hook precmd ring
 add-zsh-hook precmd vcs_info

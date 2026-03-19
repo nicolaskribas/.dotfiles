@@ -2,6 +2,8 @@ font-family = monospace
 font-synthetic-style = false
 font-size = 12
 alpha-blending = native
+window-decoration = client
+gtk-titlebar-hide-when-maximized = false
 
 theme=light:neovim-light,dark:neovim-dark
 cursor-style=bar

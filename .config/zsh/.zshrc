@@ -176,13 +176,13 @@ PROMPT+=$'%{\e]133;B\a%}'                                   # mark prompt end (O
 
 PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt start/end (OSC-133;P/B)
 
-RPROMPT=$'%{\e]133;P;k=r\a%}'                       # mark right prompt start (OSC-133;P)
-RPROMPT+='%(1j.%B&%b%F{blue}%j%f.)'                 # number of background jobs
-RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'       # space
-RPROMPT+='${_exec_timer_formatted}'                 # elapsed time
+RPROMPT=$'%{\e]133;P;k=r\a%}'                        # mark right prompt start (OSC-133;P)
+RPROMPT+='%(1j.%B&%b%F{blue}%j%f.)'                  # number of background jobs
+RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'        # space
+RPROMPT+='${_exec_timer_formatted}'                  # elapsed time
 RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))' # space
-RPROMPT+='%(?..%B?%b%F{red}%?%f)'                   # return code
-RPROMPT+=$'%{\e]133;B\a%}'                          # mark right prompt end (OSC-133;B)
+RPROMPT+='%(?..%B?%b%F{red}%?%f)'                    # return code
+RPROMPT+=$'%{\e]133;B\a%}'                           # mark right prompt end (OSC-133;B)
 
 zmodload zsh/datetime
 zmodload zsh/mathfunc

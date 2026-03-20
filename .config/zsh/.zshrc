@@ -178,9 +178,9 @@ PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt
 
 RPROMPT=$'%{\e]133;P;k=r\a%}'                       # mark right prompt start (OSC-133;P)
 RPROMPT+='%(1j.%B&%b%F{blue}%j%f.)'                 # number of background jobs
-RPROMPT+='%(1j.${_exec_timer_formated:+ }.)'        # space
-RPROMPT+='${_exec_timer_formated}'                  # elapsed time
-RPROMPT+='%(?..%(1j. .${_exec_timer_formated:+ }))' # space
+RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'       # space
+RPROMPT+='${_exec_timer_formatted}'                 # elapsed time
+RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))' # space
 RPROMPT+='%(?..%B?%b%F{red}%?%f)'                   # return code
 RPROMPT+=$'%{\e]133;B\a%}'                          # mark right prompt end (OSC-133;B)
 
@@ -209,14 +209,27 @@ _mark_command_end() {
 }
 
 _stop_exec_timer() {
-	[[ -z "${_exec_start_time}" ]] && return
+	[[ ! -v _exec_start_time ]] && return # timer never started
+
+	_exec_timer_formatted='' # clear prompt timer string
+
+	# consume start time to calculate elapsed time
 	local elapsed=$((EPOCHREALTIME - _exec_start_time))
 	unset _exec_start_time
 
-	unset _exec_timer_formated
-	((elapsed < 1)) && return
+	((elapsed < 1)) && return # don't show times under one second
 
-	LC_NUMERIC=POSIX printf -v _exec_timer_formated '%sT%s%s%d:%05.2f%s' '%B' '%b' '%F{yellow}' "$((int(elapsed / 60)))" "$((elapsed % 60))" '%f'
+	local d=$((int(elapsed / 60 / 60 / 24)))
+	local h=$((int(elapsed / 60 / 60 % 24)))
+	local m=$((int(elapsed / 60 % 60)))
+	local s=$((int(elapsed % 60)))
+
+	local format="%F{yellow}${s}%f%Bs%b"
+	((m)) && format=("%F{yellow}${m}%f%Bm%b" $format)
+	((h)) && format=("%F{yellow}${h}%f%Bh%b" $format)
+	((d)) && format=("%F{yellow}${d}%f%Bd%b" $format)
+
+	_exec_timer_formatted=$format
 }
 
 _set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a'; }

@@ -24,7 +24,6 @@ PublishPort=0.0.0.0:8081:8081/tcp
 PodmanArgs=--cpus=1
 
 [Service]
-ExecStartPre=/usr/bin/mkdir -p %D/ngrams
 ExecStartPre=/usr/bin/mkdir -p %D/fasttext
 Restart=on-failure
 

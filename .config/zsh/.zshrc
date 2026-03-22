@@ -152,8 +152,8 @@ zle -N zle-line-finish
 
 zle-keymap-select() {
 	case $KEYMAP in
-		vicmd | visual) print -n '\e[1 q' ;; # go to a blinking block when in vicmd
-		*)              print -n '\e[5 q' ;; # beam again when back to viins mode
+	vicmd | visual) print -n '\e[1 q' ;; # go to a blinking block when in vicmd
+	*) print -n '\e[5 q' ;;              # beam again when back to viins mode
 	esac
 }
 zle -N zle-keymap-select
@@ -170,19 +170,17 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 
-PROMPT=$'%{\e]133;A;cl=line\a%}'                            # mark prompt start (OSC-133;A, OSC-133;P;k=i is implicit here)
-PROMPT+='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
-PROMPT+=$'%{\e]133;B\a%}'                                   # mark prompt end (OSC-133;B)
+PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
 
-PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt start/end (OSC-133;P/B)
-
-RPROMPT=$'%{\e]133;P;k=r\a%}'                        # mark right prompt start (OSC-133;P)
-RPROMPT+='%(1j.%B&%b%F{blue}%j%f.)'                  # number of background jobs
+RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                   # number of background jobs
 RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'        # space
 RPROMPT+='${_exec_timer_formatted}'                  # elapsed time
 RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))' # space
 RPROMPT+='%(?..%B?%b%F{red}%?%f)'                    # return code
-RPROMPT+=$'%{\e]133;B\a%}'                           # mark right prompt end (OSC-133;B)
+
+PROMPT=$'%{\e]133;P;k=i\a%}'${PROMPT}$'%{\e]133;B\a%}'   # mark primary prompt start/end
+PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt start/end (OSC-133;P;k=s/B)
+RPROMPT=$'%{\e]133;P;k=r\a%}'${RPROMPT}$'%{\e]133;B\a%}' # mark right prompt start/end (OSC-133;P;k=r)
 
 zmodload zsh/datetime
 zmodload zsh/mathfunc
@@ -195,17 +193,17 @@ _start_exec_timer() { _exec_start_time=$EPOCHREALTIME; }
 
 _mark_command_start() {
 	print -n '\e]133;C\a' # emit an OSC-133;C sequence
-	_command_start_marked=1
+	_last_mark=C
 }
 
 _mark_command_end() {
 	local command_status=$?
-	if ((_command_start_marked)); then
-		print -n '\e]133;D;'${command_status}'\a' # emit an OSC-133;D sequence
-	else
-		print -n '\e]133;D\a' # emit an OSC-133;D sequence
-	fi
-	unset _command_start_marked
+
+	[[ "$_last_mark" == A ]] && print -n '\e]133;D\a'                     # emit an OSC-133;D sequence
+	[[ "$_last_mark" == C ]] && print -n '\e]133;D;'${command_status}'\a' # emit an OSC-133;D sequence
+
+	print -n '\e]133;A;cl=line\a'
+	_last_mark=A
 }
 
 _stop_exec_timer() {
@@ -224,10 +222,11 @@ _stop_exec_timer() {
 	local m=$((int(elapsed / 60 % 60)))
 	local s=$((int(elapsed % 60)))
 
-	local format="%F{yellow}${s}%f%Bs%b"
-	((m)) && format=("%F{yellow}${m}%f%Bm%b" $format)
-	((h)) && format=("%F{yellow}${h}%f%Bh%b" $format)
-	((d)) && format=("%F{yellow}${d}%f%Bd%b" $format)
+	local format="${s}s"
+	((m)) && format=("${m}m"$format)
+	((h)) && format=("${h}h"$format)
+	((d)) && format=("${d}d"$format)
+	format=('%B~%b%F{yellow}'$format'%f')
 
 	_exec_timer_formatted=$format
 }

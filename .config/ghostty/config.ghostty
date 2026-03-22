@@ -2,7 +2,6 @@ font-family = Iosevka Term
 font-feature = ss17 on, calt off, CLIK on
 font-synthetic-style = false
 font-size = 12
-alpha-blending = native
 window-decoration = client
 gtk-titlebar-hide-when-maximized = false
 

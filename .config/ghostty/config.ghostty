@@ -1,5 +1,5 @@
-font-family = Iosevka Term
-font-feature = ss17 on, calt off, CLIK on
+font-family = Iosevka Fixed
+font-feature = ss17 on
 font-synthetic-style = false
 font-size = 12
 window-decoration = client

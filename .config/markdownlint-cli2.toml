@@ -1,0 +1,35 @@
+noBanner = true
+noProgress = true
+
+[config]
+# MD003
+heading-style.style = "consistent" # Maybe settle with atx or setex
+
+# MD004
+ul-style.style = "dash"
+
+# MD009 Include unnecessary breaks
+no-trailing-spaces.strict = true
+
+# MD010
+no-hard-tabs.code_blocks = false # Ignore code blocks
+no-hard-tabs.spaces_per_tab = 4  # When fixing, replace a tab with 4 spaces
+
+# MD013
+line-length.code_blocks = false
+line-length.heading_line_length = 100
+
+# MD018
+no-missing-space-atx = false # this breaks tags on obsidian
+
+# MD048
+code-fence-style.style = "backtick"
+
+# MD049
+emphasis-style.style = "consistent" # Sometimes _, sometimes *
+
+# MD050
+strong-style.style = "asterisk" # Use **
+
+# MD055
+table-pipe-style.style = "leading_and_trailing"

@@ -8,19 +8,25 @@ heading-style.style = "consistent" # Maybe settle with atx or setex
 # MD004
 ul-style.style = "dash"
 
-# MD009 Include unnecessary breaks
-no-trailing-spaces.strict = true
+# MD009
+no-trailing-spaces.strict = true # Include unnecessary breaks
 
 # MD010
 no-hard-tabs.code_blocks = false # Ignore code blocks
-no-hard-tabs.spaces_per_tab = 4  # When fixing, replace a tab with 4 spaces
+no-hard-tabs.spaces_per_tab = 4 # When fixing, replace a tab with 4 spaces
 
 # MD013
 line-length.code_blocks = false
-line-length.heading_line_length = 100
+line-length.heading_line_length = 120
 
 # MD018
 no-missing-space-atx = false # this breaks tags on obsidian
+
+# MD024
+no-duplicate-heading.siblings_only = true
+
+# MD029
+ol-prefix.style = "ordered"
 
 # MD048
 code-fence-style.style = "backtick"

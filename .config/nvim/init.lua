@@ -57,6 +57,18 @@ map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = { min = 
 
 map({ "n", "v" }, "<Leader>", [["+]])
 
+-- taken from https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/filetype.lua
+vim.filetype.add {
+	pattern = {
+		[".*"] = function(path, bufnr)
+			return vim.bo[bufnr].filetype ~= "bigfile"
+					and vim.fn.getfsize(path) > (1024 * 256) -- 256 KiB
+					and "bigfile"
+				or nil
+		end,
+	},
+}
+
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
@@ -91,6 +103,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "<Leader>wa", lsp.add_workspace_folder, opts)
 		map("n", "<Leader>wr", lsp.remove_workspace_folder, opts)
 		map("n", "<Leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+	end,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	group = init,
+	pattern = "bigfile",
+	callback = function(args)
+		vim.schedule(function() vim.bo[args.buf].syntax = vim.filetype.match { buf = args.buf } or "" end)
 	end,
 })
 

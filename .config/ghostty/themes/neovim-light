@@ -1,24 +1,70 @@
-# Neovim Colors
-palette = 0=#07080d
+# Neovim Light Colors
+# ===================
+#
+# See: https://github.com/neovim/neovim/blob/1685ced33551ec9c01fc0296f2f6566d14f65b26/src/nvim/highlight_group.c#L358
+#
+# Usually, it is assumed that
+# ANSI 0 -> black
+# ANSI 7 -> white
+# ANSI 8 -> bright black
+# ANSI 15 -> bright white
+# this works well for dark themes, but poorly for light ones.
+#
+# Since this is a light theme, I've reversed things:
+# ANSI 0 -> bright white
+# ANSI 7 -> bright black
+# ANSI 8 -> white
+# ANSI 15 -> black
+# and this looks much better.
+# TODO: investigate how this interact with `palette-generate`
+
+# bright white: NvimLightGrey1 used as guifg in CurSearch and guibg for windows and floats
+# brighter than the background (NvimLightGrey2 in light)
+palette = 0=#eef1f8
+# red: NvimDarkRed
 palette = 1=#590008
+# green: NvimDarkGreen
 palette = 2=#005523
+# yellow: NvimDarkYellow
 palette = 3=#6b5300
+# blue: NvimDarkBlue
 palette = 4=#004c73
+# magenta: NvimDarkMagenta
 palette = 5=#470045
+# cyan: NvimDarkCyan
 palette = 6=#007373
-palette = 7=#c4c6cd
-palette = 8=#2c2e33
+# bright black: NvimDarkGrey4 used as guifg for Comment/WinBar/Folded
+# brighter than the foreground (NvimDarkGrey2 in light)
+palette = 7=#4f5258
+
+# white: NvimLightGrey3 used as guibg for CursorColumn/CursorLine/Pmenu/StatusLineNC
+# didn't use NvimLightGrey4 since it is used in selection-background
+palette = 8=#c4c6cd
+# bright red: NvimDarkRed
 palette = 9=#590008
+# bright green: NvimDarkGreen
 palette = 10=#005523
+# bright yellow: NvimDarkYellow
 palette = 11=#6b5300
+# bright blue: NvimDarkBlue
 palette = 12=#004c73
+# bright magenta: NvimDarkMagenta
 palette = 13=#470045
+# bright cyan: NvimDarkCyan
 palette = 14=#007373
-palette = 15=#eef1f8
+# black: NvimDarkGrey1 used for guifg in Diff and Search
+palette = 15=#07080d
+
+# NvimLightGrey2 used as guibg in Normal
 background = e0e2ea
+# NvimDarkGrey2 used as guifg in Normal
 foreground = 14161b
+
+# foreground and background swapped
 cursor-color = 14161b
 cursor-text = e0e2ea
+
+# NvimLightGrey4 used as guifg for Conceal/LineNr/NonText/SignColumn and guibg for ColorColumn/StatusLine/*Visual*
 selection-background = 9b9ea4
+# same as normal foreground
 selection-foreground = 14161b
-# split-divider-color = 414559

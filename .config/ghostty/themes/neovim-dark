@@ -1,24 +1,54 @@
-# Neovim Colors
+# Neovim Dark Colors
+# ==================
+#
+# See: https://github.com/neovim/neovim/blob/1685ced33551ec9c01fc0296f2f6566d14f65b26/src/nvim/highlight_group.c#L442
+
+# black: NvimDarkGrey1 used as guifg in CurSearch and guibg for windows and floats
 palette = 0=#07080d
+# red: NvimLightRed
 palette = 1=#ffc0b9
+# green: NvimLightGreen
 palette = 2=#b3f6c0
+# yellow: NvimLightYellow
 palette = 3=#fce094
+# blue: NvimLightBlue
 palette = 4=#a6dbff
+# magenta: NvimLightMagenta
 palette = 5=#ffcaff
+# cyan: NvimLightCyan
 palette = 6=#8cf8f7
-palette = 7=#c4c6cd
+# white: NvimLightGrey4 used as guifg for Comment/WinBar/Folded
+palette = 7=#9b9ea4
+
+# bright black: NvimDarkGrey3 used as guibg for CursorColumn/CursorLine/Pmenu/StatusLineNC
+# brighter than the foreground (NvimLightGrey2 in dark), didn't use NvimDarkGrey4 since it is used in selection-background
 palette = 8=#2c2e33
+# bright red: NvimLightRed
 palette = 9=#ffc0b9
+# bright green: NvimLightGreen
 palette = 10=#b3f6c0
+# bright yellow: NvimLightYellow
 palette = 11=#fce094
+# bright blue: NvimLightBlue
 palette = 12=#a6dbff
+# bright magenta: NvimLightMagenta
 palette = 13=#ffcaff
+# bright cyan: NvimLightCyan
 palette = 14=#8cf8f7
+# bright white: NvimLightGrey1 used for guifg in Diff and Search
+# brighter than the background (NvimDarkGrey2 in dark)
 palette = 15=#eef1f8
+
+# NvimDarkGrey2 used as guifg in Normal
 background = 14161b
+# NvimLightGrey2 used as guibg in Normal
 foreground = e0e2ea
+
+# foreground and background swapped
 cursor-color = e0e2ea
 cursor-text = 14161b
+
+# NvimDarkGrey4 used as guifg for Conceal/LineNr/NonText/SignColumn and guibg for ColorColumn/StatusLine/*Visual*
 selection-background = 4f5258
+# same as normal foreground
 selection-foreground = e0e2ea
-# split-divider-color = 414559

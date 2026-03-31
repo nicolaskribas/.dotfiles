@@ -127,7 +127,7 @@ package_base-system() {
 		less stdoutisatty
 		fzf fd ripgrep ripgrep-all
 		parallel
-		tree gdu
+		tree dua-cli
 		chafa
 		htop bpftop
 		bpftrace

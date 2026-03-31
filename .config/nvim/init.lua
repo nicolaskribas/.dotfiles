@@ -34,6 +34,7 @@ opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "indent-heuristic", "algorithm:histogram" }
 vim.diagnostic.config { underline = false, severity_sort = true, jump = { float = true }, float = { source = "if_many" } }
+vim.cmd.colorscheme "default"
 vim.cmd.highlight "Comment gui=italic cterm=italic"
 
 vim.g.mapleader = " "
@@ -186,10 +187,6 @@ later(function() require("mini.trailspace").setup() end)
 later(function()
 	add "ibhagwan/fzf-lua"
 	require("fzf-lua").setup {
-		fzf_opts = {
-			["--no-separator"] = true,
-			["--color"] = "16",
-		},
 		winopts = { border = "none", preview = { border = "none" } },
 		files = { raw_cmd = "fd --follow --type=file" },
 		grep = { follow = true },

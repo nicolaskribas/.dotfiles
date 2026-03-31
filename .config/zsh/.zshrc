@@ -4,7 +4,7 @@ export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen 
 export MANPAGER='less --color=u+b' # underlined -> blue
 export MANROFFOPT='-P -c'          # to get colors: man passes -c flag to grotty through groff (-P)
 export FZF_DEFAULT_COMMAND='fd --follow --type=file'
-export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --color=16'
+export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator'
 eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completion
 
 # --- Aliases ---
@@ -258,10 +258,10 @@ ZSH_HIGHLIGHT_STYLES[precommand]='fg=cyan,underline'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=green'
-ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=#e0e2ea' # fixme: remove hardcoded value (NvimLightGrey2)
-ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#e0e2ea'   # fixme: remove hardcoded value (NvimLightGrey2)
-ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#e0e2ea'   # fixme: remove hardcoded value (NvimLightGrey2)
+# ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=default' # fixme: find a way to use the default foreground color
+# ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=default'   # fixme: find a way to use the default foreground color
+# ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=default'   # fixme: find a way to use the default foreground color
 ZSH_HIGHLIGHT_STYLES[redirection]='none'
-ZSH_HIGHLIGHT_STYLES[comment]='fg=#9b9ea4' # fixme: remove hardcoded value (NvimLightGrey4)
+ZSH_HIGHLIGHT_STYLES[comment]='fg=white'
 ZSH_HIGHLIGHT_STYLES[arg0]='fg=cyan'
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -6,6 +6,8 @@ window-decoration = client
 gtk-titlebar-hide-when-maximized = false
 
 theme=light:neovim-light,dark:neovim-dark
+palette-generate=true
+palette-harmonious=true
 cursor-style=bar
 cursor-style-blink=true
 

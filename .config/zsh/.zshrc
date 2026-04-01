@@ -222,13 +222,18 @@ _stop_exec_timer() {
 	local m=$((int(elapsed / 60 % 60)))
 	local s=$((int(elapsed % 60)))
 
-	local format="${s}s"
-	((m)) && format=("${m}m"$format)
-	((h)) && format=("${h}h"$format)
-	((d)) && format=("${d}d"$format)
-	format=('%B~%b%F{yellow}'$format'%f')
+	local format
+	if ((d)); then
+		format=${d}d${h}h
+	elif ((h)); then
+		format=${h}h${m}m
+	elif ((m)); then
+		format=${m}m${s}s
+	else
+		format=${s}s
+	fi
 
-	_exec_timer_formatted=$format
+	_exec_timer_formatted='%B~%b%F{yellow}'$format'%f'
 }
 
 _set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a'; }

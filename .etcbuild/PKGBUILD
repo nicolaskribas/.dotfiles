@@ -145,7 +145,7 @@ package_base-system() {
 		make gdb strace
 
 		# network tools
-		iproute2 ethtool iptables-nft   # configure
+		iproute2 ethtool iptables       # configure
 		iputils nmap curl               # poke
 		ldns whois                      # query
 		tcpdump tcpreplay wireshark-cli # capture

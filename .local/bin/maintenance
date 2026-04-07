@@ -40,6 +40,8 @@ yn 'show btrfs info?' && {
 	sudo btrfs filesystem usage /
 }
 
+separator
+
 yn 'show pacreport?' && sudo pacreport --missing-files | less
 
 separator
@@ -99,12 +101,7 @@ if [ -d "$(uv cache dir)" ]; then
 fi
 
 if yn 'update neovim packages?'; then
-	nvim --headless -c "lua
-		MiniDeps.later(function()
-			MiniDeps.clean(nil, { force = true })
-			MiniDeps.update(nil, { force = true })
-			vim.cmd.exit()
-		end)"
+	nvim --headless -c "lua vim.pack.update(nil, { force = true }) vim.cmd.exit()"
 	echo
 fi
 

@@ -8,7 +8,7 @@ opt.ruler = false
 opt.signcolumn = "yes"
 opt.guicursor:append { "c:ver25", "t:ver25" } -- vertical bar as cursor when inserting in command-line mode, and when in terminal mode
 opt.guicursor:append "a:blinkwait1-blinkon500-blinkoff500" -- make cursor blink
--- opt.guicursor:append "a:Cursor" -- make cursor follow neovim colorscheme
+opt.guicursor:append "a:Cursor" -- make cursor follow neovim colorscheme
 opt.title = true
 opt.cursorline = true
 opt.colorcolumn = "+1"
@@ -103,6 +103,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "<Leader>wa", lsp.add_workspace_folder, opts)
 		map("n", "<Leader>wr", lsp.remove_workspace_folder, opts)
 		map("n", "<Leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+	end,
+})
+vim.api.nvim_create_autocmd("LspProgress", {
+	group = init,
+	buffer = buf,
+	callback = function(ev)
+		local value = ev.data.params.value
+		vim.api.nvim_echo({ { value.message or "done" } }, false, {
+			id = "lsp." .. ev.data.params.token,
+			kind = "progress",
+			percent = value.percentage,
+			source = "vim.lsp",
+			status = value.kind ~= "end" and "running" or "success",
+			title = value.title,
+		})
 	end,
 })
 vim.api.nvim_create_autocmd("FileType", {

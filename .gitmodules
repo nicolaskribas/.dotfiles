@@ -1,3 +1,0 @@
-[submodule "mini.nvim"]
-	path = .config/nvim/pack/ages/start/mini.nvim
-	url = https://github.com/echasnovski/mini.nvim.git

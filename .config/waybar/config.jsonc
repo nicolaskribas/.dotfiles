@@ -10,7 +10,6 @@
 	"modules-right": [
 		"tray",
 		"systemd-failed-units",
-		"sway/language",
 		"custom/dnd",
 		"idle_inhibitor",
 		"network#wlan",
@@ -40,11 +39,6 @@
 	},
 	"sway/mode": {
 		"tooltip": false,
-	},
-	"sway/language": {
-		"format": "󰌌 ",
-		"tooltip-format": "{long}",
-		"on-click": "swaymsg --pretty input type:keyboard xkb_switch_layout next"
 	},
 	"cpu": {
 		"format": "󰻠 ",

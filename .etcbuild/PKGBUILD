@@ -78,6 +78,7 @@ package_base-system() {
 		xdg-desktop-portal-gtk xdg-desktop-portal-wlr
 		libnotify cliphist
 		wl-clipboard xdg-utils mailcap
+		fcitx5 fcitx5-configtool
 		xorg-xwayland
 		kanshi
 

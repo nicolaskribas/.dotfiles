@@ -96,6 +96,7 @@ package_base-system() {
 
 		# sound system
 		pipewire pipewire-audio pipewire-alsa pipewire-jack pipewire-pulse pipewire-libcamera pipewire-v4l2
+		alsa-utils
 		wireplumber
 		easyeffects calf lsp-plugins-lv2 # calf for bass enhancer. lsp-plugins-lv2 for equalizer
 		gstreamer gst-plugins-base gst-plugins-good gst-plugin-pipewire gst-plugin-va gst-plugin-libcamera

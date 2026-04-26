@@ -140,6 +140,7 @@ package_base-system() {
 		rclone
 		sshfs
 		bandwhich
+		hexyl
 
 		# dev tools
 		base-devel

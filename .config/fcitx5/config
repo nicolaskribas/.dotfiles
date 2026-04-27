@@ -1,0 +1,17 @@
+[Behavior/DisabledAddons]
+0=classicui
+1=clipboard
+2=dbusfrontend
+3=emoji
+4=fcitx4frontend
+5=ibusfrontend
+6=imselector
+7=kimpanel
+8=notificationitem
+9=notifications
+10=quickphrase
+11=spell
+12=unicode
+13=virtualkeyboard
+14=xcb
+15=xim

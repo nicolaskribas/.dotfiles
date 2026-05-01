@@ -4,10 +4,6 @@
 Description=Containerized Jellyfin Media Server
 Documentation=https://jellyfin.org/docs/
 
-# Disables default dependency (After=/Wants=podman-user-wait-network-online.service)
-[Quadlet]
-DefaultDependencies=false
-
 [Container]
 Image=docker.io/jellyfin/jellyfin:latest
 AutoUpdate=registry

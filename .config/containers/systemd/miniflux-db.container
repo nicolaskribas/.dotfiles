@@ -1,0 +1,21 @@
+# vim: ft=systemd
+
+[Unit]
+Description=Miniflux PostgreSQL Database
+
+[Container]
+Image=docker.io/library/postgres:alpine
+AutoUpdate=registry
+
+Pod=miniflux.pod
+
+Volume=miniflux-db.volume:/var/lib/postgresql
+
+Environment=POSTGRES_USER=miniflux
+Environment=POSTGRES_PASSWORD=secret
+Environment=POSTGRES_DB=miniflux
+
+HealthCmd=pg_isready -U miniflux
+HealthInterval=10s
+HealthStartPeriod=30s
+Notify=healthy

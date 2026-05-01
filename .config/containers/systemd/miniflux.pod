@@ -1,0 +1,6 @@
+# vim: ft=systemd
+
+[Pod]
+PodName=miniflux
+PublishPort=0.0.0.0:8080:8080/tcp
+PodmanArgs=--cpus=1

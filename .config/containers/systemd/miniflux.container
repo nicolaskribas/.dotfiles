@@ -1,0 +1,21 @@
+# vim: ft=systemd
+
+[Unit]
+Description=Minimalist and opinionated feed reader
+After=miniflux-db.container
+Requires=miniflux-db.container
+
+[Container]
+Image=docker.io/miniflux/miniflux:latest
+AutoUpdate=registry
+
+Pod=miniflux.pod
+
+Environment=DATABASE_URL=postgres://miniflux:secret@::1/miniflux?sslmode=disable
+Environment=RUN_MIGRATIONS=1
+Environment=CREATE_ADMIN=1
+Environment=ADMIN_USERNAME=admin
+Environment=ADMIN_PASSWORD=changeme
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,4 @@
+# vim: ft=systemd
+
+[Volume]
+VolumeName=miniflux-db

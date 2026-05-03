@@ -147,7 +147,7 @@ smart_borders on
 default_border pixel 3
 default_floating_border normal 3
 
-seat seat0 hide_cursor 5000
+seat seat0 hide_cursor 15000
 seat seat0 xcursor_theme Adwaita
 
 

@@ -170,7 +170,7 @@ end
 vim.lsp.config("ltex_plus", {
 	settings = {
 		ltex = {
-			languageToolHttpServerUri = "http://localhost:8081",
+			languageToolHttpServerUri = "https://languagetool.asymptote-shark.ts.net",
 			additionalRules = { enablePickyRules = true },
 			dictionary = {
 				["en-US"] = get_dict "en",

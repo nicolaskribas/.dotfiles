@@ -18,3 +18,8 @@ profile extended {
 	output $laptop enable
 	output $hdmi enable
 }
+
+profile external {
+	output $laptop disable
+	output $hdmi enable
+}

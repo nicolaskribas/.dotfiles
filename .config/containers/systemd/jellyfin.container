@@ -21,6 +21,8 @@ Volume=%E/jellyfin:/config
 Volume=%C/jellyfin:/cache
 Volume=%h/jellyfin-media:/media:ro
 
+HealthStartPeriod=60s
+
 PodmanArgs=--cpus=1
 
 [Service]

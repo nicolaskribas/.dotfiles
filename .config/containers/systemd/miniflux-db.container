@@ -15,6 +15,7 @@ Environment=POSTGRES_USER=miniflux
 Environment=POSTGRES_PASSWORD=secret
 Environment=POSTGRES_DB=miniflux
 
+HealthStartPeriod=60s
 HealthStartupCmd=pg_isready -U miniflux
 HealthStartupInterval=1s
 HealthCmd=pg_isready -U miniflux

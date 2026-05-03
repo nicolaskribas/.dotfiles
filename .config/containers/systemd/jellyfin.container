@@ -5,10 +5,13 @@ Description=Containerized Jellyfin Media Server
 Documentation=https://jellyfin.org/docs/
 
 [Container]
-Image=docker.io/jellyfin/jellyfin:latest
+Image=docker.io/linuxserver/jellyfin:latest
 AutoUpdate=registry
 
-UserNS=keep-id
+# Map user 0 (root) to the host user that runs the container
+UserNS=host
+Environment=PUID=0
+Environment=PGID=0
 
 # 8096: Default HTTP
 # 7359: Client Discovery
@@ -18,18 +21,19 @@ PublishPort=0.0.0.0:7359:7359/udp
 AddDevice=/dev/dri/:/dev/dri/
 
 Volume=%E/jellyfin:/config
-Volume=%C/jellyfin:/cache
+Volume=%C/jellyfin:/config/cache
+Volume=%D/jellyfin:/config/data
+Volume=%S/jellyfin:/config/log
 Volume=%h/jellyfin-media:/media:ro
-
-HealthStartPeriod=60s
 
 PodmanArgs=--cpus=1
 
 [Service]
 ExecStartPre=/usr/bin/mkdir -p %E/jellyfin
 ExecStartPre=/usr/bin/mkdir -p %C/jellyfin
+ExecStartPre=/usr/bin/mkdir -p %D/jellyfin
+ExecStartPre=/usr/bin/mkdir -p %S/jellyfin
 ExecStartPre=/usr/bin/mkdir -p %h/jellyfin-media
-SuccessExitStatus=143
 
 [Install]
 WantedBy=default.target

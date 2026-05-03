@@ -27,6 +27,7 @@ PodmanArgs=--cpus=1
 ExecStartPre=/usr/bin/mkdir -p %E/jellyfin
 ExecStartPre=/usr/bin/mkdir -p %C/jellyfin
 ExecStartPre=/usr/bin/mkdir -p %h/jellyfin-media
+SuccessExitStatus=143
 
 [Install]
 WantedBy=default.target

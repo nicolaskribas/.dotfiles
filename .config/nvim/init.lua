@@ -97,7 +97,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		local lsp = vim.lsp.buf
 		local opts = { buf = args.buf }
-		map("n", "gd", lsp.declaration, opts) -- ** for definition use Ctrl-]
 		map({ "n", "x" }, "grf", lsp.format, opts)
 		map("n", "<Leader>wa", lsp.add_workspace_folder, opts)
 		map("n", "<Leader>wr", lsp.remove_workspace_folder, opts)
@@ -204,6 +203,3 @@ vim.schedule(function()
 	map("n", "<Leader>f/", FzfLua.lines)
 	map("n", "<Leader>fr", FzfLua.resume)
 end)
-
--- * overrides a default keymap
--- ** overrides a default keymap with similar functionality

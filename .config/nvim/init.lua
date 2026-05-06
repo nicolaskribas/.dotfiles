@@ -33,6 +33,7 @@ opt.path:append "**" -- recursive :find
 opt.grepprg = "rg --hidden --smart-case --vimgrep"
 opt.grepformat:prepend "%f:%l:%c:%m"
 opt.diffopt:append { "algorithm:histogram" }
+
 vim.diagnostic.config {
 	underline = false,
 	severity_sort = true,
@@ -76,15 +77,18 @@ vim.filetype.add {
 }
 
 local init = vim.api.nvim_create_augroup("Init", { clear = true })
+
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
 	pattern = { "markdown", "tex" },
-	command = "setlocal textwidth=80",
+	command = "setlocal textwidth=80 wrap",
 })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,
 	callback = function() vim.hl.on_yank { on_visual = false } end,
 })
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = init,
 	callback = function(args)
@@ -94,7 +98,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			-- vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters or {}, var_name_chars)
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 		end
-
 		local lsp = vim.lsp.buf
 		local opts = { buf = args.buf }
 		map({ "n", "x" }, "grf", lsp.format, opts)
@@ -103,6 +106,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("n", "<Leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
 	end,
 })
+
 vim.api.nvim_create_autocmd("LspProgress", {
 	group = init,
 	buffer = buf,
@@ -118,6 +122,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
 		})
 	end,
 })
+
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
 	pattern = "bigfile",
@@ -130,6 +135,7 @@ vim.pack.add { {
 	src = "https://github.com/neovim/nvim-lspconfig",
 	version = vim.version.range "^v2.7.0",
 } }
+
 vim.lsp.enable {
 	"rust_analyzer",
 	"clangd",
@@ -142,9 +148,11 @@ vim.lsp.enable {
 	"ltex_plus",
 	-- "vale_ls",
 }
+
 vim.lsp.config("pyright", {
 	settings = { python = { pythonPath = ".venv/bin/python" } },
 })
+
 vim.lsp.config("texlab", {
 	settings = {
 		texlab = {
@@ -157,6 +165,7 @@ vim.lsp.config("texlab", {
 		},
 	},
 })
+
 local get_dict = function(lang)
 	local file = io.open(vim.fn.stdpath "config" .. "/spell/" .. lang .. ".utf-8.add", "r")
 	if not file then return {} end
@@ -166,6 +175,7 @@ local get_dict = function(lang)
 	end
 	return words
 end
+
 vim.lsp.config("ltex_plus", {
 	settings = {
 		ltex = {
@@ -175,7 +185,10 @@ vim.lsp.config("ltex_plus", {
 				["en-US"] = get_dict "en",
 				["pt-BR"] = get_dict "pt",
 			},
-			disabledRules = {}, -- see: https://community.languagetool.org/rule/list
+			disabledRules = { -- see: https://community.languagetool.org/rule/list
+				["en-US"] = { "EN_QUOTES", "ELLIPSIS" },
+				["pt-BR"] = {},
+			},
 		},
 	},
 })

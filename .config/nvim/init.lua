@@ -162,6 +162,10 @@ vim.lsp.config("texlab", {
 				modifyLineBreaks = true,
 				["local"] = (vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. "/.config")) .. "/latexindent.yaml",
 			},
+			diagnostics = { ignoredPatterns = {
+				"^Unused label$",
+				"^Unused entry$",
+			} },
 		},
 	},
 })

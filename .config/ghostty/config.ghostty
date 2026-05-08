@@ -2,6 +2,7 @@ font-family = Iosevka Fixed
 font-feature = ss17 on
 font-synthetic-style = false
 font-size = 12
+confirm-close-surface = false
 window-decoration = client
 gtk-titlebar-hide-when-maximized = false
 

@@ -157,7 +157,11 @@ vim.lsp.config("texlab", {
 	settings = {
 		texlab = {
 			build = { onSave = true },
-			chktex = { onOpenAndSave = true, onEdit = true },
+			chktex = {
+				onOpenAndSave = true,
+				onEdit = true,
+				additionalArgs = { "--nowarn", "1" }, -- disable warning "Command terminated with space."
+			},
 			latexindent = {
 				modifyLineBreaks = true,
 				["local"] = (vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. "/.config")) .. "/latexindent.yaml",

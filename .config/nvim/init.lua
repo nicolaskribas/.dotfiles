@@ -193,6 +193,10 @@ vim.lsp.config("ltex_plus", {
 				["en-US"] = { "EN_QUOTES", "ELLIPSIS" },
 				["pt-BR"] = {},
 			},
+			latex = { commands = {
+				["\\qty{}{}"] = "dummy",
+				["\\qty[]{}{}"] = "dummy",
+			} },
 		},
 	},
 })

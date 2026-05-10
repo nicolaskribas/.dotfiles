@@ -21,8 +21,12 @@ opt.gdefault = true -- substitute all matches in a line by default
 opt.wrap = false
 opt.linebreak = true -- use 'breakat' for determine when to wrap
 opt.breakindent = true
--- opt.spell = true
--- opt.spelllang = { "en_us", "pt_br" }
+opt.spelllang = { "en_us", "pt_br" }
+opt.spellfile = {
+	vim.fn.stdpath "data" .. "/site/spell/common.utf-8.add",
+	vim.fn.stdpath "data" .. "/site/spell/en.utf-8.add",
+	vim.fn.stdpath "data" .. "/site/spell/pt.utf-8.add",
+}
 opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
@@ -174,12 +178,13 @@ vim.lsp.config("texlab", {
 	},
 })
 
-local get_dict = function(lang)
-	local file = io.open(vim.fn.stdpath "config" .. "/spell/" .. lang .. ".utf-8.add", "r")
-	if not file then return {} end
-	local words = {}
-	for word in file:lines() do
-		table.insert(words, word)
+local get_dict = function(lang, words)
+	words = words or {}
+	local file = io.open(vim.fn.stdpath "data" .. "/site/spell/" .. lang .. ".utf-8.add", "r")
+	if file then
+		for word in file:lines() do
+			table.insert(words, word)
+		end
 	end
 	return words
 end
@@ -190,17 +195,20 @@ vim.lsp.config("ltex_plus", {
 			languageToolHttpServerUri = "https://languagetool.asymptote-shark.ts.net",
 			additionalRules = { enablePickyRules = true },
 			dictionary = {
-				["en-US"] = get_dict "en",
-				["pt-BR"] = get_dict "pt",
+				["en-US"] = get_dict("common", get_dict "en"),
+				["pt-BR"] = get_dict("common", get_dict "pt"),
 			},
 			disabledRules = { -- see: https://community.languagetool.org/rule/list
 				["en-US"] = { "EN_QUOTES", "ELLIPSIS" },
 				["pt-BR"] = {},
 			},
-			latex = { commands = {
-				["\\qty{}{}"] = "dummy",
-				["\\qty[]{}{}"] = "dummy",
-			} },
+			latex = {
+				commands = {
+					["\\qty{}{}"] = "dummy",
+					["\\qty[]{}{}"] = "dummy",
+					["\\etal"] = "dummy",
+				},
+			},
 		},
 	},
 })

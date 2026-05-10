@@ -19,6 +19,7 @@ PublishPort=0.0.0.0:8081:8010/tcp
 PodmanArgs=--cpus=2
 
 [Service]
+SuccessExitStatus=143
 Restart=on-failure
 
 [Install]

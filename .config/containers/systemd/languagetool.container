@@ -4,20 +4,19 @@
 Description=Containerized LanguageTool HTTP server
 
 [Container]
-Image=docker.io/meyay/languagetool:latest
+Image=docker.io/erikvl87/languagetool:latest
 AutoUpdate=registry
 
 DropCapability=all
 NoNewPrivileges=true
-UserNS=keep-id
 ReadOnly=true
 
-Tmpfs=/tmp:exec
-Volume=languagetool-fasttext:/fasttext:U
+Environment=Java_Xms=512m
+Environment=Java_Xmx=1g
 
-PublishPort=0.0.0.0:8081:8081/tcp
+PublishPort=0.0.0.0:8081:8010/tcp
 
-PodmanArgs=--cpus=1
+PodmanArgs=--cpus=2
 
 [Service]
 Restart=on-failure

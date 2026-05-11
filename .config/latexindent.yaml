@@ -1,5 +1,5 @@
 # Settings that play nice with Semantic Line Breaks https://sembr.org/
-# indentPreamble: 1
+indentPreamble: 1
 modifyLineBreaks:
   oneSentencePerLine:
     manipulateSentences: 1

@@ -10,14 +10,9 @@
 /****************************************************************************
  * Betterfox                                                                *
  * "Ad meliora"                                                             *
- * version: 149                                                             *
+ * version: 150                                                             *
  * url: https://github.com/yokoffing/Betterfox                              *
 ****************************************************************************/
-
-/****************************************************************************
- * SECTION: FASTFOX                                                         *
-****************************************************************************/
-user_pref("gfx.canvas.accelerated.cache-size", 256); // reset pref
 
 /****************************************************************************
  * SECTION: SECUREFOX                                                       *
@@ -197,69 +192,44 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 // visit https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening
 // Enter your personal overrides below this line:
 
-// --- Revert Betterfox ---
-// Allow new requests asking to allow notifications
+// Revert Betterfox
+// ================
+// PREF: revert back to Standard ETP
+user_pref("browser.contentblocking.category", "standard");
+// PREF: allow websites to ask you to receive site notifications
 user_pref("permissions.default.desktop-notification", 0);
 
-// --- General ---
-// Open previous windows and tabs
-user_pref("browser.startup.page", 3);
-
+// General
+// =======
 // Ctrl+Tab cycles through tabs in recently used order
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
-
-// Choose your preferred language for displaying pages
-user_pref("intl.accept_languages", "en-us,en,pt-br,pt");
-
+// Enable Container Tabs
+user_pref("privacy.userContext.enabled", true);
 // Use your operating system settings to format dates, times, numbers, and measurements.
 user_pref("intl.regional_prefs.use_os_locales", true);
-
 // Always ask you where to save files
 user_pref("browser.download.useDownloadDir", false);
+// Ask whether to open or save files
+user_pref("browser.download.always_ask_before_handling_new_types", true);
 
-// --- Search ---
-// Address Bar: When using the address bar, suggest: Search engines
-user_pref("browser.urlbar.suggest.engines", false);
+// Search
+// ======
+// Show search terms in the address bar on results pages
+user_pref("browser.urlbar.showSearchTerms.enabled", false);
 
-
-// --- Privacy & Security ---
+// Privacy & Security
+// ==================
 // Ask to save passwords
 user_pref("signon.rememberSignons", false);
-
-// Enable HTTPS-Only Mode in all windows
-user_pref("dom.security.https_only_mode", true);
-
-// Enable DNS over HTTPS using: Off - Use your default DNS resolver
+// Save and autofill payment info
+user_pref("extensions.formautofill.creditCards.enabled", false);
+// Save and autofill addresses
+user_pref("extensions.formautofill.addresses.enabled", false);
+// Allow Firefox to improve features, performance, and stability between updates
+user_pref("nimbus.rollouts.enabled", false);
+// Use your default DNS resolver
 user_pref("network.trr.mode", 5);
-
-
-// --- Sync ---
-// Passwords
-user_pref("services.sync.engine.passwords", false);
-// Addresses
-user_pref("services.sync.engine.addresses", false);
-// Payment methods
-user_pref("services.sync.engine.creditcards", false);
-// Add-ons
-user_pref("services.sync.engine.addons", false);
-// Settings
-user_pref("services.sync.engine.prefs", false);
-
-
-// --- Inspector ---
-// Dock to Right
-user_pref("devtools.toolbox.host", "right");
-
-
-// Enable vertical tabs
-user_pref("sidebar.revamp", true);
-user_pref("sidebar.verticalTabs", true);
-
-user_pref("browser.fullscreen.autohide", false);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
 ****************************************************************************/
-
-
-

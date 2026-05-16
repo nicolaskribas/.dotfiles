@@ -156,6 +156,7 @@ package_base-system() {
 
 		# filesystems tools
 		btrfs-progs dosfstools exfatprogs veracrypt
+		dos2unix
 
 		# languages
 		gcc clang

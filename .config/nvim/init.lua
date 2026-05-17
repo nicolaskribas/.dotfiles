@@ -46,6 +46,8 @@ vim.diagnostic.config {
 }
 vim.cmd.colorscheme "default"
 vim.cmd.highlight "Comment gui=italic cterm=italic"
+vim.cmd.highlight "link @markup.link NONE"
+vim.cmd.highlight "link @markup.link.label Underlined" -- only underlines the label
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

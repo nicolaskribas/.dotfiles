@@ -3,3 +3,4 @@ enable bluetooth.service
 enable btrfs-scrub@.timer -
 enable snapper-timeline.timer
 enable snapper-cleanup.timer
+enable docker.socket

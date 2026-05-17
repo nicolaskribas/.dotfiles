@@ -184,7 +184,7 @@ package_base-system() {
 
 		# containers
 		podman
-		docker docker-buildx
+		docker docker-buildx docker-compose
 
 		# maintenance
 		archlinux-contrib

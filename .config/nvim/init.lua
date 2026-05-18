@@ -153,6 +153,7 @@ vim.lsp.enable {
 	"texlab",
 	"ltex_plus",
 	-- "vale_ls",
+	"sqruff",
 }
 
 vim.lsp.config("pyright", {

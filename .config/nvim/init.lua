@@ -220,8 +220,8 @@ vim.schedule(function()
 	vim.pack.add { "https://github.com/ibhagwan/fzf-lua" }
 	require("fzf-lua").setup {
 		winopts = { border = "none", preview = { border = "none" } },
-		files = { raw_cmd = "fd --follow --type=file" },
-		grep = { follow = true },
+		files = { raw_cmd = "fd --hidden --type=file --type=symlink" },
+		grep = { hidden = true },
 		keymap = { builtin = {
 			["<C-d>"] = "preview-half-page-down",
 			["<C-u>"] = "preview-half-page-up",

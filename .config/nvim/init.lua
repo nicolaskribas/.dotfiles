@@ -21,7 +21,7 @@ opt.gdefault = true -- substitute all matches in a line by default
 opt.wrap = false
 opt.linebreak = true -- use 'breakat' for determine when to wrap
 opt.breakindent = true
-opt.spelllang = { "en_us", "pt_br" }
+opt.spelllang = { "en_us" }
 opt.spellfile = {
 	vim.fn.stdpath "data" .. "/site/spell/common.utf-8.add",
 	vim.fn.stdpath "data" .. "/site/spell/en.utf-8.add",

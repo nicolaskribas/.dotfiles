@@ -209,7 +209,8 @@ vim.lsp.config("ltex_plus", {
 				commands = {
 					["\\qty{}{}"] = "dummy",
 					["\\qty[]{}{}"] = "dummy",
-					["\\etal"] = "dummy",
+					["\\todo{}"] = "ignore",
+					["\\todo[]{}"] = "ignore",
 				},
 			},
 		},

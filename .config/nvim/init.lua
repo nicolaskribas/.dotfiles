@@ -106,7 +106,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 		local lsp = vim.lsp.buf
 		local opts = { buf = args.buf }
-		map({ "n", "x" }, "grf", lsp.format, opts)
+		map({ "n", "x" }, "grf", function() lsp.format { timeout_ms = 5000 } end, opts)
 		map("n", "<Leader>wa", lsp.add_workspace_folder, opts)
 		map("n", "<Leader>wr", lsp.remove_workspace_folder, opts)
 		map("n", "<Leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)

@@ -30,13 +30,6 @@ alias -g F='| fzf'
 # --- Functions ---
 ring() { print -n '\a'; } # print bell character
 
-jupyter() {
-	uv run \
-		--with=jupyter,jupyterlab-vim,jupyter-ruff \
-		--with=jupyterlab-lsp,python-lsp-server\[all\],python-lsp-ruff \
-		jupyter "${@}"
-}
-
 ssh-copy-current-terminfo() { infocmp -x | ssh "$@" -- 'tic -x -'; }
 
 # --- Misc ---

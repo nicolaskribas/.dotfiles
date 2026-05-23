@@ -43,12 +43,10 @@ source=(
 	systemd-kahve-system.preset
 
 	# warana
-	modprobe-warana-xe.conf
 	cmdline-warana-resume.conf
 	cmdline-warana-rootflags.conf
 	mkinitcpio-warana-hooks.conf
 	systemd-warana-system.preset
-	logind-power-key-hibernate.conf
 	tlp-battery-care.conf
 )
 cksums=($(yes 'SKIP' | head -n "${#source[@]}"))
@@ -274,7 +272,6 @@ package_warana-system() {
 	echo 'warana' | install -Dm0644 /dev/stdin "$pkgdir"/etc/hostname
 	echo 'FONT=ter-v24n' | install -Dm0644 /dev/stdin "$pkgdir"/etc/vconsole.conf
 
-	install -Dm0644 modprobe-warana-xe.conf "$pkgdir"/etc/modprobe.d/xe.conf
 	install -Dm0644 cmdline-warana-resume.conf "$pkgdir"/etc/cmdline.d/resume.conf
 	install -Dm0644 cmdline-warana-rootflags.conf "$pkgdir"/etc/cmdline.d/rootflags.conf
 	install -Dm0644 mkinitcpio-warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
@@ -284,8 +281,6 @@ package_warana-system() {
 	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
 	install -Dm0644 networkd-home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
 	install -Dm0644 networkd-home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
-
-	install -Dm0644 logind-power-key-hibernate.conf "$pkgdir"/etc/systemd/logind.conf.d/power-key-hibernate.conf
 
 	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
 }

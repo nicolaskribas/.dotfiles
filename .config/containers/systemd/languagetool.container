@@ -16,7 +16,7 @@ Environment=Java_Xmx=1g
 
 PublishPort=0.0.0.0:8081:8010/tcp
 
-PodmanArgs=--cpus=2
+PodmanArgs=--cpus=1
 
 [Service]
 SuccessExitStatus=143

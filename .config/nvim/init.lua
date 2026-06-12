@@ -88,7 +88,7 @@ local init = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = init,
 	pattern = { "markdown", "tex" },
-	command = "setlocal textwidth=80 wrap",
+	command = "setlocal wrap",
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {

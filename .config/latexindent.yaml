@@ -3,7 +3,7 @@ indentPreamble: 1
 modifyLineBreaks:
   oneSentencePerLine:
     manipulateSentences: 1
-    removeSentenceLineBreaks: 0
+    removeSentenceLineBreaks: 1
 lookForAlignDelims:
   tabular:
     multiColumnGrouping: 1

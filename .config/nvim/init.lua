@@ -30,6 +30,7 @@ opt.spellfile = {
 opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
+opt.autocomplete = true
 opt.completeopt = { "fuzzy", "menuone", "noselect", "popup" }
 -- opt.shortmess:append "c"
 opt.wildmode = { "longest:full:lastused", "full" } -- complete until longest common string, then iterate over other matches, sort buffers by last used

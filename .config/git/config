@@ -9,8 +9,9 @@
 	rs = restore --staged
 	rsp = restore --staged --patch
 	s = status --short --branch
-	d = diff
-	ds = diff --staged
+	sh = -c diff.external=difft show --no-ext-diff
+	d = -c diff.external=difft diff --no-ext-diff
+	ds = -c diff.external=difft diff --no-ext-diff --staged
 	l = log --all --oneline --graph
 	lb = log-browse
 	b = branch
@@ -25,7 +26,6 @@
 	algorithm = histogram
 	colorMoved = plain
 	mnemonicPrefix = true
-	external = difft
 [commit]
 	verbose = true
 [column]

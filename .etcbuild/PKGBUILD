@@ -62,6 +62,7 @@ package_base-system() {
 
 		# network services
 		firewalld firewall-config
+		wireguard-tools
 		tailscale
 		openssh
 		openvpn
@@ -134,6 +135,7 @@ package_base-system() {
 		bpftrace
 		pandoc-cli
 		ffmpeg
+		imagemagick
 		efibootmgr
 		rclone
 		sshfs

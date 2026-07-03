@@ -89,6 +89,7 @@ package_base-system() {
 		ttc-iosevka
 		ttf-jetbrains-mono ttf-nerd-fonts-symbols-mono
 		noto-fonts noto-fonts-cjk noto-fonts-emoji
+		otf-latin-modern
 
 		# themes and icons
 		gnome-themes-extra

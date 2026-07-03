@@ -23,3 +23,11 @@ profile external {
 	output $laptop disable
 	output $hdmi enable
 }
+
+profile above {
+	output $laptop {
+		enable
+		position 320,1080
+	}
+	output $hdmi enable
+}

@@ -201,7 +201,7 @@ output * bg bg.jpeg fill
 
 # --- Includes ---
 include /etc/sway/config.d/*
-include '$(hostnamectl hostname)'
+include '$(uname -n)'
 
 
 # --- Execs ---

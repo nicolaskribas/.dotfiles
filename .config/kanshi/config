@@ -1,1 +1,1 @@
-include '~/.config/kanshi/$(hostnamectl hostname)'
+include '~/.config/kanshi/$(uname -n)'

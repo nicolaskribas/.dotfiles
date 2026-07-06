@@ -1,4 +1,5 @@
 # --- Global ---
+output=eDP-1
 max-history=128
 sort=+time
 

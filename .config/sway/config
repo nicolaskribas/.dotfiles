@@ -67,9 +67,10 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
-bindsym $mod+s split toggle
-bindsym $mod+w layout toggle stacking tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+s split vertical
+bindsym $mod+v split horizontal
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout splith
 bindsym $mod+f fullscreen
 
 floating_modifier $mod normal

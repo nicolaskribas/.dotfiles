@@ -14,6 +14,14 @@ profile laptop {
 	output $laptop enable
 }
 
+profile above {
+	output $laptop {
+		enable
+		position 320,1080
+	}
+	output $hdmi enable
+}
+
 profile extended {
 	output $laptop enable
 	output $hdmi enable
@@ -21,13 +29,5 @@ profile extended {
 
 profile external {
 	output $laptop disable
-	output $hdmi enable
-}
-
-profile above {
-	output $laptop {
-		enable
-		position 320,1080
-	}
 	output $hdmi enable
 }

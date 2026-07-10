@@ -4,7 +4,7 @@ set $hdmi HDMI-A-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
-workspace $ws1 output $hdmi $laptop
+workspace $ws1 output $laptop $hdmi
 workspace $ws2 output $hdmi $laptop
 workspace $ws3 output $hdmi $laptop
 workspace $ws4 output $hdmi $laptop
@@ -13,7 +13,7 @@ workspace $ws6 output $hdmi $laptop
 workspace $ws7 output $hdmi $laptop
 workspace $ws8 output $hdmi $laptop
 workspace $ws9 output $hdmi $laptop
-workspace $ws10 output $laptop
+workspace $ws10 output $hdmi $laptop
 
 input 1:1:AT_Translated_Set_2_keyboard {
 	xkb_layout us(altgr-intl),br(thinkpad)

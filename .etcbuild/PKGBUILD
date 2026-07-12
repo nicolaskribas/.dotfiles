@@ -180,10 +180,6 @@ package_base-system() {
 		texlive-meta texlive-langenglish texlive-langportuguese
 		perl-yaml-tiny perl-file-homedir # for latexindent
 
-		# virtualization
-		virt-manager
-		libvirt qemu-full dmidecode dnsmasq openbsd-netcat
-
 		# containers
 		podman
 		docker docker-buildx docker-compose

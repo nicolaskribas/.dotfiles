@@ -5,8 +5,7 @@ set $down j
 set $up k
 set $right l
 set $term ghostty +new-window
-set $term_float ghostty --class=floating.ghostty -e
-set $term_multiplexed ghostty -e tmux
+set $term_float ghostty --class=floating.ghostty
 set $ws1 1:1
 set $ws2 2:2
 set $ws3 3:3
@@ -39,8 +38,8 @@ set $brightness_up brightnessctl --machine-readable --min-value=300 --exponent=1
 
 # --- Bindings ---
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term_multiplexed
-bindsym $mod+p exec $term_float clipselect
+bindsym $mod+Shift+Return exec $term_float
+bindsym $mod+p exec $term_float -e clipselect
 bindsym $mod+d exec $launch
 bindsym $mod+u exec uuctl $menu -l 10 -p
 bindsym $mod+o exec $toggle_bar

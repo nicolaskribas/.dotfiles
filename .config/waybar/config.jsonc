@@ -138,7 +138,7 @@
 		"tooltip-format-linked": "Linked\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
 		"tooltip-format-disconnected": "Disconnected\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
 		"tooltip-format-disabled": "Disabled\nInterface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
-		"on-click-right": "swaymsg --pretty -- exec uwsm-app -- '$term_float' iwctl",
+		"on-click-right": "swaymsg --pretty -- exec uwsm-app -- '$term_float' -e iwctl",
 		"on-click": "rfkill toggle wlan",
 	},
 	"clock": {

@@ -23,30 +23,18 @@
 		"on-click": "swaymsg --pretty -- exec '$launch'",
 		"tooltip": false,
 	},
-	"sway/workspaces": {
-		"disable-scroll-wraparound": true,
-		"format": "{name}",
-	},
 	"sway/scratchpad": {
 		"format-icons": "󰖲",
 		"show-empty": true,
 		"on-click": "swaymsg --pretty scratchpad show",
 		"on-click-right": "swaymsg --pretty move scratchpad"
 	},
-	"sway/window": {
-		"max-length": 30,
-		"tooltip": false,
-	},
 	"sway/mode": {
 		"tooltip": false,
 	},
-	"cpu": {
-		"format": "󰻠 ",
-		"on-click": "swaymsg --pretty -- exec uwsm-app -- '$float_term' htop",
-	},
-	"memory": {
-		"format": "󰘚 ",
-		"on-click": "swaymsg --pretty -- exec uwsm-app -- '$float_term' htop",
+	"sway/workspaces": {
+		"disable-scroll-wraparound": true,
+		"format": "{name}",
 	},
 	"tray": {
 		"icon-size": 15,
@@ -71,24 +59,6 @@
 			"activated": "󰒳",
 			"deactivated": "󰒲"
 		}
-	},
-	"mpris": {
-		"format": "{player_icon} {status_icon} {dynamic}",
-		"dynamic-order": ["title", "artist", "album"],
-		"player-icons": {
-			"default": "󰐌",
-			"spotify": "󰓇",
-			"firefox": "󰈹",
-		},
-		"status-icons": {
-			"playing": "󰐌",
-			"paused": "󰏥",
-			"stopped": "󰙦",
-		},
-		"on-click": "swaymsg --pretty -- exec '$player_play_pause'",
-		"on-click-right": "swaymsg --pretty -- exec '$player_stop'",
-		"on-scroll-up": "swaymsg --pretty -- exec '$player_shift'",
-		"on-scroll-down": "swaymsg --pretty -- exec '$player_unshift'",
 	},
 	"wireplumber": {
 		"format": "{icon}",

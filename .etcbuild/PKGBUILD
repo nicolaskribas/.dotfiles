@@ -112,6 +112,7 @@ package_base-system() {
 		foot foot-terminfo
 		ghostty ghostty-nautilus
 		neovim inotify-tools # inotify-tools for lsp file watcher
+		tree-sitter-bash tree-sitter-javascript tree-sitter-python tree-sitter-rust
 		nautilus
 		thunderbird hunspell-en_us # don't forget hunspell-pt-br from AUR
 

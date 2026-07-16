@@ -47,6 +47,7 @@ source=(
 	cmdline-warana-rootflags.conf
 	mkinitcpio-warana-hooks.conf
 	systemd-warana-system.preset
+	logind-lid-switch.conf
 	tlp-battery-care.conf
 )
 cksums=($(yes 'SKIP' | head -n "${#source[@]}"))
@@ -277,6 +278,8 @@ package_warana-system() {
 	install -Dm0644 mkinitcpio-warana-hooks.conf "$pkgdir"/etc/mkinitcpio.conf.d/hooks.conf
 
 	install -Dm0644 systemd-warana-system.preset "$pkgdir"/etc/systemd/system-preset/70-warana-system.preset
+
+	install -Dm0644 logind-lid-switch.conf "$pkgdir"/etc/systemd/logind.conf.d/lid-switch.conf
 
 	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
 	install -Dm0644 networkd-home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network

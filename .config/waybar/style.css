@@ -69,26 +69,22 @@ window#waybar {
 	background: @urgent_background;
 }
 
-#custom-menu {
-	padding: 0 5 0 10pt;
-}
-#window,
-#scratchpad,
-#mode {
-	padding: 0 5pt;
+#workspaces {
+	padding: 0pt;
 }
 
-#workspaces,
+#mode,
+#clock,
 #systemd-failed-units,
 #tray,
 #custom-dnd,
 #idle_inhibitor,
 #network,
-#wireplumber,
 #battery,
-#clock {
+#wireplumber {
 	padding: 0 5pt;
 }
-#clock {
-	padding-right: 10pt;
+
+#scratchpad {
+	padding: 0 10 0 5pt;
 }

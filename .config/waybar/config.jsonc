@@ -2,11 +2,12 @@
 	"height": 24,
 	"position": "top",
 	"modules-left": [
-		"custom/menu",
-		"sway/scratchpad",
+		"sway/workspaces",
 		"sway/mode",
 	],
-	"modules-center": ["sway/workspaces"],
+	"modules-center": [
+		"clock",
+	],
 	"modules-right": [
 		"tray",
 		"systemd-failed-units",
@@ -16,18 +17,13 @@
 		"network",
 		"battery",
 		"wireplumber",
-		"clock",
+		"sway/scratchpad",
 	],
-	"custom/menu": {
-		"format": "󰣇 ",
-		"on-click": "swaymsg --pretty -- exec '$launch'",
-		"tooltip": false,
-	},
 	"sway/scratchpad": {
 		"format-icons": "󰖲",
 		"show-empty": true,
 		"on-click": "swaymsg --pretty scratchpad show",
-		"on-click-right": "swaymsg --pretty move scratchpad"
+		"on-click-right": "swaymsg --pretty move scratchpad",
 	},
 	"sway/mode": {
 		"tooltip": false,
@@ -57,8 +53,8 @@
 		"format": "{icon}",
 		"format-icons": {
 			"activated": "󰒳",
-			"deactivated": "󰒲"
-		}
+			"deactivated": "󰒲",
+		},
 	},
 	"wireplumber": {
 		"format": "{icon}",
@@ -91,7 +87,7 @@
 		"format-ethernet": "󰈁",
 		"format-linked": "󰈁",
 		"format-disconnected": "󰈂",
-		"format-disabled": "{ifname} Disabled",
+		"format-disabled": "󰈂",
 		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}",
 		"tooltip-format-disconnected": "Disconnected\nInterface: {ifname}",
 		// "on-click-right": launch networkctl edit or something
@@ -112,7 +108,7 @@
 		"on-click": "rfkill toggle wlan",
 	},
 	"clock": {
-		"format": "{:%A %R}",
-		"tooltip-format": "{:%Y-%m-%d}",
+		"format": "{:%A %d, %R}",
+		"tooltip-format": "<tt>{calendar}</tt>",
 	},
 }

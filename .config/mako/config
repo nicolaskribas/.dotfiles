@@ -2,6 +2,7 @@
 output=eDP-1
 max-history=128
 sort=+time
+anchor=top-center
 
 # --- Binding ---
 on-button-middle=exec swaymsg --pretty -- exec makoctl menu -n "$id" -- '$menu -p "select action"'

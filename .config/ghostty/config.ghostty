@@ -11,6 +11,8 @@ palette-harmonious=true
 cursor-style=bar
 cursor-style-blink=true
 
+adjust-cell-height=20%
+
 shell-integration=none
 shell-integration-features=no-cursor,no-sudo,no-title,no-ssh-env,no-ssh-terminfo,no-path
 

@@ -1,2 +1,6 @@
 [Context]
+sockets=wayland;!x11
 filesystems=xdg-config/fontconfig:ro
+
+[Environment]
+ELECTRON_OZONE_PLATFORM_HINT=wayland

@@ -1,5 +1,2 @@
-[Context]
-sockets=!x11
-
 [Environment]
 SIGNAL_USE_WAYLAND=1

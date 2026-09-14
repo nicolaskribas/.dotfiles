@@ -263,7 +263,7 @@ package_kahve-system() {
 package_warana-system() {
 	depends=(
 		base-system
-		intel-ucode mesa vulkan-intel intel-media-driver sof-firmware
+		intel-ucode mesa intel-media-driver sof-firmware
 		iwd wireless-regdb
 		bluez bluez-utils blueman
 		cryptsetup sbctl fprintd

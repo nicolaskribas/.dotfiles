@@ -1,0 +1,16 @@
+#!/bin/sh
+
+case "$1" in
+start)
+	makoctl mode -a dnd >/dev/null
+	;;
+stop)
+	makoctl mode -r dnd >/dev/null
+	;;
+*)
+	echo "usage: $0 {start|stop}"
+	exit 1
+	;;
+esac
+
+pkill --signal SIGRTMIN+1 --euid "$USER" --exact waybar

@@ -71,12 +71,17 @@ zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # --- Key Bindings ---
+zmodload zsh/complist
 bindkey -v   # use vi keymap
 KEYTIMEOUT=1 # reduce time waited reading multi-character key bindings (fixes escape delay when exiting insert mode)
 
+bindkey -M viins '^?' backward-delete-char # backspace, this is mapped to vi-backward-delete-char by default
 bindkey -M viins '^h' backward-delete-char # this is mapped to vi-backward-delete-char by default
 bindkey -M viins '^w' backward-kill-word   # this is mapped to vi-backward-kill-word by default
 bindkey -M viins '^u' kill-whole-line      # this is mapped to vi-kill-line by default
+
+bindkey -M viins '^n' menu-complete         # start completion selecting the first match, like vim's i_CTRL-N
+bindkey -M viins '^p' reverse-menu-complete # start completion selecting the last match, like vim's i_CTRL-P
 
 autoload -Uz up-line-or-beginning-search && zle -N up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search && zle -N down-line-or-beginning-search
@@ -95,7 +100,7 @@ if [[ -n "${terminfo[kcud1]}" ]]; then # down
 fi
 
 if [[ -n "${terminfo[kcbt]}" ]]; then # shift-tab
-	zmodload zsh/complist
+	bindkey -M viins "${terminfo[kcbt]}" reverse-menu-complete
 	bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
 fi
 
@@ -128,6 +133,11 @@ if [[ -n "${terminfo[knp]}" ]]; then # page down
 	bindkey -M viins "${terminfo[knp]}" end-of-buffer-or-history
 	bindkey -M vicmd "${terminfo[knp]}" end-of-buffer-or-history
 fi
+
+# completion menu
+bindkey -M menuselect '^[' vi-cmd-mode                  # esc: keep the selection and go to normal mode (unbound, it waited for and swallowed the next key)
+bindkey -M menuselect '^y' accept-line                  # accept the match (like enter, doesn't run the command)
+bindkey -M menuselect '^e' send-break                   # cancel, restoring the command line from before the menu
 
 autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line

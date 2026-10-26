@@ -1,20 +1,19 @@
 #!/bin/bash
 set -Eeuo pipefail
-trap 'echo "${0}: Error on line ${LINENO}: ${BASH_COMMAND}" >&2' ERR
+trap 'echo "$0: Error on line $LINENO: $BASH_COMMAND" >&2' ERR
 
 if [ -z "${1-}" ]; then
 	echo 'No argument supplied' >&2
 	exit 1
 fi
 
-VAULT="${1}"
+VAULT=$1
 
-if [ ! -d "${VAULT}" ]; then
-	echo "'${VAULT}' is not a directory" >&2
+if [ ! -d "$VAULT" ]; then
+	echo "'$VAULT' is not a directory" >&2
 	exit 1
 fi
 
-mdformat --number --wrap 80 --exclude '**/*.excalidraw.md' "${VAULT}"
-markdownlint-cli2 "${VAULT}/**/*.md" "!${VAULT}/**/*.excalidraw.md" --fix || true
-johnnycheck "${VAULT}"
-fd --color=never --type=file --exclude='*.md' . "${VAULT}"
+mdformat --number --wrap 80 --exclude '**/*.excalidraw.md' "$VAULT"
+markdownlint-cli2 "$VAULT/**/*.md" "!$VAULT/**/*.excalidraw.md" --fix || true
+fd --color=never --type=file --exclude='*.md' --exclude='*.svg' . "$VAULT"

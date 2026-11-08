@@ -1,0 +1,15 @@
+# keep the current and one previous build in the aurutils repository (pacman.conf CacheDir, see aur(1) "CacheDir")
+# no --uninstalled: the repo also holds packages that are not installed on this host (e.g. kahve-system on warana)
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Removing old package files from the custom repository (keeping two)...
+Exec = /usr/bin/paccache --remove --verbose --keep 2 --cachedir /var/cache/pacman/custompkgs
+When = PostTransaction
+Depends = pacman-contrib

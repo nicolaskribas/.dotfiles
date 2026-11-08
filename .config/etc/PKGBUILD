@@ -29,6 +29,7 @@ source=(
 	pacman-dashbinsh.hook
 	pacman-paccache-1.hook
 	pacman-paccache-2.hook
+	pacman-paccache-3.hook
 	pacman-systemd-boot.hook
 	pacman.conf
 
@@ -235,6 +236,7 @@ package_base-system() {
 	install -Dm0644 pacman-dashbinsh.hook "$pkgdir"/etc/pacman.d/hooks/dashbinsh.hook
 	install -Dm0644 pacman-paccache-1.hook "$pkgdir"/etc/pacman.d/hooks/paccache-1.hook
 	install -Dm0644 pacman-paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
+	install -Dm0644 pacman-paccache-3.hook "$pkgdir"/etc/pacman.d/hooks/paccache-3.hook
 	install -Dm0644 pacman-systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
 }

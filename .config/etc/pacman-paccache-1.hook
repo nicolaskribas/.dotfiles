@@ -1,4 +1,6 @@
 # https://aur.archlinux.org/packages/pacman-cleanup-hook
+# --cachedir: without it paccache prunes every CacheDir, including the aurutils repo (handled by paccache-3.hook)
+# no --min-mtime: pacman stamps files with the mirror's publish time, so a window keeps every build of fast-moving packages
 
 [Trigger]
 Operation = Install
@@ -8,7 +10,7 @@ Type = Package
 Target = *
 
 [Action]
-Description = Removing old cached package files (keeping at least two)...
-Exec = /usr/bin/paccache --remove --verbose --keep 2 --min-mtime '30 days ago'
+Description = Removing old cached package files (keeping two)...
+Exec = /usr/bin/paccache --remove --verbose --keep 2 --cachedir /var/cache/pacman/pkg
 When = PostTransaction
 Depends = pacman-contrib

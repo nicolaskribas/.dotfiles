@@ -16,6 +16,9 @@ source=(
 	systemd-flatpak-update.timer
 	systemd-networkd-wait-online-override.conf
 	journald.conf
+	smartd-notify.conf
+	smartd-notify.sh
+	systemd-smartd-override.conf
 	oomd-slice-oom-kill.conf
 	networkd-ipv6-privacy-extensions.conf
 	firewalld-service-localsend.xml
@@ -192,6 +195,7 @@ package_base-system() {
 		rebuild-detector
 		lostfiles
 		fwupd
+		smartmontools
 
 		#
 		aws-cli-v2 github-cli
@@ -212,6 +216,10 @@ package_base-system() {
 	install -Dm0644 systemd-networkd-wait-online-override.conf "$pkgdir"/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf
 
 	install -Dm0644 journald.conf "$pkgdir"/etc/systemd/journald.conf.d/override.conf
+
+	install -Dm0644 smartd-notify.conf "$pkgdir"/etc/smartd-notify.conf
+	install -Dm0755 smartd-notify.sh "$pkgdir"/usr/lib/base-system/smartd-notify
+	install -Dm0644 systemd-smartd-override.conf "$pkgdir"/etc/systemd/system/smartd.service.d/override.conf
 
 	install -Dm0644 oomd-slice-oom-kill.conf "$pkgdir"/etc/systemd/system/user.slice.d/10-oom-kill.conf
 	install -Dm0644 oomd-slice-oom-kill.conf "$pkgdir"/etc/systemd/system/system.slice.d/10-oom-kill.conf

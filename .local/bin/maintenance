@@ -46,6 +46,16 @@ yn 'show pacreport?' && sudo pacreport --missing-files | less
 
 separator
 
+# paccache-2.hook keeps one cached version of every uninstalled package, so a
+# removed package can be reinstalled from the cache until it's deleted here
+# or-true: grep returns 1 when there is nothing to delete
+uninstalled_cache_size="$(paccache --dryrun --nocolor --uninstalled --keep 0 --cachedir /var/cache/pacman/pkg 2>&1 | grep -Po 'disk space saved: \K[^)]+' || true)"
+if [ -n "${uninstalled_cache_size}" ]; then
+	yn "remove cached files of uninstalled packages (${uninstalled_cache_size})?" && sudo paccache --remove --uninstalled --keep 0 --cachedir /var/cache/pacman/pkg
+
+	separator
+fi
+
 # or-true: checkupdates returns nonzero code when no update is found
 number_of_pending_updates="$({ checkupdates || true; } | wc --lines)"
 if ((number_of_pending_updates >= 1)); then
@@ -55,7 +65,12 @@ if ((number_of_pending_updates >= 1)); then
 	separator
 fi
 
-yn "update AUR packages?" && aur sync -u
+if yn "update AUR packages?"; then
+	# uninstalled AUR packages stay in [custom] to be reinstalled; don't rebuild them
+	aur sync --upgrades --clean --ignore-file=<(pacman -Sl custom | awk '!/\[installed/ {print $2}')
+	# remove downloaded sources left in the clones; directories (VCS clones) and tracked files are kept
+	find "${AURDEST:-${XDG_CACHE_HOME:-${HOME}/.cache}/aurutils/sync}" -mindepth 2 -maxdepth 2 -name .git -execdir git clean -xfq \;
+fi
 
 separator
 

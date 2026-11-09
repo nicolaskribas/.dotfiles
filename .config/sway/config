@@ -20,10 +20,11 @@ set $toggle_bar pkill --signal SIGUSR1 --euid "$USER" --exact waybar
 set $menu wmenu -i -f "system-ui 11" -N 222222 -n 888888 -M 285577 -m ffffff -S 285577 -s ffffff
 set $launch j4-dmenu-desktop --display-binary-base --dmenu='$menu -l 10 -p launch' --term-mode custom --term="ghostty +new-window --title={name} -e {cmdline@}" --wrapper 'uwsm-app --'
 set $notify_progress xargs --no-run-if-empty -I{} notify-send --category=system --expire-time=1000 --hint=string:x-canonical-private-synchronous:progress --hint=int:value:{}
-set $player_prev playerctl previous
-set $player_next playerctl next
-set $player_play_pause playerctl play-pause
-set $player_stop playerctl stop
+# selecting playerctld makes D-Bus start it on first use
+set $player_prev playerctl --player=playerctld previous
+set $player_next playerctl --player=playerctld next
+set $player_play_pause playerctl --player=playerctld play-pause
+set $player_stop playerctl --player=playerctld stop
 set $player_shift playerctld shift
 set $player_unshift playerctld unshift
 set $mic_mute wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle

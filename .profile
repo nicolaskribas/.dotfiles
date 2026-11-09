@@ -3,6 +3,7 @@
 export GNUPGHOME=${XDG_DATA_HOME:-$HOME/.local/share}/gnupg
 export PASSWORD_STORE_DIR=${XDG_DATA_HOME:-$HOME/.local/share}/pass
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+export CLIPHIST_DB_PATH=$XDG_RUNTIME_DIR/cliphist/db # keep clipboard history in RAM
 export PATH=$HOME/.local/bin:$PATH
 
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/$(uname -n).profile" ]; then

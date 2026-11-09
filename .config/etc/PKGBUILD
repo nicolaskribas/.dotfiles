@@ -71,7 +71,7 @@ package_base-system() {
 		tailscale
 		openssh
 		openvpn
-		cups cups-pdf
+		cups cups-pdf gutenprint
 
 		# login manager
 		greetd greetd-tuigreet
@@ -136,7 +136,7 @@ package_base-system() {
 		less stdoutisatty
 		fzf fd ripgrep ripgrep-all
 		parallel
-		tree dua-cli
+		tree dust gdu
 		chafa
 		htop bpftop
 		bpftrace

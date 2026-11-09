@@ -116,7 +116,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.api.nvim_create_autocmd("LspProgress", {
 	group = init,
-	buffer = buf,
 	callback = function(ev)
 		local value = ev.data.params.value
 		vim.api.nvim_echo({ { value.message or "done" } }, false, {

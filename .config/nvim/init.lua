@@ -137,6 +137,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.treesitter.language.register("bash", "sh")
+
+-- use tree-sitter highlighting whenever a parser is installed; pcall because most filetypes (and bigfile) have none
+vim.api.nvim_create_autocmd("FileType", {
+	group = init,
+	callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
+
 vim.pack.add { {
 	src = "https://github.com/neovim/nvim-lspconfig",
 	version = vim.version.range "^v2.7.0",

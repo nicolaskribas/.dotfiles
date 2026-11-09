@@ -4,8 +4,8 @@
 x-scheme-handler/http=org.mozilla.firefox.desktop
 x-scheme-handler/https=org.mozilla.firefox.desktop
 
-x-scheme-handler/mailto=org.mozilla.Thunderbird.desktop
-message/rfc822=org.mozilla.Thunderbird.desktop
+x-scheme-handler/mailto=org.mozilla.thunderbird.desktop
+message/rfc822=org.mozilla.thunderbird.desktop
 
 application/pdf=org.gnome.Papers.desktop
 

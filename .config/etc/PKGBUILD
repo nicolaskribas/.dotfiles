@@ -23,6 +23,7 @@ source=(
 	networkd-ipv6-privacy-extensions.conf
 	firewalld-service-localsend.xml
 	firewalld-service-jellyfin.xml
+	firewalld-service-packet.xml
 	tlp-performance.conf
 	sshd-hardened.conf
 	greetd-config.toml
@@ -53,6 +54,7 @@ source=(
 	systemd-warana-system.preset
 	logind-lid-switch.conf
 	tlp-battery-care.conf
+	firewalld-zone-home.xml
 )
 cksums=($(yes 'SKIP' | head -n "${#source[@]}"))
 
@@ -228,6 +230,7 @@ package_base-system() {
 
 	install -Dm0644 firewalld-service-localsend.xml "$pkgdir"/etc/firewalld/services/localsend.xml
 	install -Dm0644 firewalld-service-jellyfin.xml "$pkgdir"/etc/firewalld/services/jellyfin.xml
+	install -Dm0644 firewalld-service-packet.xml "$pkgdir"/etc/firewalld/services/packet.xml
 
 	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
 
@@ -298,6 +301,8 @@ package_warana-system() {
 	install -Dm0644 networkd-wlan.network "$pkgdir"/etc/systemd/network/20-wlan.network
 	install -Dm0644 networkd-dns-cloudflare.conf "$pkgdir"/etc/systemd/network/20-ether.network.d/dns.conf
 	install -Dm0644 networkd-dns-cloudflare.conf "$pkgdir"/etc/systemd/network/20-wlan.network.d/dns.conf
+
+	install -Dm0644 firewalld-zone-home.xml "$pkgdir"/etc/firewalld/zones/home.xml
 
 	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
 }

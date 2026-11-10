@@ -37,10 +37,10 @@ source=(
 	pacman.conf
 
 	# shared
-	networkd-home-ether.network
-	networkd-home-wlan.network
-	networkd-uni-ether.network
-	networkd-uni-wlan.network
+	networkd-ether.network
+	networkd-wlan.network
+	networkd-dns-cloudflare.conf
+	networkd-dns-from-network.conf
 
 	# kahve
 	mkinitcpio-kahve-hooks.conf
@@ -266,8 +266,10 @@ package_kahve-system() {
 	install -Dm0644 systemd-kahve-system.preset "$pkgdir"/etc/systemd/system-preset/70-kahve-system.preset
 
 	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
-	install -Dm0644 networkd-uni-ether.network "$pkgdir"/etc/systemd/network/20-uni-ether.network
-	install -Dm0644 networkd-uni-wlan.network "$pkgdir"/etc/systemd/network/20-uni-wlan.network
+	install -Dm0644 networkd-ether.network "$pkgdir"/etc/systemd/network/20-ether.network
+	install -Dm0644 networkd-wlan.network "$pkgdir"/etc/systemd/network/20-wlan.network
+	install -Dm0644 networkd-dns-from-network.conf "$pkgdir"/etc/systemd/network/20-ether.network.d/dns.conf
+	install -Dm0644 networkd-dns-from-network.conf "$pkgdir"/etc/systemd/network/20-wlan.network.d/dns.conf
 }
 
 package_warana-system() {
@@ -292,8 +294,10 @@ package_warana-system() {
 	install -Dm0644 logind-lid-switch.conf "$pkgdir"/etc/systemd/logind.conf.d/lid-switch.conf
 
 	echo 'WIRELESS_REGDOM="BR"' | install -Dm0644 /dev/stdin "$pkgdir"/etc/conf.d/wireless-regdom
-	install -Dm0644 networkd-home-ether.network "$pkgdir"/etc/systemd/network/20-home-ether.network
-	install -Dm0644 networkd-home-wlan.network "$pkgdir"/etc/systemd/network/20-home-wlan.network
+	install -Dm0644 networkd-ether.network "$pkgdir"/etc/systemd/network/20-ether.network
+	install -Dm0644 networkd-wlan.network "$pkgdir"/etc/systemd/network/20-wlan.network
+	install -Dm0644 networkd-dns-cloudflare.conf "$pkgdir"/etc/systemd/network/20-ether.network.d/dns.conf
+	install -Dm0644 networkd-dns-cloudflare.conf "$pkgdir"/etc/systemd/network/20-wlan.network.d/dns.conf
 
 	install -Dm0644 tlp-battery-care.conf "$pkgdir"/etc/tlp.d/20-battery-care.conf
 }

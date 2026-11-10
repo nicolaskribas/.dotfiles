@@ -1,0 +1,18 @@
+; vim: ft=systemd
+
+[Match]
+Kind=!*
+Type=ether
+
+[Network]
+Description=DHCP configured Ethernet interface
+DHCP=yes
+IPv6AcceptRA=yes
+LLMNR=no
+IgnoreCarrierLoss=no
+
+[DHCPv4]
+RouteMetric=512
+
+[IPv6AcceptRA]
+RouteMetric=512

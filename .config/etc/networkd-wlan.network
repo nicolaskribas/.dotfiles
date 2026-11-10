@@ -1,0 +1,18 @@
+; vim: ft=systemd
+
+[Match]
+Kind=!*
+Type=wlan
+
+[Network]
+Description=DHCP configured wireless interface
+DHCP=yes
+IPv6AcceptRA=yes
+LLMNR=no
+IgnoreCarrierLoss=10s
+
+[DHCPv4]
+RouteMetric=1024
+
+[IPv6AcceptRA]
+RouteMetric=1024

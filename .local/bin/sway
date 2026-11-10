@@ -1,9 +1,0 @@
-#!/bin/sh
-
-export SSH_ASKPASS=lxqt-openssh-askpass
-
-if lsmod | grep nvidia; then
-	WLR_RENDERER=vulkan exec /usr/bin/sway --unsupported-gpu "${@}"
-else
-	exec /usr/bin/sway "${@}"
-fi

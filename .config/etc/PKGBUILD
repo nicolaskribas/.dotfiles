@@ -35,6 +35,7 @@ source=(
 	pacman-paccache-2.hook
 	pacman-paccache-3.hook
 	pacman-systemd-boot.hook
+	pacman-networkd-reload.hook
 	pacman.conf
 
 	# shared
@@ -249,6 +250,7 @@ package_base-system() {
 	install -Dm0644 pacman-paccache-2.hook "$pkgdir"/etc/pacman.d/hooks/paccache-2.hook
 	install -Dm0644 pacman-paccache-3.hook "$pkgdir"/etc/pacman.d/hooks/paccache-3.hook
 	install -Dm0644 pacman-systemd-boot.hook "$pkgdir"/etc/pacman.d/hooks/95-systemd-boot.hook
+	install -Dm0644 pacman-networkd-reload.hook "$pkgdir"/etc/pacman.d/hooks/networkd-reload.hook
 	install -Dm0644 pacman.conf "$pkgdir"/etc/pacman.conf
 }
 

@@ -99,7 +99,7 @@
 		"format-disconnected": "󰤮",
 		"format-disabled": "󰀝",
 		"tooltip-format": "Interface: {ifname}\nIP/CIDR: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}% {signaldBm}dBm\nFrequency: {frequency}MHz",
-		"on-click-right": "swaymsg --pretty -- exec uwsm-app -- '$term_float' -e iwctl",
+		"on-click-right": "swaymsg --pretty -- exec '$term_float' -e iwctl",
 		"on-click": "rfkill toggle wlan",
 	},
 	"clock": {

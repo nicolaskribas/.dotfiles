@@ -1,9 +1,7 @@
 font-family = Iosevka Fixed
 font-feature = ss17 on
 font-synthetic-style = false
-font-size = 12
 confirm-close-surface = false
-gtk-titlebar-hide-when-maximized = false
 
 theme=neovim-dark
 palette-generate=true
@@ -14,8 +12,7 @@ cursor-style-blink=true
 adjust-cell-height=20%
 
 shell-integration=none
-shell-integration-features=no-cursor,no-sudo,no-title,no-ssh-env,no-ssh-terminfo,no-path
 
-bell-features = no-system,no-audio,attention,no-title,no-border
+bell-features = no-title
 
 quit-after-last-window-closed = false

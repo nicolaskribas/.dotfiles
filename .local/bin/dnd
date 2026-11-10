@@ -7,8 +7,11 @@ start)
 stop)
 	makoctl mode -r dnd >/dev/null
 	;;
+toggle)
+	makoctl mode -t dnd >/dev/null
+	;;
 *)
-	echo "usage: $0 {start|stop}"
+	echo "usage: $0 {start|stop|toggle}"
 	exit 1
 	;;
 esac

@@ -45,7 +45,7 @@
 		"return-type": "json",
 		"exec": "printf '{\"text\": \"%s\", \"tooltip\": \"mako mode:\\\\n%s\"}\n' \"$(makoctl mode | grep -q dnd && echo -n 󰂛 || echo -n 󰂚 )\" \"$(makoctl mode | sed ':a;N;$!ba;s/\\n/\\\\n/g')\"",
 		"exec-on-event": false,
-		"on-click": "makoctl mode -t dnd > /dev/null; pkill --signal SIGRTMIN+1 --euid \"$USER\" --exact waybar",
+		"on-click": "dnd toggle",
 		"signal": 1,
 	},
 	"idle_inhibitor": {

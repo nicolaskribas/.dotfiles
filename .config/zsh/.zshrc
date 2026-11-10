@@ -32,7 +32,7 @@ ring() { print -n '\a'; } # print bell character
 
 ssh-copy-current-terminfo() { infocmp -x | ssh "$@" -- 'tic -x -'; }
 
-clip() { print -n "\e]52;c;$(head --bytes=74994 | base64 --wrap=0)\a" >$TTY; } # copy stdin to the terminal's clipboard (OSC 52), at most what fits in 100000 bytes
+clip() { print -n "\e]52;c;$(base64 --wrap=0)\a" >$TTY; } # copy stdin to the terminal's clipboard (OSC 52)
 
 # --- Misc ---
 setopt extended_glob

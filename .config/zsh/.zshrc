@@ -32,6 +32,8 @@ ring() { print -n '\a'; } # print bell character
 
 ssh-copy-current-terminfo() { infocmp -x | ssh "$@" -- 'tic -x -'; }
 
+clip() { print -n "\e]52;c;$(head --bytes=74994 | base64 --wrap=0)\a" >$TTY; } # copy stdin to the terminal's clipboard (OSC 52), at most what fits in 100000 bytes
+
 # --- Misc ---
 setopt extended_glob
 setopt no_clobber
@@ -141,6 +143,12 @@ bindkey -M menuselect '^e' send-break                   # cancel, restoring the 
 
 autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
+
+# yanks also go to the clipboard
+vi-yank() { zle .vi-yank && print -rn -- $CUTBUFFER | clip; }
+vi-yank-whole-line() { zle .vi-yank-whole-line && print -rn -- $CUTBUFFER | clip; }
+zle -N vi-yank
+zle -N vi-yank-whole-line
 
 # --- Cursor and Application Mode ---
 zle-line-init() {

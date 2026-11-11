@@ -91,6 +91,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = "setlocal wrap",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	group = init,
+	callback = function(args)
+		if vim.treesitter.language.add(vim.treesitter.language.get_lang(args.match)) then vim.treesitter.start() end
+	end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = init,
 	callback = function() vim.hl.on_yank { on_visual = false } end,
@@ -137,10 +144,28 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.pack.add { {
-	src = "https://github.com/neovim/nvim-lspconfig",
-	version = vim.version.range "^v2.7.0",
-} }
+-- plugin hooks; must be defined before vim.pack.add to run on install
+vim.api.nvim_create_autocmd("PackChanged", {
+	group = init,
+	callback = function(ev)
+		if ev.data.spec.name ~= "nvim-treesitter" then return end
+		if ev.data.kind == "install" then
+			vim.cmd.packadd(ev.data.spec.name)
+			require("nvim-treesitter").install({ "stable", "unstable" }):wait()
+		elseif ev.data.kind == "update" then
+			require("nvim-treesitter").install({ "stable", "unstable" }):wait()
+			require("nvim-treesitter").update():wait()
+		end
+	end,
+})
+
+vim.pack.add {
+	"https://github.com/nvim-treesitter/nvim-treesitter",
+	{
+		src = "https://github.com/neovim/nvim-lspconfig",
+		version = vim.version.range "^v2.7.0",
+	},
+}
 
 vim.lsp.enable {
 	"rust_analyzer",

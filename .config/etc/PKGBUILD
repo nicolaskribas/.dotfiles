@@ -119,7 +119,7 @@ package_base-system() {
 		flatpak
 		foot foot-terminfo
 		ghostty ghostty-nautilus
-		neovim inotify-tools # inotify-tools for lsp file watcher
+		neovim inotify-tools tree-sitter-cli # inotify-tools for lsp file watcher, tree-sitter-cli for nvim-treesitter plugin
 		nautilus
 		hunspell-en_us # don't forget hunspell-pt-br from AUR
 

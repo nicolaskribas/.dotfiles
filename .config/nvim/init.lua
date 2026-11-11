@@ -144,18 +144,15 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- plugin hooks; must be defined before vim.pack.add to run on install
+-- before vim.pack.add, so it also runs on install
 vim.api.nvim_create_autocmd("PackChanged", {
 	group = init,
 	callback = function(ev)
-		if ev.data.spec.name ~= "nvim-treesitter" then return end
-		if ev.data.kind == "install" then
-			vim.cmd.packadd(ev.data.spec.name)
-			require("nvim-treesitter").install({ "stable", "unstable" }):wait()
-		elseif ev.data.kind == "update" then
-			require("nvim-treesitter").install({ "stable", "unstable" }):wait()
-			require("nvim-treesitter").update():wait()
-		end
+		if ev.data.spec.name ~= "nvim-treesitter" or ev.data.kind == "delete" then return end
+		vim.cmd "packadd! nvim-treesitter" -- on install it isn't on 'runtimepath' yet
+		local ts, tiers = require "nvim-treesitter", { "stable", "unstable" }
+		ts.install(tiers):wait()
+		ts.update(tiers):wait()
 	end,
 })
 

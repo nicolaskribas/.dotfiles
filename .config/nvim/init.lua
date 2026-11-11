@@ -148,11 +148,13 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("PackChanged", {
 	group = init,
 	callback = function(ev)
-		if ev.data.spec.name ~= "nvim-treesitter" or ev.data.kind == "delete" then return end
-		vim.cmd "packadd! nvim-treesitter" -- on install it isn't on 'runtimepath' yet
-		local ts, tiers = require "nvim-treesitter", { "stable", "unstable" }
-		ts.install(tiers):wait()
-		ts.update(tiers):wait()
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
+			if not ev.data.active then vim.cmd.packadd(name) end
+			local ts, tiers = require "nvim-treesitter", { "stable", "unstable" }
+			ts.install(tiers):wait()
+			ts.update(tiers):wait()
+		end
 	end,
 })
 

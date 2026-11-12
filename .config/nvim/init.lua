@@ -144,6 +144,38 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- parsers for nvim-treesitter: the stable tier plus the languages I use; commented out ones ship with neovim
+local languages = {
+	"stable",
+	"bash",
+	"bibtex",
+	-- "c",
+	"css",
+	"csv",
+	"diff",
+	"dockerfile",
+	"git_rebase",
+	"gitcommit",
+	"html",
+	"json",
+	"latex",
+	-- "lua",
+	"make",
+	-- "markdown",
+	-- "markdown_inline",
+	"python",
+	-- "query",
+	"regex",
+	"rust",
+	"sql",
+	"toml",
+	-- "vim",
+	-- "vimdoc",
+	"xml",
+	"yaml",
+	"zsh",
+}
+
 -- before vim.pack.add, so it also runs on install
 vim.api.nvim_create_autocmd("PackChanged", {
 	group = init,
@@ -151,9 +183,9 @@ vim.api.nvim_create_autocmd("PackChanged", {
 		local name, kind = ev.data.spec.name, ev.data.kind
 		if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
 			if not ev.data.active then vim.cmd.packadd(name) end
-			local ts, tiers = require "nvim-treesitter", { "stable", "unstable" }
-			ts.install(tiers):wait()
-			ts.update(tiers):wait()
+			local ts = require "nvim-treesitter"
+			ts.install(languages):wait()
+			ts.update(languages):wait()
 		end
 	end,
 })

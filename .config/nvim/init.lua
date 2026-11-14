@@ -286,6 +286,7 @@ vim.schedule(function()
 			["<C-u>"] = "preview-half-page-up",
 		} },
 	}
+	FzfLua.register_ui_select()
 	map("n", "<Leader>ff", FzfLua.files)
 	map("n", "<Leader>fg", FzfLua.live_grep)
 	map("n", "<Leader>fa", FzfLua.args)

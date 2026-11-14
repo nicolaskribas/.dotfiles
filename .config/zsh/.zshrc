@@ -151,23 +151,25 @@ zle -N vi-yank
 zle -N vi-yank-whole-line
 
 # --- Cursor and Application Mode ---
-zle-line-init() {
+_zle_line_init() {
 	((${+terminfo[smkx]})) && echoti smkx # enable terminal application mode
 	print -n '\e[5 q'                     # starts with a blinking beam
 }
-zle -N zle-line-init
 
 # disable terminal application mode
-zle-line-finish() { ((${+terminfo[rmkx]})) && echoti rmkx; }
-zle -N zle-line-finish
+_zle_line_finish() { ((${+terminfo[rmkx]})) && echoti rmkx; }
 
-zle-keymap-select() {
+_zle_keymap_select() {
 	case $KEYMAP in
 	vicmd | visual) print -n '\e[1 q' ;; # go to a blinking block when in vicmd
 	*) print -n '\e[5 q' ;;              # beam again when back to viins mode
 	esac
 }
-zle -N zle-keymap-select
+
+autoload -Uz add-zle-hook-widget
+add-zle-hook-widget line-init _zle_line_init
+add-zle-hook-widget line-finish _zle_line_finish
+add-zle-hook-widget keymap-select _zle_keymap_select
 
 # --- Prompt ---
 autoload -Uz vcs_info

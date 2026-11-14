@@ -16,13 +16,11 @@ ExecStart=/usr/bin/rclone bisync \
 	--password-command 'pass rclone' \
 	--log-level INFO \
 	drive:computers %h/library
-Restart=on-failure
+RestartForceExitStatus=1
+# 1 for a retryable error; 2 is a critically aborted run (requires a --resync to recover)
 RestartSec=1s
 RestartSteps=10
 RestartMaxDelaySec=30min
-RestartPreventExitStatus=2
-# 2 for a critically aborted run (requires a --resync to recover)
-# TODO: invert logic, use RestartForceExitStatus=1 (not available for oneshot yet)
 
 [Install]
 WantedBy=default.target

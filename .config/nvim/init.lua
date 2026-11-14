@@ -189,6 +189,9 @@ vim.api.nvim_create_autocmd("PackChanged", {
 	end,
 })
 
+vim.cmd.packadd "nvim.undotree"
+vim.cmd.packadd "nvim.difftool"
+
 vim.pack.add {
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	{

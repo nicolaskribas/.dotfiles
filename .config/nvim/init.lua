@@ -31,6 +31,7 @@ opt.splitbelow = true
 opt.splitright = true
 opt.pumheight = 10
 opt.autocomplete = true
+opt.complete:prepend "o"
 opt.completeopt:append "fuzzy"
 -- opt.shortmess:append "c"
 opt.wildmode = { "longest:full:lastused", "full" } -- complete until longest common string, then iterate over other matches, sort buffers by last used
@@ -106,8 +107,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client:supports_method "textDocument/completion" then
-			-- local var_name_chars = vim.split("_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "")
-			-- vim.list_extend(client.server_capabilities.completionProvider.triggerCharacters or {}, var_name_chars)
 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 		end
 		local lsp = vim.lsp.buf

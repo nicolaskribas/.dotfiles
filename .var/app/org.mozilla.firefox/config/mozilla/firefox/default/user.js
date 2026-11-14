@@ -247,8 +247,6 @@ user_pref("signon.rememberSignons", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 // Save and autofill addresses
 user_pref("extensions.formautofill.addresses.enabled", false);
-// Allow Firefox to improve features, performance, and stability between updates
-user_pref("nimbus.rollouts.enabled", false);
 // Use your default DNS resolver
 user_pref("network.trr.mode", 5);
 

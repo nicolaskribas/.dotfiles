@@ -3,7 +3,7 @@ font-feature = ss17 on
 font-synthetic-style = false
 confirm-close-surface = false
 
-theme=neovim-dark
+theme=light:neovim-light,dark:neovim-dark
 palette-generate=true
 palette-harmonious=true
 cursor-style=bar

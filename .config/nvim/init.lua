@@ -69,7 +69,7 @@ map("n", "<Leader>qd", vim.diagnostic.setqflist)
 map("n", "<Leader>qe", function() vim.diagnostic.setqflist { severity = vim.diagnostic.severity.ERROR } end)
 map("n", "<Leader>qw", function() vim.diagnostic.setqflist { severity = { min = vim.diagnostic.severity.WARN } } end)
 
-map({ "n", "v" }, "<Leader>", [["+]])
+map({ "n", "x" }, "<Leader>", [["+]])
 
 -- taken from https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/filetype.lua
 vim.filetype.add {
@@ -292,7 +292,7 @@ vim.schedule(function()
 	map("n", "<Leader>fq", FzfLua.quickfix)
 	map("n", "<Leader>fl", FzfLua.loclist)
 	map("n", "<Leader>f*", FzfLua.grep_cword)
-	map("v", "<Leader>f*", FzfLua.grep_visual)
+	map("x", "<Leader>f*", FzfLua.grep_visual)
 	map("n", "<Leader>f/", FzfLua.lines)
 	map("n", "<Leader>fr", FzfLua.resume)
 end)

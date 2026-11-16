@@ -110,7 +110,7 @@ yn "upgrade all tools installed with uv?" && uv tool upgrade --all
 separator
 
 if [ -d "$(uv cache dir)" ]; then
-	yn "remove uv cache ($(du --summarize --human-readable "$(uv cache dir)")})" && uv cache clean
+	yn "remove uv cache ($(du --summarize --human-readable "$(uv cache dir)" | cut --fields=1))?" && uv cache clean
 
 	separator
 fi

@@ -87,7 +87,6 @@ package_base-system() {
 		libnotify cliphist
 		wl-clipboard xdg-utils mailcap
 		fcitx5 fcitx5-configtool
-		xorg-xwayland
 		kanshi
 
 		# fonts

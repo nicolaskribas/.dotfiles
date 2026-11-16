@@ -239,14 +239,8 @@ vim.lsp.config("texlab", {
 })
 
 local get_dict = function(lang, words)
-	words = words or {}
-	local file = io.open(vim.fn.stdpath "data" .. "/site/spell/" .. lang .. ".utf-8.add", "r")
-	if file then
-		for word in file:lines() do
-			table.insert(words, word)
-		end
-	end
-	return words
+	local ok, lines = pcall(vim.fn.readfile, vim.fn.stdpath "data" .. "/site/spell/" .. lang .. ".utf-8.add")
+	return vim.list_extend(words or {}, ok and lines or {})
 end
 
 vim.lsp.config("ltex_plus", {

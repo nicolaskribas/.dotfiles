@@ -1,0 +1,15 @@
+# https://github.com/Vladimir-csp/uwsm/blob/master/example-units/cliphist.service
+
+[Unit]
+Description=Clipboard history “manager” for wayland
+Documentation=https://github.com/sentriz/cliphist
+After=wayland-session@sway.desktop.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/wl-paste --type %i --watch cliphist store
+Restart=on-failure
+Slice=app-graphical.slice
+
+[Install]
+WantedBy=wayland-session@sway.desktop.target

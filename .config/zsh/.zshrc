@@ -3,8 +3,8 @@ export EDITOR=nvim
 export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen --chop-long-lines --mouse --wheel-line=3'
 export MANPAGER='less --color=u+b' # underlined -> blue
 export MANROFFOPT='-P -c'          # to get colors: man passes -c flag to grotty through groff (-P)
-export FZF_DEFAULT_COMMAND='fd --hidden --type=dir --type=file --type=symlink'
-export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator --bind=ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'
+export FZF_DEFAULT_COMMAND='fd --type=dir --type=file --type=symlink'
+export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator'
 eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completion
 
 # --- Aliases ---
@@ -264,7 +264,7 @@ add-zsh-hook precmd ring
 add-zsh-hook precmd vcs_info
 
 # --- Plugins ---
-FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+FZF_CTRL_T_COMMAND='fd --hidden --type=dir --type=file --type=symlink'
 FZF_ALT_C_COMMAND='fd --hidden --type=dir'
 source /usr/share/fzf/key-bindings.zsh # set <C-R>, <C-T> and <A-C> bindings that use fzf for selecting things
 bindkey -M vicmd '^r' redo             # this is the default, but the fzf plugin changes it, so we change it back

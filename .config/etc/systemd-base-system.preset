@@ -3,6 +3,7 @@ disable systemd-boot-update.service
 enable greetd.service
 enable fstrim.timer
 enable smartd.service
+enable systemd-oomd.service
 
 enable tlp.service
 enable firewalld.service

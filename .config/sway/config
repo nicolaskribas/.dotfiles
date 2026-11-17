@@ -198,6 +198,7 @@ input type:keyboard {
 #     disable
 # }
 output * bg bg.jpeg fill
+output * max_render_time 7
 
 
 # --- Includes ---

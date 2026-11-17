@@ -1,1 +1,2 @@
 export SSH_ASKPASS=lxqt-openssh-askpass
+export XDG_SESSION_CLASS=user

@@ -6,6 +6,7 @@ enable smartd.service
 enable systemd-oomd.service
 
 enable tlp.service
+enable upower.service
 enable firewalld.service
 enable tailscaled.service
 

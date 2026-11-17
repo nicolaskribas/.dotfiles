@@ -28,6 +28,7 @@ source=(
 	firewalld-service-jellyfin.xml
 	firewalld-service-packet.xml
 	tlp-performance.conf
+	upower-tlp.conf
 	sshd-hardened.conf
 	greetd-config.toml
 	sway-uwsm.desktop
@@ -69,6 +70,7 @@ package_base-system() {
 
 		# services
 		tlp
+		upower
 		reflector
 
 		# network services
@@ -237,6 +239,7 @@ package_base-system() {
 	install -Dm0644 firewalld-service-packet.xml "$pkgdir"/etc/firewalld/services/packet.xml
 
 	install -Dm0644 tlp-performance.conf "$pkgdir"/etc/tlp.d/10-performance.conf
+	install -Dm0644 upower-tlp.conf "$pkgdir"/etc/UPower/UPower.conf.d/10-tlp.conf
 
 	install -Dm0644 sshd-hardened.conf "$pkgdir"/etc/ssh/sshd_config.d/20-hardened.conf
 

@@ -1,6 +1,7 @@
 # --- Environment Variables ---
 export EDITOR=nvim
-export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --quit-if-one-screen --chop-long-lines --mouse --wheel-line=3'
+export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --incsearch --quit-if-one-screen --chop-long-lines --wordwrap --emouse=all --wheel-lines=3 --no-histdups --follow-name --exit-follow-on-close'
+export SYSTEMD_LESS="$LESS"
 export MANPAGER='less --color=u+b' # underlined -> blue
 export MANROFFOPT='-P -c'          # to get colors: man passes -c flag to grotty through groff (-P)
 export FZF_DEFAULT_COMMAND='fd --type=dir --type=file --type=symlink'

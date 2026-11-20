@@ -1,0 +1,7 @@
+#command
+h  left-scroll
+l  right-limit-scroll
+0  no-scroll
+\^ no-scroll
+$  end-scroll
+S  toggle-option S

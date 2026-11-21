@@ -16,3 +16,7 @@ shell-integration=none
 bell-features = no-title
 
 quit-after-last-window-closed = false
+
+# Send 1 SGR wheel event per discrete mouse notch so TUI apps (tmux, nvim, less)
+# don't compound it with their own 3-line step; remove if ghostty-org/ghostty#14060 lands.
+mouse-scroll-multiplier = precision:1,discrete:1

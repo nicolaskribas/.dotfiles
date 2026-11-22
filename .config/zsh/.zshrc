@@ -6,6 +6,7 @@ export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --incsearch --quit-if
 export SYSTEMD_LESS="$LESS"
 export MANPAGER='less --color=u+b' # underlined -> blue
 export MANROFFOPT='-P -c'          # to get colors: man passes -c flag to grotty through groff (-P)
+export MANOPT='--no-hyphenation'   # disable line-break hyphenation in man pages
 export FZF_DEFAULT_COMMAND='fd --type=dir --type=file --type=symlink'
 export FZF_DEFAULT_OPTS='--height=11 --reverse --info=inline-right --no-separator'
 eval "$(dircolors -b)" # sets `LS_COLORS` variable used in `ls` and for completion
@@ -24,7 +25,7 @@ alias xargs='xargs '               # same, but for xargs
 alias watch='watch --color '       # same, but for watch
 alias stdoutisatty='stdoutisatty ' # same, but for stdoutisatty
 alias dots='git --git-dir="${HOME}/.dotfiles.git" --work-tree="${HOME}"'
-alias man='MANWIDTH="$((COLUMNS > 80 ? 80 : COLUMNS))" man' # limit man width to 80 columns
+alias man='MANWIDTH="${MANWIDTH:-$((COLUMNS > 80 ? 80 : COLUMNS))}" man' # limit man width to 80 columns
 alias -g H='| head'
 alias -g T='| tail'
 alias -g L='| less'

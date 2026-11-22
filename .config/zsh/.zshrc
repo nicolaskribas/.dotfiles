@@ -91,7 +91,7 @@ KEYTIMEOUT=1 # reduce time waited reading multi-character key bindings (fixes es
 bindkey -M viins '^?' backward-delete-char # backspace, this is mapped to vi-backward-delete-char by default
 bindkey -M viins '^h' backward-delete-char # this is mapped to vi-backward-delete-char by default
 bindkey -M viins '^w' backward-kill-word   # this is mapped to vi-backward-kill-word by default
-bindkey -M viins '^u' kill-whole-line      # this is mapped to vi-kill-line by default
+bindkey -M viins '^u' backward-kill-line   # this is mapped to vi-kill-line by default
 
 bindkey -M viins '^n' menu-complete         # start completion selecting the first match, like vim's i_CTRL-N
 bindkey -M viins '^p' reverse-menu-complete # start completion selecting the last match, like vim's i_CTRL-P

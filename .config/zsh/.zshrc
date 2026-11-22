@@ -42,6 +42,9 @@ clip() { print -n '\e]52;c;' && base64 --wrap=0 && print -n '\a'; } >$TTY # copy
 setopt extended_glob
 setopt no_clobber
 setopt interactive_comments
+setopt magic_equal_subst # perform filename/tilde expansion after '=' in arguments (--out=~/file)
+setopt glob_star_short   # shorthand '**' for '**/*' and '**.ext' for '**/*.ext'
+setopt long_list_jobs    # show PIDs in job control notifications
 
 # --- History ---
 HISTSIZE=1000000
@@ -59,6 +62,7 @@ setopt hist_find_no_dups       # do not display duplicates of a line previously 
 # --- Completion ---
 setopt no_list_ambiguous # in a single tab press: insert unambiguous prefix then show comp list
 setopt complete_in_word  # do not jump to end of the word before completing
+setopt always_to_end     # move cursor to end of word after full completion inside a word
 setopt list_packed       # pack the completion list by using columns with different widths
 
 autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-${HOME}/.cache}/zcompdump"

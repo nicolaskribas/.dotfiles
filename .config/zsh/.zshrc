@@ -288,10 +288,10 @@ ZSH_HIGHLIGHT_STYLES[precommand]='fg=cyan,underline'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=green'
-# ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=default' # fixme: find a way to use the default foreground color
-# ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=default'   # fixme: find a way to use the default foreground color
-# ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=default'   # fixme: find a way to use the default foreground color
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=15' # zsh 5.9.2 can't reset to default fg over an outer region; palette 15 tracks dark/light themes
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=15'
+ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=15'
 ZSH_HIGHLIGHT_STYLES[redirection]='none'
-ZSH_HIGHLIGHT_STYLES[comment]='fg=white'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=white,italic' # italic is ignored in zsh 5.9.2, will activate natively in zsh 5.10
 ZSH_HIGHLIGHT_STYLES[arg0]='fg=cyan'
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

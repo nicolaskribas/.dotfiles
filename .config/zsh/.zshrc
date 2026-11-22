@@ -80,6 +80,8 @@ zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f'   # _app
 zstyle ':completion:*:messages' format '%F{yellow}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
 zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*:*:*:*:commands' rehash true    # automatically rehash $PATH when completing commands
+zstyle ':completion:*:*:ls:*:*' list-dirs-first true # match ls --group-directories-first
 
 # --- Key Bindings ---
 zmodload zsh/complist

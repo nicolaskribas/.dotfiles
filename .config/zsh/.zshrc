@@ -68,7 +68,8 @@ setopt list_packed       # pack the completion list by using columns with differ
 autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-${HOME}/.cache}/zcompdump"
 zstyle ':completion:*' completer _complete _approximate
 zstyle -e ':completion:*:approximate:*:*:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3)) numeric)' # one error for every three characters (capped at 7)
-zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select=long-list select # select on the second tab, or on the first one if the list doesn't fit the screen
+zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache yes

@@ -1,5 +1,7 @@
 # --- Environment Variables ---
 export EDITOR=nvim
+export VISUAL=$EDITOR
+export GPG_TTY=$TTY # let gpg/pass curses pinentry find the current terminal (TTY/SSH fallback)
 export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --incsearch --quit-if-one-screen --chop-long-lines --wordwrap --emouse=all --wheel-lines=3 --no-histdups --follow-name --exit-follow-on-close'
 export SYSTEMD_LESS="$LESS"
 export MANPAGER='less --color=u+b' # underlined -> blue

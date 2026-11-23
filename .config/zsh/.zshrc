@@ -216,7 +216,7 @@ RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                   # number of background jobs
 RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'        # space
 RPROMPT+='${_exec_timer_formatted}'                  # elapsed time
 RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))' # space
-RPROMPT+='%(?..%B?%b%F{red}%?%f)'                    # return code
+RPROMPT+='%(?..%B?%b%F{red}${${?:#<129-192>}:-$signals[$?-127]}%f)' # return code, or the signal's name when one killed the command (130 -> INT)
 
 PROMPT=$'%{\e]133;P;k=i\a%}'${PROMPT}$'%{\e]133;B\a%}'   # mark primary prompt start/end
 PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt start/end (OSC-133;P;k=s/B)

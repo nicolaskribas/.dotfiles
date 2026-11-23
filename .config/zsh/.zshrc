@@ -78,6 +78,9 @@ setopt list_packed       # pack the completion list by using columns with differ
 
 autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
 zstyle ':completion:*' menu select # select on the second tab
+zstyle ':completion:*:*:kill:*' menu yes select               # select on the first tab: pick a process
+zstyle ':completion:*:*:cd:*:directory-stack' menu yes select # select on the first tab: cd -<TAB> picks a stack entry
+zstyle ':completion:*:*:man:*' menu yes select                # select on the first tab: pick a page/section
 zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"

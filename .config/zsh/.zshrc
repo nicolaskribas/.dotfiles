@@ -49,6 +49,14 @@ setopt glob_star_short   # shorthand '**' for '**/*' and '**.ext' for '**/*.ext'
 setopt numeric_glob_sort # sort numeric filenames naturally (file2 before file10)
 setopt long_list_jobs    # show PIDs in job control notifications
 
+# --- Directories ---
+setopt auto_pushd        # cd pushes the previous directory onto the stack, cd -<TAB> lists them
+setopt pushd_ignore_dups # keep each directory once on the stack
+
+autoload -Uz add-zsh-hook chpwd_recent_dirs cdr
+add-zsh-hook chpwd chpwd_recent_dirs # remember recent directories across shells, cdr <TAB> lists them
+zstyle ':chpwd:*' recent-dirs-file "${XDG_STATE_HOME:-$HOME/.local/state}/zsh-recent-dirs"
+
 # --- History ---
 HISTSIZE=1000000
 SAVEHIST=1000000

@@ -24,7 +24,6 @@ alias sudo='sudo '                 # expand command passed to sudo if it is an a
 alias watch='watch --color '       # same, but for watch
 alias stdoutisatty='stdoutisatty ' # same, but for stdoutisatty
 alias dots='git --git-dir="${HOME}/.dotfiles.git" --work-tree="${HOME}"'
-alias man='MANWIDTH="${MANWIDTH:-$((COLUMNS > 80 ? 80 : COLUMNS))}" man' # limit man width to 80 columns
 alias -g H='| head'
 alias -g T='| tail'
 alias -g L='| less'
@@ -32,6 +31,8 @@ alias -g F='| fzf'
 
 # --- Functions ---
 ring() { print -n '\a'; } # print bell character
+
+man() { MANWIDTH=${MANWIDTH:-$((COLUMNS > 80 ? 80 : COLUMNS))} command man "$@"; } # limit man width to 80 columns
 
 ssh-copy-current-terminfo() { infocmp -x | ssh "$@" -- 'tic -x -'; }
 

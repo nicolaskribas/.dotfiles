@@ -135,7 +135,7 @@ if [[ -n "${terminfo[kich1]}" ]]; then # insert
 fi
 
 if [[ -n "${terminfo[kdch1]}" ]]; then # delete
-	bindkey -M viins "${terminfo[kdch1]}" vi-delete-char
+	bindkey -M viins "${terminfo[kdch1]}" delete-char
 	bindkey -M vicmd "${terminfo[kdch1]}" vi-delete-char
 fi
 

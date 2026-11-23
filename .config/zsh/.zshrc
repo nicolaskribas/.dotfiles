@@ -77,8 +77,6 @@ setopt always_to_end     # move cursor to end of word after full completion insi
 setopt list_packed       # pack the completion list by using columns with different widths
 
 autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
-zstyle ':completion:*' completer _complete _approximate
-zstyle -e ':completion:*:approximate:*:*:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3)) numeric)' # one error for every three characters (capped at 7)
 zstyle ':completion:*' menu select=long-list select # select on the second tab, or on the first one if the list doesn't fit the screen
 zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
@@ -87,7 +85,7 @@ zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
 zstyle ':completion:*' group-name ''                                      # group completions by type
 zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f' # print groups type
-zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f'   # _approximate
+zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f'   # ^Xc (_correct_word) typo correction
 zstyle ':completion:*:messages' format '%F{yellow}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
 zstyle ':completion:*:functions' ignored-patterns '_*'

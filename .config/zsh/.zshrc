@@ -197,6 +197,7 @@ zstyle ':vcs_info:*' actionformats ' [%F{yellow}%a%f|%B%b%%b%c%u]'
 
 setopt prompt_subst
 setopt transient_rprompt # remove RPROMPT from past lines, the terminal can't realign them on resize and they wrap to a new line when shrinking
+ZLE_RPROMPT_INDENT=0     # align RPROMPT flush with the right edge of the terminal
 
 PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
 

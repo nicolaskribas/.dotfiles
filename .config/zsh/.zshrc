@@ -41,9 +41,11 @@ clip() { print -n '\e]52;c;' && base64 --wrap=0 && print -n '\a'; } >$TTY # copy
 # --- Misc ---
 setopt extended_glob
 setopt no_clobber
+setopt clobber_empty     # allow '>' to overwrite empty files while keeping no_clobber protection
 setopt interactive_comments
 setopt magic_equal_subst # perform filename/tilde expansion after '=' in arguments (--out=~/file)
 setopt glob_star_short   # shorthand '**' for '**/*' and '**.ext' for '**/*.ext'
+setopt numeric_glob_sort # sort numeric filenames naturally (file2 before file10)
 setopt long_list_jobs    # show PIDs in job control notifications
 
 # --- History ---

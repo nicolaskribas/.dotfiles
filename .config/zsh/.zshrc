@@ -158,6 +158,8 @@ bindkey -M menuselect '^e' send-break                   # cancel, restoring the 
 autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
 
+autoload -Uz bracketed-paste-url-magic && zle -N bracketed-paste bracketed-paste-url-magic # quote pasted URLs
+
 # yanks also go to the clipboard
 vi-yank() { zle .vi-yank && print -rn -- $CUTBUFFER | clip; }
 vi-yank-eol() { zle .vi-yank-eol && print -rn -- $CUTBUFFER | clip; }

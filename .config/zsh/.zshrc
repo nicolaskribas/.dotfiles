@@ -176,8 +176,8 @@ _zle_line_finish() { ((${+terminfo[rmkx]})) && echoti rmkx; }
 
 _zle_keymap_select() {
 	case $KEYMAP in
-	vicmd | visual) print -n '\e[1 q' ;; # go to a blinking block when in vicmd
-	*) print -n '\e[5 q' ;;              # beam again when back to viins mode
+	vicmd) print -n '\e[1 q' ;; # go to a blinking block when in vicmd (visual mode keeps KEYMAP=vicmd)
+	*) print -n '\e[5 q' ;;     # beam again when back to viins mode
 	esac
 }
 
@@ -273,7 +273,7 @@ add-zsh-hook preexec _restore_default_cursor_shape
 add-zsh-hook preexec _set_window_title_exec
 add-zsh-hook preexec _start_exec_timer
 add-zsh-hook preexec _mark_command_start
-add-zsh-hook precmd _mark_command_end # must be the very first precmd so it captures the status code correctly
+add-zsh-hook precmd _mark_command_end # zsh hands every precmd hook the command's $?, so the order doesn't matter
 add-zsh-hook precmd _stop_exec_timer
 add-zsh-hook precmd _set_window_title_prompt
 add-zsh-hook precmd ring

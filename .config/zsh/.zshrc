@@ -77,7 +77,7 @@ setopt always_to_end     # move cursor to end of word after full completion insi
 setopt list_packed       # pack the completion list by using columns with different widths
 
 autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
-zstyle ':completion:*' menu select=long-list select # select on the second tab, or on the first one if the list doesn't fit the screen
+zstyle ':completion:*' menu select # select on the second tab
 zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"

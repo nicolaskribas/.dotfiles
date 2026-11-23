@@ -165,6 +165,7 @@ autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
 
 autoload -Uz bracketed-paste-url-magic && zle -N bracketed-paste bracketed-paste-url-magic # quote pasted URLs
+autoload -Uz url-quote-magic && zle -N self-insert url-quote-magic # quote URL characters (? & ...) as they are typed
 
 # yanks also go to the clipboard
 vi-yank() { zle .vi-yank && print -rn -- $CUTBUFFER | clip; }

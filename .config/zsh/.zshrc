@@ -23,7 +23,7 @@ alias ss='ss --numeric --no-queues'
 alias sudo='sudo '                 # expand command passed to sudo if it is an alias
 alias watch='watch --color '       # same, but for watch
 alias stdoutisatty='stdoutisatty ' # same, but for stdoutisatty
-alias dots='git --git-dir="${HOME}/.dotfiles.git" --work-tree="${HOME}"'
+alias dots='git --git-dir="$HOME/.dotfiles.git" --work-tree="$HOME"'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g L='| less'
@@ -52,7 +52,7 @@ setopt long_list_jobs    # show PIDs in job control notifications
 # --- History ---
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTFILE="${XDG_STATE_HOME:-${HOME}/.local/state}/zhistory"
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zhistory"
 
 setopt extended_history        # save command's start/elapsed time to history file
 setopt inc_append_history_time # append commands to history file as they finish (to record elapsed time)
@@ -68,7 +68,7 @@ setopt complete_in_word  # do not jump to end of the word before completing
 setopt always_to_end     # move cursor to end of word after full completion inside a word
 setopt list_packed       # pack the completion list by using columns with different widths
 
-autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-${HOME}/.cache}/zcompdump"
+autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
 zstyle ':completion:*' completer _complete _approximate
 zstyle -e ':completion:*:approximate:*:*:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3)) numeric)' # one error for every three characters (capped at 7)
 zstyle ':completion:*' menu select=long-list select # select on the second tab, or on the first one if the list doesn't fit the screen
@@ -76,7 +76,7 @@ zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (ma
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-${HOME}/.cache}/zcompcache"
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
 zstyle ':completion:*' group-name ''                                      # group completions by type
 zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f' # print groups type
 zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f'   # _approximate

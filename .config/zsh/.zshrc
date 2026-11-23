@@ -160,10 +160,8 @@ bindkey -M vicmd '^v' edit-command-line
 # yanks also go to the clipboard
 vi-yank() { zle .vi-yank && print -rn -- $CUTBUFFER | clip; }
 vi-yank-eol() { zle .vi-yank-eol && print -rn -- $CUTBUFFER | clip; }
-vi-yank-whole-line() { zle .vi-yank-whole-line && print -rn -- $CUTBUFFER | clip; }
 zle -N vi-yank
 zle -N vi-yank-eol
-zle -N vi-yank-whole-line
 bindkey -M vicmd 'Y' vi-yank-eol # yank to end of line, like neovim's Y
 
 # --- Cursor and Application Mode ---

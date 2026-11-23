@@ -105,9 +105,6 @@ bindkey -M viins '^h' backward-delete-char # this is mapped to vi-backward-delet
 bindkey -M viins '^w' backward-kill-word   # this is mapped to vi-backward-kill-word by default
 bindkey -M viins '^u' backward-kill-line   # this is mapped to vi-kill-line by default
 
-bindkey -M viins '^n' menu-complete         # start completion selecting the first match, like vim's i_CTRL-N
-bindkey -M viins '^p' reverse-menu-complete # start completion selecting the last match, like vim's i_CTRL-P
-
 autoload -Uz up-line-or-beginning-search && zle -N up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search && zle -N down-line-or-beginning-search
 

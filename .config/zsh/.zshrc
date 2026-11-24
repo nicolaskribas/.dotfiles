@@ -53,8 +53,10 @@ setopt no_beep           # silence ZLE error bells (doesn't affect explicit ring
 setopt combining_chars   # render Unicode combining characters instead of <xxxx>
 
 # --- Directories ---
+DIRSTACKSIZE=20
 setopt auto_pushd        # cd pushes the previous directory onto the stack, cd -<TAB> lists them
 setopt pushd_ignore_dups # keep each directory once on the stack
+setopt pushd_minus       # swap +/- so cd -1 is the previous directory (matching cd - and cdr 1)
 
 autoload -Uz add-zsh-hook chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs # remember recent directories across shells, cdr <TAB> lists them

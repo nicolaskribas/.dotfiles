@@ -70,31 +70,6 @@ setopt hist_fcntl_lock         # use system call when locking history file, for 
 setopt hist_verify             # don't execute the command with history expansion right away
 setopt hist_find_no_dups       # do not display duplicates of a line previously found, even if the duplicates are not contiguous
 
-# --- Completion ---
-setopt no_list_ambiguous # in a single tab press: insert unambiguous prefix then show comp list
-setopt complete_in_word  # do not jump to end of the word before completing
-setopt always_to_end     # move cursor to end of word after full completion inside a word
-setopt list_packed       # pack the completion list by using columns with different widths
-
-autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
-zstyle ':completion:*' menu select # select on the second tab
-zstyle ':completion:*:*:kill:*' menu yes select               # select on the first tab: pick a process
-zstyle ':completion:*:*:cd:*:directory-stack' menu yes select # select on the first tab: cd -<TAB> picks a stack entry
-zstyle ':completion:*:*:man:*' menu yes select                # select on the first tab: pick a page/section
-zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
-zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
-zstyle ':completion:*' group-name ''                                      # group completions by type
-zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f' # print groups type
-zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f'   # ^Xc (_correct_word) typo correction
-zstyle ':completion:*:messages' format '%F{yellow}%d%f'
-zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
-zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*:*:*:*:commands' rehash true    # automatically rehash $PATH when completing commands
-zstyle ':completion:*:*:ls:*:*' list-dirs-first true # match ls --group-directories-first
-
 # --- Key Bindings ---
 zmodload zsh/complist
 bindkey -v   # use vi keymap
@@ -173,6 +148,31 @@ vi-yank-eol() { zle .vi-yank-eol && print -rn -- $CUTBUFFER | clip; }
 zle -N vi-yank
 zle -N vi-yank-eol
 bindkey -M vicmd 'Y' vi-yank-eol # yank to end of line, like neovim's Y
+
+# --- Completion ---
+setopt no_list_ambiguous # in a single tab press: insert unambiguous prefix then show comp list
+setopt complete_in_word  # do not jump to end of the word before completing
+setopt always_to_end     # move cursor to end of word after full completion inside a word
+setopt list_packed       # pack the completion list by using columns with different widths
+
+autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
+zstyle ':completion:*' menu select # select on the second tab
+zstyle ':completion:*:*:kill:*' menu yes select               # select on the first tab: pick a process
+zstyle ':completion:*:*:cd:*:directory-stack' menu yes select # select on the first tab: cd -<TAB> picks a stack entry
+zstyle ':completion:*:*:man:*' menu yes select                # select on the first tab: pick a page/section
+zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
+zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache"
+zstyle ':completion:*' group-name ''                                      # group completions by type
+zstyle ':completion:*:descriptions' format '%F{green}completing %B%d%b%f' # print groups type
+zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f'   # ^Xc (_correct_word) typo correction
+zstyle ':completion:*:messages' format '%F{yellow}%d%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*:*:*:*:commands' rehash true    # automatically rehash $PATH when completing commands
+zstyle ':completion:*:*:ls:*:*' list-dirs-first true # match ls --group-directories-first
 
 # --- Cursor and Application Mode ---
 _zle_line_init() {

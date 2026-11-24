@@ -79,6 +79,7 @@ setopt hist_find_no_dups       # do not display duplicates of a line previously 
 zmodload zsh/complist
 bindkey -v   # use vi keymap
 KEYTIMEOUT=1 # reduce time waited reading multi-character key bindings (fixes escape delay when exiting insert mode)
+WORDCHARS='_' # match neovim's iskeyword ([A-Za-z0-9_]) so ^w stops at path/flag separators
 
 bindkey -M viins '^?' backward-delete-char # backspace, this is mapped to vi-backward-delete-char by default
 bindkey -M viins '^h' backward-delete-char # this is mapped to vi-backward-delete-char by default

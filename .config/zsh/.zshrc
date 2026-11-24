@@ -1,6 +1,8 @@
 # --- Environment Variables ---
 export EDITOR=nvim
 export VISUAL=$EDITOR
+export PAGER=less
+READNULLCMD=$PAGER # `< file` pages file in $PAGER instead of `more`
 export GPG_TTY=$TTY # let gpg/pass curses pinentry find the current terminal (TTY/SSH fallback)
 export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --incsearch --quit-if-one-screen --chop-long-lines --wordwrap --emouse=all --wheel-lines=3 --no-histdups --follow-name --exit-follow-on-close'
 export SYSTEMD_LESS="$LESS"
@@ -144,6 +146,10 @@ bindkey -M menuselect '^e' send-break                   # cancel, restoring the 
 
 autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
+
+(( $+aliases[run-help] )) && unalias run-help # zsh defines `alias run-help=man` by default, which shadows the function
+autoload -Uz -- run-help ${^fpath}/run-help-*(N-.:t)
+bindkey -M vicmd 'K' run-help # open help/manpage for command under buffer (like neovim's K)
 
 autoload -Uz bracketed-paste-url-magic && zle -N bracketed-paste bracketed-paste-url-magic # quote pasted URLs
 autoload -Uz url-quote-magic && zle -N self-insert url-quote-magic # quote URL characters (? & ...) as they are typed

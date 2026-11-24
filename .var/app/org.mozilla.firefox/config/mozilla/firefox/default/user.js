@@ -227,6 +227,8 @@ user_pref("permissions.default.desktop-notification", 0);
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 // Enable Container Tabs
 user_pref("privacy.userContext.enabled", true);
+// Keep window open when closing the last tab
+user_pref("browser.tabs.closeWindowWithLastTab", false);
 // Use your operating system settings to format dates, times, numbers, and measurements.
 user_pref("intl.regional_prefs.use_os_locales", true);
 // Always ask you where to save files

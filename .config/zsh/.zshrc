@@ -160,6 +160,8 @@ zstyle ':completion:*' menu select # select on the second tab
 zstyle ':completion:*:*:kill:*' menu yes select               # select on the first tab: pick a process
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select # select on the first tab: cd -<TAB> picks a stack entry
 zstyle ':completion:*:*:man:*' menu yes select                # select on the first tab: pick a page/section
+zstyle ':completion:*:manuals' separate-sections true         # group man pages by section
+zstyle ':completion:*:manuals.*' insert-sections true         # insert section number when completing a section-grouped page
 zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"

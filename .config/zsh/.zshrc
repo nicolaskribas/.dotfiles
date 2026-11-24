@@ -211,11 +211,19 @@ ZLE_RPROMPT_INDENT=0     # align RPROMPT flush with the right edge of the termin
 
 PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
 
+typeset -A _exit_signals
+() {
+	local num name
+	for num name in ${=${$(kill -L)//\)/}}; do
+		_exit_signals[$((128 + num))]=$name
+	done
+}
+
 RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                   # number of background jobs
 RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'        # space
 RPROMPT+='${_exec_timer_formatted}'                  # elapsed time
 RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))' # space
-RPROMPT+='%(?..%B?%b%F{red}${${?:#<129-192>}:-$signals[$?-127]}%f)' # return code, or the signal's name when one killed the command (130 -> INT)
+RPROMPT+='%(?..%B?%b%F{red}%?${_exit_signals[$?]:+|$_exit_signals[$?]}%f)' # return code, plus signal name when one killed the command (130|INT)
 
 PROMPT=$'%{\e]133;P;k=i\a%}'${PROMPT}$'%{\e]133;B\a%}'   # mark primary prompt start/end
 PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt start/end (OSC-133;P;k=s/B)

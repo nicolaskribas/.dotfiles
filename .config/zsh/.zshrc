@@ -222,7 +222,6 @@ PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt
 RPROMPT=$'%{\e]133;P;k=r\a%}'${RPROMPT}$'%{\e]133;B\a%}' # mark right prompt start/end (OSC-133;P;k=r)
 
 zmodload zsh/datetime
-zmodload zsh/mathfunc
 
 _restore_default_cursor_shape() { print -n '\e[0 q'; }
 
@@ -251,15 +250,15 @@ _stop_exec_timer() {
 	_exec_timer_formatted='' # clear prompt timer string
 
 	# consume start time to calculate elapsed time
-	local elapsed=$((EPOCHREALTIME - _exec_start_time))
+	local -i elapsed=$((EPOCHREALTIME - _exec_start_time))
 	unset _exec_start_time
 
 	((elapsed < 1)) && return # don't show times under one second
 
-	local d=$((int(elapsed / 60 / 60 / 24)))
-	local h=$((int(elapsed / 60 / 60 % 24)))
-	local m=$((int(elapsed / 60 % 60)))
-	local s=$((int(elapsed % 60)))
+	local -i d=$((elapsed / 60 / 60 / 24))
+	local -i h=$((elapsed / 60 / 60 % 24))
+	local -i m=$((elapsed / 60 % 60))
+	local -i s=$((elapsed % 60))
 
 	local format
 	if ((d)); then

@@ -233,7 +233,7 @@ zmodload zsh/datetime
 
 _restore_default_cursor_shape() { print -n '\e[0 q'; }
 
-_set_window_title_exec() { print -n "\e]2;${(q)1}\a"; }
+_set_window_title_exec() { print -rn -- $'\e]2;'"${(V)1}"$'\a'; }
 
 _start_exec_timer() { _exec_start_time=$EPOCHREALTIME; }
 

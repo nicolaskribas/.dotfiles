@@ -48,6 +48,9 @@ setopt magic_equal_subst # perform filename/tilde expansion after '=' in argumen
 setopt glob_star_short   # shorthand '**' for '**/*' and '**.ext' for '**/*.ext'
 setopt numeric_glob_sort # sort numeric filenames naturally (file2 before file10)
 setopt long_list_jobs    # show PIDs in job control notifications
+setopt no_flow_control   # disable ^S/^Q XON/XOFF flow control in ZLE
+setopt no_beep           # silence ZLE error bells (doesn't affect explicit ring)
+setopt combining_chars   # render Unicode combining characters instead of <xxxx>
 
 # --- Directories ---
 setopt auto_pushd        # cd pushes the previous directory onto the stack, cd -<TAB> lists them

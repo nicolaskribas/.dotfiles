@@ -32,7 +32,7 @@ alias -g L='| less'
 alias -g F='| fzf'
 
 # --- Functions ---
-ring() { print -n '\a'; } # print bell character
+ring() { print -n '\a' >$TTY; } # print bell character
 
 man() { MANWIDTH=${MANWIDTH:-$((COLUMNS > 80 ? 80 : COLUMNS))} command man "$@"; } # limit man width to 80 columns
 
@@ -210,17 +210,17 @@ zstyle ':completion:*' list-dirs-first true       # match ls --group-directories
 
 # --- Cursor and Application Mode ---
 _zle_line_init() {
-	((${+terminfo[smkx]})) && echoti smkx # enable terminal application mode
-	print -n '\e[5 q'                     # starts with a blinking beam
+	((${+terminfo[smkx]})) && echoti smkx >$TTY # enable terminal application mode
+	print -n '\e[5 q' >$TTY                     # starts with a blinking beam
 }
 
 # disable terminal application mode
-_zle_line_finish() { ((${+terminfo[rmkx]})) && echoti rmkx; }
+_zle_line_finish() { ((${+terminfo[rmkx]})) && echoti rmkx >$TTY; }
 
 _zle_keymap_select() {
 	case $KEYMAP in
-	vicmd) print -n '\e[1 q' ;; # go to a blinking block when in vicmd (visual mode keeps KEYMAP=vicmd)
-	*) print -n '\e[5 q' ;;     # beam again when back to viins mode
+	vicmd) print -n '\e[1 q' >$TTY ;; # go to a blinking block when in vicmd (visual mode keeps KEYMAP=vicmd)
+	*) print -n '\e[5 q' >$TTY ;;     # beam again when back to viins mode
 	esac
 }
 
@@ -265,24 +265,24 @@ RPROMPT=$'%{\e]133;P;k=r\a%}'${RPROMPT}$'%{\e]133;B\a%}' # mark right prompt sta
 
 zmodload zsh/datetime
 
-_restore_default_cursor_shape() { print -n '\e[0 q'; }
+_restore_default_cursor_shape() { print -n '\e[0 q' >$TTY; }
 
-_set_window_title_exec() { print -rn -- $'\e]2;'"${(V)1}"$'\a'; }
+_set_window_title_exec() { print -rn -- $'\e]2;'"${(V)1}"$'\a' >$TTY; }
 
 _start_exec_timer() { _exec_start_time=$EPOCHREALTIME; }
 
 _mark_command_start() {
-	print -n '\e]133;C\a' # emit an OSC-133;C sequence
+	print -n '\e]133;C\a' >$TTY # emit an OSC-133;C sequence
 	_last_mark=C
 }
 
 _mark_command_end() {
 	local command_status=$?
 
-	[[ "$_last_mark" == A ]] && print -n '\e]133;D\a'                     # emit an OSC-133;D sequence
-	[[ "$_last_mark" == C ]] && print -n '\e]133;D;'${command_status}'\a' # emit an OSC-133;D sequence
+	[[ "$_last_mark" == A ]] && print -n '\e]133;D\a' >$TTY                     # emit an OSC-133;D sequence
+	[[ "$_last_mark" == C ]] && print -n '\e]133;D;'${command_status}'\a' >$TTY # emit an OSC-133;D sequence
 
-	print -n '\e]133;A;cl=line\a'
+	print -n '\e]133;A;cl=line\a' >$TTY
 	_last_mark=A
 }
 
@@ -316,7 +316,7 @@ _stop_exec_timer() {
 	_exec_timer_formatted='%B~%b%F{yellow}'$format'%f'
 }
 
-_set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a'; }
+_set_window_title_prompt() { print -nP '\e]2;%n@%m%#\a' >$TTY; }
 
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec _restore_default_cursor_shape

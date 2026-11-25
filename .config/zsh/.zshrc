@@ -38,7 +38,10 @@ man() { MANWIDTH=${MANWIDTH:-$((COLUMNS > 80 ? 80 : COLUMNS))} command man "$@";
 
 ssh-copy-current-terminfo() { infocmp -x | ssh "$@" -- 'tic -x -'; }
 
-clip() { { print -n '\e]52;c;'; base64 --wrap=0; } always { print -n '\a'; }; } >$TTY # copy stdin to the terminal's clipboard (OSC 52)
+clip() {
+	local data
+	data=$(base64 --wrap=0) && print -rn -- $'\e]52;c;'$data$'\a' >$TTY
+} # copy stdin to the terminal's clipboard (OSC 52)
 
 # --- Misc ---
 setopt extended_glob

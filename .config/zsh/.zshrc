@@ -186,6 +186,8 @@ zstyle ':completion:*:*:*:*:processes' command 'ps -u $EUID -o pid,tty,stat,args
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select # select on the first tab: cd -<TAB> picks a stack entry
 zstyle ':completion:*:*:cdr:*:*' menu yes select              # select on the first tab: cdr <TAB> picks a recent directory
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*:cd:*' ignore-parents parent pwd                             # cd ../<TAB> omits current directory
 zstyle ':completion:*:*:man:*' menu yes select                                    # select on the first tab: pick a page/section
 zstyle ':completion:*:manuals' separate-sections true                             # group man pages by section
 zstyle ':completion:*:manuals.*' insert-sections true                             # insert section number when completing a section-grouped page
@@ -200,8 +202,11 @@ zstyle ':completion:*:corrections' format '%F{yellow}%d (errors: %e)%f'   # ^Xc 
 zstyle ':completion:*:messages' format '%F{yellow}%d%f'
 zstyle ':completion:*:warnings' format '%F{red}No matches for%f %d'
 zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*:*:*:*:commands' rehash true    # automatically rehash $PATH when completing commands
-zstyle ':completion:*:*:ls:*:*' list-dirs-first true # match ls --group-directories-first
+zstyle '*' single-ignored show                    # display a lone ignored match without auto-inserting it
+zstyle ':completion:*' special-dirs true          # complete . and .. (e.g. cd ..<TAB> -> cd ../)
+zstyle ':completion:*' squeeze-slashes true       # treat // as / instead of /*/
+zstyle ':completion:*:*:*:*:commands' rehash true # automatically rehash $PATH when completing commands
+zstyle ':completion:*' list-dirs-first true       # match ls --group-directories-first
 
 # --- Cursor and Application Mode ---
 _zle_line_init() {

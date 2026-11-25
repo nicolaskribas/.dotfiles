@@ -245,19 +245,11 @@ ZLE_RPROMPT_INDENT=0     # align RPROMPT flush with the right edge of the termin
 
 PROMPT='%n@%B%m%b %F{blue}%B%4~%b%f${vcs_info_msg_0_} %# ' # username, hostname, cwd, and git info
 
-typeset -A _exit_signals
-() {
-	local num name
-	for num name in ${=${$(kill -L)//\)/}}; do
-		_exit_signals[$((128 + num))]=$name
-	done
-}
-
-RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                                         # number of background jobs
-RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'                              # space
-RPROMPT+='${_exec_timer_formatted}'                                        # elapsed time
-RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))'                       # space
-RPROMPT+='%(?..%B?%b%F{red}%?${_exit_signals[$?]:+|$_exit_signals[$?]}%f)' # return code, plus signal name when one killed the command (130|INT)
+RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                   # number of background jobs
+RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'        # space
+RPROMPT+='${_exec_timer_formatted}'                  # elapsed time
+RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))' # space
+RPROMPT+='%(?..%B?%b%F{red}%?${_exit_signal}%f)'     # return code, plus signal name when one killed the command (130|INT)
 
 PROMPT=$'%{\e]133;P;k=i\a%}'${PROMPT}$'%{\e]133;B\a%}'   # mark primary prompt start/end
 PROMPT2=$'%{\e]133;P;k=s\a%}'${PROMPT2}$'%{\e]133;B\a%}' # mark secondary prompt start/end (OSC-133;P;k=s/B)
@@ -284,6 +276,15 @@ _mark_command_end() {
 
 	print -n '\e]133;A;cl=line\a' >$TTY
 	_last_mark=A
+}
+
+_set_exit_signal() {
+	local status_code=$? sig
+	_exit_signal=''
+	if ((status_code > 128)); then
+		sig=$(kill -l $status_code)
+		[[ $sig != $status_code ]] && _exit_signal="|$sig"
+	fi
 }
 
 _stop_exec_timer() {
@@ -323,6 +324,7 @@ add-zsh-hook preexec _restore_default_cursor_shape
 add-zsh-hook preexec _set_window_title_exec
 add-zsh-hook preexec _start_exec_timer
 add-zsh-hook preexec _mark_command_start
+add-zsh-hook precmd _set_exit_signal
 add-zsh-hook precmd _stop_exec_timer
 add-zsh-hook precmd _set_window_title_prompt
 add-zsh-hook precmd ring

@@ -323,11 +323,11 @@ add-zsh-hook preexec _restore_default_cursor_shape
 add-zsh-hook preexec _set_window_title_exec
 add-zsh-hook preexec _start_exec_timer
 add-zsh-hook preexec _mark_command_start
-add-zsh-hook precmd _mark_command_end # zsh hands every precmd hook the command's $?, so the order doesn't matter
 add-zsh-hook precmd _stop_exec_timer
 add-zsh-hook precmd _set_window_title_prompt
 add-zsh-hook precmd ring
 add-zsh-hook precmd vcs_info
+add-zsh-hook precmd _mark_command_end # zsh hands every precmd hook the command's $?, emit OSC-133;D/A right before PROMPT
 
 # --- Plugins ---
 FZF_CTRL_T_COMMAND='fd --hidden --type=dir --type=file --type=symlink'

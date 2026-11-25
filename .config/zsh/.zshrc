@@ -170,6 +170,7 @@ vi-yank-eol() { zle .vi-yank-eol && print -rn -- $CUTBUFFER | clip; }
 zle -N vi-yank
 zle -N vi-yank-eol
 bindkey -M vicmd 'Y' vi-yank-eol # yank to end of line, like neovim's Y
+bindkey -M visual 'Y' vi-yank
 
 # --- Completion ---
 setopt no_list_ambiguous # in a single tab press: insert unambiguous prefix then show comp list

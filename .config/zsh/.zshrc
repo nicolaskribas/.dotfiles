@@ -103,6 +103,16 @@ if [[ -n "${terminfo[kcud1]}" ]]; then # down
 	bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
 
+if [[ -n "${terminfo[kLFT5]}" ]]; then # ctrl-left
+	bindkey -M viins "${terminfo[kLFT5]}" backward-word
+	bindkey -M vicmd "${terminfo[kLFT5]}" backward-word
+fi
+
+if [[ -n "${terminfo[kRIT5]}" ]]; then # ctrl-right
+	bindkey -M viins "${terminfo[kRIT5]}" forward-word
+	bindkey -M vicmd "${terminfo[kRIT5]}" forward-word
+fi
+
 if [[ -n "${terminfo[kcbt]}" ]]; then # shift-tab
 	bindkey -M viins "${terminfo[kcbt]}" reverse-menu-complete
 	bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete

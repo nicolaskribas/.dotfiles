@@ -4,7 +4,7 @@ export VISUAL=$EDITOR
 export PAGER=less
 READNULLCMD=$PAGER  # `< file` pages file in $PAGER instead of `more`
 export GPG_TTY=$TTY # let gpg/pass curses pinentry find the current terminal (TTY/SSH fallback)
-export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --incsearch --quit-if-one-screen --chop-long-lines --wordwrap --emouse=all --wheel-lines=3 --no-histdups --follow-name --exit-follow-on-close'
+export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --incsearch --quit-if-one-screen --chop-long-lines --wordwrap --LONG-PROMPT --quit-on-intr --emouse=all --wheel-lines=3 --no-histdups --follow-name --exit-follow-on-close'
 export SYSTEMD_LESS="$LESS"
 export MANPAGER='less --color=u+b' # underlined -> blue
 export MANROFFOPT='-P -c'          # to get colors: man passes -c flag to grotty through groff (-P)

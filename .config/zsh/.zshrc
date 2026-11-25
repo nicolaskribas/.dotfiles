@@ -158,6 +158,7 @@ bindkey -M vicmd '^v' edit-command-line
 
 (($+aliases[run-help])) && unalias run-help # zsh defines `alias run-help=man` by default, which shadows the function
 autoload -Uz -- run-help ${^fpath}/run-help-*(N-.:t)
+alias help='run-help'
 bindkey -M vicmd 'K' run-help # open help/manpage for command under buffer (like neovim's K)
 
 autoload -Uz bracketed-paste-url-magic && zle -N bracketed-paste bracketed-paste-url-magic # quote pasted URLs

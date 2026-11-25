@@ -50,7 +50,6 @@ setopt clobber_empty # allow '>' to overwrite empty files while keeping no_clobb
 setopt append_create # allow '>>' to create files, no_clobber otherwise refuses it
 setopt interactive_comments
 setopt magic_equal_subst # perform filename/tilde expansion after '=' in arguments (--out=~/file)
-setopt glob_star_short   # shorthand '**' for '**/*' and '**.ext' for '**/*.ext'
 setopt numeric_glob_sort # sort numeric filenames naturally (file2 before file10)
 setopt long_list_jobs    # show PIDs in job control notifications
 setopt no_flow_control   # disable ^S/^Q XON/XOFF flow control in ZLE

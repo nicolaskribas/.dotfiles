@@ -182,7 +182,7 @@ autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
 zstyle ':completion:*' menu select                # select on the second tab
 zstyle ':completion:*:*:kill:*' menu yes select   # select on the first tab: pick a process
 zstyle ':completion:*:*:kill:*' force-list always # always show process table even with one match
-zstyle ':completion:*:*:*:*:processes' command 'ps -u $EUID -o pid,tty,stat,args -w'
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $EUID -o pid,tty,stat,args -ww'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select                  # select on the first tab: cd -<TAB> picks a stack entry
 zstyle ':completion:*:*:man:*' menu yes select                                 # select on the first tab: pick a page/section

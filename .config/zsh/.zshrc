@@ -93,9 +93,6 @@ bindkey -M viins '^u' backward-kill-line   # this is mapped to vi-kill-line by d
 autoload -Uz up-line-or-beginning-search && zle -N up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search && zle -N down-line-or-beginning-search
 
-bindkey -M vicmd 'k' up-line-or-beginning-search
-bindkey -M vicmd 'j' down-line-or-beginning-search
-
 if [[ -n "${terminfo[kcuu1]}" ]]; then # up
 	bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
 	bindkey -M vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search

@@ -2,7 +2,7 @@
 export EDITOR=nvim
 export VISUAL=$EDITOR
 export PAGER=less
-READNULLCMD=$PAGER # `< file` pages file in $PAGER instead of `more`
+READNULLCMD=$PAGER  # `< file` pages file in $PAGER instead of `more`
 export GPG_TTY=$TTY # let gpg/pass curses pinentry find the current terminal (TTY/SSH fallback)
 export LESS='--RAW-CONTROL-CHARS --use-color --ignore-case --incsearch --quit-if-one-screen --chop-long-lines --wordwrap --emouse=all --wheel-lines=3 --no-histdups --follow-name --exit-follow-on-close'
 export SYSTEMD_LESS="$LESS"
@@ -43,8 +43,8 @@ clip() { { print -n '\e]52;c;'; base64 --wrap=0; } always { print -n '\a'; }; } 
 # --- Misc ---
 setopt extended_glob
 setopt no_clobber
-setopt clobber_empty     # allow '>' to overwrite empty files while keeping no_clobber protection
-setopt append_create     # allow '>>' to create files, no_clobber otherwise refuses it
+setopt clobber_empty # allow '>' to overwrite empty files while keeping no_clobber protection
+setopt append_create # allow '>>' to create files, no_clobber otherwise refuses it
 setopt interactive_comments
 setopt magic_equal_subst # perform filename/tilde expansion after '=' in arguments (--out=~/file)
 setopt glob_star_short   # shorthand '**' for '**/*' and '**.ext' for '**/*.ext'
@@ -60,7 +60,7 @@ setopt auto_pushd        # cd pushes the previous directory onto the stack, cd -
 setopt pushd_ignore_dups # keep each directory once on the stack
 setopt pushd_minus       # swap +/- so cd -1 is the previous directory (matching cd - and cdr 1)
 
-autoload -Uz add-zsh-hook chpwd_recent_dirs cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs # remember recent directories across shells, cdr <TAB> lists them
 zstyle ':chpwd:*' recent-dirs-file "${XDG_STATE_HOME:-$HOME/.local/state}/zsh-recent-dirs"
 
@@ -79,8 +79,8 @@ setopt hist_find_no_dups       # do not display duplicates of a line previously 
 
 # --- Key Bindings ---
 zmodload zsh/complist
-bindkey -v   # use vi keymap
-KEYTIMEOUT=1 # reduce time waited reading multi-character key bindings (fixes escape delay when exiting insert mode)
+bindkey -v    # use vi keymap
+KEYTIMEOUT=1  # reduce time waited reading multi-character key bindings (fixes escape delay when exiting insert mode)
 WORDCHARS='_' # match neovim's iskeyword ([A-Za-z0-9_]) so ^w stops at path/flag separators
 
 bindkey -M viins '^?' backward-delete-char # backspace, this is mapped to vi-backward-delete-char by default
@@ -140,19 +140,19 @@ if [[ -n "${terminfo[knp]}" ]]; then # page down
 fi
 
 # completion menu
-bindkey -M menuselect '^[' vi-cmd-mode                  # esc: keep the selection and go to normal mode (unbound, it waited for and swallowed the next key)
-bindkey -M menuselect '^y' accept-line                  # accept the match (like enter, doesn't run the command)
-bindkey -M menuselect '^e' send-break                   # cancel, restoring the command line from before the menu
+bindkey -M menuselect '^[' vi-cmd-mode # esc: keep the selection and go to normal mode (unbound, it waited for and swallowed the next key)
+bindkey -M menuselect '^y' accept-line # accept the match (like enter, doesn't run the command)
+bindkey -M menuselect '^e' send-break  # cancel, restoring the command line from before the menu
 
 autoload -Uz edit-command-line && zle -N edit-command-line
 bindkey -M vicmd '^v' edit-command-line
 
-(( $+aliases[run-help] )) && unalias run-help # zsh defines `alias run-help=man` by default, which shadows the function
+(($+aliases[run-help])) && unalias run-help # zsh defines `alias run-help=man` by default, which shadows the function
 autoload -Uz -- run-help ${^fpath}/run-help-*(N-.:t)
 bindkey -M vicmd 'K' run-help # open help/manpage for command under buffer (like neovim's K)
 
 autoload -Uz bracketed-paste-url-magic && zle -N bracketed-paste bracketed-paste-url-magic # quote pasted URLs
-autoload -Uz url-quote-magic && zle -N self-insert url-quote-magic # quote URL characters (? & ...) as they are typed
+autoload -Uz url-quote-magic && zle -N self-insert url-quote-magic                         # quote URL characters (? & ...) as they are typed
 
 # yanks also go to the clipboard
 vi-yank() { zle .vi-yank && print -rn -- $CUTBUFFER | clip; }
@@ -168,16 +168,16 @@ setopt always_to_end     # move cursor to end of word after full completion insi
 setopt list_packed       # pack the completion list by using columns with different widths
 
 autoload -Uz compinit && compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zcompdump"
-zstyle ':completion:*' menu select # select on the second tab
-zstyle ':completion:*:*:kill:*' menu yes select               # select on the first tab: pick a process
-zstyle ':completion:*:*:kill:*' force-list always             # always show process table even with one match
+zstyle ':completion:*' menu select                # select on the second tab
+zstyle ':completion:*:*:kill:*' menu yes select   # select on the first tab: pick a process
+zstyle ':completion:*:*:kill:*' force-list always # always show process table even with one match
 zstyle ':completion:*:*:*:*:processes' command 'ps -u $EUID -o pid,tty,stat,args -w'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:*:cd:*:directory-stack' menu yes select # select on the first tab: cd -<TAB> picks a stack entry
-zstyle ':completion:*:*:man:*' menu yes select                # select on the first tab: pick a page/section
-zstyle ':completion:*:manuals' separate-sections true         # group man pages by section
-zstyle ':completion:*:manuals.*' insert-sections true         # insert section number when completing a section-grouped page
-zstyle ':completion:*' select-prompt '%F{yellow}%M%f' # position in the menu (match/total) when it doesn't fit the screen
+zstyle ':completion:*:*:cd:*:directory-stack' menu yes select                  # select on the first tab: cd -<TAB> picks a stack entry
+zstyle ':completion:*:*:man:*' menu yes select                                 # select on the first tab: pick a page/section
+zstyle ':completion:*:manuals' separate-sections true                          # group man pages by section
+zstyle ':completion:*:manuals.*' insert-sections true                          # insert section number when completing a section-grouped page
+zstyle ':completion:*' select-prompt '%F{yellow}%M%f'                          # position in the menu (match/total) when it doesn't fit the screen
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' # smart-case then substring completion
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache yes
@@ -236,10 +236,10 @@ typeset -A _exit_signals
 	done
 }
 
-RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                   # number of background jobs
-RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'        # space
-RPROMPT+='${_exec_timer_formatted}'                  # elapsed time
-RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))' # space
+RPROMPT='%(1j.%B&%b%F{blue}%j%f.)'                                         # number of background jobs
+RPROMPT+='%(1j.${_exec_timer_formatted:+ }.)'                              # space
+RPROMPT+='${_exec_timer_formatted}'                                        # elapsed time
+RPROMPT+='%(?..%(1j. .${_exec_timer_formatted:+ }))'                       # space
 RPROMPT+='%(?..%B?%b%F{red}%?${_exit_signals[$?]:+|$_exit_signals[$?]}%f)' # return code, plus signal name when one killed the command (130|INT)
 
 PROMPT=$'%{\e]133;P;k=i\a%}'${PROMPT}$'%{\e]133;B\a%}'   # mark primary prompt start/end

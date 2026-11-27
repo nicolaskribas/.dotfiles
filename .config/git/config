@@ -50,3 +50,7 @@
 	updateRefs = true
 [credential]
 	helper = !pass-git-helper $@
+[pull]
+	ff = only
+[log]
+	date = format:%c

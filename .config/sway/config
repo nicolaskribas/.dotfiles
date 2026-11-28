@@ -70,6 +70,8 @@ bindsym $mod+Shift+a focus child
 bindsym $mod+s split vertical
 bindsym $mod+v split horizontal
 bindsym $mod+w layout tabbed
+bindsym $mod+Shift+w layout stacking
+bindsym $mod+t split horizontal, layout tabbed
 bindsym $mod+e layout splith
 bindsym $mod+f fullscreen
 
@@ -112,6 +114,9 @@ bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
+
+bindsym $mod+bracketleft nop top_prev
+bindsym $mod+bracketright nop top_next
 
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down

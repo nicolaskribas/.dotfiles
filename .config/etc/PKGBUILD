@@ -85,7 +85,7 @@ package_base-system() {
 		greetd greetd-tuigreet
 
 		# sway session
-		uwsm sway swaybg swayidle swaylock
+		uwsm sway sway-contrib swaybg swayidle swaylock
 		waybar j4-dmenu-desktop wmenu
 		brightnessctl playerctl mako slurp grim swappy
 		xdg-desktop-portal-gtk xdg-desktop-portal-wlr

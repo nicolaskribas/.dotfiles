@@ -1,0 +1,16 @@
+# https://github.com/OctopusET/sway-contrib/blob/master/switch-top-level.py
+
+[Unit]
+Description=Sway top-level container switcher
+Documentation=https://github.com/OctopusET/sway-contrib
+After=wayland-session@sway.desktop.target
+
+[Service]
+Type=exec
+ExecStart=/usr/share/sway-contrib/switch-top-level.py
+Restart=on-failure
+RestartSec=1
+Slice=background-graphical.slice
+
+[Install]
+WantedBy=wayland-session@sway.desktop.target
